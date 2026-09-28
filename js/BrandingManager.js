@@ -10,14 +10,18 @@ export const PANORAMA_PRESETS = [
     { id: 'zloto', name: 'Złota Elegancja', file: 'grafiki/zloto.jpg', thumbTitle: 'Złocisty agat z płynnymi falami' },
     { id: 'art_deco_pano', name: 'Art Deco Gold', file: 'grafiki/art_deco_pano.jpg', thumbTitle: 'Luksusowa geometria Art Deco' },
     { id: 'emerald_gold_pano', name: 'Szmaragd & Złoto', file: 'grafiki/emerald_gold_pano.jpg', thumbTitle: 'Malachit z płynnym złotem kintsugi' },
-    { id: 'leather_chesterfield_pano', name: 'Pikowana Skóra', file: 'grafiki/leather_chesterfield_pano.jpg', thumbTitle: 'Czarna pikowana skóra Chesterfield' },
     { id: 'chevron_oak_pano', name: 'Dąb Chevron', file: 'grafiki/chevron_oak_pano.jpg', thumbTitle: 'Wędzony dąb w jodełkę francuską' },
     { id: 'alcohol_ink_blue_pano', name: 'Płynny Granat', file: 'grafiki/alcohol_ink_blue_pano.jpg', thumbTitle: 'Tusz alkoholowy i mosiądz' },
     { id: 'calacatta_gold_pano', name: 'Marmur Calacatta', file: 'grafiki/calacatta_gold_pano.jpg', thumbTitle: 'Biały marmur ze złotą żyłą' },
     { id: 'seigaiha_wave_pano', name: 'Japońska Fala', file: 'grafiki/seigaiha_wave_pano.jpg', thumbTitle: 'Fale Seigaiha na graficie' },
     { id: 'baroque_damask_pano', name: 'Ciemny Welwet', file: 'grafiki/baroque_damask_pano.jpg', thumbTitle: 'Pałacowy żakard barokowy' },
     { id: 'cyberpunk_neon_pano', name: 'Cyberpunk Neon', file: 'grafiki/cyberpunk_neon_pano.jpg', thumbTitle: 'Futurystyczne obwody neonowe' },
-    { id: 'modern_terrazzo_pano', name: 'Lastryko Terrazzo', file: 'grafiki/modern_terrazzo_pano.jpg', thumbTitle: 'Ciemne lastryko z miedzią i kwarcem' }
+    { id: 'modern_terrazzo_pano', name: 'Lastryko Terrazzo', file: 'grafiki/modern_terrazzo_pano.jpg', thumbTitle: 'Ciemne lastryko z miedzią i kwarcem' },
+    { id: 'rainforest_animals_pano', name: 'Tropikalny Las', file: 'grafiki/rainforest_animals_pano.jpg', thumbTitle: 'Egzotyczny las deszczowy i zwierzęta' },
+    { id: 'tech_circuit_blueprint_pano', name: 'Cyber Schemat', file: 'grafiki/tech_circuit_blueprint_pano.jpg', thumbTitle: 'Inżynieryjny schemat obwodów' },
+    { id: 'carbon_fiber_hex_pano', name: 'Karbon & Heksagon', file: 'grafiki/carbon_fiber_hex_pano.jpg', thumbTitle: 'Splot karbonu i siatka tytanowa' },
+    { id: 'royal_navy_monogram_pano', name: 'Królewski Granat', file: 'grafiki/royal_navy_monogram_pano.jpg', thumbTitle: 'Głęboki granat ze złotym monogramem' },
+    { id: 'sage_botanical_linen_pano', name: 'Szałwia & Złoto', file: 'grafiki/sage_botanical_linen_pano.jpg', thumbTitle: 'Szałwiowa botanika i len' }
 ];
 
 /**
