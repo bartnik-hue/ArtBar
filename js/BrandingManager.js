@@ -16,11 +16,8 @@ export const PANORAMA_PRESETS = [
     { id: 'seigaiha_wave_pano', name: 'Japońska Fala', file: 'grafiki/seigaiha_wave_pano.jpg', thumbTitle: 'Fale Seigaiha na graficie' },
     { id: 'baroque_damask_pano', name: 'Ciemny Welwet', file: 'grafiki/baroque_damask_pano.jpg', thumbTitle: 'Pałacowy żakard barokowy' },
     { id: 'cyberpunk_neon_pano', name: 'Cyberpunk Neon', file: 'grafiki/cyberpunk_neon_pano.jpg', thumbTitle: 'Futurystyczne obwody neonowe' },
-    { id: 'modern_terrazzo_pano', name: 'Lastryko Terrazzo', file: 'grafiki/modern_terrazzo_pano.jpg', thumbTitle: 'Ciemne lastryko z miedzią i kwarcem' },
     { id: 'rainforest_animals_pano', name: 'Tropikalny Las', file: 'grafiki/rainforest_animals_pano.jpg', thumbTitle: 'Egzotyczny las deszczowy i zwierzęta' },
     { id: 'tech_circuit_blueprint_pano', name: 'Cyber Schemat', file: 'grafiki/tech_circuit_blueprint_pano.jpg', thumbTitle: 'Inżynieryjny schemat obwodów' },
-    { id: 'carbon_fiber_hex_pano', name: 'Karbon & Heksagon', file: 'grafiki/carbon_fiber_hex_pano.jpg', thumbTitle: 'Splot karbonu i siatka tytanowa' },
-    { id: 'royal_navy_monogram_pano', name: 'Królewski Granat', file: 'grafiki/royal_navy_monogram_pano.jpg', thumbTitle: 'Głęboki granat ze złotym monogramem' },
     { id: 'sage_botanical_linen_pano', name: 'Szałwia & Złoto', file: 'grafiki/sage_botanical_linen_pano.jpg', thumbTitle: 'Szałwiowa botanika i len' }
 ];
 
