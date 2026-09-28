@@ -42,6 +42,7 @@ export class BrandingManager {
         this.activePresetId = null;
         this.backgroundMode = 'chain'; // 'chain' (ciągły pas o stałej długości) | 'repeat' (każdy moduł ma całą)
         this.backgroundSpanModules = 5; // Domyślna długość grafiki: 5 barów (7.5m)
+        this.shelfSpanModules = 3;      // Domyślna długość grafiki na regałach: 3 regały (4.5m)
         this.defaultFrontTextures = new Map(); // id modułu -> domyślna tekstura plastiku
 
         // ==========================================
@@ -145,6 +146,12 @@ export class BrandingManager {
 
     setBackgroundSpan(modulesCount) {
         this.backgroundSpanModules = Math.max(1, Math.min(20, parseInt(modulesCount, 10) || 5));
+        this.updateFrontPanoramas();
+        this.notifyBackgroundChanged();
+    }
+
+    setShelfSpan(modulesCount) {
+        this.shelfSpanModules = Math.max(1, Math.min(20, parseInt(modulesCount, 10) || 3));
         this.updateFrontPanoramas();
         this.notifyBackgroundChanged();
     }
@@ -565,8 +572,9 @@ export class BrandingManager {
                         if (this.isBackgroundEnabled && sharedTex) {
                             // Pobierz parametry kalibracji (offset, skala, flip) dla tego typu modułu
                             const tuning = this.getTextureTuning(moduleData.modelKey);
-                            const span = this.backgroundSpanModules || 5;
-                            const spanMeters = span * 1.50; // np. 5 modułów po 1.5m = 7.50m
+                            const isShelf = (moduleData.modelKey === 'BACK_SHELF');
+                            const span = isShelf ? (this.shelfSpanModules || 3) : (this.backgroundSpanModules || 5);
+                            const spanMeters = span * 1.50; // np. 5 barów po 1.5m = 7.5m, 3 regały po 1.5m = 4.5m
 
                             // Wykorzystaj istniejący klon tekstury lub stwórz nowy jeśli trzeba
                             let texClone = mat.map;
@@ -748,6 +756,7 @@ export class BrandingManager {
                 presetId: this.activePresetId,
                 mode: this.backgroundMode,
                 spanModules: this.backgroundSpanModules,
+                shelfSpanModules: this.shelfSpanModules,
                 textureTuning: this.textureTuning
             });
         }
@@ -973,6 +982,7 @@ export class BrandingManager {
                 presetId: this.activePresetId,
                 mode: this.backgroundMode,
                 spanModules: this.backgroundSpanModules,
+                shelfSpanModules: this.shelfSpanModules,
                 aiMetadata: this.aiMetadata || null
             },
             textureTuning: this.textureTuning,
@@ -1006,6 +1016,7 @@ export class BrandingManager {
             this.backgroundMode = bg.mode || 'chain';
             this.activePresetId = bg.presetId || null;
             if (bg.spanModules !== undefined) this.backgroundSpanModules = bg.spanModules;
+            if (bg.shelfSpanModules !== undefined) this.shelfSpanModules = bg.shelfSpanModules;
             if (bg.aiMetadata) this.aiMetadata = bg.aiMetadata;
             if (bg.url) {
                 this.currentBackgroundUrl = bg.url;

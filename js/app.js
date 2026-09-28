@@ -897,10 +897,29 @@ class ArtbarApp {
         const valPanoSpan = document.getElementById('val-panorama-span');
         const rowPanoSpan = document.getElementById('row-panorama-span');
 
+        const sliderPanoShelfSpan = document.getElementById('slider-panorama-shelf-span');
+        const valPanoShelfSpan = document.getElementById('val-panorama-shelf-span');
+        const rowPanoShelfSpan = document.getElementById('row-panorama-shelf-span');
+
+        const formatBarSpan = (count) => {
+            const meters = (count * 1.5).toFixed(1);
+            if (count === 1) return `1 bar (${meters} m)`;
+            if (count >= 2 && count <= 4) return `${count} bary (${meters} m)`;
+            return `${count} barów (${meters} m)`;
+        };
+
+        const formatShelfSpan = (count) => {
+            const meters = (count * 1.5).toFixed(1);
+            if (count === 1) return `1 regał (${meters} m)`;
+            if (count >= 2 && count <= 4) return `${count} regały (${meters} m)`;
+            return `${count} regałów (${meters} m)`;
+        };
+
         btnModeChain?.addEventListener('click', () => {
             btnModeChain.classList.add('active');
             btnModeRepeat?.classList.remove('active');
             if (rowPanoSpan) rowPanoSpan.style.display = 'flex';
+            if (rowPanoShelfSpan) rowPanoShelfSpan.style.display = 'flex';
             this.brandingManager.setBackgroundMode('chain');
             this.showToast('Tryb tła: Ciągły pas (płynna panorama na całym ciągu baru).');
         });
@@ -909,14 +928,21 @@ class ArtbarApp {
             btnModeRepeat.classList.add('active');
             btnModeChain?.classList.remove('active');
             if (rowPanoSpan) rowPanoSpan.style.display = 'none';
+            if (rowPanoShelfSpan) rowPanoShelfSpan.style.display = 'none';
             this.brandingManager.setBackgroundMode('repeat');
             this.showToast('Tryb tła: Powtarzaj pełną grafikę na każdym module.');
         });
 
         sliderPanoSpan?.addEventListener('input', (e) => {
             const span = parseInt(e.target.value, 10);
-            if (valPanoSpan) valPanoSpan.textContent = `${span} barów (${(span * 1.5).toFixed(1)} m)`;
+            if (valPanoSpan) valPanoSpan.textContent = formatBarSpan(span);
             this.brandingManager.setBackgroundSpan(span);
+        });
+
+        sliderPanoShelfSpan?.addEventListener('input', (e) => {
+            const span = parseInt(e.target.value, 10);
+            if (valPanoShelfSpan) valPanoShelfSpan.textContent = formatShelfSpan(span);
+            this.brandingManager.setShelfSpan(span);
         });
 
         // Wybór z gotowych wzorów (karty miniatur)
@@ -982,14 +1008,20 @@ class ArtbarApp {
                 btnModeChain?.classList.add('active');
                 btnModeRepeat?.classList.remove('active');
                 if (rowPanoSpan) rowPanoSpan.style.display = 'flex';
+                if (rowPanoShelfSpan) rowPanoShelfSpan.style.display = 'flex';
             } else {
                 btnModeRepeat?.classList.add('active');
                 btnModeChain?.classList.remove('active');
                 if (rowPanoSpan) rowPanoSpan.style.display = 'none';
+                if (rowPanoShelfSpan) rowPanoShelfSpan.style.display = 'none';
             }
             if (sliderPanoSpan && bg.spanModules) {
                 sliderPanoSpan.value = bg.spanModules;
-                if (valPanoSpan) valPanoSpan.textContent = `${bg.spanModules} barów (${(bg.spanModules * 1.5).toFixed(1)} m)`;
+                if (valPanoSpan) valPanoSpan.textContent = formatBarSpan(bg.spanModules);
+            }
+            if (sliderPanoShelfSpan && bg.shelfSpanModules) {
+                sliderPanoShelfSpan.value = bg.shelfSpanModules;
+                if (valPanoShelfSpan) valPanoShelfSpan.textContent = formatShelfSpan(bg.shelfSpanModules);
             }
         };
 
