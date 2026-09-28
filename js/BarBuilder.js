@@ -21,6 +21,8 @@ export class BarBuilder {
         this.ghostRotation = 0;
         this.ghostSnapContext = null;
         this.lastGhostIntersect = null;
+        this.isShiftDown = false;
+        this.onGhostChanged = null; // callback (isGhostActive, isShiftDown)
 
         // Materiał kropki połączeniowej (złota świecąca kropka w stylu Artbar)
         this.socketGeom = new THREE.SphereGeometry(0.14, 16, 16);
@@ -305,6 +307,10 @@ export class BarBuilder {
             this.setGhostVisualSnap(false);
         }
 
+        if (this.onGhostChanged) {
+            this.onGhostChanged(true, this.isShiftDown);
+        }
+
         return orig;
     }
 
@@ -473,6 +479,10 @@ export class BarBuilder {
 
         this.ghostModule = groupMesh;
         this.scene.add(this.ghostModule);
+
+        if (this.onGhostChanged) {
+            this.onGhostChanged(true, this.isShiftDown);
+        }
 
         return this.pickedUpGroupOriginal;
     }
@@ -815,6 +825,21 @@ export class BarBuilder {
 
         const initialKey = (modelKey === 'BAR_CORNER') ? 'BAR_CORNER_RIGHT' : modelKey;
         this.createGhostMesh(initialKey);
+
+        if (this.onGhostChanged) {
+            this.onGhostChanged(true, this.isShiftDown);
+        }
+    }
+
+    setShiftModifier(isDown) {
+        if (this.isShiftDown === isDown) return;
+        this.isShiftDown = isDown;
+        if (this.ghostModule && this.lastGhostIntersect) {
+            this.updateGhost(this.lastGhostIntersect, this.isShiftDown);
+        }
+        if (this.onGhostChanged) {
+            this.onGhostChanged(!!this.ghostModule, this.isShiftDown);
+        }
     }
 
     createGhostMesh(meshKey) {
@@ -867,13 +892,13 @@ export class BarBuilder {
         }
     }
 
-    updateGhost(intersectPoint) {
+    updateGhost(intersectPoint, isShiftDown = this.isShiftDown) {
         if (!this.ghostModule || !intersectPoint) return;
         this.lastGhostIntersect = intersectPoint.clone();
 
         if (this.ghostGroupItems) {
-            // Ruch całej grupy połączonych modułów: precyzyjne pozycjonowanie na siatce 0.25m
-            const snap = 0.25;
+            // Ruch całej grupy połączonych modułów: precyzyjne pozycjonowanie na siatce 0.25m (lub 0.0625m z Shiftem)
+            const snap = isShiftDown ? 0.0625 : 0.25;
             const snappedX = Math.round(intersectPoint.x / snap) * snap;
             const snappedZ = Math.round(intersectPoint.z / snap) * snap;
 
@@ -883,8 +908,10 @@ export class BarBuilder {
             return;
         }
 
-        // Sprawdź czy w pobliżu kursora znajduje się pasujące gniazdo do przyciągnięcia
-        const snapCandidate = this.findBestSocketSnap(intersectPoint, this.ghostModelKey, this.ghostRotation);
+        // Z wciśniętym Shiftem: brak przyciągania magnetycznego do innych modułów
+        const snapCandidate = !isShiftDown
+            ? this.findBestSocketSnap(intersectPoint, this.ghostModelKey, this.ghostRotation)
+            : null;
 
         if (snapCandidate) {
             this.ghostSnapContext = snapCandidate;
@@ -905,8 +932,8 @@ export class BarBuilder {
                 this.switchGhostMesh('BAR_CORNER_RIGHT');
             }
 
-            // Swobodne pozycjonowanie na siatce 0.25m
-            const snap = 0.25;
+            // Pozycjonowanie na siatce: domyślnie 0.25m, z Shiftem 4-krotnie gęściej (0.0625m = 6.25cm)
+            const snap = isShiftDown ? 0.0625 : 0.25;
             const snappedX = Math.round(intersectPoint.x / snap) * snap;
             const snappedZ = Math.round(intersectPoint.z / snap) * snap;
 
@@ -934,7 +961,7 @@ export class BarBuilder {
 
         const testPoint = this.lastGhostIntersect || (this.ghostModule ? this.ghostModule.position : null);
         if (testPoint) {
-            this.updateGhost(testPoint);
+            this.updateGhost(testPoint, this.isShiftDown);
         } else if (this.ghostModule) {
             this.ghostModule.rotation.y = this.ghostRotation;
         }
@@ -999,6 +1026,7 @@ export class BarBuilder {
     }
 
     cancelGhost() {
+        const hadGhost = !!this.ghostModule;
         if (this.ghostModule) {
             this.scene.remove(this.ghostModule);
             this.ghostModule = null;
@@ -1007,6 +1035,10 @@ export class BarBuilder {
             this.ghostSnapContext = null;
             this.lastGhostIntersect = null;
             this.ghostGroupItems = null;
+        }
+
+        if (hadGhost && this.onGhostChanged) {
+            this.onGhostChanged(false, false);
         }
 
         // Jeśli cała grupa była podniesiona (move group) i anulowano (ESC/PPM), przywróć wszystkie moduły

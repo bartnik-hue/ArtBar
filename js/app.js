@@ -200,9 +200,18 @@ class ArtbarApp {
         if (lum > 0.6) {
             if (this.floorMesh?.material) this.floorMesh.material.color.set(0xcccccc);
             if (this.grid?.material) this.grid.material.color.set(0x888888);
+            if (this.gridFine?.material) this.gridFine.material.color.set(0x888888);
         } else {
             if (this.floorMesh?.material) this.floorMesh.material.color.set(0x171717);
             if (this.grid?.material) this.grid.material.color.set(0xFACB7D);
+            if (this.gridFine?.material) this.gridFine.material.color.set(0xFACB7D);
+        }
+    }
+
+    setGridDensity(isDense) {
+        if (this.grid && this.gridFine) {
+            this.grid.visible = !isDense;
+            this.gridFine.visible = !!isDense;
         }
     }
 
@@ -219,10 +228,16 @@ class ArtbarApp {
         this.floorMesh.receiveShadow = true;
         this.scene.add(this.floorMesh);
 
-        // Siatka podłogowa (Grid)
+        // Siatka podłogowa standardowa (Grid 1.0m, 40 podziałów)
         this.grid = new THREE.GridHelper(40, 40, 0xFACB7D, 0x2e2e2e);
         this.grid.position.y = 0.005;
         this.scene.add(this.grid);
+
+        // Siatka podłogowa zagęszczona 4-krotnie (Grid 0.25m, 160 podziałów, aktywowana klawiszem Shift)
+        this.gridFine = new THREE.GridHelper(40, 160, 0xFACB7D, 0x262626);
+        this.gridFine.position.y = 0.005;
+        this.gridFine.visible = false;
+        this.scene.add(this.gridFine);
     }
 
     async loadModels() {
@@ -262,9 +277,16 @@ class ArtbarApp {
         this.canvas.addEventListener('pointercancel', (e) => this.onPointerCancel(e));
         this.canvas.addEventListener('contextmenu', (e) => this.onContextMenu(e));
 
+        // Synchronizacja gęstości siatki podłogowej z trybem Shift przy stawianiu modułów
+        this.barBuilder.onGhostChanged = (isGhostActive, isShiftDown) => {
+            this.setGridDensity(isGhostActive && isShiftDown);
+        };
+
         // Klawisze skrótów
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'r' || e.key === 'R') {
+            if (e.key === 'Shift') {
+                this.barBuilder.setShiftModifier(true);
+            } else if (e.key === 'r' || e.key === 'R') {
                 if (this.barBuilder.ghostModule) {
                     this.barBuilder.rotateGhost();
                 } else {
@@ -299,6 +321,16 @@ class ArtbarApp {
             }
         });
 
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'Shift') {
+                this.barBuilder.setShiftModifier(false);
+            }
+        });
+
+        window.addEventListener('blur', () => {
+            this.barBuilder.setShiftModifier(false);
+        });
+
         // Globalny dostęp do otwarcia kalibracji z konsoli w razie potrzeby
         window.toggleCalibration = () => {
             document.getElementById('btn-open-calib')?.click();
@@ -318,11 +350,16 @@ class ArtbarApp {
         this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
+        const isShift = !!e.shiftKey;
+        if (this.barBuilder.isShiftDown !== isShift) {
+            this.barBuilder.setShiftModifier(isShift);
+        }
+
         if (this.barBuilder.ghostModule) {
             this.raycaster.setFromCamera(this.mouse, this.camera);
             const intersectPoint = new THREE.Vector3();
             if (this.raycaster.ray.intersectPlane(this.floorPlane, intersectPoint)) {
-                this.barBuilder.updateGhost(intersectPoint);
+                this.barBuilder.updateGhost(intersectPoint, isShift);
             }
         }
     }
@@ -403,7 +440,7 @@ class ArtbarApp {
         if (this.barBuilder.ghostModule) {
             const intersectPoint = new THREE.Vector3();
             if (this.raycaster.ray.intersectPlane(this.floorPlane, intersectPoint)) {
-                this.barBuilder.updateGhost(intersectPoint);
+                this.barBuilder.updateGhost(intersectPoint, e.shiftKey);
             }
             this.barBuilder.placeGhost();
             this.showToast('Postawiono moduł.');
