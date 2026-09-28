@@ -271,8 +271,17 @@ class ArtbarApp {
                     this.barBuilder.rotateSelected();
                 }
             } else if (e.key === 'Delete' || e.key === 'Backspace') {
-                this.barBuilder.removeSelected();
-                this.hideRadialMenu();
+                if (e.shiftKey) {
+                    const count = this.barBuilder.removeSelectedGroup();
+                    this.hideRadialMenu();
+                    if (count > 0) {
+                        this.showToast(count > 1 ? `Usunięto cały moduł (${count} el.).` : 'Usunięto moduł.');
+                    }
+                } else {
+                    this.barBuilder.removeSelected();
+                    this.hideRadialMenu();
+                    this.showToast('Usunięto moduł.');
+                }
             } else if (e.key === 'Escape') {
                 const modalHelp = document.getElementById('modal-help');
                 if (modalHelp && modalHelp.classList.contains('visible')) {
@@ -714,6 +723,15 @@ class ArtbarApp {
             this.barBuilder.removeSelected();
             this.hideRadialMenu();
             this.showToast('Usunięto moduł.');
+        });
+
+        document.getElementById('radial-btn-delete-all')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const count = this.barBuilder.removeSelectedGroup();
+            this.hideRadialMenu();
+            if (count > 0) {
+                this.showToast(count > 1 ? `Usunięto cały moduł (${count} el.).` : 'Usunięto moduł.');
+            }
         });
 
         document.getElementById('btn-clear-scene').addEventListener('click', () => {
@@ -1485,8 +1503,8 @@ class ArtbarApp {
 
         // Marginesy ekranowe dostosowane do rozmiaru wyświetlacza (smartfon vs desktop)
         const isMobile = window.innerWidth <= 768;
-        const marginX = isMobile ? 84 : 105;
-        const marginTop = isMobile ? 120 : 100;
+        const marginX = isMobile ? 105 : 135;
+        const marginTop = isMobile ? 115 : 140;
         const marginBottom = isMobile ? 75 : 85;
 
         const screenX = Math.max(marginX, Math.min(window.innerWidth - marginX, rawX));

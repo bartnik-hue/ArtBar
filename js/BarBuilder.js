@@ -203,6 +203,43 @@ export class BarBuilder {
         }
     }
 
+    /**
+     * Usuwa cały połączony układ (wybrany moduł oraz wszystkie fizycznie/logicznie połączone z nim moduły)
+     */
+    removeSelectedGroup() {
+        const anchor = this.selectedModule;
+        if (!anchor) return 0;
+
+        const connectedModules = this.getConnectedModules(anchor);
+        if (connectedModules.length === 0) {
+            this.removeSelected();
+            return 1;
+        }
+
+        const count = connectedModules.length;
+        this.deselectModule();
+
+        const removedIds = new Set(connectedModules.map(m => m.id));
+
+        connectedModules.forEach(mod => {
+            const idx = this.modules.indexOf(mod);
+            if (idx !== -1) {
+                this.scene.remove(mod.mesh);
+                this.modules.splice(idx, 1);
+            }
+        });
+
+        // Wyczyść ewentualne referencje attachedTo do usuniętych modułów
+        this.modules.forEach(m => {
+            if (m.attachedTo && removedIds.has(m.attachedTo.parentModuleId)) {
+                m.attachedTo = null;
+            }
+        });
+
+        this.notifyChange();
+        return count;
+    }
+
     rotateSelected(deltaAngle = Math.PI / 2) {
         if (!this.selectedModule) return;
         this.selectedModule.rotationY += deltaAngle;

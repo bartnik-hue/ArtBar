@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Artbar Solutions - Konfigurator Barów Eventowych 3D</title>
-    <link rel="stylesheet" href="css/style.css?v=57">
+    <link rel="stylesheet" href="css/style.css?v=59">
     <!-- Google Fonts: Montserrat & Cinzel dla luksusowego wyglądu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,11 +189,15 @@
         </button>
         <button class="radial-btn radial-btn-move-all" id="radial-btn-move-all" title="Przesuń cały moduł wraz ze wszystkimi połączonymi obiektami">
             <span class="radial-icon">⊞</span>
-            <span class="radial-label" style="font-size: 0.62rem; line-height: 1.1;">Cały moduł</span>
+            <span class="radial-label radial-label-multiline">Przesuń<br>cały moduł</span>
         </button>
-        <button class="radial-btn radial-btn-delete" id="radial-btn-delete" title="Usuń moduł (Klawisz Del)">
+        <button class="radial-btn radial-btn-delete" id="radial-btn-delete" title="Usuń ten moduł (Klawisz Del)">
             <span class="radial-icon">✕</span>
             <span class="radial-label">Usuń</span>
+        </button>
+        <button class="radial-btn radial-btn-delete-all" id="radial-btn-delete-all" title="Usuń cały moduł wraz ze wszystkimi połączonymi obiektami (Shift+Del)">
+            <span class="radial-icon">🗑</span>
+            <span class="radial-label radial-label-multiline">Usuń<br>cały moduł</span>
         </button>
     </div>
 
@@ -246,7 +250,7 @@
                     </label>
                 </div>
                 <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;">
-                    Grafika rozciąga się w płynną całość na wszystkich połączonych barach w ciągu.
+                    Grafika rozciąga się w płynną całość na połączonych frontach barów oraz regałów zaplecza (za półkami).
                 </div>
 
                 <!-- Tryb mapowania: Ciągła panorama vs Powtarzaj na module -->
@@ -273,14 +277,6 @@
                 </div>
                 <!-- Miniatury gotowych grafik -->
                 <div class="panorama-presets-grid" id="panorama-presets-container">
-                    <div class="panorama-card" data-preset="graffitilike">
-                        <img class="panorama-thumb" src="grafiki/graffitilike.jpg" alt="Graffiti Art">
-                        <span class="panorama-title">Graffiti Art</span>
-                    </div>
-                    <div class="panorama-card" data-preset="kamienieszlachetne">
-                        <img class="panorama-thumb" src="grafiki/kamienieszlachetne.jpg" alt="Kamienie Szlachetne">
-                        <span class="panorama-title">Kamienie Szlachetne</span>
-                    </div>
                     <div class="panorama-card" data-preset="kwiaty2">
                         <img class="panorama-thumb" src="grafiki/kwiaty2.jpg" alt="Kwiaty Botaniczne">
                         <span class="panorama-title">Kwiaty Botaniczne</span>
@@ -293,13 +289,49 @@
                         <img class="panorama-thumb" src="grafiki/palmy.jpg" alt="Palmy Tropikalne">
                         <span class="panorama-title">Palmy Tropikalne</span>
                     </div>
-                    <div class="panorama-card" data-preset="turku">
-                        <img class="panorama-thumb" src="grafiki/turku.jpg" alt="Turkus & Złoto">
-                        <span class="panorama-title">Turkus & Złoto</span>
-                    </div>
-                    <div class="panorama-card" data-preset="zloto" style="grid-column: span 2;">
+                    <div class="panorama-card" data-preset="zloto">
                         <img class="panorama-thumb" src="grafiki/zloto.jpg" alt="Złota Elegancja">
                         <span class="panorama-title">Złota Elegancja</span>
+                    </div>
+                    <div class="panorama-card" data-preset="art_deco_pano">
+                        <img class="panorama-thumb" src="grafiki/art_deco_pano.jpg" alt="Art Deco Gold">
+                        <span class="panorama-title">Art Deco Gold</span>
+                    </div>
+                    <div class="panorama-card" data-preset="emerald_gold_pano">
+                        <img class="panorama-thumb" src="grafiki/emerald_gold_pano.jpg" alt="Szmaragd & Złoto">
+                        <span class="panorama-title">Szmaragd & Złoto</span>
+                    </div>
+                    <div class="panorama-card" data-preset="leather_chesterfield_pano">
+                        <img class="panorama-thumb" src="grafiki/leather_chesterfield_pano.jpg" alt="Pikowana Skóra">
+                        <span class="panorama-title">Pikowana Skóra</span>
+                    </div>
+                    <div class="panorama-card" data-preset="chevron_oak_pano">
+                        <img class="panorama-thumb" src="grafiki/chevron_oak_pano.jpg" alt="Dąb Chevron">
+                        <span class="panorama-title">Dąb Chevron</span>
+                    </div>
+                    <div class="panorama-card" data-preset="alcohol_ink_blue_pano">
+                        <img class="panorama-thumb" src="grafiki/alcohol_ink_blue_pano.jpg" alt="Płynny Granat">
+                        <span class="panorama-title">Płynny Granat</span>
+                    </div>
+                    <div class="panorama-card" data-preset="calacatta_gold_pano">
+                        <img class="panorama-thumb" src="grafiki/calacatta_gold_pano.jpg" alt="Marmur Calacatta">
+                        <span class="panorama-title">Marmur Calacatta</span>
+                    </div>
+                    <div class="panorama-card" data-preset="seigaiha_wave_pano">
+                        <img class="panorama-thumb" src="grafiki/seigaiha_wave_pano.jpg" alt="Japońska Fala">
+                        <span class="panorama-title">Japońska Fala</span>
+                    </div>
+                    <div class="panorama-card" data-preset="baroque_damask_pano">
+                        <img class="panorama-thumb" src="grafiki/baroque_damask_pano.jpg" alt="Ciemny Welwet">
+                        <span class="panorama-title">Ciemny Welwet</span>
+                    </div>
+                    <div class="panorama-card" data-preset="cyberpunk_neon_pano">
+                        <img class="panorama-thumb" src="grafiki/cyberpunk_neon_pano.jpg" alt="Cyberpunk Neon">
+                        <span class="panorama-title">Cyberpunk Neon</span>
+                    </div>
+                    <div class="panorama-card" data-preset="modern_terrazzo_pano">
+                        <img class="panorama-thumb" src="grafiki/modern_terrazzo_pano.jpg" alt="Lastryko Terrazzo">
+                        <span class="panorama-title">Lastryko Terrazzo</span>
                     </div>
                 </div>
 
@@ -785,8 +817,9 @@
                                 <li><span class="help-kbd">LPM</span> w moduł – Zaznacza element i wyświetla menu akcji nad barem.</li>
                                 <li><span class="help-kbd">R</span> lub przycisk <strong>Obróć</strong> – Obrót modułu o kąt 90°.</li>
                                 <li>Przycisk <strong>Przesuń</strong> – Zmiana położenia pojedynczego modułu.</li>
-                                <li>Przycisk <strong>Cały moduł</strong> – Przesuwa cały połączony bar wraz ze wszystkimi modułami.</li>
-                                <li><span class="help-kbd">Del</span> / <span class="help-kbd">Backspace</span> lub przycisk <strong>✕ Usuń</strong> – Usunięcie elementu.</li>
+                                <li>Przycisk <strong>Przesuń cały moduł</strong> – Przesuwa cały połączony bar wraz ze wszystkimi modułami.</li>
+                                <li>Przycisk <strong>✕ Usuń</strong> (<span class="help-kbd">Del</span>) – Usunięcie zaznaczonego modułu.</li>
+                                <li>Przycisk <strong>🗑 Usuń cały moduł</strong> (<span class="help-kbd">Shift</span> + <span class="help-kbd">Del</span>) – Usunięcie całego połączonego układu barowego.</li>
                             </ul>
                         </div>
                     </div>
@@ -858,6 +891,6 @@
     <div id="toast-container"></div>
 
     <!-- GŁÓWNY SKRYPT APLIKACJI -->
-    <script type="module" src="js/app.js?v=58"></script>
+    <script type="module" src="js/app.js?v=70"></script>
 </body>
 </html>

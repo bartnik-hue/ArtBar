@@ -123,7 +123,11 @@ export class ModelRegistry {
     }
 
     loadCalibration() {
-        const saved = localStorage.getItem('artbar_calibration_v9') || localStorage.getItem('artbar_calibration_v8');
+        try {
+            localStorage.removeItem('artbar_calibration_v9');
+            localStorage.removeItem('artbar_calibration_v8');
+        } catch (e) {}
+        const saved = localStorage.getItem('artbar_calibration_v10');
         if (saved) {
             try {
                 const parsed = JSON.parse(saved);
@@ -136,7 +140,7 @@ export class ModelRegistry {
     }
 
     saveCalibration() {
-        localStorage.setItem('artbar_calibration_v9', JSON.stringify(this.calibration));
+        localStorage.setItem('artbar_calibration_v10', JSON.stringify(this.calibration));
     }
 
     resetCalibration() {
@@ -175,8 +179,13 @@ export class ModelRegistry {
                     const barStraight = this.createBarStraightWrapper(scene);
                     this.templates.set('BAR_STRAIGHT', barStraight);
                     loadedCount++;
+                } else if (m.key === 'BACK_SHELF') {
+                    // 4. Regał zaplecza z panelem grafiki za półkami
+                    const shelf = this.createShelfWrapper(scene);
+                    this.templates.set('BACK_SHELF', shelf);
+                    loadedCount++;
                 } else {
-                    // 4. Regał zaplecza
+                    // Inne moduły
                     const centered = this.createCenteredWrapper(scene);
                     this.templates.set(m.key, centered);
                     loadedCount++;
@@ -208,9 +217,74 @@ export class ModelRegistry {
     }
 
     /**
-     * Zamyka model baru prostego w kontenerze wycentrowanym w X, podstawa Y=0, i Z dopasowane do płaszczyzny styku narożnika
+     * Zamyka model baru prostego w kontenerze wycentrowanym w X, podstawa Y=0, i Z dopasowane do płaszczyzny styku narożnika.
+     * Dodaje dedykowany, czysty panel frontowy (BarFrontPanel) typu PlaneGeometry, eliminując artefakty Z-fighting ze starych plansz Blenderowych.
      */
     createBarStraightWrapper(rootObject) {
+        // 1. Całkowicie usuń stare plansze Blenderowe (PLANSZA.001, PLANSZA.004 / BarArt.001, BarArt.104)
+        const toRemove = [];
+        rootObject.traverse(child => {
+            const rawName = (child.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (rawName.includes('plansza') || rawName.includes('barart001') || rawName.includes('barart104')) {
+                toRemove.push(child);
+            }
+        });
+        toRemove.forEach(c => {
+            if (c.parent) c.parent.remove(c);
+            if (c.geometry) c.geometry.dispose();
+        });
+
+        // 2. Dodaj dedykowany panel frontowy PlaneGeometry dla baru prostego (szer. 1.50m, wys. 1.091m)
+        // Środek Y = 0.6425m (zakres Y od 0.097m do 1.188m), Z = 0.3501m (tuż przed lico szafki Z=0.350m).
+        // FrontSide zapewnia, że front jest idealnie widoczny od zewnątrz, a od środka baru (strona barmana) jest niewidoczny (brak przebijania).
+        const frontMat = new THREE.MeshStandardMaterial({
+            name: 'front',
+            color: new THREE.Color('#141414'),
+            roughness: 0.5,
+            metalness: 0.05,
+            emissive: new THREE.Color(0x000000),
+            emissiveIntensity: 0.0,
+            side: THREE.FrontSide,
+            polygonOffset: true,
+            polygonOffsetFactor: -2,
+            polygonOffsetUnits: -4
+        });
+
+        // Panel frontowy baru prostego o szerokości 1.506m (zapewnia 3mm zakładki na każdym styku z modułami sąsiednimi/narożnikami),
+        // wycentrowany idealnie w osi X (0.000m) zamiast przesunięcia +7mm.
+        // Z = 0.3502m (tuż przed lico szafki, idealnie licowane z narożnikami).
+        const barFrontPanel = new THREE.Mesh(new THREE.PlaneGeometry(1.506, 1.091), frontMat);
+        barFrontPanel.name = 'BarFrontPanel';
+        barFrontPanel.userData.isFrontPanel = true;
+        barFrontPanel.userData.isLedMesh = false;
+        barFrontPanel.receiveShadow = false;
+        barFrontPanel.castShadow = false;
+        barFrontPanel.position.set(0.000, 0.6425, 0.3502);
+        rootObject.add(barFrontPanel);
+
+        // 3. Dodaj tylną ściankę dla strony barmana (BarBackPanel).
+        // Eliminuje problem przezroczystości od strony barmana:
+        // - Od frontu (gość): widoczny jest BarFrontPanel z grafiką/brandingiem.
+        // - Od tyłu (barman): widoczny jest BarBackPanel jako pełna, czarna, matowa ścianka korpusu mebla.
+        // Obrót rotY = Math.PI sprawia, że lico ścianki wskazuje dokładnie do wnętrza mebla (-Z w stronę barmana).
+        const backMat = new THREE.MeshStandardMaterial({
+            name: 'interior_back',
+            color: new THREE.Color('#141414'),
+            roughness: 0.5,
+            metalness: 0.05,
+            side: THREE.FrontSide
+        });
+
+        const barBackPanel = new THREE.Mesh(new THREE.PlaneGeometry(1.500, 1.091), backMat);
+        barBackPanel.name = 'BarBackPanel';
+        barBackPanel.userData.isFrontPanel = false; // Nigdy nie otrzymuje tekstury brandingu
+        barBackPanel.userData.isLedMesh = false;
+        barBackPanel.receiveShadow = true;
+        barBackPanel.castShadow = true;
+        barBackPanel.rotation.y = Math.PI; // Lico skierowane do wnętrza szafki / w stronę barmana
+        barBackPanel.position.set(0.000, 0.6425, 0.3498); // 0.4mm za frontem (Z=0.3502)
+        rootObject.add(barBackPanel);
+
         rootObject.position.set(0, 0, 0);
         rootObject.rotation.set(0, 0, 0);
         rootObject.scale.set(1, 1, 1);
@@ -286,6 +360,45 @@ export class ModelRegistry {
     }
 
     /**
+     * Zamyka model regału zaplecza w wycentrowanym kontenerze oraz dodaje
+     * dedykowany panel dekoracyjny frontu grafiki umieszczony za półkami regału.
+     */
+    createShelfWrapper(rootObject) {
+        // Stwórz czysty, dedykowany materiał dla frontu regału (BEZ żadnej emisji LED, aby grafika była idealnie czysta i nasycona)
+        const shelfFrontMat = new THREE.MeshStandardMaterial({
+            name: 'front',
+            color: new THREE.Color('#141414'), // Domyślnie czarne tworzywo (jak reszta regału gdy branding jest wyłączony)
+            roughness: 0.5,
+            metalness: 0.05,
+            emissive: new THREE.Color(0x000000), // Całkowicie wyłączona emisja światła
+            emissiveIntensity: 0.0,
+            side: THREE.FrontSide,
+            polygonOffset: true,
+            polygonOffsetFactor: -2,
+            polygonOffsetUnits: -4
+        });
+
+        // Wymiary panelu za półkami: szerokość 1.50m (pełna szerokość modułu),
+        // wysokość 1.36m (od powierzchni blatu na Y=0.90 do szczytu regału na Y=2.26).
+        // W nieprzesuniętym modelu regal.glb:
+        // Środek Y = (0.90 + 2.26) / 2 = 1.58m
+        // Tylna ścianka BarArt.111 leży na Z = -0.085m, więc lico panelu umieszczamy na Z = -0.083m (2mm z przodu)
+        const geom = new THREE.PlaneGeometry(1.50, 1.36);
+        const shelfPanel = new THREE.Mesh(geom, shelfFrontMat);
+        shelfPanel.name = 'ShelfFrontPanel';
+        shelfPanel.userData.isFrontPanel = true;
+        shelfPanel.userData.isShelfPanel = true;
+        shelfPanel.userData.isLedMesh = false; // Zapobiega zaklasyfikowaniu panelu jako elementu świecącego LED
+        shelfPanel.receiveShadow = false;
+        shelfPanel.castShadow = false;
+        shelfPanel.position.set(0, 1.58, -0.083);
+
+        rootObject.add(shelfPanel);
+
+        return this.createCenteredWrapper(rootObject);
+    }
+
+    /**
      * Tworzy czyste lustrzane odbicie wycentrowanego narożnika w osi X
      */
     createMirroredCorner(centeredRight) {
@@ -300,20 +413,17 @@ export class ModelRegistry {
         mirroredWrapper.traverse(child => {
             if (child.isMesh) {
                 if (child.material) {
+                    const isFront = child.userData.isCornerFront || child.userData.isFrontPanel;
                     if (Array.isArray(child.material)) {
                         child.material = child.material.map(m => {
                             const cloned = m.clone();
-                            cloned.side = THREE.DoubleSide;
+                            cloned.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
                             return cloned;
                         });
                     } else {
                         child.material = child.material.clone();
-                        child.material.side = THREE.DoubleSide;
+                        child.material.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
                     }
-                }
-                if (child.userData.isCornerFront) {
-                    child.geometry = child.geometry.clone();
-                    this.normalizeCornerFrontUVs(child.geometry);
                 }
                 if (this.isBrandingTarget(child)) {
                     child.userData.isBrandingFront = true;
@@ -357,6 +467,36 @@ export class ModelRegistry {
             uv.setXY(i, u, v);
         }
         uv.needsUpdate = true;
+    }
+
+    /**
+     * Odwraca nawinięcie trójkątów i wektory normalne lica frontu narożnika (rog.glb).
+     * W oryginalnym pliku Blender trójkąty lica były nawinięte do wnętrza szafki (w stronę barmana).
+     * Po odwróceniu lico wskazuje dokładnie w stronę gości (+Z i +X), a przy side: THREE.FrontSide
+     * jest automatycznie odcinane (culling) od strony wnętrza baru, całkowicie eliminując
+     * przenikanie grafiki brandingu na stanowisko barmana.
+     */
+    fixCornerFrontWinding(geometry) {
+        if (!geometry || !geometry.index) return;
+        const indices = geometry.index.array;
+        const count = geometry.index.count;
+
+        // Zamień miejscami wierzchołek 1 i 2 w każdym trójkącie, odwracając kolejność nawijania (CW <-> CCW)
+        for (let i = 0; i < count; i += 3) {
+            const tmp = indices[i + 1];
+            indices[i + 1] = indices[i + 2];
+            indices[i + 2] = tmp;
+        }
+        geometry.index.needsUpdate = true;
+
+        // Odwróć wektory normalne, aby wskazywały na zewnątrz bryły
+        if (geometry.attributes.normal) {
+            const normals = geometry.attributes.normal;
+            for (let i = 0; i < normals.count; i++) {
+                normals.setXYZ(i, -normals.getX(i), -normals.getY(i), -normals.getZ(i));
+            }
+            normals.needsUpdate = true;
+        }
     }
 
     /**
@@ -420,11 +560,12 @@ export class ModelRegistry {
     }
 
     setupShadowsAndMaterials(root, modelKey) {
-        // 1. Całkowicie usuń zduplikowaną w Blenderze planszę PLANSZA.001 (BarArt.001) z pliku BarModel.glb.
-        // PLANSZA.001 nakłada się w 100% na planszę właściwą PLANSZA.004 (BarArt.104), wywołując Z-fighting i gwałtowne drganie tekstur.
+        // 1. Całkowicie usuń zduplikowaną w Blenderze planszę PLANSZA.001 (BarArt.001) oraz stare plansze z pliku BarModel.glb.
+        // Three.js GLTFLoader usuwa kropki z nazw obiektów (np. 'PLANSZA.001' -> 'PLANSZA001'), dlatego oczyszczamy znaki nieliterowe.
         const duplicatesToRemove = [];
         root.traverse(child => {
-            if (child.isMesh && child.name && (child.name.toLowerCase().includes('plansza.001') || child.name.toLowerCase().includes('barart.001'))) {
+            const rawName = (child.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (rawName.includes('plansza') || rawName.includes('barart001') || rawName.includes('barart104')) {
                 duplicatesToRemove.push(child);
             }
         });
@@ -443,72 +584,71 @@ export class ModelRegistry {
                 const hasFrontMat = mats.some(m => m && (m.name === 'front' || (m.name || '').toLowerCase().includes('front')));
                 const hasBrandingMat = mats.some(m => m && (m.name || '').toLowerCase().includes('branding'));
 
-                const isFrontBoard = (child.name && (child.name.toLowerCase().includes('plansza') || child.name.toLowerCase().includes('barart.104'))) ||
-                                     (child.parent && child.parent.name && child.parent.name.toLowerCase().includes('plansza'));
-
                 const isLegacyCornerMesh = (child.geometry && child.geometry.index && child.geometry.index.count === 747);
 
                 if (hasBrandingMat) {
                     child.userData.isFrontPanel = true;
                     child.userData.isCornerFront = true;
                     child.receiveShadow = false;
-                    mats.forEach(m => {
-                        if (m && (m.name || '').toLowerCase().includes('branding')) {
-                            m.name = 'front';
-                            m.side = THREE.DoubleSide;
-                            m.polygonOffset = true;
-                            m.polygonOffsetFactor = -2;
-                            m.polygonOffsetUnits = -4;
-                        }
+                    child.castShadow = false;
+
+                    // Materiał frontu narożnika o IDENTYCZNYCH właściwościach fizycznych jak BarFrontPanel (brak normalMap, roughness 0.5, metalness 0.05)
+                    const cornerFrontMat = new THREE.MeshStandardMaterial({
+                        name: 'front',
+                        color: new THREE.Color('#141414'),
+                        roughness: 0.5,
+                        metalness: 0.05,
+                        emissive: new THREE.Color(0x000000),
+                        emissiveIntensity: 0.0,
+                        side: THREE.FrontSide,
+                        polygonOffset: true,
+                        polygonOffsetFactor: -2,
+                        polygonOffsetUnits: -4
                     });
+                    child.material = cornerFrontMat;
+                    // Odwróć nawinięcie trójkątów i wektory normalne lica narożnika z pliku rog.glb,
+                    // aby lico wskazywało na zewnątrz mebla (w stronę gości),
+                    // a od strony barmana było automatycznie odcinane (culling).
+                    this.fixCornerFrontWinding(child.geometry);
                     this.normalizeCornerFrontUVs(child.geometry);
                 } else if (hasFrontMat) {
                     child.userData.isFrontPanel = true;
                     child.receiveShadow = false;
-                    mats.forEach(m => {
-                        if (m) {
-                            m.polygonOffset = true;
-                            m.polygonOffsetFactor = -2;
-                            m.polygonOffsetUnits = -4;
-                        }
+                    child.castShadow = false;
+                    const cleanFrontMat = new THREE.MeshStandardMaterial({
+                        name: 'front',
+                        color: new THREE.Color('#141414'),
+                        roughness: 0.5,
+                        metalness: 0.05,
+                        emissive: new THREE.Color(0x000000),
+                        emissiveIntensity: 0.0,
+                        side: THREE.FrontSide,
+                        polygonOffset: true,
+                        polygonOffsetFactor: -2,
+                        polygonOffsetUnits: -4
                     });
-                    this.normalizeFrontUVs(child.geometry);
-                } else if (isFrontBoard) {
-                    child.userData.isFrontPanel = true;
-                    child.receiveShadow = false;
-                    const origMat = mats[0];
-                    const frontMat = origMat.clone();
-                    frontMat.name = 'front';
-                    frontMat.side = THREE.DoubleSide;
-                    frontMat.polygonOffset = true;
-                    frontMat.polygonOffsetFactor = -2;
-                    frontMat.polygonOffsetUnits = -4;
-                    origMat.name = 'frame';
-                    origMat.side = THREE.DoubleSide;
-
-                    // W siatce BarArt.104 z 36 indeksami (12 trójkątów z Blender):
-                    // Pierwsze 6 indeksów (2 trójkąty) to dokładnie lico frontu (Z=0.024m), a pozostałe 30 to krawędzie i tył
-                    if (child.geometry && child.geometry.index && child.geometry.index.count === 36) {
-                        child.geometry.clearGroups();
-                        child.geometry.addGroup(0, 6, 0);  // Grupa 0: przednia ściana -> materiał 'front'
-                        child.geometry.addGroup(6, 30, 1); // Grupa 1: tył i krawędzie -> oryginalny materiał
-                        child.material = [frontMat, origMat];
-                    } else {
-                        child.material = frontMat;
-                    }
+                    child.material = cleanFrontMat;
                     this.normalizeFrontUVs(child.geometry);
                 } else if (isLegacyCornerMesh) {
                     child.userData.isFrontPanel = true;
                     child.userData.isCornerFront = true;
                     child.receiveShadow = false;
+                    child.castShadow = false;
                     const origMat = mats[0];
-                    const frontMat = origMat.clone();
-                    frontMat.name = 'front';
-                    frontMat.side = THREE.DoubleSide;
-                    frontMat.polygonOffset = true;
-                    frontMat.polygonOffsetFactor = -2;
-                    frontMat.polygonOffsetUnits = -4;
+                    const frontMat = new THREE.MeshStandardMaterial({
+                        name: 'front',
+                        color: new THREE.Color('#141414'),
+                        roughness: 0.5,
+                        metalness: 0.05,
+                        emissive: new THREE.Color(0x000000),
+                        emissiveIntensity: 0.0,
+                        side: THREE.FrontSide,
+                        polygonOffset: true,
+                        polygonOffsetFactor: -2,
+                        polygonOffsetUnits: -4
+                    });
                     origMat.name = 'frame';
+                    origMat.side = THREE.DoubleSide;
 
                     // W siatce BarArt.002 z 747 indeksami (249 trójkątów):
                     // - Indeksy 0..717: korpus, blat i półki narożnika -> materiał 'frame'
@@ -519,11 +659,13 @@ export class ModelRegistry {
                     child.geometry.addGroup(717, 24, 1); // Grupa 1: zewnętrzne lico -> 'front'
                     child.geometry.addGroup(741, 6, 0);  // Grupa 2: wewnętrzna ścianka -> 'frame'
                     child.material = [origMat, frontMat];
+                    this.fixCornerFrontWinding(child.geometry);
                     this.normalizeCornerFrontUVs(child.geometry);
                 }
 
                 if (child.userData.isFrontPanel) {
                     child.receiveShadow = false;
+                    child.castShadow = false;
                 }
 
                 // Oznacz siatki frontowe dla brandingu
@@ -549,7 +691,11 @@ export class ModelRegistry {
                 if (child.material) {
                     const allMats = Array.isArray(child.material) ? child.material : [child.material];
                     allMats.forEach(m => {
-                        m.side = THREE.DoubleSide;
+                        // Korpus mebli i ramy otrzymują DoubleSide (brak dziur i przezroczystości od środka),
+                        // natomiast panele frontowe z brandingiem pozostają FrontSide (brak przenikania grafiki do szafek barmana)
+                        if (!child.userData.isFrontPanel && !child.userData.isCornerFront) {
+                            m.side = THREE.DoubleSide;
+                        }
                         if (m.map) {
                             m.map.anisotropy = 8;
                         }

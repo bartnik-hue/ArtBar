@@ -1326,18 +1326,18 @@ body, html {
     display: block;
 }
 
-/* Delikatny łuk łączący przyciski w półkole */
+/* Delikatny łuk łączący przyciski w półkole (promień R = 125px) */
 .radial-menu::before {
     content: '';
     position: absolute;
-    width: 176px;
-    height: 176px;
-    left: -88px;
-    top: -95px;
+    width: 250px;
+    height: 250px;
+    left: -125px;
+    top: -125px;
     border: 1px dashed rgba(250, 203, 125, 0.3);
     border-radius: 50%;
     pointer-events: none;
-    clip-path: polygon(0 0, 100% 0, 100% 62%, 0 62%);
+    clip-path: polygon(0 0, 100% 0, 100% 68%, 0 68%);
 }
 
 /* Wskaźnik / iglica do środka modułu */
@@ -1371,8 +1371,8 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 60px;
-    padding: 6px 12px;
+    min-width: 58px;
+    padding: 6px 10px;
     background: rgba(18, 18, 22, 0.92);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(250, 203, 125, 0.35);
@@ -1392,35 +1392,48 @@ body, html {
 }
 
 .radial-label {
-    font-size: 0.70rem;
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
-/* Rozmieszczenie na łuku (Promień R = 105px, kąty: -155°, -112°, -68°, -25°) */
+.radial-label-multiline {
+    font-size: 0.58rem;
+    line-height: 1.1;
+    text-align: center;
+    white-space: normal;
+}
+
+/* Rozmieszczenie na łuku (Promień R = 125px, kąty: -162°, -126°, -90°, -54°, -18°) */
 /* 1. Obróć: lewa strona */
 .radial-btn-rotate {
-    left: -95px;
-    top: -44px;
+    left: -119px;
+    top: -39px;
 }
 
 /* 2. Przesuń pojedynczy: lewa góra */
 .radial-btn-move {
-    left: -39px;
-    top: -97px;
+    left: -73px;
+    top: -101px;
 }
 
-/* 3. Przesuń cały moduł: prawa góra */
+/* 3. Przesuń cały moduł: góra środek */
 .radial-btn-move-all {
-    left: 39px;
-    top: -97px;
+    left: 0px;
+    top: -125px;
 }
 
-/* 4. Usuń: prawa strona */
+/* 4. Usuń: prawa góra */
 .radial-btn-delete {
-    left: 95px;
-    top: -44px;
+    left: 73px;
+    top: -101px;
+}
+
+/* 5. Usuń cały moduł: prawa strona */
+.radial-btn-delete-all {
+    left: 119px;
+    top: -39px;
 }
 
 /* Stany hover */
@@ -1432,13 +1445,15 @@ body, html {
     box-shadow: 0 8px 24px rgba(250, 203, 125, 0.4);
 }
 
-.radial-btn-delete:hover {
+.radial-btn-delete:hover,
+.radial-btn-delete-all:hover {
     border-color: var(--danger);
     color: var(--danger);
     box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
 }
 
-.radial-btn-delete:hover .radial-icon {
+.radial-btn-delete:hover .radial-icon,
+.radial-btn-delete-all:hover .radial-icon {
     color: var(--danger);
 }
 
@@ -2022,45 +2037,56 @@ body, html {
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Półradialne menu akcji nad barem w 3D */
+    /* Półradialne menu akcji nad barem w 3D (R = 100px) */
     .radial-btn {
-        min-width: 50px;
-        padding: 5px 8px;
+        min-width: 48px;
+        padding: 5px 6px;
     }
 
     .radial-icon {
-        font-size: 1.0rem;
+        font-size: 0.95rem;
     }
 
     .radial-label {
-        font-size: 0.60rem;
+        font-size: 0.58rem;
+    }
+
+    .radial-label-multiline {
+        font-size: 0.48rem;
+        line-height: 1.05;
     }
 
     .radial-btn-rotate {
-        left: -76px;
-        top: -36px;
+        left: -95px;
+        top: -31px;
     }
 
     .radial-btn-move {
-        left: -30px;
-        top: -78px;
+        left: -59px;
+        top: -81px;
     }
 
     .radial-btn-move-all {
-        left: 30px;
-        top: -78px;
+        left: 0px;
+        top: -100px;
     }
 
     .radial-btn-delete {
-        left: 76px;
-        top: -36px;
+        left: 59px;
+        top: -81px;
+    }
+
+    .radial-btn-delete-all {
+        left: 95px;
+        top: -31px;
     }
 
     .radial-menu::before {
-        width: 144px;
-        height: 144px;
-        left: -72px;
-        top: -78px;
+        width: 200px;
+        height: 200px;
+        left: -100px;
+        top: -100px;
+        clip-path: polygon(0 0, 100% 0, 100% 68%, 0 68%);
     }
 
     /* Menu kontekstowe PPM / Long-press */

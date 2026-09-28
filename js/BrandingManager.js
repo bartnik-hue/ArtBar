@@ -4,13 +4,20 @@ import * as THREE from 'three';
  * Dostępne gotowe wzory grafik panoramicznych z folderu grafiki/
  */
 export const PANORAMA_PRESETS = [
-    { id: 'graffitilike', name: 'Graffiti Art', file: 'grafiki/graffitilike.jpg', thumbTitle: 'Kolorowe graffiti miejskie' },
-    { id: 'kamienieszlachetne', name: 'Kamienie Szlachetne', file: 'grafiki/kamienieszlachetne.jpg', thumbTitle: 'Geoda i minerały kryształowe' },
     { id: 'kwiaty2', name: 'Kwiaty Botaniczne', file: 'grafiki/kwiaty2.jpg', thumbTitle: 'Ciemna botanika florystyczna' },
     { id: 'kwiaty3', name: 'Kwiaty Egzotyczne', file: 'grafiki/kwiaty3.jpg', thumbTitle: 'Żywe egzotyczne kwiaty' },
     { id: 'palmy', name: 'Palmy Tropikalne', file: 'grafiki/palmy.jpg', thumbTitle: 'Liście palmowe i monstery' },
-    { id: 'turku', name: 'Turkus & Złoto', file: 'grafiki/turku.jpg', thumbTitle: 'Marmur turkusowy ze złotymi żyłami' },
-    { id: 'zloto', name: 'Złota Elegancja', file: 'grafiki/zloto.jpg', thumbTitle: 'Złocisty agat z płynnymi falami' }
+    { id: 'zloto', name: 'Złota Elegancja', file: 'grafiki/zloto.jpg', thumbTitle: 'Złocisty agat z płynnymi falami' },
+    { id: 'art_deco_pano', name: 'Art Deco Gold', file: 'grafiki/art_deco_pano.jpg', thumbTitle: 'Luksusowa geometria Art Deco' },
+    { id: 'emerald_gold_pano', name: 'Szmaragd & Złoto', file: 'grafiki/emerald_gold_pano.jpg', thumbTitle: 'Malachit z płynnym złotem kintsugi' },
+    { id: 'leather_chesterfield_pano', name: 'Pikowana Skóra', file: 'grafiki/leather_chesterfield_pano.jpg', thumbTitle: 'Czarna pikowana skóra Chesterfield' },
+    { id: 'chevron_oak_pano', name: 'Dąb Chevron', file: 'grafiki/chevron_oak_pano.jpg', thumbTitle: 'Wędzony dąb w jodełkę francuską' },
+    { id: 'alcohol_ink_blue_pano', name: 'Płynny Granat', file: 'grafiki/alcohol_ink_blue_pano.jpg', thumbTitle: 'Tusz alkoholowy i mosiądz' },
+    { id: 'calacatta_gold_pano', name: 'Marmur Calacatta', file: 'grafiki/calacatta_gold_pano.jpg', thumbTitle: 'Biały marmur ze złotą żyłą' },
+    { id: 'seigaiha_wave_pano', name: 'Japońska Fala', file: 'grafiki/seigaiha_wave_pano.jpg', thumbTitle: 'Fale Seigaiha na graficie' },
+    { id: 'baroque_damask_pano', name: 'Ciemny Welwet', file: 'grafiki/baroque_damask_pano.jpg', thumbTitle: 'Pałacowy żakard barokowy' },
+    { id: 'cyberpunk_neon_pano', name: 'Cyberpunk Neon', file: 'grafiki/cyberpunk_neon_pano.jpg', thumbTitle: 'Futurystyczne obwody neonowe' },
+    { id: 'modern_terrazzo_pano', name: 'Lastryko Terrazzo', file: 'grafiki/modern_terrazzo_pano.jpg', thumbTitle: 'Ciemne lastryko z miedzią i kwarcem' }
 ];
 
 /**
@@ -324,15 +331,167 @@ export class BrandingManager {
     }
 
     /**
-     * Główna funkcja aplikująca teksturę panoramiczną na fronty barów i narożników
-     * z ciągłym, proporcjonalnym mapowaniem UV wzdłuż każdego ciągu
+     * Wykrywa ciągi modułów regałów zaplecza (BACK_SHELF),
+     * łącząc je wzdłuż fizycznych styków bocznych w przestrzeni 3D
+     */
+    detectShelfChains() {
+        const shelfModules = this.barBuilder.modules.filter(m => m.modelKey === 'BACK_SHELF');
+        if (shelfModules.length === 0) return [];
+
+        const threshold = 0.28; // promień tolerancji styków złączy regałów
+
+        const getShelfInfo = (m) => {
+            const rot = m.mesh.rotation.y;
+            const pos = m.mesh.position;
+            const frontLength = 1.50; // szerokość modułu regału: 1.5m
+            // W lokalnych współrzędnych regału: wejście to lewa strona (X = -0.75), wyjście to prawa strona (X = +0.75)
+            const localIn = new THREE.Vector3(-0.75, 0.9, 0);
+            const localOut = new THREE.Vector3(0.75, 0.9, 0);
+
+            const worldIn = localIn.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), rot).add(pos);
+            const worldOut = localOut.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), rot).add(pos);
+
+            return {
+                id: m.id,
+                module: m,
+                modelKey: m.modelKey,
+                frontLength,
+                worldIn,
+                worldOut,
+                connections: []
+            };
+        };
+
+        const shelfInfos = new Map();
+        shelfModules.forEach(m => {
+            shelfInfos.set(m.id, getShelfInfo(m));
+        });
+
+        // Wykryj wzajemne połączenia portów lewego i prawego boku regałów
+        const infoList = Array.from(shelfInfos.values());
+        for (let i = 0; i < infoList.length; i++) {
+            for (let j = i + 1; j < infoList.length; j++) {
+                const a = infoList[i];
+                const b = infoList[j];
+
+                const dOutIn = a.worldOut.distanceTo(b.worldIn);
+                const dInOut = a.worldIn.distanceTo(b.worldOut);
+                const dOutOut = a.worldOut.distanceTo(b.worldOut);
+                const dInIn = a.worldIn.distanceTo(b.worldIn);
+
+                if (dOutIn < threshold) {
+                    a.connections.push({ otherId: b.id, myPort: 'out', otherPort: 'in' });
+                    b.connections.push({ otherId: a.id, myPort: 'in', otherPort: 'out' });
+                } else if (dInOut < threshold) {
+                    a.connections.push({ otherId: b.id, myPort: 'in', otherPort: 'out' });
+                    b.connections.push({ otherId: a.id, myPort: 'out', otherPort: 'in' });
+                } else if (dOutOut < threshold) {
+                    a.connections.push({ otherId: b.id, myPort: 'out', otherPort: 'out' });
+                    b.connections.push({ otherId: a.id, myPort: 'out', otherPort: 'out' });
+                } else if (dInIn < threshold) {
+                    a.connections.push({ otherId: b.id, myPort: 'in', otherPort: 'in' });
+                    b.connections.push({ otherId: a.id, myPort: 'in', otherPort: 'in' });
+                }
+            }
+        }
+
+        const visited = new Set();
+        const chains = [];
+
+        // 1. Rozpocznij od końców ciągów (moduły ze stopniem połączeń <= 1),
+        // preferując moduły z wolnym lewym portem 'in' (początek ciągu od lewej)
+        const endpoints = infoList.filter(info => info.connections.length <= 1);
+        endpoints.sort((a, b) => {
+            const aOpenIn = (a.connections.length === 0 || a.connections[0].myPort === 'out') ? 1 : 0;
+            const bOpenIn = (b.connections.length === 0 || b.connections[0].myPort === 'out') ? 1 : 0;
+            return bOpenIn - aOpenIn;
+        });
+
+        endpoints.forEach(startInfo => {
+            if (visited.has(startInfo.id)) return;
+
+            const chain = [];
+            let curr = startInfo;
+            let prevId = null;
+            let enterViaPort = (curr.connections.length === 1)
+                ? (curr.connections[0].myPort === 'out' ? 'in' : 'out')
+                : 'in';
+
+            while (curr && !visited.has(curr.id)) {
+                visited.add(curr.id);
+
+                const isReversed = (enterViaPort === 'out');
+                chain.push({
+                    module: curr.module,
+                    frontLength: curr.frontLength,
+                    isReversed: isReversed
+                });
+
+                const exitPort = isReversed ? 'in' : 'out';
+                const nextConn = curr.connections.find(c => c.otherId !== prevId && c.myPort === exitPort) ||
+                                 curr.connections.find(c => c.otherId !== prevId);
+
+                if (nextConn) {
+                    prevId = curr.id;
+                    enterViaPort = nextConn.otherPort;
+                    curr = shelfInfos.get(nextConn.otherId);
+                } else {
+                    curr = null;
+                }
+            }
+
+            if (chain.length > 0) chains.push(chain);
+        });
+
+        // 2. Obsłuż ewentualne pozostałe moduły
+        infoList.forEach(info => {
+            if (!visited.has(info.id)) {
+                const chain = [];
+                let curr = info;
+                let prevId = null;
+                let enterViaPort = 'in';
+
+                while (curr && !visited.has(curr.id)) {
+                    visited.add(curr.id);
+                    const isReversed = (enterViaPort === 'out');
+                    chain.push({
+                        module: curr.module,
+                        frontLength: curr.frontLength,
+                        isReversed: isReversed
+                    });
+
+                    const exitPort = isReversed ? 'in' : 'out';
+                    const nextConn = curr.connections.find(c => c.otherId !== prevId && c.myPort === exitPort) ||
+                                     curr.connections.find(c => c.otherId !== prevId);
+
+                    if (nextConn) {
+                        prevId = curr.id;
+                        enterViaPort = nextConn.otherPort;
+                        curr = shelfInfos.get(nextConn.otherId);
+                    } else {
+                        curr = null;
+                    }
+                }
+
+                if (chain.length > 0) chains.push(chain);
+            }
+        });
+
+        return chains;
+    }
+
+    /**
+     * Główna funkcja aplikująca teksturę panoramiczną na fronty barów, narożników
+     * oraz fronty (plecy za półkami) regałów zaplecza z ciągłym, proporcjonalnym mapowaniem UV wzdłuż każdego ciągu
      */
     updateFrontPanoramas() {
-        const chains = this.detectBarChains();
+        const barChains = this.detectBarChains();
+        const shelfChains = this.detectShelfChains();
         const sharedTex = this.currentBackgroundTexture;
         const processedModuleIds = new Set();
 
-        chains.forEach(chain => {
+        // 1. Zastosuj panoramę na fronty barów i narożników
+        barChains.forEach(chain => {
             let accumMeters = 0;
             chain.forEach(item => {
                 processedModuleIds.add(item.module.id);
@@ -347,7 +506,23 @@ export class BrandingManager {
             });
         });
 
-        // Zresetuj moduły, które nie są częścią frontu baru (np. regały zaplecza, lodówki)
+        // 2. Zastosuj panoramę na fronty (plecy za półkami) regałów zaplecza
+        shelfChains.forEach(chain => {
+            let accumMeters = 0;
+            chain.forEach(item => {
+                processedModuleIds.add(item.module.id);
+                this.applyPanoramaToModule(
+                    item.module,
+                    sharedTex,
+                    accumMeters,
+                    item.frontLength,
+                    item.isReversed
+                );
+                accumMeters += item.frontLength;
+            });
+        });
+
+        // 3. Zresetuj moduły, które nie są częścią frontu baru ani regału (np. lodówki)
         this.barBuilder.modules.forEach(m => {
             if (!processedModuleIds.has(m.id)) {
                 this.restoreDefaultFrontMaterial(m);
@@ -369,6 +544,8 @@ export class BrandingManager {
                     );
                     if (isFrontMat) {
                         child.receiveShadow = false;
+                        child.castShadow = false;
+                        mat.side = THREE.FrontSide;
                         mat.polygonOffset = true;
                         mat.polygonOffsetFactor = -2;
                         mat.polygonOffsetUnits = -4;
@@ -377,7 +554,7 @@ export class BrandingManager {
                         if (!this.defaultFrontTextures.has(moduleData.id)) {
                             this.defaultFrontTextures.set(moduleData.id, {
                                 map: mat.map || null,
-                                color: mat.color ? mat.color.clone() : new THREE.Color(0xffffff)
+                                color: mat.color ? mat.color.clone() : new THREE.Color('#141414')
                             });
                         }
 
@@ -419,6 +596,15 @@ export class BrandingManager {
                                 texClone.offset.set(offU % 1.0, offV);
                             }
                             mat.color.set(0xffffff);
+                            mat.roughness = 0.5;
+                            mat.metalness = 0.05;
+                            mat.normalMap = null;
+                            mat.roughnessMap = null;
+                            mat.metalnessMap = null;
+                            if (mat.emissive) {
+                                mat.emissive.set(0x000000);
+                                mat.emissiveIntensity = 0.0;
+                            }
                             mat.needsUpdate = true;
                         } else {
                             // Przywróć fabryczną teksturę i kolor
@@ -426,6 +612,17 @@ export class BrandingManager {
                             mat.map = def ? (def.map || null) : null;
                             if (def && def.color) {
                                 mat.color.copy(def.color);
+                            } else {
+                                mat.color.set('#141414');
+                            }
+                            mat.roughness = 0.5;
+                            mat.metalness = 0.05;
+                            mat.normalMap = null;
+                            mat.roughnessMap = null;
+                            mat.metalnessMap = null;
+                            if (mat.emissive) {
+                                mat.emissive.set(0x000000);
+                                mat.emissiveIntensity = 0.0;
                             }
                             mat.needsUpdate = true;
                         }
@@ -448,6 +645,8 @@ export class BrandingManager {
                     );
                     if (isFrontMat) {
                         child.receiveShadow = false;
+                        child.castShadow = false;
+                        mat.side = THREE.FrontSide;
                         mat.polygonOffset = true;
                         mat.polygonOffsetFactor = -2;
                         mat.polygonOffsetUnits = -4;
@@ -455,6 +654,17 @@ export class BrandingManager {
                         mat.map = def ? (def.map || null) : null;
                         if (def && def.color) {
                             mat.color.copy(def.color);
+                        } else {
+                            mat.color.set('#141414');
+                        }
+                        mat.roughness = 0.5;
+                        mat.metalness = 0.05;
+                        mat.normalMap = null;
+                        mat.roughnessMap = null;
+                        mat.metalnessMap = null;
+                        if (mat.emissive) {
+                            mat.emissive.set(0x000000);
+                            mat.emissiveIntensity = 0.0;
                         }
                         mat.needsUpdate = true;
                     }
@@ -471,7 +681,8 @@ export class BrandingManager {
         return {
             BAR_CORNER_LEFT:  { offsetU: 0.0, repeatU: 1.0, flipU: false, offsetV: 0.0 },
             BAR_CORNER_RIGHT: { offsetU: 0.0, repeatU: 1.0, flipU: false, offsetV: 0.0 },
-            BAR_STRAIGHT:     { offsetU: 0.0, repeatU: 1.0, flipU: false, offsetV: 0.0 }
+            BAR_STRAIGHT:     { offsetU: 0.0, repeatU: 1.0, flipU: false, offsetV: 0.0 },
+            BACK_SHELF:       { offsetU: 0.0, repeatU: 1.0, flipU: false, offsetV: 0.0 }
         };
     }
 
@@ -516,7 +727,8 @@ export class BrandingManager {
             this.textureTuning = {
                 BAR_CORNER_LEFT:  { ...defs.BAR_CORNER_LEFT },
                 BAR_CORNER_RIGHT: { ...defs.BAR_CORNER_RIGHT },
-                BAR_STRAIGHT:     { ...defs.BAR_STRAIGHT }
+                BAR_STRAIGHT:     { ...defs.BAR_STRAIGHT },
+                BACK_SHELF:       { ...defs.BACK_SHELF }
             };
         }
         this.saveTextureTuning();

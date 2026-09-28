@@ -86,7 +86,7 @@ export class LedManager {
                 const mats = Array.isArray(child.material) ? child.material : [child.material];
                 mats.forEach(mat => {
                     const name = (mat.name || '').toLowerCase();
-                    if (name === 'led' || name.includes('led') || child.userData.isLedMesh) {
+                    if (!child.userData.isFrontPanel && !child.userData.isShelfPanel && (name === 'led' || name.includes('led') || child.userData.isLedMesh)) {
                         child.userData.isLedMesh = true;
                         hasLed = true;
 
@@ -148,7 +148,8 @@ export class LedManager {
 
         // 3. Zaktualizuj źródła światła i poświatę podłogową
         if (moduleData.ledRig) {
-            const lightIntensity = isLit ? (this.intensity * 4.5) : 0;
+            const isShelf = (moduleData.modelKey === 'BACK_SHELF');
+            const lightIntensity = isLit ? (this.intensity * (isShelf ? 1.0 : 4.5)) : 0;
             const glowOpacity = isLit ? Math.min(0.75, this.intensity * 0.14) : 0;
 
             if (moduleData.ledLights) {
