@@ -342,22 +342,27 @@ export class BrandingManager {
     }
 
     /**
-     * Wykrywa ciągi modułów regałów zaplecza (BACK_SHELF),
-     * łącząc je wzdłuż fizycznych styków bocznych w przestrzeni 3D
+     * Wykrywa ciągi modułów regałów zaplecza (BACK_SHELF) wraz z łączącymi je lodówkami (BACK_FRIDGE, BACK_FRIDGE_SLIM),
+     * zapewniając ciągłość panoramy na regałach nawet gdy są rozdzielone lodówkami w przestrzeni 3D.
      */
     detectShelfChains() {
-        const shelfModules = this.barBuilder.modules.filter(m => m.modelKey === 'BACK_SHELF');
-        if (shelfModules.length === 0) return [];
+        const backBarKeys = new Set(['BACK_SHELF', 'BACK_FRIDGE', 'BACK_FRIDGE_SLIM']);
+        const backBarModules = this.barBuilder.modules.filter(m => backBarKeys.has(m.modelKey));
+        if (backBarModules.length === 0) return [];
 
-        const threshold = 0.28; // promień tolerancji styków złączy regałów
+        const threshold = 0.28; // promień tolerancji styków złączy regałów i lodówek
 
-        const getShelfInfo = (m) => {
+        const getBackBarInfo = (m) => {
             const rot = m.mesh.rotation.y;
             const pos = m.mesh.position;
-            const frontLength = 1.50; // szerokość modułu regału: 1.5m
-            // W lokalnych współrzędnych regału: wejście to lewa strona (X = -0.75), wyjście to prawa strona (X = +0.75)
-            const localIn = new THREE.Vector3(-0.75, 0.9, 0);
-            const localOut = new THREE.Vector3(0.75, 0.9, 0);
+            let width = 1.50;
+            if (m.modelKey === 'BACK_FRIDGE') width = 1.00;
+            else if (m.modelKey === 'BACK_FRIDGE_SLIM') width = 0.50;
+            const halfW = width / 2;
+
+            // W lokalnych współrzędnych modułu: wejście to lewa strona (X = -halfW), wyjście to prawa strona (X = +halfW)
+            const localIn = new THREE.Vector3(-halfW, 0.9, 0);
+            const localOut = new THREE.Vector3(halfW, 0.9, 0);
 
             const worldIn = localIn.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), rot).add(pos);
             const worldOut = localOut.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), rot).add(pos);
@@ -366,7 +371,9 @@ export class BrandingManager {
                 id: m.id,
                 module: m,
                 modelKey: m.modelKey,
-                frontLength,
+                isShelf: (m.modelKey === 'BACK_SHELF'),
+                frontLength: 1.50, // standardowa długość płyty regału
+                physicalWidth: width,
                 worldIn,
                 worldOut,
                 connections: []
@@ -374,11 +381,11 @@ export class BrandingManager {
         };
 
         const shelfInfos = new Map();
-        shelfModules.forEach(m => {
-            shelfInfos.set(m.id, getShelfInfo(m));
+        backBarModules.forEach(m => {
+            shelfInfos.set(m.id, getBackBarInfo(m));
         });
 
-        // Wykryj wzajemne połączenia portów lewego i prawego boku regałów
+        // Wykryj wzajemne połączenia portów lewego i prawego boku regałów / lodówek
         const infoList = Array.from(shelfInfos.values());
         for (let i = 0; i < infoList.length; i++) {
             for (let j = i + 1; j < infoList.length; j++) {
@@ -434,6 +441,8 @@ export class BrandingManager {
                 const isReversed = (enterViaPort === 'out');
                 chain.push({
                     module: curr.module,
+                    modelKey: curr.modelKey,
+                    isShelf: curr.isShelf,
                     frontLength: curr.frontLength,
                     isReversed: isReversed
                 });
@@ -467,6 +476,8 @@ export class BrandingManager {
                     const isReversed = (enterViaPort === 'out');
                     chain.push({
                         module: curr.module,
+                        modelKey: curr.modelKey,
+                        isShelf: curr.isShelf,
                         frontLength: curr.frontLength,
                         isReversed: isReversed
                     });
@@ -522,14 +533,16 @@ export class BrandingManager {
             let accumMeters = 0;
             chain.forEach(item => {
                 processedModuleIds.add(item.module.id);
-                this.applyPanoramaToModule(
-                    item.module,
-                    sharedTex,
-                    accumMeters,
-                    item.frontLength,
-                    item.isReversed
-                );
-                accumMeters += item.frontLength;
+                if (item.isShelf) {
+                    this.applyPanoramaToModule(
+                        item.module,
+                        sharedTex,
+                        accumMeters,
+                        item.frontLength,
+                        item.isReversed
+                    );
+                    accumMeters += item.frontLength;
+                }
             });
         });
 
