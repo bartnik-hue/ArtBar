@@ -389,17 +389,11 @@
       height: clamp(24px, 0.85vw + 16px, 56px) !important;
     }
 
-    /* Numer usługi (01, 02, itp.) */
-    .modal-service-nr {
-      font-size: clamp(0.68rem, 0.35vw + 0.55rem, 1.35rem) !important;
-      padding: clamp(2px, 0.12vw + 2px, 8px) clamp(6px, 0.25vw + 4px, 16px) !important;
-      border-radius: clamp(4px, 0.15vw + 3px, 10px) !important;
-    }
-
     /* Tytuł usługi */
     .modal-service-title {
       font-size: clamp(0.85rem, 0.65vw + 0.65rem, 2.05rem) !important;
       line-height: 1.25 !important;
+      margin-bottom: clamp(4px, 0.25vw + 3px, 10px) !important;
       white-space: normal !important;
       overflow: visible !important;
       text-overflow: unset !important;
@@ -1878,10 +1872,7 @@
               ${s.icon}
             </div>
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1.5">
-                <span class="modal-service-nr font-mono font-bold text-[#FACB7D]/90 bg-[#FACB7D]/10 border border-[#FACB7D]/20 shrink-0">${s.nr}</span>
-                <h5 class="modal-service-title font-bold text-white group-hover:text-[#FACB7D] transition-colors">${s.name}</h5>
-              </div>
+              <h5 class="modal-service-title font-bold text-white group-hover:text-[#FACB7D] transition-colors">${s.name}</h5>
               <p class="modal-service-desc text-[#f5efe6]/70 font-light">${s.desc}</p>
             </div>
           </div>
