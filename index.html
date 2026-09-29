@@ -738,7 +738,7 @@
             </p>
           </div>
           <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Rozwiń kategorię art</span>
+            <span>Czytaj więcej</span>
             <span class="text-sm">↗</span>
           </button>
         </div>
@@ -763,7 +763,7 @@
             </p>
           </div>
           <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Rozwiń kategorię bar</span>
+            <span>Czytaj więcej</span>
             <span class="text-sm">↗</span>
           </button>
         </div>
@@ -788,7 +788,7 @@
             </p>
           </div>
           <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Rozwiń SOLUTIONS</span>
+            <span>Czytaj więcej</span>
             <span class="text-sm">↗</span>
           </button>
         </div>
@@ -842,21 +842,9 @@
                 <h3 class="font-serif-luxury text-xl sm:text-2xl lg:text-3xl font-bold text-[#f5efe6] mb-2.5" id="modal-category-title">
                   Filozofia <span class="gold-gradient-text">art</span>: Sztuka Tworzenia Niezapomnianej Atmosfery
                 </h3>
-                <blockquote class="p-3.5 rounded-lg bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-xs sm:text-sm text-[#f5efe6]/85 font-light leading-relaxed italic mb-4 max-w-2xl" id="modal-category-lead">
+                <blockquote class="p-3.5 rounded-lg bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-xs sm:text-sm text-[#f5efe6]/85 font-light leading-relaxed italic max-w-2xl" id="modal-category-lead">
                   "Tworzymy unikalne, spersonalizowane aranżacje, które nie tylko wzmacniają wizerunek marki, ale także budują atmosferę i angażują uczestników na każdym etapie wydarzenia."
                 </blockquote>
-                
-                <!-- Przyciski akcji -->
-                <div class="flex flex-wrap items-center gap-4">
-                  <button id="btn-modal-to-contact" type="button" class="solid-gold-btn px-5 py-2.5 rounded text-xs font-bold tracking-wider uppercase flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-[0_0_15px_rgba(250,203,125,0.3)] transition-all">
-                    <span>Zapytaj o tę realizację</span>
-                    <span>→</span>
-                  </button>
-                  <a href="#konfigurator-section" id="btn-modal-to-config" class="text-xs text-[#FACB7D] hover:underline font-semibold flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                    <span>Sprawdź w Konfiguratorze 3D</span>
-                  </a>
-                </div>
               </div>
 
               <!-- Czysty pokaz fotek z realizacji (same obrazy, cross-fade co 4 sekundy) -->
@@ -1809,18 +1797,6 @@
       if (e.key === 'Escape' && offerModal && !offerModal.classList.contains('hidden')) {
         closeOfferModal();
       }
-    });
-
-    // Przyciski akcji w ramce
-    document.getElementById('btn-modal-to-contact')?.addEventListener('click', () => {
-      closeOfferModal();
-      setTimeout(() => {
-        document.getElementById('kontakt')?.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
-    });
-
-    document.getElementById('btn-modal-to-config')?.addEventListener('click', () => {
-      closeOfferModal();
     });
 
     // Kliknięcie w czysty pokaz zdjęć otwiera aktualną fotografię w pełnym Lightboxie
