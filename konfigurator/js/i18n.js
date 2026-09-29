@@ -79,9 +79,11 @@ export const TRANSLATIONS = {
 
         hud_view_orbit: "Widok 3D",
         hud_view_orbit_short: "3D",
+        hud_view_orbit_title: "Swobodny obrót kamery 3D wokół baru",
 
         hud_view_top: "Rzut z góry",
         hud_view_top_short: "Góra",
+        hud_view_top_title: "Rzut z góry (widok z góry)",
 
         hud_view_ortho: "Widok Ortho",
         hud_view_ortho_short: "Ortho",
@@ -337,6 +339,7 @@ export const TRANSLATIONS = {
         toast_quote_no_data: "Brak danych projektu do pobrania.",
         toast_quote_downloaded: "Pobrano plik projektu: {filename}",
         toast_quote_empty_hint: "Wskazówka: Dodaj moduły baru na scenie, aby przygotować precyzyjną wycenę.",
+        toast_lang_changed: "Zmieniono język na: Polski",
 
         // Format helpers
         bars_count: "{n} barów ({m} m)",
@@ -426,9 +429,11 @@ export const TRANSLATIONS = {
 
         hud_view_orbit: "3D Orbit",
         hud_view_orbit_short: "3D",
+        hud_view_orbit_title: "Free 3D camera orbit around the bar",
 
         hud_view_top: "Top View",
         hud_view_top_short: "Top",
+        hud_view_top_title: "Top-down view (plan view)",
 
         hud_view_ortho: "Ortho View",
         hud_view_ortho_short: "Ortho",
@@ -684,6 +689,7 @@ export const TRANSLATIONS = {
         toast_quote_no_data: "No project data available to download.",
         toast_quote_downloaded: "Downloaded project file: {filename}",
         toast_quote_empty_hint: "Tip: Add bar modules to the scene to prepare an accurate quote.",
+        toast_lang_changed: "Language switched to: English",
 
         // Format helpers
         bars_count: "{n} bars ({m} m)",
@@ -733,11 +739,17 @@ export function formatShelfSpan(span) {
     return t('shelves_count', { n: span, m });
 }
 
-export function applyLanguage(lang) {
+export function applyLanguage(lang, triggerToast = false) {
     if (lang !== 'pl' && lang !== 'en') lang = 'pl';
     currentLang = lang;
     try {
         localStorage.setItem('artbar_configurator_lang', lang);
+    } catch (_) {}
+
+    try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState({}, '', url.toString());
     } catch (_) {}
 
     document.documentElement.lang = lang;
@@ -747,8 +759,10 @@ export function applyLanguage(lang) {
     document.querySelectorAll('#config-lang-switch .lang-btn').forEach(btn => {
         if (btn.dataset.lang === lang) {
             btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
         } else {
             btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
         }
     });
 
@@ -768,11 +782,13 @@ export function applyLanguage(lang) {
         }
     });
 
-    // Translate short labels (used for responsive button texts)
+    // Translate short labels (used for responsive button texts via CSS attr(data-short))
     document.querySelectorAll('[data-i18n-short]').forEach(el => {
         const key = el.getAttribute('data-i18n-short');
         if (key) {
-            el.dataset.short = t(key);
+            const shortVal = t(key);
+            el.setAttribute('data-short', shortVal);
+            el.dataset.short = shortVal;
         }
     });
 
@@ -788,6 +804,10 @@ export function applyLanguage(lang) {
     listeners.forEach(fn => {
         try { fn(lang); } catch (e) { console.error('Error in i18n listener:', e); }
     });
+
+    if (triggerToast && typeof window.showToast === 'function') {
+        window.showToast(t('toast_lang_changed'));
+    }
 }
 
 export function initI18n() {
@@ -811,27 +831,36 @@ export function initI18n() {
         lang = 'pl';
     }
 
-    // Bind click events on switcher buttons
-    document.querySelectorAll('#config-lang-switch .lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetLang = btn.dataset.lang;
-            if (targetLang && targetLang !== currentLang) {
-                applyLanguage(targetLang);
-            }
+    // Bind click/touch events on switcher buttons
+    const bindSwitcher = () => {
+        document.querySelectorAll('#config-lang-switch .lang-btn').forEach(btn => {
+            const handleSwitch = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetLang = btn.dataset.lang;
+                if (targetLang && targetLang !== currentLang) {
+                    applyLanguage(targetLang, true);
+                }
+            };
+            btn.onclick = handleSwitch;
         });
-    });
+    };
+    bindSwitcher();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindSwitcher);
+    }
 
     // Listen for postMessage from parent iframe
     window.addEventListener('message', (ev) => {
         if (ev.data && ev.data.type === 'ARTBAR_SET_LANG') {
             const requestedLang = ev.data.lang;
             if (requestedLang && (requestedLang === 'pl' || requestedLang === 'en')) {
-                applyLanguage(requestedLang);
+                applyLanguage(requestedLang, false);
             }
         }
     });
 
-    applyLanguage(lang);
+    applyLanguage(lang, false);
     return lang;
 }
 

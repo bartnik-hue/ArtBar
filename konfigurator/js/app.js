@@ -10,13 +10,21 @@ import { CalibrationTool } from './CalibrationTool.js';
 import { AiTextureService, AI_STYLE_PRESETS } from './AiTextureService.js';
 import { t, getCurrentLang, applyLanguage, initI18n, formatBarSpan, formatShelfSpan, getTranslatedMailto, onLanguageChange } from './i18n.js';
 
+// Natychmiastowa inicjalizacja wielojęzyczności przy ładowaniu modułu
+initI18n();
+window.showToast = (msg) => {
+    if (window.app && typeof window.app.showToast === 'function') {
+        window.app.showToast(msg);
+    }
+};
+
 class ArtbarApp {
     constructor() {
         this.container = document.getElementById('viewport-container');
         this.canvas = document.getElementById('three-canvas');
 
-        // Inicjalizacja wielojęzyczności i nasłuchiwanie zmian języka
-        this.currentLang = initI18n();
+        // Odczyt bieżącego języka i nasłuchiwanie zmian
+        this.currentLang = getCurrentLang();
         onLanguageChange((lang) => {
             this.currentLang = lang;
             if (this.barBuilder) {
