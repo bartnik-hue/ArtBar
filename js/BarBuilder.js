@@ -1117,90 +1117,86 @@ export class BarBuilder {
     }
 
     buildPresetStraight() {
-        // 4 moduły baru w linii
-        const startX = -2.25;
-        for (let i = 0; i < 4; i++) {
-            this.addModule('BAR_STRAIGHT', new THREE.Vector3(startX + i * 1.5, 0, 0), 0);
-        }
-
-        // Linia zaplecza za barem (odległość korytarza 1.25m): 2 regały i 2 lodówki
-        const backZ = -1.35;
-        this.addModule('BACK_SHELF', new THREE.Vector3(-1.75, 0, backZ), 0);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(-0.50, 0, backZ), 0);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(0.50, 0, backZ), 0);
-        this.addModule('BACK_SHELF', new THREE.Vector3(1.75, 0, backZ), 0);
-    }
-
-    buildPresetLShape() {
-        // Render: L 0001.png
-        // Ramię 1: 3 moduły w linii
+        // Układ prosty (10 modułów): 5 modułów baru w linii (7.5m) + 3 regały i 2 lodówki na zapleczu
         this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.25, 0, 0), 0);
         this.addModule('BAR_STRAIGHT', new THREE.Vector3(-0.75, 0, 0), 0);
         this.addModule('BAR_STRAIGHT', new THREE.Vector3(0.75, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(2.25, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(3.75, 0, 0), 0);
 
-        // Narożnik łączący (Róg Prawy)
+        this.addModule('BACK_SHELF', new THREE.Vector3(-1.75, 0, -1.35), 0);
+        this.addModule('BACK_FRIDGE', new THREE.Vector3(-0.5, 0, -1.35), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0.75, 0, -1.35), 0);
+        this.addModule('BACK_FRIDGE', new THREE.Vector3(2, 0, -1.35), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(3.25, 0, -1.35), 0);
+    }
+
+    buildPresetLShape() {
+        // Układ L (13 modułów): 4 moduły w osi X, róg prawy, 3 moduły w osi Z + zaplecze L (3 regały i 2 lodówki)
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-3.75, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.25, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-0.75, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0.75, 0, 0), 0);
         this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(1.975, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.975, 0, -1.225), 1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.975, 0, -2.725), 1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.975, 0, -4.225), 1.5708);
 
-        // Ramię 2 (w głąb / w osi -Z): 3 moduły z idealnym spasowaniem
-        const arm2X = 1.975;
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(arm2X, 0, -1.225), Math.PI / 2);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(arm2X, 0, -2.725), Math.PI / 2);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(arm2X, 0, -4.225), Math.PI / 2);
-
-        // Zaplecze L: regały i lodówki
-        this.addModule('BACK_SHELF', new THREE.Vector3(-1.5, 0, -1.35), 0);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(-0.25, 0, -1.35), 0);
-        this.addModule('BACK_SHELF', new THREE.Vector3(0.65, 0, -2.2), Math.PI / 2);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(0.65, 0, -3.45), Math.PI / 2);
+        this.addModule('BACK_FRIDGE', new THREE.Vector3(-3.5, 0, -1.5), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(-2.25, 0, -1.5), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(-0.75, 0, -1.5), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0.4, 0, -2.6), 1.5708);
+        this.addModule('BACK_FRIDGE', new THREE.Vector3(0.4, 0, -3.85), 1.5708);
     }
 
     buildPresetHorseshoe() {
-        // Render: podkowa 0001.png (Kształt U z lustrzanymi rogami)
-        // Front centralny: 2 moduły
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-0.75, 0, 0), 0);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0.75, 0, 0), 0);
+        // Układ Podkowa (16 modułów): 3 moduły frontu, 2 narożniki przednie, 2 ramiona boczne po 2 moduły zakończone narożnikami + zaplecze wewnętrzne (3 regały i 2 lodówki slim)
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-1.5, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.5, 0, 0), 0);
+        this.addModule('BAR_CORNER_LEFT', new THREE.Vector3(-2.725, 0, 0), 0);
+        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(2.725, 0, 0), 0);
 
-        // Ramię prawe: róg prawy + 2 moduły w głąb
-        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(1.975, 0, 0), 0);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.975, 0, -1.225), Math.PI / 2);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.975, 0, -2.725), Math.PI / 2);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.725, 0, -1.225), -1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.725, 0, -2.725), -1.5708);
+        this.addModule('BAR_CORNER_LEFT', new THREE.Vector3(-2.725, 0, -3.95), -1.5708);
 
-        // Ramię lewe: róg lewy + 2 moduły w głąb
-        this.addModule('BAR_CORNER_LEFT', new THREE.Vector3(-1.975, 0, 0), 0);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-1.975, 0, -1.225), -Math.PI / 2);
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-1.975, 0, -2.725), -Math.PI / 2);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(2.725, 0, -1.225), 1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(2.725, 0, -2.725), 1.5708);
+        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(2.725, 0, -3.95), 1.5708);
 
-        // Centralny rdzeń zaplecza
-        this.addModule('BACK_SHELF', new THREE.Vector3(-0.75, 0, -1.5), 0);
-        this.addModule('BACK_SHELF', new THREE.Vector3(0.75, 0, -1.5), 0);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(-0.50, 0, -2.5), Math.PI);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(0.50, 0, -2.5), Math.PI);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -1.5), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(-1.0625, 0, -2.5625), 4.7124);
+        this.addModule('BACK_SHELF', new THREE.Vector3(1.0625, 0, -2.625), 1.5708);
+        this.addModule('BACK_FRIDGE_SLIM', new THREE.Vector3(-1.0625, 0, -3.5625), 4.7124);
+        this.addModule('BACK_FRIDGE_SLIM', new THREE.Vector3(1.0625, 0, -3.625), 1.5708);
     }
 
     buildPresetIsland() {
-        // Render: kwadrat bg0001.png (Wyspa 360 stopni - idealnie zamknięty obwód 0.000mm)
-        const D = 1.225;
+        // Układ Wyspa 360° (20 modułów): obwód 3x3 moduły prostoliniowe ze wszystkimi 4 narożnikami + centralne 4 regały zaplecza
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-1.5, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0, 0, 0), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.5, 0, 0), 0);
+        this.addModule('BAR_CORNER_LEFT', new THREE.Vector3(-2.725, 0, 0), 0);
+        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(2.725, 0, 0), 0);
 
-        // Bok 1 (północny - front)
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0, 0, D), 0);
-        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(D, 0, D), 0);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.725, 0, -1.225), -1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.725, 0, -2.725), -1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-2.725, 0, -4.225), -1.5708);
+        this.addModule('BAR_CORNER_LEFT', new THREE.Vector3(-2.725, 0, -5.45), -1.5708);
 
-        // Bok 2 (wschodni - bok prawy)
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(D, 0, 0), Math.PI / 2);
-        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(D, 0, -D), Math.PI / 2);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(2.725, 0, -1.225), 1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(2.725, 0, -2.725), 1.5708);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(2.725, 0, -4.225), 1.5708);
+        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(2.725, 0, -5.45), 1.5708);
 
-        // Bok 3 (południowy - tył)
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0, 0, -D), Math.PI);
-        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(-D, 0, -D), Math.PI);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-1.5, 0, -5.45), 3.1416);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(0, 0, -5.45), 3.1416);
+        this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.5, 0, -5.45), 3.1416);
 
-        // Bok 4 (zachodni - bok lewy)
-        this.addModule('BAR_STRAIGHT', new THREE.Vector3(-D, 0, 0), -Math.PI / 2);
-        this.addModule('BAR_CORNER_RIGHT', new THREE.Vector3(-D, 0, D), -Math.PI / 2);
-
-        // Centrum: 2 regały i 2 lodówki tworzące wyspę techniczną
-        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, 0.4), 0);
-        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -0.4), Math.PI);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(-0.4, 0, 0), -Math.PI / 2);
-        this.addModule('BACK_FRIDGE', new THREE.Vector3(0.4, 0, 0), Math.PI / 2);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -1.5), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(1.0625, 0, -2.625), 1.5708);
+        this.addModule('BACK_SHELF', new THREE.Vector3(-1.0625, 0, -2.625), 4.7124);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -3.75), 3.1416);
     }
 }

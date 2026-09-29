@@ -1,0 +1,164 @@
+{
+  "app": "ArtbarConfigurator",
+  "version": "1.0",
+  "savedAt": "2026-09-28T19:58:11.322Z",
+  "brandingDataUrl": null,
+  "brandingSettings": {
+    "background": {
+      "enabled": false,
+      "url": null,
+      "presetId": null,
+      "mode": "chain",
+      "spanModules": 5,
+      "shelfSpanModules": 3,
+      "aiMetadata": null
+    },
+    "textureTuning": {
+      "BAR_CORNER_LEFT": {
+        "offsetU": 0,
+        "repeatU": 1,
+        "flipU": false,
+        "offsetV": 0
+      },
+      "BAR_CORNER_RIGHT": {
+        "offsetU": 0,
+        "repeatU": 1,
+        "flipU": false,
+        "offsetV": 0
+      },
+      "BAR_STRAIGHT": {
+        "offsetU": 0,
+        "repeatU": 1,
+        "flipU": false,
+        "offsetV": 0
+      },
+      "BACK_SHELF": {
+        "offsetU": 0,
+        "repeatU": 1,
+        "flipU": false,
+        "offsetV": 0
+      }
+    },
+    "logo": {
+      "baseWidth": 1.2,
+      "baseHeight": 0.45,
+      "scaleMultiplier": 1,
+      "offsetY": 0.55,
+      "lockAspect": true,
+      "naturalAspect": 2.6666666666666665,
+      "enabled": false
+    }
+  },
+  "ledSettings": {
+    "enabled": true,
+    "color": "#FACB7D",
+    "intensity": 2.5,
+    "offAppearance": "invisible"
+  },
+  "modules": [
+    {
+      "id": "mod_1790625455374_524",
+      "modelKey": "BAR_STRAIGHT",
+      "position": {
+        "x": -2.25,
+        "y": 0,
+        "z": 0
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625455374_62",
+      "modelKey": "BAR_STRAIGHT",
+      "position": {
+        "x": -0.75,
+        "y": 0,
+        "z": 0
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625455374_501",
+      "modelKey": "BAR_STRAIGHT",
+      "position": {
+        "x": 0.75,
+        "y": 0,
+        "z": 0
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625455374_248",
+      "modelKey": "BAR_STRAIGHT",
+      "position": {
+        "x": 2.25,
+        "y": 0,
+        "z": 0
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625455374_286",
+      "modelKey": "BACK_SHELF",
+      "position": {
+        "x": -1.75,
+        "y": 0,
+        "z": -1.35
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625455375_430",
+      "modelKey": "BACK_FRIDGE",
+      "position": {
+        "x": -0.5,
+        "y": 0,
+        "z": -1.35
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625471151_602",
+      "modelKey": "BACK_SHELF",
+      "position": {
+        "x": 0.75,
+        "y": 0,
+        "z": -1.35
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625475525_501",
+      "modelKey": "BACK_FRIDGE",
+      "position": {
+        "x": 2,
+        "y": 0,
+        "z": -1.35
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625478217_364",
+      "modelKey": "BACK_SHELF",
+      "position": {
+        "x": 3.25,
+        "y": 0,
+        "z": -1.35
+      },
+      "rotationY": 0
+    },
+    {
+      "id": "mod_1790625481007_465",
+      "modelKey": "BAR_STRAIGHT",
+      "position": {
+        "x": 3.75,
+        "y": 0,
+        "z": 0
+      },
+      "rotationY": 0
+    }
+  ],
+  "floorSettings": {
+    "roughness": 0.5,
+    "metalness": 0.2
+  }
+}
