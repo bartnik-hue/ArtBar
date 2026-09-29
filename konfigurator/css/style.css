@@ -58,20 +58,34 @@ body, html {
     touch-action: none;
 }
 
-/* TOP HEADER */
-.top-header {
+/* GŁÓWNY KONTENER NAWIGACJI GÓRNEJ (PROPORCJA LOGO DO MENU, ZERO KOLIZJI) */
+.top-nav-bar {
     position: absolute;
-    top: clamp(8px, 1.8vh, 18px);
+    top: clamp(8px, 1.6vh, 18px);
     left: clamp(8px, 1.8vw, 24px);
+    right: clamp(8px, 1.8vw, 24px);
     z-index: 25;
     display: flex;
     align-items: center;
-    gap: clamp(8px, 1.2vw, 14px);
+    justify-content: space-between;
+    gap: clamp(8px, 1.2vw, 18px);
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+/* TOP HEADER (BRANDING & WYBÓR JĘZYKA) */
+.top-header {
+    pointer-events: auto;
+    position: relative;
+    z-index: 26;
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 0.9vw, 14px);
     background: var(--bg-panel);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--bg-panel-border);
-    padding: clamp(6px, 1vh, 10px) clamp(10px, 1.4vw, 20px);
+    padding: clamp(5px, 0.7vh, 10px) clamp(8px, 1.1vw, 18px);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-main);
     max-width: fit-content;
@@ -86,9 +100,9 @@ body, html {
 }
 
 .brand-logo-img {
-    height: clamp(24px, 2.8vw, 36px);
+    height: clamp(20px, 2.2vw, 34px);
     width: auto;
-    max-width: clamp(100px, 13vw, 160px);
+    max-width: clamp(90px, 10vw, 155px);
     object-fit: contain;
     display: block;
     filter: brightness(110%) drop-shadow(0 0 12px rgba(250, 203, 125, 0.35));
@@ -117,9 +131,9 @@ body, html {
 
 .header-divider {
     width: 1px;
-    height: 24px;
+    height: clamp(16px, 1.8vh, 24px);
     background: linear-gradient(to bottom, transparent, rgba(250, 203, 125, 0.4), transparent);
-    margin: 0 2px;
+    margin: 0 1px;
     flex-shrink: 0;
 }
 
@@ -202,16 +216,29 @@ body, html {
     color: var(--text-main);
 }
 
-/* FLOATING TOP-RIGHT TOOLBAR */
+/* FLOATING TOP-RIGHT TOOLBAR (SKALUJE SIĘ PŁYNNIE W STOSUNKU DO SZEROKOŚCI EKRANU) */
 .top-actions {
-    position: absolute;
-    top: clamp(8px, 1.8vh, 16px);
-    right: clamp(8px, 1.8vw, 20px);
-    z-index: 20;
+    pointer-events: auto;
+    position: relative;
+    z-index: 26;
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
-    gap: 8px;
-    align-items: stretch;
-    max-width: calc(100vw - clamp(260px, 26vw, 360px));
+    justify-content: flex-end;
+    align-items: center;
+    gap: clamp(3px, 0.45vw, 8px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 2px 0;
+}
+
+.top-actions::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .top-actions .btn-tool {
@@ -219,19 +246,34 @@ body, html {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-width: 76px;
-    min-height: 74px;
-    padding: 8px 10px;
-    gap: 6px;
+    flex: 0 1 auto;
+    min-width: clamp(48px, 4.4vw, 76px);
+    max-width: clamp(68px, 6vw, 92px);
+    height: clamp(48px, 4.5vw, 74px);
+    padding: clamp(4px, 0.4vh, 8px) clamp(3px, 0.35vw, 8px);
+    gap: clamp(2px, 0.3vw, 5px);
     border-radius: var(--radius-md);
-    font-size: 0.74rem;
-    line-height: 1.2;
+    font-size: clamp(0.58rem, 0.58vw, 0.74rem);
+    line-height: 1.15;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .top-actions .btn-tool svg {
-    width: 26px;
-    height: 26px;
+    width: clamp(16px, 1.4vw, 24px);
+    height: clamp(16px, 1.4vw, 24px);
     flex-shrink: 0;
+}
+
+.top-actions .btn-tool .btn-tool-txt {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    word-break: break-word;
+    line-height: 1.15;
 }
 
 .btn-tool {
@@ -1813,64 +1855,28 @@ body, html {
    RESPONSYWNOŚĆ (LAPTOPY, TABLETY, SMARTFONY)
    ========================================================================== */
 
-/* 1. MAŁE LAPTOPY I ŚREDNIE OKNA (Szerokość <= 1280px) */
-@media (max-width: 1280px) {
-    .top-header {
-        gap: 12px;
-        padding: 6px 14px;
-    }
+/* ==========================================================================
+   RESPONSYWNOŚĆ (LAPTOPY, TABLETY, SMARTFONY)
+   ========================================================================== */
 
-    .brand-logo-img {
-        height: 28px;
-        max-width: 130px;
-    }
-
-    .top-actions {
-        top: 10px;
-        right: 12px;
-        gap: 6px;
-        max-width: calc(100vw - 310px);
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding: 2px 0;
-    }
-
-    .top-actions::-webkit-scrollbar {
-        display: none;
-    }
-
-    .top-actions .btn-tool {
-        flex-direction: row;
-        align-items: center;
-        min-width: auto;
-        min-height: 38px;
-        height: 38px;
-        padding: 5px 11px;
-        font-size: 0.72rem;
-        gap: 6px;
-        flex-shrink: 0;
-        white-space: nowrap;
-    }
-
-    .top-actions .btn-tool svg {
-        width: 18px;
-        height: 18px;
-        margin-bottom: 0;
-    }
-}
-
-/* 2. TABLETY I ZWĘŻONE OKNA (Szerokość <= 1024px) */
-@media (max-width: 1024px) {
-    .top-header {
+/* 1. TABLETY I ZWĘŻONE OKNA (Szerokość <= 900px) */
+@media (max-width: 900px) {
+    .top-nav-bar {
         top: 8px;
-        left: 10px;
+        left: 8px;
+        right: 8px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        max-width: calc(100vw - 16px);
+    }
+
+    .top-header {
+        align-self: flex-start;
         height: 38px;
         padding: 4px 12px;
         border-radius: var(--radius-sm);
         gap: 10px;
-        z-index: 35;
     }
 
     .brand-logo-img {
@@ -1883,10 +1889,7 @@ body, html {
         letter-spacing: 1.2px;
     }
 
-    .brand-subtitle {
-        display: none;
-    }
-
+    .brand-subtitle,
     .stats-bar {
         display: none;
     }
@@ -1906,17 +1909,10 @@ body, html {
         padding: 4px 9px;
     }
 
-    /* Pasek narzędzi przeskakuje pod header do osobnego rzędu - zero kolizji! */
+    /* Pasek narzędzi w osobnym rzędzie - zero kolizji! */
     .top-actions {
-        top: 52px;
-        left: 10px;
-        right: 10px;
-        width: auto;
-        max-width: calc(100vw - 20px);
+        width: 100%;
         height: 38px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
         justify-content: flex-start;
         overflow-x: auto;
         overflow-y: hidden;
@@ -1924,7 +1920,6 @@ body, html {
         scrollbar-width: none;
         padding: 2px 2px;
         gap: 6px;
-        z-index: 30;
     }
 
     .top-actions::-webkit-scrollbar {
@@ -1935,6 +1930,7 @@ body, html {
         flex-direction: row;
         align-items: center;
         min-width: auto;
+        max-width: none;
         min-height: 36px;
         height: 36px;
         padding: 4px 10px;
@@ -1948,6 +1944,12 @@ body, html {
         width: 18px;
         height: 18px;
         margin-bottom: 0;
+    }
+
+    .top-actions .btn-tool .btn-tool-txt {
+        display: inline;
+        -webkit-line-clamp: unset;
+        white-space: nowrap;
     }
 
     .bottom-controls {
@@ -1981,31 +1983,32 @@ body, html {
     }
 }
 
-/* 3. SMARTFONY (Szerokość <= 768px) */
+/* 2. SMARTFONY (Szerokość <= 768px - "PRZEWIJANE MENU") */
 @media (max-width: 768px) {
-    /* Kompaktowe logo ARTBAR i język u góry */
-    .top-header {
+    /* Kompaktowe logo ARTBAR i język u góry w rzędzie 1 */
+    .top-nav-bar {
         top: 6px;
         left: 6px;
+        right: 6px;
+        gap: 6px;
+        max-width: calc(100vw - 12px);
+    }
+
+    .top-header {
         height: 34px;
         padding: 3px 8px;
         border-radius: 8px;
         gap: 8px;
-        z-index: 35;
     }
 
     .brand-logo-img {
         height: 20px;
-        max-width: 105px;
+        max-width: 100px;
     }
 
     .brand-title {
         font-size: 0.85rem;
         letter-spacing: 1.2px;
-    }
-
-    .brand-subtitle {
-        display: none;
     }
 
     .lang-switch-config {
@@ -2020,25 +2023,17 @@ body, html {
         letter-spacing: 0.08em;
     }
 
-    /* Pasek narzędzi u góry: kompaktowa wstęga w drugim rzędzie */
+    /* Pasek narzędzi w rzędzie 2: eleganckie przewijane menu poziome */
     .top-actions {
-        top: 46px;
-        left: 6px;
-        right: 6px;
-        width: auto;
-        max-width: calc(100vw - 12px);
         height: 36px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        gap: 5px;
+        padding: 2px 2px;
+        width: 100%;
         justify-content: flex-start;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        padding: 2px 2px;
-        gap: 5px;
-        z-index: 30;
     }
 
     .top-actions::-webkit-scrollbar {
@@ -2051,6 +2046,7 @@ body, html {
         justify-content: center;
         flex-shrink: 0;
         min-width: auto;
+        max-width: none;
         min-height: 32px;
         height: 32px;
         padding: 4px 8px;
@@ -2068,12 +2064,12 @@ body, html {
         flex-shrink: 0;
     }
 
-    /* Krótkie napisy na przyciskach dla oszczędności miejsca */
-    .btn-tool-txt {
+    /* Krótkie napisy na przyciskach dla oszczędności miejsca (attr data-short) */
+    .top-actions .btn-tool .btn-tool-txt {
         display: none;
     }
 
-    .btn-tool::after {
+    .top-actions .btn-tool::after {
         content: attr(data-short);
         font-weight: 600;
         letter-spacing: 0.2px;
@@ -2395,15 +2391,25 @@ body, html {
 
 /* 4. TRYB HORYZONTALNY NA SMARTFONIE (Landscape z małą wysokością) */
 @media (max-height: 500px) and (orientation: landscape) {
-    .top-header {
+    .top-nav-bar {
         top: 6px;
         left: 8px;
+        right: 8px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        max-width: calc(100vw - 16px);
+    }
+
+    .top-header {
         height: 30px;
         padding: 3px 8px;
     }
 
     .brand-logo-img {
         height: 20px;
+        max-width: 90px;
     }
 
     .brand-title {
@@ -2415,13 +2421,11 @@ body, html {
     }
 
     .top-actions {
-        top: 6px;
-        right: 8px;
-        left: auto;
-        max-width: calc(100vw - 120px);
+        width: auto;
         height: 30px;
         padding: 0;
         gap: 4px;
+        overflow-x: auto;
     }
 
     .top-actions .btn-tool {
