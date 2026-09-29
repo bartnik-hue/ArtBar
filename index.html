@@ -483,23 +483,11 @@
           </div>
         </div>
 
-        <!-- Prawa kolumna: Wizualny akcent ze zdjęciem i odznakami (5 kolumn) -->
+        <!-- Prawa kolumna: Czysty pokaz zdjęć z realizacji (Slideshow) -->
         <div class="lg:col-span-5 relative">
-          <div class="relative rounded-2xl overflow-hidden border border-[#FACB7D]/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] aspect-[4/3] sm:aspect-[16/11]">
-            <img src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="ArtBar Strefa Barowa" class="w-full h-full object-cover filter brightness-90 contrast-105">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-
-            <!-- Nałożony badge informacyjny na dole zdjęcia -->
-            <div class="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-[#080808]/90 backdrop-blur-md border border-[#FACB7D]/25">
-              <div class="flex items-center justify-between text-xs">
-                <span class="text-[#FACB7D] font-bold font-serif-luxury tracking-wide">Art Bar Sp. z o.o.</span>
-                <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Koncesja ABC & POS Live
-                </span>
-              </div>
-              <p class="text-[11px] text-[#f5efe6]/70 mt-1 font-light">Warszawa · Realizacje w całej Polsce</p>
-            </div>
+          <div id="about-slideshow-container" class="relative rounded-2xl overflow-hidden border border-[#FACB7D]/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] aspect-[4/3] sm:aspect-[16/11] bg-black group cursor-pointer" title="Kliknij, aby otworzyć galerię">
+            <img id="about-slideshow-img-1" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="ArtBar Strefa Barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 scale-100 group-hover:scale-105 filter brightness-95">
+            <img id="about-slideshow-img-2" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="ArtBar Strefa Barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 scale-100 group-hover:scale-105 filter brightness-95">
           </div>
 
           <!-- Element dekoracyjny pod zdjęciem -->
@@ -1887,6 +1875,62 @@
       setTimeout(() => advanceCardSlideshow('bar'), 650);
       setTimeout(() => advanceCardSlideshow('solutions'), 1300);
     }, 4000);
+
+    // ── AUTOMATYCZNY SLIDESHOW W SEKCJI O NAS (CO 4 SEKUNDY) ───────────────────
+    const aboutPhotos = [
+      { url: 'assets/images/2024.12.31-Art-Bar-73-2.jpg', galleryIndex: 20 },
+      { url: 'assets/images/2024.12.31-Art-Bar-28-1.jpg', galleryIndex: 0 },
+      { url: 'assets/images/2024.12.31-Art-Bar-46-1.jpg', galleryIndex: 15 },
+      { url: 'assets/images/2024.12.31-Art-Bar-26-768x512.jpg', galleryIndex: 21 },
+      { url: 'assets/images/2024.12.31-Art-Bar-89.jpg', galleryIndex: 16 },
+      { url: 'assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg', galleryIndex: 17 }
+    ];
+    let aboutSlideIdx = 0;
+    let aboutSlideSlot = 1;
+
+    function advanceAboutSlideshow() {
+      if (!aboutPhotos || aboutPhotos.length <= 1) return;
+      aboutSlideIdx = (aboutSlideIdx + 1) % aboutPhotos.length;
+      const nextSlide = aboutPhotos[aboutSlideIdx];
+
+      const img1 = document.getElementById('about-slideshow-img-1');
+      const img2 = document.getElementById('about-slideshow-img-2');
+      if (!img1 || !img2) return;
+
+      if (aboutSlideSlot === 1) {
+        img2.src = nextSlide.url;
+        img2.classList.remove('opacity-0');
+        img2.classList.add('opacity-100');
+        img1.classList.remove('opacity-100');
+        img1.classList.add('opacity-0');
+        aboutSlideSlot = 2;
+      } else {
+        img1.src = nextSlide.url;
+        img1.classList.remove('opacity-0');
+        img1.classList.add('opacity-100');
+        img2.classList.remove('opacity-100');
+        img2.classList.add('opacity-0');
+        aboutSlideSlot = 1;
+      }
+    }
+
+    let aboutSlideshowInterval = setInterval(advanceAboutSlideshow, 4000);
+
+    const aboutContainer = document.getElementById('about-slideshow-container');
+    if (aboutContainer) {
+      aboutContainer.addEventListener('click', () => {
+        if (typeof openGallery === 'function' && aboutPhotos[aboutSlideIdx]) {
+          openGallery(aboutPhotos[aboutSlideIdx].galleryIndex || 0);
+        }
+      });
+      aboutContainer.addEventListener('mouseenter', () => {
+        clearInterval(aboutSlideshowInterval);
+      });
+      aboutContainer.addEventListener('mouseleave', () => {
+        clearInterval(aboutSlideshowInterval);
+        aboutSlideshowInterval = setInterval(advanceAboutSlideshow, 4000);
+      });
+    }
   </script>
 
 </body>
