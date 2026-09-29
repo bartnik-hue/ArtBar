@@ -216,22 +216,21 @@ body, html {
     color: var(--text-main);
 }
 
-/* FLOATING TOP-RIGHT TOOLBAR (SKALUJE SIĘ PŁYNNIE W STOSUNKU DO SZEROKOŚCI EKRANU) */
-/* FLOATING TOP-RIGHT TOOLBAR (DWURZĘDOWY UKŁAD: ZERO SCROLLOWANIA NA KOMPUTERZE) */
+/* FLOATING TOP-RIGHT TOOLBAR */
+/* DOMYŚLNIE (SZEROKIE EKRANY > 1350px): 1 RZĄD ELEGANCKICH KAFELKÓW */
 .top-actions {
     pointer-events: auto;
     position: relative;
     z-index: 26;
     flex: 0 1 auto;
     min-width: 0;
-    display: grid;
-    grid-template-columns: repeat(5, auto);
-    gap: clamp(3px, 0.4vw, 6px);
-    align-items: center;
-    justify-content: end;
+    display: flex;
+    flex-direction: row;
+    gap: clamp(4px, 0.45vw, 8px);
+    align-items: stretch;
+    justify-content: flex-end;
     overflow-x: auto;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 2px 0;
@@ -244,33 +243,39 @@ body, html {
 }
 
 .top-actions .btn-tool {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    min-width: auto;
-    max-width: none;
-    height: clamp(32px, 3.4vh, 36px);
-    min-height: 32px;
-    padding: clamp(3px, 0.4vh, 5px) clamp(8px, 0.6vw, 12px);
-    gap: clamp(4px, 0.4vw, 7px);
-    border-radius: var(--radius-sm);
-    font-size: clamp(0.68rem, 0.68vw, 0.74rem);
-    white-space: nowrap;
+    align-items: center;
+    text-align: center;
+    flex: 0 1 auto;
+    min-width: clamp(56px, 4.4vw, 76px);
+    max-width: clamp(72px, 5.8vw, 92px);
+    height: clamp(54px, 4.5vw, 72px);
+    padding: clamp(4px, 0.4vh, 7px) clamp(4px, 0.35vw, 8px);
+    gap: clamp(2px, 0.3vw, 5px);
+    border-radius: var(--radius-md);
+    font-size: clamp(0.60rem, 0.60vw, 0.74rem);
+    line-height: 1.15;
+    flex-shrink: 0;
     box-sizing: border-box;
 }
 
 .top-actions .btn-tool svg {
-    width: clamp(15px, 1.1vw, 18px);
-    height: clamp(15px, 1.1vw, 18px);
+    width: clamp(16px, 1.4vw, 24px);
+    height: clamp(16px, 1.4vw, 24px);
     margin-bottom: 0;
     flex-shrink: 0;
 }
 
 .top-actions .btn-tool .btn-tool-txt {
-    display: inline;
-    white-space: nowrap;
-    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    word-break: break-word;
+    line-height: 1.15;
 }
 
 .btn-tool {
@@ -1845,18 +1850,53 @@ body, html {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (TABLETS & SMARTPHONES)
-   ========================================================================== */
-
-/* ==========================================================================
    RESPONSYWNOŚĆ (LAPTOPY, TABLETY, SMARTFONY)
    ========================================================================== */
 
-/* ==========================================================================
-   RESPONSYWNOŚĆ (LAPTOPY, TABLETY, SMARTFONY)
-   ========================================================================== */
+/* 1. KIEDY MENU NIE MIEŚCI SIĘ W 1 RZĘDZIE (Szerokość <= 1350px): MENU W DWÓCH RZĘDACH (5x2) */
+@media (max-width: 1350px) {
+    .top-actions {
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        gap: 5px;
+        align-items: center;
+        justify-content: end;
+        overflow-x: auto;
+    }
 
-/* 1. TABLETY I ZWĘŻONE OKNA (Szerokość <= 900px) */
+    .top-actions .btn-tool {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-width: auto;
+        max-width: none;
+        height: 34px;
+        min-height: 34px;
+        padding: 4px 9px;
+        gap: 6px;
+        border-radius: var(--radius-sm);
+        font-size: 0.70rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .top-actions .btn-tool svg {
+        width: 16px;
+        height: 16px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .top-actions .btn-tool .btn-tool-txt {
+        display: inline;
+        -webkit-line-clamp: unset;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+}
+
+/* 2. TABLETY I ZWĘŻONE OKNA (Szerokość <= 900px) */
 @media (max-width: 900px) {
     .top-nav-bar {
         top: 8px;
