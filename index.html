@@ -365,9 +365,6 @@
       width: clamp(6px, 0.2vw + 4px, 14px) !important;
       height: clamp(6px, 0.2vw + 4px, 14px) !important;
     }
-    .modal-services-spec-label {
-      font-size: clamp(0.7rem, 0.35vw + 0.55rem, 1.35rem) !important;
-    }
 
     /* Siatka kafelków usług */
     #modal-services-container {
@@ -697,6 +694,135 @@
   </section>
 
   <!-- ══════════════════════════════════════════════
+       OFERTA: TRZY FILARY (ART / BAR / SOLUTIONS)
+  ══════════════════════════════════════════════ -->
+  <section id="oferta" class="py-24 bg-[#030303] relative overflow-hidden border-b border-[#FACB7D]/10">
+    <!-- Subtelna poświata w tle -->
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-[#FACB7D]/5 blur-[120px] pointer-events-none -top-40 -left-40"></div>
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-[#FACB7D]/5 blur-[120px] pointer-events-none -bottom-20 -right-20"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Nagłówek sekcji z motywem kwadracika z logo -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-4">
+          <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+          <span>Kompleksowy Ekosystem Eventowy</span>
+        </div>
+        <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight mb-4">
+          ARTBAR & <span class="gold-gradient-text">SOLUTIONS</span>
+        </h2>
+        <div class="gold-divider w-48 mx-auto my-6"></div>
+        <p class="text-sm sm:text-base text-[#f5efe6]/70 font-light leading-relaxed">
+          Wzorując się na strukturze naszej oferty, łączymy trzy nierozerwalne filary: kreację artystyczną (<span class="text-[#FACB7D] font-medium">art</span>), modułową infrastrukturę barową (<span class="text-[#FACB7D] font-medium">bar</span>) oraz zaawansowane systemy technologiczno-operacyjne (<span class="text-[#FACB7D] font-medium">SOLUTIONS</span>). Kliknij dowolny filar, aby rozwinąć ramkę ze szczegółowym wykazem usług i dedykowanym slideshowem z realizacji.
+        </p>
+      </div>
+
+      <!-- TRZY KARTY WYBORU FILARÓW (GŁÓWNY SELEKTOR) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" id="offer-category-cards">
+        
+        <!-- KARTA 1: ART -->
+        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="art">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">art</span>
+            </div>
+            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
+              <img id="card-clean-img-art-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art kreacja wizualna" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
+              <img id="card-clean-img-art-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art kreacja wizualna" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
+                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Kreacja Wizualna & Scenografia</span>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              Kompleksowy projekt, identyfikacja wizualna stref, unikalny branding, dekoracje personalizowane, oświetlenie i artystyczny performance.
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
+            <span>Czytaj więcej</span>
+            <span class="text-sm">↗</span>
+          </button>
+        </div>
+
+        <!-- KARTA 2: BAR -->
+        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="bar">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">bar</span>
+            </div>
+            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
+              <img id="card-clean-img-bar-1" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Infrastruktura barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
+              <img id="card-clean-img-bar-2" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Infrastruktura barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
+                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Infrastruktura Stref Barowych</span>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              Wynajem modułowych barów na imprezy masowe, zaplecza z regałami LED, lodówki gastronomiczne, pełna logistyka i koncesja ABC.
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
+            <span>Czytaj więcej</span>
+            <span class="text-sm">↗</span>
+          </button>
+        </div>
+
+        <!-- KARTA 3: SOLUTIONS -->
+        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="solutions">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">SOLUTIONS</span>
+            </div>
+            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
+              <img id="card-clean-img-solutions-1" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="System ArtPOS" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
+              <img id="card-clean-img-solutions-2" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="System ArtPOS" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
+                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Systemy POS & Operacje</span>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              Autorski system ArtPOS (dane w czasie rzeczywistym), terminale i karty RFID, fabryka lodu Hoshizaki, eco kubki kaucyjne i kontroling.
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
+            <span>Czytaj więcej</span>
+            <span class="text-sm">↗</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- PRZYCISKI DO POBRANIA OFERT PDF -->
+      <div class="mt-12 p-6 obsidian-card rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6 border-dashed border-[#FACB7D]/30">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D]">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          </div>
+          <div>
+            <div class="font-serif-luxury text-sm font-bold text-white">Chcesz poznać pełny cennik i katalog rozwiązań?</div>
+            <div class="text-xs text-[#f5efe6]/60">Pobierz oficjalną ofertę PDF przygotowaną dla organizatorów wydarzeń.</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://artbar.com.pl/wp-content/uploads/2025/12/artbar_solution_oferta_v5_compr.pdf" target="_blank" class="glass-gold-btn px-5 py-2.5 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
+            Oferta Kompleksowa (PDF)
+          </a>
+          <a href="https://artbar.com.pl/wp-content/uploads/2025/12/artbart_artpos_oferta_v3_compr.pdf" target="_blank" class="glass-gold-btn px-5 py-2.5 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
+            Oferta ArtPOS (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
        SEKCJA SPECJALNA: INTERAKTYWNY KONFIGURATOR 3D
   ══════════════════════════════════════════════ -->
   <section id="konfigurator-section" class="py-24 relative bg-gradient-to-b from-[#030303] via-[#090704] to-[#030303] overflow-hidden">
@@ -836,135 +962,6 @@
 
     </div>
 
-  </section>
-
-  <!-- ══════════════════════════════════════════════
-       OFERTA: TRZY FILARY (ART / BAR / SOLUTIONS)
-  ══════════════════════════════════════════════ -->
-  <section id="oferta" class="py-24 bg-[#030303] relative overflow-hidden">
-    <!-- Subtelna poświata w tle -->
-    <div class="absolute w-[600px] h-[600px] rounded-full bg-[#FACB7D]/5 blur-[120px] pointer-events-none -top-40 -left-40"></div>
-    <div class="absolute w-[500px] h-[500px] rounded-full bg-[#FACB7D]/5 blur-[120px] pointer-events-none -bottom-20 -right-20"></div>
-
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      
-      <!-- Nagłówek sekcji z motywem kwadracika z logo -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-4">
-          <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-          <span>Kompleksowy Ekosystem Eventowy</span>
-        </div>
-        <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight mb-4">
-          ARTBAR & <span class="gold-gradient-text">SOLUTIONS</span>
-        </h2>
-        <div class="gold-divider w-48 mx-auto my-6"></div>
-        <p class="text-sm sm:text-base text-[#f5efe6]/70 font-light leading-relaxed">
-          Wzorując się na strukturze naszej oferty, łączymy trzy nierozerwalne filary: kreację artystyczną (<span class="text-[#FACB7D] font-medium">art</span>), modułową infrastrukturę barową (<span class="text-[#FACB7D] font-medium">bar</span>) oraz zaawansowane systemy technologiczno-operacyjne (<span class="text-[#FACB7D] font-medium">SOLUTIONS</span>). Kliknij dowolny filar, aby rozwinąć ramkę ze szczegółowym wykazem usług i dedykowanym slideshowem z realizacji.
-        </p>
-      </div>
-
-      <!-- TRZY KARTY WYBORU FILARÓW (GŁÓWNY SELEKTOR) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" id="offer-category-cards">
-        
-        <!-- KARTA 1: ART -->
-        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="art">
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">art</span>
-            </div>
-            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
-              <img id="card-clean-img-art-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art kreacja wizualna" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
-              <img id="card-clean-img-art-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art kreacja wizualna" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>Kreacja Wizualna & Scenografia</span>
-              </div>
-            </div>
-            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
-              Kompleksowy projekt, identyfikacja wizualna stref, unikalny branding, dekoracje personalizowane, oświetlenie i artystyczny performance.
-            </p>
-          </div>
-          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Czytaj więcej</span>
-            <span class="text-sm">↗</span>
-          </button>
-        </div>
-
-        <!-- KARTA 2: BAR -->
-        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="bar">
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">bar</span>
-            </div>
-            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
-              <img id="card-clean-img-bar-1" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Infrastruktura barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
-              <img id="card-clean-img-bar-2" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Infrastruktura barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>Infrastruktura Stref Barowych</span>
-              </div>
-            </div>
-            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
-              Wynajem modułowych barów na imprezy masowe, zaplecza z regałami LED, lodówki gastronomiczne, pełna logistyka i koncesja ABC.
-            </p>
-          </div>
-          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Czytaj więcej</span>
-            <span class="text-sm">↗</span>
-          </button>
-        </div>
-
-        <!-- KARTA 3: SOLUTIONS -->
-        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="solutions">
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">SOLUTIONS</span>
-            </div>
-            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
-              <img id="card-clean-img-solutions-1" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="System ArtPOS" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
-              <img id="card-clean-img-solutions-2" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="System ArtPOS" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>Systemy POS & Operacje</span>
-              </div>
-            </div>
-            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
-              Autorski system ArtPOS (dane w czasie rzeczywistym), terminale i karty RFID, fabryka lodu Hoshizaki, eco kubki kaucyjne i kontroling.
-            </p>
-          </div>
-          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Czytaj więcej</span>
-            <span class="text-sm">↗</span>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- PRZYCISKI DO POBRANIA OFERT PDF -->
-      <div class="mt-12 p-6 obsidian-card rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6 border-dashed border-[#FACB7D]/30">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D]">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          </div>
-          <div>
-            <div class="font-serif-luxury text-sm font-bold text-white">Chcesz poznać pełny cennik i katalog rozwiązań?</div>
-            <div class="text-xs text-[#f5efe6]/60">Pobierz oficjalną ofertę PDF przygotowaną dla organizatorów wydarzeń.</div>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://artbar.com.pl/wp-content/uploads/2025/12/artbar_solution_oferta_v5_compr.pdf" target="_blank" class="glass-gold-btn px-5 py-2.5 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
-            Oferta Kompleksowa (PDF)
-          </a>
-          <a href="https://artbar.com.pl/wp-content/uploads/2025/12/artbart_artpos_oferta_v3_compr.pdf" target="_blank" class="glass-gold-btn px-5 py-2.5 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
-            Oferta ArtPOS (PDF)
-          </a>
-        </div>
-      </div>
-
-    </div>
   </section>
 
   <!-- ══════════════════════════════════════════════
@@ -1308,7 +1305,6 @@
               <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
               <span>Zakres usług i możliwości</span>
             </h4>
-            <span class="modal-services-spec-label text-[#f5efe6]/40 font-mono hidden sm:inline">Specyfikacja techniczna</span>
           </div>
 
           <!-- Kontener siatki usług -->
