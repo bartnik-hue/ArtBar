@@ -271,14 +271,16 @@
        PERFEKCYJNE SKALOWANIE TEKSTÓW, IKON I ZAWARTOŚCI OD HD DO 4K ULTRA HD
        ══════════════════════════════════════════════════════════ */
     #offer-modal {
-      padding: clamp(8px, 1.6vw, 36px) !important;
+      z-index: 9999 !important;
+      padding: clamp(12px, 1.8vw, 36px) !important;
     }
 
     #offer-modal-card {
       width: clamp(94vw, 96vw, 98vw) !important;
       max-width: clamp(1200px, 94vw, 3600px) !important;
-      height: clamp(90vh, 94vh, 96vh) !important;
-      max-height: 96vh !important;
+      height: clamp(86vh, 90vh, 94vh) !important;
+      max-height: 94vh !important;
+      margin: auto !important;
       border-radius: clamp(14px, 1vw + 10px, 36px) !important;
     }
 
@@ -941,88 +943,6 @@
 
       </div>
 
-      <!-- ══════════════════════════════════════════════
-           WYSKAKUJĄCA RAMKA / MODAL OFERTY (ARTBAR & SOLUTIONS)
-      ══════════════════════════════════════════════ -->
-      <div id="offer-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/85 backdrop-blur-md transition-all duration-300">
-        <!-- Tło zamykające po kliknięciu poza oknem -->
-        <div id="offer-modal-backdrop" class="absolute inset-0 bg-transparent cursor-pointer"></div>
-
-        <!-- Wyskakujące okno ramki dopasowane do pełnego ekranu i 4K -->
-        <div id="offer-modal-card" class="relative z-10 flex flex-col obsidian-card rounded-2xl border border-[#FACB7D]/40 shadow-[0_0_80px_rgba(0,0,0,0.95)] bg-[#070707] overflow-hidden transform transition-all duration-300 scale-95 opacity-0">
-          
-          <!-- Pasek nagłówkowy ramki (Sticky na górze okna) -->
-          <div id="offer-modal-header-bar" class="flex flex-wrap items-center justify-between gap-3 bg-[#0a0a0a] border-b border-[#FACB7D]/20 shrink-0">
-            <!-- Zakładki przełączania wewnątrz wyskakującej ramki -->
-            <div class="flex flex-wrap items-center gap-2 sm:gap-3" id="offer-modal-tabs">
-              <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer" data-tab="art">
-                <span class="w-1.5 h-1.5 bg-black rotate-45 inline-block"></span>
-                <span>art — Kreacja</span>
-              </button>
-              <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="bar">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>bar — Infrastruktura</span>
-              </button>
-              <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="solutions">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>SOLUTIONS — Technologia</span>
-              </button>
-            </div>
-
-            <!-- Przycisk zamknięcia modalnego [ × ] -->
-            <button id="btn-close-offer-modal" type="button" aria-label="Zamknij ramkę" class="rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#FACB7D] flex items-center justify-center hover:bg-[#FACB7D] hover:text-black transition-all cursor-pointer shadow-lg ml-auto">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-          </div>
-
-          <!-- Treść przewijana wewnątrz ramki -->
-          <div class="overflow-y-auto flex flex-col" id="offer-modal-scroll">
-            
-            <!-- GÓRNA SEKCJA: Filozofia kategorii + Czysty pokaz fotek z realizacji -->
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/5">
-              <div class="flex-1 min-w-0 pr-0 lg:pr-6">
-                <div class="flex items-center gap-2 font-semibold text-[#FACB7D] uppercase tracking-widest" id="modal-category-badge">
-                  <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
-                  <span>Kreacja Wizualna i Scenografia Wydarzenia</span>
-                </div>
-                <h3 class="font-serif-luxury font-bold text-[#f5efe6]" id="modal-category-title">
-                  Filozofia <span class="gold-gradient-text">art</span>: Sztuka Tworzenia Niezapomnianej Atmosfery
-                </h3>
-                <blockquote class="bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-[#f5efe6]/85 font-light leading-relaxed italic" id="modal-category-lead">
-                  "Tworzymy unikalne, spersonalizowane aranżacje, które nie tylko wzmacniają wizerunek marki, ale także budują atmosferę i angażują uczestników na każdym etapie wydarzenia."
-                </blockquote>
-              </div>
-
-              <!-- Czysty pokaz fotek z realizacji (same obrazy, cross-fade co 4 sekundy) -->
-              <div class="offer-modal-slideshow-wrap shrink-0">
-                <div id="modal-clean-slideshow" class="relative w-full h-full rounded-xl overflow-hidden shadow-2xl bg-black cursor-pointer group" title="Kliknij, aby powiększyć zdjęcie w pełnym Lightboxie">
-                  <img id="modal-clean-img-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Realizacja ArtBar" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 scale-100 group-hover:scale-105">
-                  <img id="modal-clean-img-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Realizacja ArtBar" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 scale-100 group-hover:scale-105">
-                </div>
-              </div>
-            </div>
-
-            <!-- DOLNA SEKCJA: ZAKRES USŁUG I MOŻLIWOŚCI -->
-            <div>
-              <div class="flex items-center justify-between mb-4 pb-2 border-b border-white/5">
-                <h4 class="modal-services-header-title font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2">
-                  <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
-                  <span>Zakres usług i możliwości</span>
-                </h4>
-                <span class="modal-services-spec-label text-[#f5efe6]/40 font-mono hidden sm:inline">Specyfikacja techniczna</span>
-              </div>
-
-              <!-- Kontener siatki usług -->
-              <div id="modal-services-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 2xl:gap-5">
-                <!-- Usługi wstrzykiwane przez JS -->
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
       <!-- PRZYCISKI DO POBRANIA OFERT PDF -->
       <div class="mt-12 p-6 obsidian-card rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6 border-dashed border-[#FACB7D]/30">
         <div class="flex items-center gap-4">
@@ -1321,9 +1241,91 @@
   </footer>
 
   <!-- ══════════════════════════════════════════════
+       WYSKAKUJĄCA RAMKA / MODAL OFERTY (ARTBAR & SOLUTIONS)
+  ══════════════════════════════════════════════ -->
+  <div id="offer-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/85 backdrop-blur-md transition-all duration-300">
+    <!-- Tło zamykające po kliknięciu poza oknem -->
+    <div id="offer-modal-backdrop" class="absolute inset-0 bg-transparent cursor-pointer"></div>
+
+    <!-- Wyskakujące okno ramki dopasowane do pełnego ekranu i 4K -->
+    <div id="offer-modal-card" class="relative z-10 flex flex-col obsidian-card rounded-2xl border border-[#FACB7D]/40 shadow-[0_0_80px_rgba(0,0,0,0.95)] bg-[#070707] overflow-hidden transform transition-all duration-300 scale-95 opacity-0">
+      
+      <!-- Pasek nagłówkowy ramki (Sticky na górze okna) -->
+      <div id="offer-modal-header-bar" class="flex flex-wrap items-center justify-between gap-3 bg-[#0a0a0a] border-b border-[#FACB7D]/20 shrink-0">
+        <!-- Zakładki przełączania wewnątrz wyskakującej ramki -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3" id="offer-modal-tabs">
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer" data-tab="art">
+            <span class="w-1.5 h-1.5 bg-black rotate-45 inline-block"></span>
+            <span>art — Kreacja</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="bar">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>bar — Infrastruktura</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="solutions">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>SOLUTIONS — Technologia</span>
+          </button>
+        </div>
+
+        <!-- Przycisk zamknięcia modalnego [ × ] -->
+        <button id="btn-close-offer-modal" type="button" aria-label="Zamknij ramkę" class="rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#FACB7D] flex items-center justify-center hover:bg-[#FACB7D] hover:text-black transition-all cursor-pointer shadow-lg ml-auto">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Treść przewijana wewnątrz ramki -->
+      <div class="overflow-y-auto flex flex-col" id="offer-modal-scroll">
+        
+        <!-- GÓRNA SEKCJA: Filozofia kategorii + Czysty pokaz fotek z realizacji -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/5">
+          <div class="flex-1 min-w-0 pr-0 lg:pr-6">
+            <div class="flex items-center gap-2 font-semibold text-[#FACB7D] uppercase tracking-widest" id="modal-category-badge">
+              <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
+              <span>Kreacja Wizualna i Scenografia Wydarzenia</span>
+            </div>
+            <h3 class="font-serif-luxury font-bold text-[#f5efe6]" id="modal-category-title">
+              Filozofia <span class="gold-gradient-text">art</span>: Sztuka Tworzenia Niezapomnianej Atmosfery
+            </h3>
+            <blockquote class="bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-[#f5efe6]/85 font-light leading-relaxed italic" id="modal-category-lead">
+              "Tworzymy unikalne, spersonalizowane aranżacje, które nie tylko wzmacniają wizerunek marki, ale także budują atmosferę i angażują uczestników na każdym etapie wydarzenia."
+            </blockquote>
+          </div>
+
+          <!-- Czysty pokaz fotek z realizacji (same obrazy, cross-fade co 4 sekundy) -->
+          <div class="offer-modal-slideshow-wrap shrink-0">
+            <div id="modal-clean-slideshow" class="relative w-full h-full rounded-xl overflow-hidden shadow-2xl bg-black cursor-pointer group" title="Kliknij, aby powiększyć zdjęcie w pełnym Lightboxie">
+              <img id="modal-clean-img-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Realizacja ArtBar" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 scale-100 group-hover:scale-105">
+              <img id="modal-clean-img-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Realizacja ArtBar" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 scale-100 group-hover:scale-105">
+            </div>
+          </div>
+        </div>
+
+        <!-- DOLNA SEKCJA: ZAKRES USŁUG I MOŻLIWOŚCI -->
+        <div>
+          <div class="flex items-center justify-between mb-4 pb-2 border-b border-white/5">
+            <h4 class="modal-services-header-title font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2">
+              <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
+              <span>Zakres usług i możliwości</span>
+            </h4>
+            <span class="modal-services-spec-label text-[#f5efe6]/40 font-mono hidden sm:inline">Specyfikacja techniczna</span>
+          </div>
+
+          <!-- Kontener siatki usług -->
+          <div id="modal-services-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 2xl:gap-5">
+            <!-- Usługi wstrzykiwane przez JS -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
        PEŁNOEKRANOWA GALERIA LIGHTBOX (OBSIDIAN GOLD)
   ══════════════════════════════════════════════ -->
-  <div id="gallery-lightbox" class="fixed inset-0 z-[100] hidden flex flex-col justify-between bg-[#030303]/98 backdrop-blur-2xl transition-all duration-300 select-none">
+  <div id="gallery-lightbox" class="fixed inset-0 z-[10000] hidden flex flex-col justify-between bg-[#030303]/98 backdrop-blur-2xl transition-all duration-300 select-none">
     
     <!-- GÓRNY PASEK KONTROLNY -->
     <div class="px-6 py-4 flex items-center justify-between border-b border-[#FACB7D]/15 bg-black/40">
