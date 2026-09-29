@@ -61,18 +61,22 @@ body, html {
 /* TOP HEADER */
 .top-header {
     position: absolute;
-    top: 20px;
-    left: 24px;
-    z-index: 10;
+    top: clamp(8px, 1.8vh, 18px);
+    left: clamp(8px, 1.8vw, 24px);
+    z-index: 25;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: clamp(8px, 1.2vw, 14px);
     background: var(--bg-panel);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--bg-panel-border);
-    padding: 10px 22px;
+    padding: clamp(6px, 1vh, 10px) clamp(10px, 1.4vw, 20px);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-main);
+    max-width: fit-content;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .brand-badge {
@@ -82,9 +86,9 @@ body, html {
 }
 
 .brand-logo-img {
-    height: 38px;
+    height: clamp(24px, 2.8vw, 36px);
     width: auto;
-    max-width: 180px;
+    max-width: clamp(100px, 13vw, 160px);
     object-fit: contain;
     display: block;
     filter: brightness(110%) drop-shadow(0 0 12px rgba(250, 203, 125, 0.35));
@@ -201,12 +205,13 @@ body, html {
 /* FLOATING TOP-RIGHT TOOLBAR */
 .top-actions {
     position: absolute;
-    top: 16px;
-    right: 20px;
-    z-index: 10;
+    top: clamp(8px, 1.8vh, 16px);
+    right: clamp(8px, 1.8vw, 20px);
+    z-index: 20;
     display: flex;
     gap: 8px;
     align-items: stretch;
+    max-width: calc(100vw - clamp(260px, 26vw, 360px));
 }
 
 .top-actions .btn-tool {
@@ -1805,24 +1810,76 @@ body, html {
    ========================================================================== */
 
 /* ==========================================================================
-   RESPONSYWNOŚĆ (MOBILE, TABLETY, SMARTFONY)
+   RESPONSYWNOŚĆ (LAPTOPY, TABLETY, SMARTFONY)
    ========================================================================== */
 
-/* 1. TABLETY / MAŁE LAPTOPY (Szerokość <= 1024px) */
-@media (max-width: 1024px) {
+/* 1. MAŁE LAPTOPY I ŚREDNIE OKNA (Szerokość <= 1280px) */
+@media (max-width: 1280px) {
     .top-header {
-        top: 10px;
-        left: 12px;
+        gap: 12px;
         padding: 6px 14px;
-        border-radius: var(--radius-sm);
     }
 
     .brand-logo-img {
         height: 28px;
+        max-width: 130px;
+    }
+
+    .top-actions {
+        top: 10px;
+        right: 12px;
+        gap: 6px;
+        max-width: calc(100vw - 310px);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 2px 0;
+    }
+
+    .top-actions::-webkit-scrollbar {
+        display: none;
+    }
+
+    .top-actions .btn-tool {
+        flex-direction: row;
+        align-items: center;
+        min-width: auto;
+        min-height: 38px;
+        height: 38px;
+        padding: 5px 11px;
+        font-size: 0.72rem;
+        gap: 6px;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .top-actions .btn-tool svg {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 0;
+    }
+}
+
+/* 2. TABLETY I ZWĘŻONE OKNA (Szerokość <= 1024px) */
+@media (max-width: 1024px) {
+    .top-header {
+        top: 8px;
+        left: 10px;
+        height: 38px;
+        padding: 4px 12px;
+        border-radius: var(--radius-sm);
+        gap: 10px;
+        z-index: 35;
+    }
+
+    .brand-logo-img {
+        height: 24px;
+        max-width: 120px;
     }
 
     .brand-title {
-        font-size: 0.95rem;
+        font-size: 0.90rem;
         letter-spacing: 1.2px;
     }
 
@@ -1839,17 +1896,35 @@ body, html {
         height: 18px;
     }
 
+    .lang-switch-config {
+        padding: 2px;
+        gap: 2px;
+    }
+
+    .lang-switch-config .lang-btn {
+        font-size: 0.68rem;
+        padding: 4px 9px;
+    }
+
+    /* Pasek narzędzi przeskakuje pod header do osobnego rzędu - zero kolizji! */
     .top-actions {
-        top: 10px;
-        right: 12px;
-        left: auto;
-        max-width: calc(100vw - 170px);
-        gap: 6px;
+        top: 52px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        max-width: calc(100vw - 20px);
+        height: 38px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        padding: 2px 0;
+        padding: 2px 2px;
+        gap: 6px;
+        z-index: 30;
     }
 
     .top-actions::-webkit-scrollbar {
@@ -1899,28 +1974,29 @@ body, html {
     }
 
     .side-panel {
-        top: 76px;
-        right: 14px;
+        top: 96px;
+        right: 10px;
         width: 320px;
-        max-height: calc(100vh - 100px);
+        max-height: calc(100vh - 108px);
     }
 }
 
-/* 2. SMARTFONY I TABLETY PIONOWE (Szerokość <= 768px) */
+/* 3. SMARTFONY (Szerokość <= 768px) */
 @media (max-width: 768px) {
-    /* Kompaktowe logo ARTBAR u góry */
+    /* Kompaktowe logo ARTBAR i język u góry */
     .top-header {
-        top: 8px;
-        left: 8px;
-        height: 32px;
-        padding: 4px 10px;
+        top: 6px;
+        left: 6px;
+        height: 34px;
+        padding: 3px 8px;
         border-radius: 8px;
-        gap: 6px;
-        z-index: 120;
+        gap: 8px;
+        z-index: 35;
     }
 
     .brand-logo-img {
-        height: 22px;
+        height: 20px;
+        max-width: 105px;
     }
 
     .brand-title {
@@ -1938,21 +2014,20 @@ body, html {
     }
 
     .lang-switch-config .lang-btn {
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         font-weight: 700;
-        padding: 4px 8px;
+        padding: 3px 7px;
         letter-spacing: 0.08em;
     }
 
-
-    /* Pasek narzędzi u góry: kompaktowa wstęga w jednym rzędzie */
+    /* Pasek narzędzi u góry: kompaktowa wstęga w drugim rzędzie */
     .top-actions {
         top: 46px;
-        left: 8px;
-        right: 8px;
+        left: 6px;
+        right: 6px;
         width: auto;
-        max-width: calc(100vw - 16px);
-        height: 38px;
+        max-width: calc(100vw - 12px);
+        height: 36px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -1963,7 +2038,7 @@ body, html {
         scrollbar-width: none;
         padding: 2px 2px;
         gap: 5px;
-        z-index: 120;
+        z-index: 30;
     }
 
     .top-actions::-webkit-scrollbar {
