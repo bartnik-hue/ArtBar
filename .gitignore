@@ -1,4 +1,13 @@
-﻿*.zip
-_ARCHIWUM/
+# Operating System
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# 3D working files
+*.blend
+*.blend1
+
+# Unused original large media backups
+*-original.mp4
+*.zip
+_ARCHIWUM/
