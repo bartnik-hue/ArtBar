@@ -937,7 +937,7 @@
           </div>
           <div class="flex items-center gap-3">
             <div class="relative group/fullscreen-tip">
-              <a href="konfigurator/index.html" target="_blank" rel="noopener noreferrer" class="glass-gold-btn px-4 py-1.5 rounded text-[11px] font-semibold text-[#FACB7D] flex items-center gap-1.5 uppercase tracking-wider transition-all hover:border-[#FACB7D]" aria-describedby="fullscreen-tooltip">
+              <a href="konfigurator/index.html?lang=en" target="_blank" rel="noopener noreferrer" class="glass-gold-btn px-4 py-1.5 rounded text-[11px] font-semibold text-[#FACB7D] flex items-center gap-1.5 uppercase tracking-wider transition-all hover:border-[#FACB7D]" aria-describedby="fullscreen-tooltip">
                 <span>Full Screen</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
               </a>
@@ -966,7 +966,7 @@
         <!-- IFRAME DO KONFIGURATORA (LAZY-LOAD Z FASADĄ OBSIDIAN GOLD) -->
         <div id="configurator-wrapper" class="relative w-full h-[540px] sm:h-[640px] md:h-[700px] lg:h-[760px] xl:h-[820px] 2xl:h-[900px] rounded-xl overflow-hidden border border-white/10 bg-[#080808]">
           <!-- Iframe ładowany wyłącznie na żądanie użytkownika -->
-          <iframe id="configurator-iframe" data-src="konfigurator/index.html" src="about:blank" class="w-full h-full border-0 transition-opacity duration-500" title="ArtBar 3D Configurator" allow="fullscreen"></iframe>
+          <iframe id="configurator-iframe" data-src="konfigurator/index.html?lang=en" src="about:blank" class="w-full h-full border-0 transition-opacity duration-500" title="ArtBar 3D Configurator" allow="fullscreen"></iframe>
 
           <!-- Nakładka startowa / Fasada (przyciemniona z dwoma przyciskami) -->
           <div id="configurator-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-[#0a0a08]/95 via-[#060606]/92 to-[#0a0a08]/95 backdrop-blur-sm transition-all duration-500">
@@ -1002,7 +1002,7 @@
                 </button>
 
                 <!-- 2. Uruchom konfigurator pełnoekranowo w nowej karcie -->
-                <a href="konfigurator/index.html" target="_blank" rel="noopener noreferrer" class="glass-gold-btn w-full sm:w-auto px-6 sm:px-8 py-4 min-h-[82px] rounded-xl text-xs sm:text-sm font-bold tracking-[0.15em] uppercase flex items-center justify-center sm:justify-start gap-4 text-[#FACB7D] border border-[#FACB7D]/40 hover:border-[#FACB7D] shadow-2xl group transition-all">
+                <a href="konfigurator/index.html?lang=en" target="_blank" rel="noopener noreferrer" class="glass-gold-btn w-full sm:w-auto px-6 sm:px-8 py-4 min-h-[82px] rounded-xl text-xs sm:text-sm font-bold tracking-[0.15em] uppercase flex items-center justify-center sm:justify-start gap-4 text-[#FACB7D] border border-[#FACB7D]/40 hover:border-[#FACB7D] shadow-2xl group transition-all">
                   <svg class="w-12 h-12 sm:w-16 sm:h-16 shrink-0 text-[#FACB7D] group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>

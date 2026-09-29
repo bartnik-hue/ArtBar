@@ -36,86 +36,92 @@
         <div class="brand-badge">
             <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="brand-logo-img">
         </div>
+        <div class="header-divider"></div>
+        <div class="lang-switch-config" id="config-lang-switch">
+            <button type="button" class="lang-btn active" data-lang="pl" title="Zmień język na Polski">PL</button>
+            <span class="lang-divider">|</span>
+            <button type="button" class="lang-btn" data-lang="en" title="Switch language to English">EN</button>
+        </div>
     </header>
 
     <!-- PRAWY GÓRNY TOOLBAR -->
     <div class="top-actions">
-        <button class="btn-tool" id="btn-open-presets" data-short="Układy" title="Wybierz gotowy układ baru">
+        <button class="btn-tool" id="btn-open-presets" data-short="Układy" data-i18n-short="tool_presets_short" title="Wybierz gotowy układ baru" data-i18n-title="tool_presets_title">
             <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-            <span class="btn-tool-txt">Gotowe Układy</span>
+            <span class="btn-tool-txt" data-i18n="tool_presets">Gotowe Układy</span>
         </button>
-        <button class="btn-tool" id="btn-open-branding" data-short="Branding" title="Wgraj własną grafikę na fronty">
+        <button class="btn-tool" id="btn-open-branding" data-short="Branding" data-i18n-short="tool_branding_short" title="Wgraj własną grafikę na fronty" data-i18n-title="tool_branding_title">
             <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-            <span class="btn-tool-txt">Branding / Grafika</span>
+            <span class="btn-tool-txt" data-i18n="tool_branding">Branding / Grafika</span>
         </button>
-        <button class="btn-tool" id="btn-open-led" data-short="LED" title="Ustawienia podświetlenia LED (kolor i natężenie)">
+        <button class="btn-tool" id="btn-open-led" data-short="LED" data-i18n-short="tool_led_short" title="Ustawienia podświetlenia LED (kolor i natężenie)" data-i18n-title="tool_led_title">
             <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
-            <span class="btn-tool-txt">Ustawienia LED</span>
+            <span class="btn-tool-txt" data-i18n="tool_led">Ustawienia LED</span>
         </button>
-        <button class="btn-tool" id="btn-open-scene-settings" data-short="Scena" title="Ustawienia tła i oświetlenia sceny">
+        <button class="btn-tool" id="btn-open-scene-settings" data-short="Scena" data-i18n-short="tool_scene_short" title="Ustawienia tła i oświetlenia sceny" data-i18n-title="tool_scene_title">
             <svg viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
-            <span class="btn-tool-txt">Ustawienia Sceny</span>
+            <span class="btn-tool-txt" data-i18n="tool_scene">Ustawienia Sceny</span>
         </button>
-        <button class="btn-tool" id="btn-open-calib" data-short="Admin" title="Narzędzie administracyjne kalibracji offsetów" style="display: none;">
+        <button class="btn-tool" id="btn-open-calib" data-short="Admin" data-i18n-short="tool_calib_short" title="Narzędzie administracyjne kalibracji offsetów" data-i18n-title="tool_calib_title" style="display: none;">
             <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-            <span class="btn-tool-txt">Kalibracja Offsetu</span>
+            <span class="btn-tool-txt" data-i18n="tool_calib">Kalibracja Offsetu</span>
         </button>
-        <button class="btn-tool" id="btn-open-summary" data-short="Podsumowanie" title="Zestawienie elementów baru">
+        <button class="btn-tool" id="btn-open-summary" data-short="Podsumowanie" data-i18n-short="tool_summary_short" title="Zestawienie elementów baru" data-i18n-title="tool_summary_title">
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-            <span class="btn-tool-txt">Podsumowanie</span>
+            <span class="btn-tool-txt" data-i18n="tool_summary">Podsumowanie</span>
         </button>
-        <button class="btn-tool btn-save-send-cta" id="btn-save-send" data-short="Wyślij" title="Zapisz ten układ i wyślij formularz zapytania">
+        <button class="btn-tool btn-save-send-cta" id="btn-save-send" data-short="Wyślij" data-i18n-short="tool_save_send_short" title="Zapisz ten układ i wyślij formularz zapytania" data-i18n-title="tool_save_send_title">
             <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            <span class="btn-tool-txt">Zapisz i wyślij</span>
+            <span class="btn-tool-txt" data-i18n="tool_save_send">Zapisz i wyślij</span>
         </button>
-        <button class="btn-tool" id="btn-save-project" data-short="Zapisz" title="Zapisz bieżący układ i grafikę do pliku JSON">
+        <button class="btn-tool" id="btn-save-project" data-short="Zapisz" data-i18n-short="tool_save_layout_short" title="Zapisz bieżący układ i grafikę do pliku JSON" data-i18n-title="tool_save_layout_title">
             <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-            <span class="btn-tool-txt">Zapisz Układ</span>
+            <span class="btn-tool-txt" data-i18n="tool_save_layout">Zapisz Układ</span>
         </button>
-        <button class="btn-tool" id="btn-load-project" data-short="Wczytaj" title="Wczytaj układ z pliku JSON">
+        <button class="btn-tool" id="btn-load-project" data-short="Wczytaj" data-i18n-short="tool_load_layout_short" title="Wczytaj układ z pliku JSON" data-i18n-title="tool_load_layout_title">
             <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
-            <span class="btn-tool-txt">Wczytaj Układ</span>
+            <span class="btn-tool-txt" data-i18n="tool_load_layout">Wczytaj Układ</span>
         </button>
-        <button class="btn-tool" id="btn-open-help" data-short="Pomoc" title="Instrukcja obsługi konfiguratora 3D">
+        <button class="btn-tool" id="btn-open-help" data-short="Pomoc" data-i18n-short="tool_help_short" title="Instrukcja obsługi konfiguratora 3D" data-i18n-title="tool_help_title">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
-            <span class="btn-tool-txt">Pomoc</span>
+            <span class="btn-tool-txt" data-i18n="tool_help">Pomoc</span>
         </button>
         <input type="file" id="project-file-input" accept=".json" style="display: none;">
-        <button class="btn-tool" id="btn-clear-scene" data-short="Wyczyść" title="Wyczyść całą scenę">
+        <button class="btn-tool" id="btn-clear-scene" data-short="Wyczyść" data-i18n-short="tool_clear_short" title="Wyczyść całą scenę" data-i18n-title="tool_clear_title">
             <svg viewBox="0 0 24 24"><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>
-            <span class="btn-tool-txt">Wyczyść</span>
+            <span class="btn-tool-txt" data-i18n="tool_clear">Wyczyść</span>
         </button>
     </div>
 
     <!-- DOLNY PASEK KONTROLNY / WIDOKI I AKCJE -->
     <div class="bottom-controls">
-        <span class="hud-label">Dodaj:</span>
-        <button class="hud-btn" id="btn-add-straight" data-short="Prosty" title="Postaw moduł prosty baru">
+        <span class="hud-label" data-i18n="hud_add_label">Dodaj:</span>
+        <button class="hud-btn" id="btn-add-straight" data-short="Prosty" data-i18n-short="hud_bar_straight_short" title="Postaw moduł prosty baru" data-i18n-title="hud_bar_straight_title">
             <svg class="hud-icon" viewBox="0 0 24 24">
                 <rect x="2" y="5" width="20" height="3" rx="0.8" fill="currentColor"/>
                 <rect x="4" y="8" width="16" height="11" rx="0.8" stroke-width="1.8"/>
                 <line x1="9.3" y1="8" x2="9.3" y2="19" stroke-width="1.4"/>
                 <line x1="14.7" y1="8" x2="14.7" y2="19" stroke-width="1.4"/>
             </svg>
-            <span class="hud-btn-txt">Bar Prosty</span>
+            <span class="hud-btn-txt" data-i18n="hud_bar_straight">Bar Prosty</span>
         </button>
-        <button class="hud-btn" id="btn-add-corner" data-short="Róg" title="Postaw narożnik 90° (automatyczne dopasowanie)">
+        <button class="hud-btn" id="btn-add-corner" data-short="Róg" data-i18n-short="hud_bar_corner_short" title="Postaw narożnik 90° (automatyczne dopasowanie)" data-i18n-title="hud_bar_corner_title">
             <svg class="hud-icon" viewBox="0 0 24 24">
                 <path d="M4 4h16v6h-10v10H4V4z" stroke-width="1.8"/>
                 <line x1="10" y1="10" x2="4" y2="4" stroke-width="1.4"/>
             </svg>
-            <span class="hud-btn-txt">Róg</span>
+            <span class="hud-btn-txt" data-i18n="hud_bar_corner">Róg</span>
         </button>
-        <button class="hud-btn" id="btn-add-shelf" data-short="Regał" title="Postaw regał zaplecza">
+        <button class="hud-btn" id="btn-add-shelf" data-short="Regał" data-i18n-short="hud_back_shelf_short" title="Postaw regał zaplecza" data-i18n-title="hud_back_shelf_title">
             <svg class="hud-icon" viewBox="0 0 24 24">
                 <rect x="4" y="3" width="16" height="18" rx="1" stroke-width="1.8"/>
                 <line x1="4" y1="7.5" x2="20" y2="7.5" stroke-width="1.4"/>
                 <line x1="4" y1="12" x2="20" y2="12" stroke-width="1.4"/>
                 <line x1="4" y1="16.5" x2="20" y2="16.5" stroke-width="1.4"/>
             </svg>
-            <span class="hud-btn-txt">Regał</span>
+            <span class="hud-btn-txt" data-i18n="hud_back_shelf">Regał</span>
         </button>
-        <button class="hud-btn" id="btn-add-fridge" data-short="Lodówka 2D" title="Postaw lodówkę przeszkloną dwudrzwiową (1.0m)">
+        <button class="hud-btn" id="btn-add-fridge" data-short="Lodówka 2D" data-i18n-short="hud_back_fridge_short" title="Postaw lodówkę przeszkloną dwudrzwiową (1.0m)" data-i18n-title="hud_back_fridge_title">
             <svg class="hud-icon" viewBox="0 0 24 24">
                 <rect x="3" y="3" width="18" height="18" rx="1.5" stroke-width="1.8"/>
                 <line x1="12" y1="3" x2="12" y2="18" stroke-width="1.5"/>
@@ -124,30 +130,30 @@
                 <line x1="10.5" y1="9" x2="10.5" y2="12" stroke-width="1.4"/>
                 <line x1="13.5" y1="9" x2="13.5" y2="12" stroke-width="1.4"/>
             </svg>
-            <span class="hud-btn-txt">Lodówka 2D</span>
+            <span class="hud-btn-txt" data-i18n="hud_back_fridge">Lodówka 2D</span>
         </button>
-        <button class="hud-btn" id="btn-add-fridge-slim" data-short="Lodówka 1D" title="Postaw lodówkę przeszkloną jednodrzwiową (0.5m)">
+        <button class="hud-btn" id="btn-add-fridge-slim" data-short="Lodówka 1D" data-i18n-short="hud_back_fridge_slim_short" title="Postaw lodówkę przeszkloną jednodrzwiową (0.5m)" data-i18n-title="hud_back_fridge_slim_title">
             <svg class="hud-icon" viewBox="0 0 24 24">
                 <rect x="6.5" y="3" width="11" height="18" rx="1.5" stroke-width="1.8"/>
                 <rect x="8.5" y="5" width="7" height="11" rx="0.5" stroke-width="1.2"/>
                 <line x1="14.5" y1="9" x2="14.5" y2="12" stroke-width="1.4"/>
             </svg>
-            <span class="hud-btn-txt">Lodówka 1D</span>
+            <span class="hud-btn-txt" data-i18n="hud_back_fridge_slim">Lodówka 1D</span>
         </button>
         <div class="hud-divider"></div>
-        <button class="hud-btn active" id="btn-view-orbit" data-short="3D">
-            <span class="hud-btn-txt">Widok 3D</span>
+        <button class="hud-btn active" id="btn-view-orbit" data-short="3D" data-i18n-short="hud_view_orbit_short" title="Swobodny widok perspektywiczny 3D" data-i18n-title="hud_view_orbit_title">
+            <span class="hud-btn-txt" data-i18n="hud_view_orbit">Widok 3D</span>
         </button>
-        <button class="hud-btn" id="btn-view-top" data-short="Góra">
-            <span class="hud-btn-txt">Rzut z góry</span>
+        <button class="hud-btn" id="btn-view-top" data-short="Góra" data-i18n-short="hud_view_top_short" title="Rzut techniczny z góry (plan 2D)" data-i18n-title="hud_view_top_title">
+            <span class="hud-btn-txt" data-i18n="hud_view_top">Rzut z góry</span>
         </button>
-        <button class="hud-btn" id="btn-view-ortho" data-short="Ortho" title="Rzut aksonometryczny pod kątem (Orthographic)">
-            <span class="hud-btn-txt">Widok Ortho</span>
+        <button class="hud-btn" id="btn-view-ortho" data-short="Ortho" data-i18n-short="hud_view_ortho_short" title="Rzut aksonometryczny pod kątem (Orthographic)" data-i18n-title="hud_view_ortho_title">
+            <span class="hud-btn-txt" data-i18n="hud_view_ortho">Widok Ortho</span>
         </button>
     </div>
 
     <!-- DYMEK PODPOWIEDZI -->
-    <div class="canvas-hint">
+    <div class="canvas-hint" data-i18n="canvas_hint_desktop">
         <strong>Kliknij PPM na siatce:</strong> wstaw nowy moduł pod kursor<br>
         <strong>Kliknij LPM w moduł:</strong> zaznacz moduł i zobacz złote kropki połączeń<br>
         <strong>Kliknij kropkę:</strong> dołącz kolejny moduł z automatycznym spasowaniem
@@ -155,26 +161,26 @@
 
     <!-- MENU KONTEKSTOWE (PPM / KROPKI POŁĄCZEŃ) -->
     <div class="context-popup" id="context-menu">
-        <div class="popup-title" id="context-menu-title">Wybierz moduł</div>
+        <div class="popup-title" id="context-menu-title" data-i18n="context_title_select">Wybierz moduł</div>
         <div class="popup-item" data-choice="BAR_STRAIGHT">
             <span class="popup-item-icon">▮</span>
-            <span>Moduł prosty baru (1.5m)</span>
+            <span data-i18n="context_straight">Moduł prosty baru (1.5m)</span>
         </div>
         <div class="popup-item" data-choice="BAR_CORNER">
             <span class="popup-item-icon">⌐</span>
-            <span>Narożnik 90°</span>
+            <span data-i18n="context_corner">Narożnik 90°</span>
         </div>
         <div class="popup-item" data-choice="BACK_SHELF">
             <span class="popup-item-icon">☲</span>
-            <span>Regał zaplecza (1.5m)</span>
+            <span data-i18n="context_shelf">Regał zaplecza (1.5m)</span>
         </div>
         <div class="popup-item" data-choice="BACK_FRIDGE">
             <span class="popup-item-icon">🗄</span>
-            <span>Lodówka 2-drzwiowa (1.0m)</span>
+            <span data-i18n="context_fridge">Lodówka 2-drzwiowa (1.0m)</span>
         </div>
         <div class="popup-item" data-choice="BACK_FRIDGE_SLIM">
             <span class="popup-item-icon">🗄</span>
-            <span>Lodówka 1-drzwiowa (0.5m)</span>
+            <span data-i18n="context_fridge_slim">Lodówka 1-drzwiowa (0.5m)</span>
         </div>
     </div>
 
@@ -182,55 +188,55 @@
     <div class="radial-menu" id="radial-action-menu">
         <div class="radial-center-dot"></div>
         <div class="radial-center-line"></div>
-        <button class="radial-btn radial-btn-rotate" id="radial-btn-rotate" title="Obróć moduł o 90° (Klawisz R)">
+        <button class="radial-btn radial-btn-rotate" id="radial-btn-rotate" title="Obróć moduł o 90° (Klawisz R)" data-i18n-title="radial_rotate_title">
             <span class="radial-icon">↻</span>
-            <span class="radial-label">Obróć</span>
+            <span class="radial-label" data-i18n="radial_rotate">Obróć</span>
         </button>
-        <button class="radial-btn radial-btn-move" id="radial-btn-move" title="Przesuń ten pojedynczy moduł">
+        <button class="radial-btn radial-btn-move" id="radial-btn-move" title="Przesuń ten pojedynczy moduł" data-i18n-title="radial_move_title">
             <span class="radial-icon">✥</span>
-            <span class="radial-label">Przesuń</span>
+            <span class="radial-label" data-i18n="radial_move">Przesuń</span>
         </button>
-        <button class="radial-btn radial-btn-move-all" id="radial-btn-move-all" title="Przesuń cały moduł wraz ze wszystkimi połączonymi obiektami">
+        <button class="radial-btn radial-btn-move-all" id="radial-btn-move-all" title="Przesuń cały moduł wraz ze wszystkimi połączonymi obiektami" data-i18n-title="radial_move_all_title">
             <span class="radial-icon">⊞</span>
-            <span class="radial-label radial-label-multiline">Przesuń<br>cały moduł</span>
+            <span class="radial-label radial-label-multiline" data-i18n="radial_move_all">Przesuń<br>cały moduł</span>
         </button>
-        <button class="radial-btn radial-btn-delete" id="radial-btn-delete" title="Usuń ten moduł (Klawisz Del)">
+        <button class="radial-btn radial-btn-delete" id="radial-btn-delete" title="Usuń ten moduł (Klawisz Del)" data-i18n-title="radial_delete_title">
             <span class="radial-icon">✕</span>
-            <span class="radial-label">Usuń</span>
+            <span class="radial-label" data-i18n="radial_delete">Usuń</span>
         </button>
-        <button class="radial-btn radial-btn-delete-all" id="radial-btn-delete-all" title="Usuń cały moduł wraz ze wszystkimi połączonymi obiektami (Shift+Del)">
+        <button class="radial-btn radial-btn-delete-all" id="radial-btn-delete-all" title="Usuń cały moduł wraz ze wszystkimi połączonymi obiektami (Shift+Del)" data-i18n-title="radial_delete_all_title">
             <span class="radial-icon">🗑</span>
-            <span class="radial-label radial-label-multiline">Usuń<br>cały moduł</span>
+            <span class="radial-label radial-label-multiline" data-i18n="radial_delete_all">Usuń<br>cały moduł</span>
         </button>
     </div>
 
     <!-- WYSKIWANY PANEL BOCZNY: PRESETY UKŁADÓW -->
     <div class="side-panel" id="panel-presets">
         <div class="panel-header">
-            <span class="panel-title">Gotowe Układy Barów</span>
+            <span class="panel-title" data-i18n="presets_title">Gotowe Układy Barów</span>
             <button class="panel-close-btn">&times;</button>
         </div>
         <div class="panel-content">
             <div class="presets-grid">
                 <div class="preset-card" data-preset="straight">
                     <div class="preset-icon">━━━</div>
-                    <div class="preset-name">Układ Prosty (Długi)</div>
-                    <div class="preset-desc">Linia 7.5m (5 modułów) + 3 regały i 2 lodówki</div>
+                    <div class="preset-name" data-i18n="preset_straight_name">Układ Prosty (Długi)</div>
+                    <div class="preset-desc" data-i18n="preset_straight_desc">Linia 7.5m (5 modułów) + 3 regały i 2 lodówki</div>
                 </div>
                 <div class="preset-card" data-preset="l_shape">
                     <div class="preset-icon">┗━━</div>
-                    <div class="preset-name">Litera L (Narożny)</div>
-                    <div class="preset-desc">Narożnik (8 modułów) + 3 regały i 2 lodówki</div>
+                    <div class="preset-name" data-i18n="preset_l_shape_name">Litera L (Narożny)</div>
+                    <div class="preset-desc" data-i18n="preset_l_shape_desc">Narożnik (8 modułów) + 3 regały i 2 lodówki</div>
                 </div>
                 <div class="preset-card" data-preset="horseshoe">
                     <div class="preset-icon">⊔</div>
-                    <div class="preset-name">Podkowa (U)</div>
-                    <div class="preset-desc">Układ U (11 modułów) + wyspa regałów i chłodziarek</div>
+                    <div class="preset-name" data-i18n="preset_horseshoe_name">Podkowa (U)</div>
+                    <div class="preset-desc" data-i18n="preset_horseshoe_desc">Układ U (11 modułów) + wyspa regałów i chłodziarek</div>
                 </div>
                 <div class="preset-card" data-preset="island">
                     <div class="preset-icon">◻</div>
-                    <div class="preset-name">Wyspa 360°</div>
-                    <div class="preset-desc">Pełny obwód (16 modułów) + 4 regały centralne</div>
+                    <div class="preset-name" data-i18n="preset_island_name">Wyspa 360°</div>
+                    <div class="preset-desc" data-i18n="preset_island_desc">Pełny obwód (16 modułów) + 4 regały centralne</div>
                 </div>
             </div>
         </div>
@@ -239,29 +245,29 @@
     <!-- WYSKIWANY PANEL BOCZNY: BRANDING & TŁO FRONTÓW -->
     <div class="side-panel" id="panel-branding" style="width: 360px;">
         <div class="panel-header">
-            <span class="panel-title">Branding & Grafika Baru</span>
+            <span class="panel-title" data-i18n="branding_panel_title">Branding & Grafika Baru</span>
             <button class="panel-close-btn">&times;</button>
         </div>
         <div class="panel-content">
             <!-- SEKCJA 1: TŁO FRONTÓW (GRAFIKA PANORAMICZNA CIĄGŁA) -->
             <div class="scene-group" id="group-panorama-bg">
                 <div class="branding-section-header">
-                    <span class="branding-section-title">1. Tło Frontów (Panorama)</span>
-                    <label class="switch" title="Włącz lub wyłącz tło panoramiczne na frontach">
+                    <span class="branding-section-title" data-i18n="branding_sec1_title">1. Tło Frontów (Panorama)</span>
+                    <label class="switch" title="Włącz lub wyłącz tło panoramiczne na frontach" data-i18n-title="branding_sec1_toggle_title">
                         <input type="checkbox" id="toggle-panorama-enable">
                         <span class="switch-slider"></span>
                     </label>
                 </div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;">
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;" data-i18n="branding_sec1_desc">
                     Grafika rozciąga się w płynną całość na połączonych frontach barów oraz regałów zaplecza (za półkami).
                 </div>
 
                 <!-- Tryb mapowania: Ciągła panorama vs Powtarzaj na module -->
                 <div class="panorama-mode-selector">
-                    <button class="panorama-mode-btn active" id="btn-mode-chain" data-mode="chain" title="Grafika tworzy jedną ciągłą całość na wszystkich modułach w linii">
+                    <button class="panorama-mode-btn active" id="btn-mode-chain" data-mode="chain" title="Grafika tworzy jedną ciągłą całość na wszystkich modułach w linii" data-i18n-title="branding_mode_chain_title" data-i18n="branding_mode_chain">
                         Ciągły pas (Cały bar)
                     </button>
-                    <button class="panorama-mode-btn" id="btn-mode-repeat" data-mode="repeat" title="Każdy moduł powtarza całą grafikę">
+                    <button class="panorama-mode-btn" id="btn-mode-repeat" data-mode="repeat" title="Każdy moduł powtarza całą grafikę" data-i18n-title="branding_mode_repeat_title" data-i18n="branding_mode_repeat">
                         Powtarzaj moduł
                     </button>
                 </div>
@@ -269,7 +275,7 @@
                 <!-- Długość wzoru w modułach baru (domyślnie 5 barów) -->
                 <div class="scene-control-row" id="row-panorama-span" style="margin: 6px 0 6px 0;">
                     <div class="scene-label-val">
-                        <span>Długość na barze:</span>
+                        <span data-i18n="branding_span_bar_label">Długość na barze:</span>
                         <strong id="val-panorama-span">5 barów (7.5 m)</strong>
                     </div>
                     <input type="range" id="slider-panorama-span" min="1" max="10" step="1" value="5" class="scene-slider" title="Liczba modułów baru, na jaką przypada 1 pełna długość grafiki (domyślnie 5 barów)">
@@ -278,76 +284,76 @@
                 <!-- Długość wzoru w modułach regałów (domyślnie 3 regały) -->
                 <div class="scene-control-row" id="row-panorama-shelf-span" style="margin: 0 0 8px 0;">
                     <div class="scene-label-val">
-                        <span>Długość na regałach:</span>
+                        <span data-i18n="branding_span_shelf_label">Długość na regałach:</span>
                         <strong id="val-panorama-shelf-span">3 regały (4.5 m)</strong>
                     </div>
                     <input type="range" id="slider-panorama-shelf-span" min="1" max="10" step="1" value="3" class="scene-slider" title="Liczba modułów regałów zaplecza, na jaką przypada 1 pełna długość grafiki (domyślnie 3 regały)">
                 </div>
 
-                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-main); margin-top: 6px;">
+                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-main); margin-top: 6px;" data-i18n="branding_catalog_label">
                     Wybierz gotowy wzór z katalogu:
                 </div>
                 <!-- Miniatury gotowych grafik -->
                 <div class="panorama-presets-grid" id="panorama-presets-container">
                     <div class="panorama-card" data-preset="kwiaty2">
                         <img class="panorama-thumb" src="grafiki/kwiaty2.jpg" alt="Kwiaty Botaniczne">
-                        <span class="panorama-title">Kwiaty Botaniczne</span>
+                        <span class="panorama-title" data-i18n="pano_kwiaty2">Kwiaty Botaniczne</span>
                     </div>
                     <div class="panorama-card" data-preset="kwiaty3">
                         <img class="panorama-thumb" src="grafiki/kwiaty3.jpg" alt="Kwiaty Egzotyczne">
-                        <span class="panorama-title">Kwiaty Egzotyczne</span>
+                        <span class="panorama-title" data-i18n="pano_kwiaty3">Kwiaty Egzotyczne</span>
                     </div>
                     <div class="panorama-card" data-preset="palmy">
                         <img class="panorama-thumb" src="grafiki/palmy.jpg" alt="Palmy Tropikalne">
-                        <span class="panorama-title">Palmy Tropikalne</span>
+                        <span class="panorama-title" data-i18n="pano_palmy">Palmy Tropikalne</span>
                     </div>
                     <div class="panorama-card" data-preset="zloto">
                         <img class="panorama-thumb" src="grafiki/zloto.jpg" alt="Złota Elegancja">
-                        <span class="panorama-title">Złota Elegancja</span>
+                        <span class="panorama-title" data-i18n="pano_zloto">Złota Elegancja</span>
                     </div>
                     <div class="panorama-card" data-preset="art_deco_pano">
                         <img class="panorama-thumb" src="grafiki/art_deco_pano.jpg" alt="Art Deco Gold">
-                        <span class="panorama-title">Art Deco Gold</span>
+                        <span class="panorama-title" data-i18n="pano_art_deco">Art Deco Gold</span>
                     </div>
                     <div class="panorama-card" data-preset="emerald_gold_pano">
                         <img class="panorama-thumb" src="grafiki/emerald_gold_pano.jpg" alt="Szmaragd & Złoto">
-                        <span class="panorama-title">Szmaragd & Złoto</span>
+                        <span class="panorama-title" data-i18n="pano_emerald_gold">Szmaragd & Złoto</span>
                     </div>
                     <div class="panorama-card" data-preset="chevron_oak_pano">
                         <img class="panorama-thumb" src="grafiki/chevron_oak_pano.jpg" alt="Dąb Chevron">
-                        <span class="panorama-title">Dąb Chevron</span>
+                        <span class="panorama-title" data-i18n="pano_chevron_oak">Dąb Chevron</span>
                     </div>
                     <div class="panorama-card" data-preset="alcohol_ink_blue_pano">
                         <img class="panorama-thumb" src="grafiki/alcohol_ink_blue_pano.jpg" alt="Płynny Granat">
-                        <span class="panorama-title">Płynny Granat</span>
+                        <span class="panorama-title" data-i18n="pano_alcohol_ink">Płynny Granat</span>
                     </div>
                     <div class="panorama-card" data-preset="calacatta_gold_pano">
                         <img class="panorama-thumb" src="grafiki/calacatta_gold_pano.jpg" alt="Marmur Calacatta">
-                        <span class="panorama-title">Marmur Calacatta</span>
+                        <span class="panorama-title" data-i18n="pano_calacatta">Marmur Calacatta</span>
                     </div>
                     <div class="panorama-card" data-preset="seigaiha_wave_pano">
                         <img class="panorama-thumb" src="grafiki/seigaiha_wave_pano.jpg" alt="Japońska Fala">
-                        <span class="panorama-title">Japońska Fala</span>
+                        <span class="panorama-title" data-i18n="pano_seigaiha">Japońska Fala</span>
                     </div>
                     <div class="panorama-card" data-preset="baroque_damask_pano">
                         <img class="panorama-thumb" src="grafiki/baroque_damask_pano.jpg" alt="Ciemny Welwet">
-                        <span class="panorama-title">Ciemny Welwet</span>
+                        <span class="panorama-title" data-i18n="pano_baroque">Ciemny Welwet</span>
                     </div>
                     <div class="panorama-card" data-preset="cyberpunk_neon_pano">
                         <img class="panorama-thumb" src="grafiki/cyberpunk_neon_pano.jpg" alt="Cyberpunk Neon">
-                        <span class="panorama-title">Cyberpunk Neon</span>
+                        <span class="panorama-title" data-i18n="pano_cyberpunk">Cyberpunk Neon</span>
                     </div>
                     <div class="panorama-card" data-preset="rainforest_animals_pano">
                         <img class="panorama-thumb" src="grafiki/rainforest_animals_pano.jpg" alt="Tropikalny Las">
-                        <span class="panorama-title">Tropikalny Las</span>
+                        <span class="panorama-title" data-i18n="pano_rainforest">Tropikalny Las</span>
                     </div>
                     <div class="panorama-card" data-preset="tech_circuit_blueprint_pano">
                         <img class="panorama-thumb" src="grafiki/tech_circuit_blueprint_pano.jpg" alt="Cyber Schemat">
-                        <span class="panorama-title">Cyber Schemat</span>
+                        <span class="panorama-title" data-i18n="pano_circuit">Cyber Schemat</span>
                     </div>
                     <div class="panorama-card" data-preset="sage_botanical_linen_pano">
                         <img class="panorama-thumb" src="grafiki/sage_botanical_linen_pano.jpg" alt="Szałwia & Złoto">
-                        <span class="panorama-title">Szałwia Botanika</span>
+                        <span class="panorama-title" data-i18n="pano_sage">Szałwia Botanika</span>
                     </div>
                 </div>
 
@@ -468,13 +474,13 @@
                 <!-- Wgranie własnego tła -->
                 <div class="upload-dropzone" id="panorama-dropzone" style="padding: 12px 10px; margin-top: 6px;">
                     <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">🖼</span>
-                    <div class="upload-txt" style="font-size: 0.78rem;">Wgraj własną grafikę</div>
-                    <div class="upload-hint">Format JPG lub PNG</div>
+                    <div class="upload-txt" style="font-size: 0.78rem;" data-i18n="branding_upload_custom">Wgraj własną grafikę</div>
+                    <div class="upload-hint" data-i18n="branding_upload_custom_hint">Format JPG lub PNG</div>
                     <input type="file" id="panorama-file-input" accept="image/*" style="display: none;">
                 </div>
 
                 <div style="display: flex; gap: 8px; margin-top: 8px;">
-                    <button class="btn-tool" id="btn-reset-panorama" style="flex: 1; justify-content: center; font-size: 0.75rem;">
+                    <button class="btn-tool" id="btn-reset-panorama" style="flex: 1; justify-content: center; font-size: 0.75rem;" data-i18n="branding_reset_pano">
                         Przywróć domyślny front
                     </button>
                 </div>
@@ -483,43 +489,43 @@
             <!-- SEKCJA 2: LOGOTYP / BRANDING NAKŁADKOWY -->
             <div class="scene-group" id="group-logo-overlay">
                 <div class="branding-section-header">
-                    <span class="branding-section-title">2. Logotyp (Nakładka)</span>
-                    <label class="switch" title="Włącz lub wyłącz logotyp na frontach">
+                    <span class="branding-section-title" data-i18n="branding_sec2_title">2. Logotyp (Nakładka)</span>
+                    <label class="switch" title="Włącz lub wyłącz logotyp na frontach" data-i18n-title="branding_sec2_toggle_title">
                         <input type="checkbox" id="branding-enable-toggle">
                         <span class="switch-slider"></span>
                     </label>
                 </div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;">
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;" data-i18n="branding_sec2_desc">
                     Logotyp marki lub klienta wyświetlany centralnie na modułach baru.
                 </div>
 
                 <div class="upload-dropzone" id="branding-dropzone" style="padding: 14px 10px;">
                     <span class="upload-icon" style="font-size: 1.4rem; margin-bottom: 4px;">📁</span>
-                    <div class="upload-txt">Wgraj plik logo</div>
-                    <div class="upload-hint">PNG z przezroczystością, JPG lub SVG</div>
+                    <div class="upload-txt" data-i18n="branding_logo_upload">Wgraj plik logo</div>
+                    <div class="upload-hint" data-i18n="branding_logo_upload_hint">PNG z przezroczystością, JPG lub SVG</div>
                     <input type="file" id="branding-file-input" accept="image/*" style="display: none;">
                 </div>
 
                 <div class="texture-preview-box" id="branding-preview-box">
-                    <span class="stat-label">Podgląd wgranego logo:</span>
+                    <span class="stat-label" data-i18n="branding_logo_preview">Podgląd wgranego logo:</span>
                     <img class="texture-thumb" id="branding-preview-img" src="" alt="Podgląd logo">
                     <div style="display: flex; gap: 8px;">
-                        <button class="btn-tool active" id="btn-apply-branding" style="flex: 1; justify-content: center;">Zastosuj do frontów</button>
-                        <button class="btn-tool" id="btn-reset-branding" style="flex: 1; justify-content: center;">Usuń logo</button>
+                        <button class="btn-tool active" id="btn-apply-branding" style="flex: 1; justify-content: center;" data-i18n="branding_logo_apply">Zastosuj do frontów</button>
+                        <button class="btn-tool" id="btn-reset-branding" style="flex: 1; justify-content: center;" data-i18n="branding_logo_remove">Usuń logo</button>
                     </div>
                 </div>
 
                 <!-- KONTROLKI SKALI I ROZMIARU BRANDINGU -->
                 <div id="branding-adjust-controls" style="display: none; margin-top: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 0.76rem; font-weight: 600; color: var(--primary); text-transform: uppercase;">Dopasowanie logo</span>
-                        <button class="btn-micro" id="btn-auto-aspect" title="Dopasuj rozmiar do oryginalnych proporcji pliku graficznego">Auto-proporcje</button>
+                        <span style="font-size: 0.76rem; font-weight: 600; color: var(--primary); text-transform: uppercase;" data-i18n="branding_adjust_title">Dopasowanie logo</span>
+                        <button class="btn-micro" id="btn-auto-aspect" title="Dopasuj rozmiar do oryginalnych proporcji pliku graficznego" data-i18n-title="branding_auto_aspect_title" data-i18n="branding_auto_aspect">Auto-proporcje</button>
                     </div>
 
                     <!-- Skala ogólna -->
                     <div class="scene-control-row">
                         <div class="scene-label-val">
-                            <span>Skala:</span>
+                            <span data-i18n="branding_scale_label">Skala:</span>
                             <strong id="val-branding-scale">100%</strong>
                         </div>
                         <input type="range" id="slider-branding-scale" min="20" max="250" step="1" value="100" class="scene-slider">
@@ -527,7 +533,7 @@
 
                     <!-- Blokada proporcji checkbox -->
                     <div style="display: flex; align-items: center; justify-content: space-between; margin: 4px 0;">
-                        <label for="toggle-branding-lock-aspect" style="font-size: 0.76rem; color: var(--text-muted); cursor: pointer;">
+                        <label for="toggle-branding-lock-aspect" style="font-size: 0.76rem; color: var(--text-muted); cursor: pointer;" data-i18n="branding_lock_aspect">
                             Zablokuj proporcje (AR)
                         </label>
                         <input type="checkbox" id="toggle-branding-lock-aspect" checked style="accent-color: var(--primary); cursor: pointer;">
@@ -536,7 +542,7 @@
                     <!-- Szerokość -->
                     <div class="scene-control-row">
                         <div class="scene-label-val">
-                            <span>Szerokość:</span>
+                            <span data-i18n="branding_width_label">Szerokość:</span>
                             <strong id="val-branding-width">1.20 m</strong>
                         </div>
                         <input type="range" id="slider-branding-width" min="0.20" max="1.45" step="0.01" value="1.20" class="scene-slider">
@@ -545,7 +551,7 @@
                     <!-- Wysokość -->
                     <div class="scene-control-row">
                         <div class="scene-label-val">
-                            <span>Wysokość:</span>
+                            <span data-i18n="branding_height_label">Wysokość:</span>
                             <strong id="val-branding-height">0.45 m</strong>
                         </div>
                         <input type="range" id="slider-branding-height" min="0.10" max="0.75" step="0.01" value="0.45" class="scene-slider">
@@ -554,7 +560,7 @@
                     <!-- Pozycja pionowa Y -->
                     <div class="scene-control-row">
                         <div class="scene-label-val">
-                            <span>Wysokość na barze (Pion):</span>
+                            <span data-i18n="branding_posy_label">Wysokość na barze (Pion):</span>
                             <strong id="val-branding-posy">0.55 m</strong>
                         </div>
                         <input type="range" id="slider-branding-posy" min="0.25" max="0.85" step="0.01" value="0.55" class="scene-slider">
@@ -567,15 +573,15 @@
     <!-- WYSKIWANY PANEL BOCZNY: USTAWIENIA LED -->
     <div class="side-panel" id="panel-led" style="width: 350px;">
         <div class="panel-header">
-            <span class="panel-title">Podświetlenie LED</span>
+            <span class="panel-title" data-i18n="led_panel_title">Podświetlenie LED</span>
             <button class="panel-close-btn">&times;</button>
         </div>
         <div class="panel-content">
             <!-- Włącz / wyłącz LED -->
             <div class="scene-group" style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
                 <div>
-                    <div style="font-weight: 600; font-size: 0.95rem; color: #fff;">Włącz LED</div>
-                    <div style="font-size: 0.76rem; color: var(--text-muted);">Świecenie listew i elementów LED</div>
+                    <div style="font-weight: 600; font-size: 0.95rem; color: #fff;" data-i18n="led_enable_label">Włącz LED</div>
+                    <div style="font-size: 0.76rem; color: var(--text-muted);" data-i18n="led_enable_desc">Świecenie listew i elementów LED</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="led-enable-toggle" checked>
@@ -585,12 +591,12 @@
 
             <!-- Wygląd po wyłączeniu -->
             <div class="scene-group" style="padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                <div class="scene-group-title" style="margin-bottom: 6px;">Gdy LED jest wyłączony</div>
+                <div class="scene-group-title" style="margin-bottom: 6px;" data-i18n="led_off_title">Gdy LED jest wyłączony</div>
                 <div style="display: flex; gap: 8px;">
-                    <button class="panorama-mode-btn active" id="btn-led-off-invisible" title="Listwa LED staje się całkowicie niewidoczna / przezroczysta">
+                    <button class="panorama-mode-btn active" id="btn-led-off-invisible" title="Listwa LED staje się całkowicie niewidoczna / przezroczysta" data-i18n-title="led_off_invisible_title" data-i18n="led_off_invisible">
                         Niewidoczna (Przezroczysta)
                     </button>
-                    <button class="panorama-mode-btn" id="btn-led-off-black" title="Listwa LED przyjmuje matowy czarny profil">
+                    <button class="panorama-mode-btn" id="btn-led-off-black" title="Listwa LED przyjmuje matowy czarny profil" data-i18n-title="led_off_black_title" data-i18n="led_off_black">
                         Czarny profil
                     </button>
                 </div>
@@ -598,7 +604,7 @@
 
             <!-- Paleta barw i kolor własny -->
             <div class="scene-group">
-                <div class="scene-group-title">Kolor Światła LED</div>
+                <div class="scene-group-title" data-i18n="led_color_title">Kolor Światła LED</div>
                 <div class="color-presets-row" style="flex-wrap: wrap; gap: 8px;">
                     <button class="color-chip led-chip active" data-color="#FACB7D" style="background: #FACB7D;" title="Złoty Artbar (3200K Warm Gold)"></button>
                     <button class="color-chip led-chip" data-color="#FFE0B2" style="background: #FFE0B2;" title="Ciepły biały (3000K)"></button>
@@ -617,18 +623,18 @@
 
             <!-- Natężenie świecenia -->
             <div class="scene-group">
-                <div class="scene-group-title">Natężenie Świecenia (Emisja)</div>
+                <div class="scene-group-title" data-i18n="led_intensity_title">Natężenie Świecenia (Emisja)</div>
                 <div class="scene-control-row">
                     <div class="scene-label-val">
-                        <span>Jasność LED:</span>
+                        <span data-i18n="led_intensity_label">Jasność LED:</span>
                         <strong id="val-led-intensity">2.5</strong>
                     </div>
                     <input type="range" id="slider-led-intensity" min="0.2" max="8.0" step="0.1" value="2.5" class="scene-slider">
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">
-                    <span>Dyskretne (0.2)</span>
-                    <span>Standard (2.5)</span>
-                    <span>Intensywny neon (8.0)</span>
+                    <span data-i18n="led_intensity_subtle">Dyskretne (0.2)</span>
+                    <span data-i18n="led_intensity_std">Standard (2.5)</span>
+                    <span data-i18n="led_intensity_vivid">Intensywny neon (8.0)</span>
                 </div>
             </div>
         </div>
@@ -637,13 +643,13 @@
     <!-- WYSKIWANY PANEL BOCZNY: USTAWIENIA SCENY -->
     <div class="side-panel" id="panel-scene-settings">
         <div class="panel-header">
-            <span class="panel-title">Ustawienia Sceny</span>
+            <span class="panel-title" data-i18n="scene_panel_title">Ustawienia Sceny</span>
             <button class="panel-close-btn">&times;</button>
         </div>
         <div class="panel-content">
             <!-- Kolor tła -->
             <div class="scene-group">
-                <div class="scene-group-title">Kolor Tła Sceny</div>
+                <div class="scene-group-title" data-i18n="scene_bg_title">Kolor Tła Sceny</div>
                 <div class="color-presets-row">
                     <button class="color-chip active" data-color="#121212" style="background: #121212;" title="Ciemny studyjny (domyślny)"></button>
                     <button class="color-chip" data-color="#22252a" style="background: #22252a;" title="Grafitowy"></button>
@@ -656,17 +662,17 @@
 
             <!-- Natężenie światła -->
             <div class="scene-group">
-                <div class="scene-group-title">Natężenie Oświetlenia</div>
+                <div class="scene-group-title" data-i18n="scene_light_intensity_title">Natężenie Oświetlenia</div>
                 <div class="scene-control-row">
                     <div class="scene-label-val">
-                        <span>Główne światło:</span>
+                        <span data-i18n="scene_light_main">Główne światło:</span>
                         <strong id="val-light-main">2.2</strong>
                     </div>
                     <input type="range" id="scene-light-main" min="0" max="5" step="0.1" value="2.2" class="scene-slider">
                 </div>
                 <div class="scene-control-row">
                     <div class="scene-label-val">
-                        <span>Światło otoczenia (Ambient):</span>
+                        <span data-i18n="scene_light_ambient">Światło otoczenia (Ambient):</span>
                         <strong id="val-light-ambient">0.8</strong>
                     </div>
                     <input type="range" id="scene-light-ambient" min="0" max="3" step="0.1" value="0.8" class="scene-slider">
@@ -675,17 +681,17 @@
 
             <!-- Kierunek światła / słońca -->
             <div class="scene-group">
-                <div class="scene-group-title">Kierunek Padania Światła</div>
+                <div class="scene-group-title" data-i18n="scene_light_dir_title">Kierunek Padania Światła</div>
                 <div class="scene-control-row">
                     <div class="scene-label-val">
-                        <span>Kierunek poziomy (Azymut):</span>
+                        <span data-i18n="scene_light_azimuth">Kierunek poziomy (Azymut):</span>
                         <strong id="val-light-azimuth">38°</strong>
                     </div>
                     <input type="range" id="scene-light-azimuth" min="0" max="360" step="1" value="38" class="scene-slider">
                 </div>
                 <div class="scene-control-row">
                     <div class="scene-label-val">
-                        <span>Wysokość światła (Elewacja):</span>
+                        <span data-i18n="scene_light_elevation">Wysokość światła (Elewacja):</span>
                         <strong id="val-light-elevation">55°</strong>
                     </div>
                     <input type="range" id="scene-light-elevation" min="15" max="85" step="1" value="55" class="scene-slider">
@@ -694,22 +700,22 @@
 
             <!-- Właściwości materiału podłogi -->
             <div class="scene-group">
-                <div class="scene-group-title">Materiał Podłogi</div>
+                <div class="scene-group-title" data-i18n="scene_floor_title">Materiał Podłogi</div>
                 <div class="scene-control-row">
                     <div class="scene-label-val">
-                        <span>Połysk / Chropowatość:</span>
+                        <span data-i18n="scene_floor_roughness">Połysk / Chropowatość:</span>
                         <strong id="val-floor-roughness">0.50 (Półmat)</strong>
                     </div>
                     <input type="range" id="slider-floor-roughness" min="0.05" max="1.0" step="0.01" value="0.50" class="scene-slider" title="0.05 = wysoki połysk / lustro, 1.0 = pełny mat">
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.70rem; color: var(--text-muted); margin-top: 2px;">
-                    <span>Wysoki połysk</span>
-                    <span>Półmat</span>
-                    <span>Pełny mat</span>
+                    <span data-i18n="scene_floor_high_gloss">Wysoki połysk</span>
+                    <span data-i18n="scene_floor_semi_matte">Półmat</span>
+                    <span data-i18n="scene_floor_full_matte">Pełny mat</span>
                 </div>
                 <div class="scene-control-row" style="margin-top: 8px;">
                     <div class="scene-label-val">
-                        <span>Refleksyjność / Metaliczność:</span>
+                        <span data-i18n="scene_floor_metalness">Refleksyjność / Metaliczność:</span>
                         <strong id="val-floor-metalness">0.20</strong>
                     </div>
                     <input type="range" id="slider-floor-metalness" min="0.0" max="0.8" step="0.01" value="0.20" class="scene-slider" title="Głębia i siła odbicia podłogi">
@@ -732,44 +738,44 @@
     <!-- WYSKIWANY PANEL BOCZNY: PODSUMOWANIE / SPECYFIKACJA -->
     <div class="side-panel" id="panel-summary">
         <div class="panel-header">
-            <span class="panel-title">Podsumowanie Konfiguracji</span>
+            <span class="panel-title" data-i18n="summary_panel_title">Podsumowanie Konfiguracji</span>
             <button class="panel-close-btn">&times;</button>
         </div>
         <div class="panel-content">
             <div class="calib-group">
-                <div class="calib-title">Specyfikacja Sprzętu</div>
+                <div class="calib-title" data-i18n="summary_spec_title">Specyfikacja Sprzętu</div>
                 <div class="calib-row">
-                    <span>Moduł prosty baru (1.5m):</span>
+                    <span data-i18n="summary_straight">Moduł prosty baru (1.5m):</span>
                     <strong class="stat-val" id="sum-straight">0 szt.</strong>
                 </div>
                 <div class="calib-row">
-                    <span>Narożnik 90°:</span>
+                    <span data-i18n="summary_corner">Narożnik 90°:</span>
                     <strong class="stat-val" id="sum-corners">0 szt.</strong>
                 </div>
                 <div class="calib-row">
-                    <span>Regał zaplecza z półkami:</span>
+                    <span data-i18n="summary_shelf">Regał zaplecza z półkami:</span>
                     <strong class="stat-val" id="sum-shelves">0 szt.</strong>
                 </div>
                 <div class="calib-row">
-                    <span>Lodówka przeszklona 2D (1.0m):</span>
+                    <span data-i18n="summary_fridge">Lodówka przeszklona 2D (1.0m):</span>
                     <strong class="stat-val" id="sum-fridges">0 szt.</strong>
                 </div>
                 <div class="calib-row">
-                    <span>Lodówka przeszklona 1D (0.5m):</span>
+                    <span data-i18n="summary_fridge_slim">Lodówka przeszklona 1D (0.5m):</span>
                     <strong class="stat-val" id="sum-fridges-slim">0 szt.</strong>
                 </div>
                 <div class="calib-row" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
-                    <span style="color: var(--primary);">Łączna długość frontu baru:</span>
+                    <span style="color: var(--primary);" data-i18n="summary_total_length">Łączna długość frontu baru:</span>
                     <strong class="stat-val" id="sum-total-length" style="color: var(--primary);">0.0 m</strong>
                 </div>
             </div>
 
-            <button class="btn-tool active" id="btn-print-spec" style="width: 100%; justify-content: center;">
+            <button class="btn-tool active" id="btn-print-spec" style="width: 100%; justify-content: center;" data-i18n="summary_btn_print">
                 Drukuj / Eksportuj Zestawienie
             </button>
             <button class="btn-tool btn-save-send-cta" id="btn-summary-send" style="width: 100%; justify-content: center; margin-top: 8px;">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="margin-right: 6px;"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                <span>Zapisz i wyślij zapytanie</span>
+                <span data-i18n="summary_btn_send">Zapisz i wyślij zapytanie</span>
             </button>
         </div>
     </div>
@@ -785,8 +791,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="modal-title">Instrukcja Obsługi Konfiguratora Artbar</div>
-                        <div class="modal-subtitle">Poznaj najważniejsze funkcje, skróty klawiszowe oraz techniki projektowania barów modułowych</div>
+                        <div class="modal-title" data-i18n="help_modal_title">Instrukcja Obsługi Konfiguratora Artbar</div>
+                        <div class="modal-subtitle" data-i18n="help_modal_subtitle">Poznaj najważniejsze funkcje, skróty klawiszowe oraz techniki projektowania barów modułowych</div>
                     </div>
                 </div>
                 <button class="panel-close-btn" id="btn-close-help" title="Zamknij instrukcję">&times;</button>
@@ -798,14 +804,14 @@
                     <div class="help-card">
                         <div class="help-card-header">
                             <span class="help-card-icon">🎮</span>
-                            <span>Sterowanie Kamerą i Widok 3D</span>
+                            <span data-i18n="help_card1_title">Sterowanie Kamerą i Widok 3D</span>
                         </div>
                         <div class="help-card-body">
                             <ul class="help-list">
-                                <li><span class="help-kbd">LPM</span> + przeciągnij – <strong>Obrót kamery</strong> wokół sceny.</li>
-                                <li><span class="help-kbd">PPM</span> lub <span class="help-kbd">ŚPM</span> + przeciągnij – <strong>Przesuwanie widoku</strong> (panowanie).</li>
-                                <li><span class="help-kbd">Rolka myszy</span> – <strong>Przybliżanie / oddalanie</strong> (Zoom).</li>
-                                <li><strong>Dolny pasek widoków:</strong> Szybkie przełączanie między <em>Widokiem 3D</em>, <em>Rzutem z góry</em> oraz <em>Widokiem Ortho</em>.</li>
+                                <li data-i18n="help_card1_item1"><span class="help-kbd">LPM</span> + przeciągnij – <strong>Obrót kamery</strong> wokół sceny.</li>
+                                <li data-i18n="help_card1_item2"><span class="help-kbd">PPM</span> lub <span class="help-kbd">ŚPM</span> + przeciągnij – <strong>Przesuwanie widoku</strong> (panowanie).</li>
+                                <li data-i18n="help_card1_item3"><span class="help-kbd">Rolka myszy</span> – <strong>Przybliżanie / oddalanie</strong> (Zoom).</li>
+                                <li data-i18n="help_card1_item4"><strong>Dolny pasek widoków:</strong> Szybkie przełączanie między <em>Widokiem 3D</em>, <em>Rzutem z góry</em> oraz <em>Widokiem Ortho</em>.</li>
                             </ul>
                         </div>
                     </div>
@@ -814,15 +820,15 @@
                     <div class="help-card">
                         <div class="help-card-header">
                             <span class="help-card-icon">🧲</span>
-                            <span>Wstawianie i Łączenie Modułów</span>
+                            <span data-i18n="help_card2_title">Wstawianie i Łączenie Modułów</span>
                         </div>
                         <div class="help-card-body">
                             <ul class="help-list">
-                                <li><strong>Dolny pasek:</strong> Kliknij przycisk modułu (<em>Bar Prosty</em>, <em>Róg</em>, <em>Regał</em>, <em>Lodówka</em>), by wstawić go na scenę.</li>
-                                <li><strong>Menu pod <span class="help-kbd">PPM</span>:</strong> Kliknij prawym przyciskiem myszy na siatce, by wstawić moduł w punkcie kursora.</li>
-                                <li><strong>Złote punkty łączenia:</strong> Po zaznaczeniu modułu kliknij złotą kropkę, aby natychmiast dostawić kolejny spasowany moduł.</li>
-                                <li><strong>Magnetyczne przyciąganie:</strong> Przy przesuwaniu moduły samoczynnie przyciągają się i łączą w stabilny ciąg barowy!</li>
-                                <li><span class="help-kbd">Shift</span> – <strong>Precyzyjne ustawianie:</strong> Przytrzymaj Shift podczas wstawiania/przesuwania modułu – siatka zagęszcza się 4-krotnie i pozwala na swobodne ustawienie bez przyciągania do innych modułów.</li>
+                                <li data-i18n="help_card2_item1"><strong>Dolny pasek:</strong> Kliknij przycisk modułu (<em>Bar Prosty</em>, <em>Róg</em>, <em>Regał</em>, <em>Lodówka</em>), by wstawić go na scenę.</li>
+                                <li data-i18n="help_card2_item2"><strong>Menu pod <span class="help-kbd">PPM</span>:</strong> Kliknij prawym przyciskiem myszy na siatce, by wstawić moduł w punkcie kursora.</li>
+                                <li data-i18n="help_card2_item3"><strong>Złote punkty łączenia:</strong> Po zaznaczeniu modułu kliknij złotą kropkę, aby natychmiast dostawić kolejny spasowany moduł.</li>
+                                <li data-i18n="help_card2_item4"><strong>Magnetyczne przyciąganie:</strong> Przy przesuwaniu moduły samoczynnie przyciągają się i łączą w stabilny ciąg barowy!</li>
+                                <li data-i18n="help_card2_item5"><span class="help-kbd">Shift</span> – <strong>Precyzyjne ustawianie:</strong> Przytrzymaj Shift podczas wstawiania/przesuwania modułu – siatka zagęszcza się 4-krotnie i pozwala na swobodne ustawienie bez przyciągania do innych modułów.</li>
                             </ul>
                         </div>
                     </div>
@@ -831,16 +837,16 @@
                     <div class="help-card">
                         <div class="help-card-header">
                             <span class="help-card-icon">↻</span>
-                            <span>Edycja, Obrót i Usuwanie</span>
+                            <span data-i18n="help_card3_title">Edycja, Obrót i Usuwanie</span>
                         </div>
                         <div class="help-card-body">
                             <ul class="help-list">
-                                <li><span class="help-kbd">LPM</span> w moduł – Zaznacza element i wyświetla menu akcji nad barem.</li>
-                                <li><span class="help-kbd">R</span> lub przycisk <strong>Obróć</strong> – Obrót modułu o kąt 90°.</li>
-                                <li>Przycisk <strong>Przesuń</strong> – Zmiana położenia pojedynczego modułu.</li>
-                                <li>Przycisk <strong>Przesuń cały moduł</strong> – Przesuwa cały połączony bar wraz ze wszystkimi modułami.</li>
-                                <li>Przycisk <strong>✕ Usuń</strong> (<span class="help-kbd">Del</span>) – Usunięcie zaznaczonego modułu.</li>
-                                <li>Przycisk <strong>🗑 Usuń cały moduł</strong> (<span class="help-kbd">Shift</span> + <span class="help-kbd">Del</span>) – Usunięcie całego połączonego układu barowego.</li>
+                                <li data-i18n="help_card3_item1"><span class="help-kbd">LPM</span> w moduł – Zaznacza element i wyświetla menu akcji nad barem.</li>
+                                <li data-i18n="help_card3_item2"><span class="help-kbd">R</span> lub przycisk <strong>Obróć</strong> – Obrót modułu o kąt 90°.</li>
+                                <li data-i18n="help_card3_item3">Przycisk <strong>Przesuń</strong> – Zmiana położenia pojedynczego modułu.</li>
+                                <li data-i18n="help_card3_item4">Przycisk <strong>Przesuń cały moduł</strong> – Przesuwa cały połączony bar wraz ze wszystkimi modułami.</li>
+                                <li data-i18n="help_card3_item5">Przycisk <strong>✕ Usuń</strong> (<span class="help-kbd">Del</span>) – Usunięcie zaznaczonego modułu.</li>
+                                <li data-i18n="help_card3_item6">Przycisk <strong>🗑 Usuń cały moduł</strong> (<span class="help-kbd">Shift</span> + <span class="help-kbd">Del</span>) – Usunięcie całego połączonego układu barowego.</li>
                             </ul>
                         </div>
                     </div>
@@ -849,14 +855,14 @@
                     <div class="help-card">
                         <div class="help-card-header">
                             <span class="help-card-icon">🎨</span>
-                            <span>Branding & Grafika Frontów</span>
+                            <span data-i18n="help_card4_title">Branding & Grafika Frontów</span>
                         </div>
                         <div class="help-card-body">
                             <ul class="help-list">
-                                <li>Otwórz menu <strong>Branding / Grafika</strong> u góry ekranu.</li>
-                                <li><strong>Tło Frontów (Panorama):</strong> Wybierz ekskluzywny wzór z katalogu (np. Złoto, Kamienie Szlachetne, Graffiti) lub wgraj grafikę JPG/PNG.</li>
-                                <li><strong>Płynne łączenie na rogach:</strong> Grafika tworzy nieprzerwany, estetyczny ciąg wzdłuż całego baru i narożników.</li>
-                                <li><strong>Logotyp:</strong> Wgraj logo firmy, dopasuj skalę, szerokość oraz wysokość na frontach.</li>
+                                <li data-i18n="help_card4_item1">Otwórz menu <strong>Branding / Grafika</strong> u góry ekranu.</li>
+                                <li data-i18n="help_card4_item2"><strong>Tło Frontów (Panorama):</strong> Wybierz ekskluzywny wzór z katalogu (np. Złoto, Kamienie Szlachetne, Graffiti) lub wgraj grafikę JPG/PNG.</li>
+                                <li data-i18n="help_card4_item3"><strong>Płynne łączenie na rogach:</strong> Grafika tworzy nieprzerwany, estetyczny ciąg wzdłuż całego baru i narożników.</li>
+                                <li data-i18n="help_card4_item4"><strong>Logotyp:</strong> Wgraj logo firmy, dopasuj skalę, szerokość oraz wysokość na frontach.</li>
                             </ul>
                         </div>
                     </div>
@@ -865,15 +871,15 @@
                     <div class="help-card">
                         <div class="help-card-header">
                             <span class="help-card-icon">💡</span>
-                            <span>Podświetlenie LED i Efekty</span>
+                            <span data-i18n="help_card5_title">Podświetlenie LED i Efekty</span>
                         </div>
                         <div class="help-card-body">
                             <ul class="help-list">
-                                <li>Otwórz menu <strong>Ustawienia LED</strong>.</li>
-                                <li>Włącz lub wyłącz podświetlenie listew neonowych przełącznikiem głównym.</li>
-                                <li>Wybierz kolor z dedykowanej palety (m.in. Złoty Artbar, Ciepły Biały, Neon Blue) lub wskaż własny kolor.</li>
-                                <li>Reguluj <strong>Jasność LED</strong> – światło rzuca realistyczne odbicia na posadzkę.</li>
-                                <li>Gdy LED jest wyłączony: wybierz profil przezroczysty lub elegancki matowy czarny.</li>
+                                <li data-i18n="help_card5_item1">Otwórz menu <strong>Ustawienia LED</strong>.</li>
+                                <li data-i18n="help_card5_item2">Włącz lub wyłącz podświetlenie listew neonowych przełącznikiem głównym.</li>
+                                <li data-i18n="help_card5_item3">Wybierz kolor z dedykowanej palety (m.in. Złoty Artbar, Ciepły Biały, Neon Blue) lub wskaż własny kolor.</li>
+                                <li data-i18n="help_card5_item4">Reguluj <strong>Jasność LED</strong> – światło rzuca realistyczne odbicia na posadzkę.</li>
+                                <li data-i18n="help_card5_item5">Gdy LED jest wyłączony: wybierz profil przezroczysty lub elegancki matowy czarny.</li>
                             </ul>
                         </div>
                     </div>
@@ -882,14 +888,14 @@
                     <div class="help-card">
                         <div class="help-card-header">
                             <span class="help-card-icon">📋</span>
-                            <span>Gotowe Układy, Zapis i Podsumowanie</span>
+                            <span data-i18n="help_card6_title">Gotowe Układy, Zapis i Podsumowanie</span>
                         </div>
                         <div class="help-card-body">
                             <ul class="help-list">
-                                <li><strong>Gotowe Układy:</strong> Szybki start z gotowych konfiguracji (Prosty, L-Shape, Podkowa U, Wyspa 360°).</li>
-                                <li><strong>Ustawienia Sceny:</strong> Kolor tła, kąt słońca oraz stopień połysku podłogi (od lustra do matu).</li>
-                                <li><strong>Zapisz / Wczytaj Układ:</strong> Zapis projektu do pliku <code>.json</code> i natychmiastowe wczytanie.</li>
-                                <li><strong>Podsumowanie:</strong> Zestawienie ilości modułów, łączna długość frontu w metrach oraz druk specyfikacji.</li>
+                                <li data-i18n="help_card6_item1"><strong>Gotowe Układy:</strong> Szybki start z gotowych konfiguracji (Prosty, L-Shape, Podkowa U, Wyspa 360°).</li>
+                                <li data-i18n="help_card6_item2"><strong>Ustawienia Sceny:</strong> Kolor tła, kąt słońca oraz stopień połysku podłogi (od lustra do matu).</li>
+                                <li data-i18n="help_card6_item3"><strong>Zapisz / Wczytaj Układ:</strong> Zapis projektu do pliku <code>.json</code> i natychmiastowe wczytanie.</li>
+                                <li data-i18n="help_card6_item4"><strong>Podsumowanie:</strong> Zestawienie ilości modułów, łączna długość frontu w metrach oraz druk specyfikacji.</li>
                             </ul>
                         </div>
                     </div>
@@ -899,10 +905,10 @@
             <div class="modal-footer">
                 <label class="modal-checkbox-label">
                     <input type="checkbox" id="chk-dont-show-help" checked>
-                    <span>Nie pokazuj automatycznie przy uruchomieniu</span>
+                    <span data-i18n="help_dont_show">Nie pokazuj automatycznie przy uruchomieniu</span>
                 </label>
                 <button class="btn-tool active" id="btn-help-dismiss" style="padding: 10px 24px; font-size: 0.85rem;">
-                    <span>Rozpocznij projektowanie &rarr;</span>
+                    <span data-i18n="help_btn_start">Rozpocznij projektowanie &rarr;</span>
                 </button>
             </div>
         </div>
@@ -919,8 +925,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="modal-title">Zapisz i Wyślij Konfigurację</div>
-                        <div class="modal-subtitle">Twój układ 3D został automatycznie zapisany i dołączony do zapytania ofertowego</div>
+                        <div class="modal-title" data-i18n="quote_modal_title">Zapisz i Wyślij Konfigurację</div>
+                        <div class="modal-subtitle" data-i18n="quote_modal_subtitle">Twój układ 3D został automatycznie zapisany i dołączony do zapytania ofertowego</div>
                     </div>
                 </div>
                 <button class="panel-close-btn" id="btn-close-save-send" title="Zamknij okno">&times;</button>
@@ -932,7 +938,7 @@
                     <div class="quote-project-card">
                         <div class="quote-project-badge">
                             <span class="badge-dot"></span>
-                            <span>Załączony układ 3D</span>
+                            <span data-i18n="quote_badge_attached">Załączony układ 3D</span>
                         </div>
                         
                         <!-- Podgląd zrzutu 3D -->
@@ -946,27 +952,27 @@
                         <!-- Parametry techniczne układu -->
                         <div class="quote-specs-list">
                             <div class="quote-spec-item">
-                                <span class="spec-label">Długość frontu:</span>
+                                <span class="spec-label" data-i18n="quote_spec_length">Długość frontu:</span>
                                 <strong class="spec-val" id="quote-spec-length">0.0 m</strong>
                             </div>
                             <div class="quote-spec-item">
-                                <span class="spec-label">Moduły baru:</span>
+                                <span class="spec-label" data-i18n="quote_spec_modules">Moduły baru:</span>
                                 <strong class="spec-val" id="quote-spec-modules">0 szt.</strong>
                             </div>
                             <div class="quote-spec-item">
-                                <span class="spec-label">Regały zaplecza:</span>
+                                <span class="spec-label" data-i18n="quote_spec_shelves">Regały zaplecza:</span>
                                 <strong class="spec-val" id="quote-spec-shelves">0 szt.</strong>
                             </div>
                             <div class="quote-spec-item">
-                                <span class="spec-label">Lodówki:</span>
+                                <span class="spec-label" data-i18n="quote_spec_fridges">Lodówki:</span>
                                 <strong class="spec-val" id="quote-spec-fridges">0 szt.</strong>
                             </div>
                             <div class="quote-spec-item">
-                                <span class="spec-label">Grafika frontów:</span>
+                                <span class="spec-label" data-i18n="quote_spec_branding">Grafika frontów:</span>
                                 <strong class="spec-val" id="quote-spec-branding">Domyślna</strong>
                             </div>
                             <div class="quote-spec-item">
-                                <span class="spec-label">Podświetlenie LED:</span>
+                                <span class="spec-label" data-i18n="quote_spec_led">Podświetlenie LED:</span>
                                 <strong class="spec-val" id="quote-spec-led">Złoty</strong>
                             </div>
                         </div>
@@ -975,7 +981,7 @@
                         <div class="quote-download-box">
                             <button type="button" class="btn-download-json-copy" id="btn-quote-download-json" title="Pobierz kopię pliku projektu na dysk">
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                                <span>Pobierz kopię pliku (.json)</span>
+                                <span data-i18n="quote_btn_download_json">Pobierz kopię pliku (.json)</span>
                             </button>
                         </div>
                     </div>
@@ -985,43 +991,43 @@
                         <form id="form-save-send" class="quote-form">
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-name">Imię i Nazwisko / Osoba kontaktowa *</label>
-                                    <input type="text" id="quote-name" required class="form-input" placeholder="np. Jan Kowalski">
+                                    <label class="form-label" for="quote-name" data-i18n="quote_label_name">Imię i Nazwisko / Osoba kontaktowa *</label>
+                                    <input type="text" id="quote-name" required class="form-input" placeholder="np. Jan Kowalski" data-i18n-placeholder="quote_ph_name">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-company">Nazwa Firmy / Organizatora</label>
-                                    <input type="text" id="quote-company" class="form-input" placeholder="np. Agencja Eventowa / Festiwal">
-                                </div>
-                            </div>
-
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label class="form-label" for="quote-email">Adres E-mail *</label>
-                                    <input type="email" id="quote-email" required class="form-input" placeholder="twoj-email@domena.pl">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="quote-phone">Numer Telefonu *</label>
-                                    <input type="tel" id="quote-phone" required class="form-input" placeholder="+48 123 456 789">
+                                    <label class="form-label" for="quote-company" data-i18n="quote_label_company">Nazwa Firmy / Organizatora</label>
+                                    <input type="text" id="quote-company" class="form-input" placeholder="np. Agencja Eventowa / Festiwal" data-i18n-placeholder="quote_ph_company">
                                 </div>
                             </div>
 
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-event-date">Termin wydarzenia</label>
+                                    <label class="form-label" for="quote-email" data-i18n="quote_label_email">Adres E-mail *</label>
+                                    <input type="email" id="quote-email" required class="form-input" placeholder="twoj-email@domena.pl" data-i18n-placeholder="quote_ph_email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-phone" data-i18n="quote_label_phone">Numer Telefonu *</label>
+                                    <input type="tel" id="quote-phone" required class="form-input" placeholder="+48 123 456 789" data-i18n-placeholder="quote_ph_phone">
+                                </div>
+                            </div>
+
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-event-date" data-i18n="quote_label_date">Termin wydarzenia</label>
                                     <input type="date" id="quote-event-date" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-location">Miejsce eventu / Miasto</label>
-                                    <input type="text" id="quote-location" class="form-input" placeholder="np. Warszawa / Kraków / Plener">
+                                    <label class="form-label" for="quote-location" data-i18n="quote_label_location">Miejsce eventu / Miasto</label>
+                                    <input type="text" id="quote-location" class="form-input" placeholder="np. Warszawa / Kraków / Plener" data-i18n-placeholder="quote_ph_location">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" for="quote-notes">Dodatkowe uwagi / pytania</label>
-                                <textarea id="quote-notes" rows="3" class="form-textarea" placeholder="Napisz, czy potrzebujesz także obsługi barmańskiej, koncesji ABC, fabryki lodu, kubków eco lub autorskiego systemu ArtPOS..."></textarea>
+                                <label class="form-label" for="quote-notes" data-i18n="quote_label_notes">Dodatkowe uwagi / pytania</label>
+                                <textarea id="quote-notes" rows="3" class="form-textarea" placeholder="Napisz, czy potrzebujesz także obsługi barmańskiej, koncesji ABC, fabryki lodu, kubków eco lub autorskiego systemu ArtPOS..." data-i18n-placeholder="quote_ph_notes"></textarea>
                             </div>
 
-                            <div class="quote-privacy-note">
+                            <div class="quote-privacy-note" data-i18n="quote_privacy">
                                 Wysyłając zapytanie, przesyłasz przygotowany układ baru do zespołu ArtBar Solutions w celu bezpłatnej wyceny i konsultacji technicznej.
                             </div>
 
@@ -1029,7 +1035,7 @@
                                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                                 </svg>
-                                <span>Wyślij zapytanie z załączonym układem</span>
+                                <span data-i18n="quote_btn_submit">Wyślij zapytanie z załączonym układem</span>
                             </button>
                         </form>
 
@@ -1038,15 +1044,15 @@
                             <div class="quote-success-icon">
                                 <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             </div>
-                            <h3 class="quote-success-title">Dziękujemy! Zapytanie zostało przyjęte</h3>
-                            <p class="quote-success-desc">Twój układ baru oraz dane kontaktowe zostały zapisane. Specjaliści ArtBar Solutions skontaktują się z Tobą w najkrótszym możliwym czasie.</p>
+                            <h3 class="quote-success-title" data-i18n="quote_success_title">Dziękujemy! Zapytanie zostało przyjęte</h3>
+                            <p class="quote-success-desc" data-i18n="quote_success_desc">Twój układ baru oraz dane kontaktowe zostały zapisane. Specjaliści ArtBar Solutions skontaktują się z Tobą w najkrótszym możliwym czasie.</p>
                             
                             <div class="quote-success-actions">
                                 <a id="quote-mailto-link" href="#" class="btn-mailto-cta" target="_blank">
                                     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                                    <span>Otwórz kopię zapytania w programie pocztowym</span>
+                                    <span data-i18n="quote_mailto_cta">Otwórz kopię zapytania w programie pocztowym</span>
                                 </a>
-                                <button type="button" class="btn-tool active" id="btn-quote-done" style="width: 100%; justify-content: center; padding: 10px 16px;">
+                                <button type="button" class="btn-tool active" id="btn-quote-done" style="width: 100%; justify-content: center; padding: 10px 16px;" data-i18n="quote_btn_return">
                                     Wróć do konfiguratora
                                 </button>
                             </div>

@@ -8,11 +8,25 @@ import { BrandingManager } from './BrandingManager.js';
 import { LedManager } from './LedManager.js';
 import { CalibrationTool } from './CalibrationTool.js';
 import { AiTextureService, AI_STYLE_PRESETS } from './AiTextureService.js';
+import { t, getCurrentLang, applyLanguage, initI18n, formatBarSpan, formatShelfSpan, getTranslatedMailto, onLanguageChange } from './i18n.js';
 
 class ArtbarApp {
     constructor() {
         this.container = document.getElementById('viewport-container');
         this.canvas = document.getElementById('three-canvas');
+
+        // Inicjalizacja wielojęzyczności i nasłuchiwanie zmian języka
+        this.currentLang = initI18n();
+        onLanguageChange((lang) => {
+            this.currentLang = lang;
+            if (this.barBuilder) {
+                this.updateUIStats(this.barBuilder.getStats());
+            }
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                const hint = document.querySelector('.canvas-hint');
+                if (hint) hint.innerHTML = t('canvas_hint_touch');
+            }
+        });
 
         this.initThree();
         this.initLights();
@@ -247,16 +261,16 @@ class ArtbarApp {
 
         try {
             await this.registry.loadAllModels((progress, msg) => {
-                if (loaderStatus) loaderStatus.textContent = `${msg} (${Math.round(progress * 100)}%)`;
+                if (loaderStatus) loaderStatus.textContent = t('loader_progress', { percent: Math.round(progress * 100) });
             });
 
             // Załaduj domyślny preset (Układ Prosty) na start
             this.barBuilder.loadPreset('straight');
             this.ledManager.applyToAll();
-            this.showToast('Wczytano modele 3D oraz przykładowy układ baru Artbar.');
+            this.showToast(t('toast_models_loaded'));
         } catch (err) {
             console.error('Błąd podczas inicjalizacji modeli:', err);
-            this.showToast('Wystąpił problem z wczytaniem niektórych modeli. Sprawdź konsolę.');
+            this.showToast(t('toast_models_error'));
         } finally {
             if (overlay) {
                 overlay.style.opacity = '0';
@@ -298,12 +312,12 @@ class ArtbarApp {
                     const count = this.barBuilder.removeSelectedGroup();
                     this.hideRadialMenu();
                     if (count > 0) {
-                        this.showToast(count > 1 ? `Usunięto cały moduł (${count} el.).` : 'Usunięto moduł.');
+                        this.showToast(count > 1 ? t('toast_module_all_removed', { count }) : t('toast_module_removed'));
                     }
                 } else {
                     this.barBuilder.removeSelected();
                     this.hideRadialMenu();
-                    this.showToast('Usunięto moduł.');
+                    this.showToast(t('toast_module_removed'));
                 }
             } else if (e.key === 'Escape') {
                 const modalHelp = document.getElementById('modal-help');
@@ -504,7 +518,7 @@ class ArtbarApp {
         // Jeśli jesteśmy w trybie ghosta, PPM anuluje ghosta
         if (this.barBuilder.ghostModule) {
             this.barBuilder.cancelGhost();
-            this.showToast('Anulowano stawianie / przemieszczanie modułu.');
+            this.showToast(t('toast_module_cancelled'));
             return;
         }
 
@@ -658,26 +672,26 @@ class ArtbarApp {
             // Dołączenie do konkretnej kropki (gniazda)
             const { parentModule, socketDef } = this.activeSocketClickContext;
             const newMod = this.barBuilder.attachModuleToSocket(parentModule, socketDef, modelKey);
-            this.showToast(`Dodano moduł z automatycznym spasowaniem.`);
+            this.showToast(t('toast_module_snapped'));
         } else {
             // Uruchomienie trybu przyklejonego do kursora z automatycznym magnetycznym przyciąganiem do gniazd
             this.barBuilder.startGhost(modelKey);
             if (this.lastContextMenuFloorPos) {
                 this.barBuilder.updateGhost(this.lastContextMenuFloorPos);
             }
-            this.showToast(`Moduł przyklejony do kursora. Zbliż do złącza, aby przyciągnąć. LPM - postaw, R - obrót, PPM/ESC - anuluj.`);
+            this.showToast(t('toast_ghost_attached'));
         }
     }
 
     getModuleLabel(key) {
         switch (key) {
-            case 'BAR_STRAIGHT':     return 'Bar Prosty';
+            case 'BAR_STRAIGHT':     return t('context_straight');
             case 'BAR_CORNER':
             case 'BAR_CORNER_RIGHT':
-            case 'BAR_CORNER_LEFT':  return 'Narożnik 90°';
-            case 'BACK_SHELF':       return 'Regał Zaplecza';
-            case 'BACK_FRIDGE':      return 'Lodówka 2-drzwiowa (1.0m)';
-            case 'BACK_FRIDGE_SLIM': return 'Lodówka 1-drzwiowa (0.5m)';
+            case 'BAR_CORNER_LEFT':  return t('context_corner');
+            case 'BACK_SHELF':       return t('context_shelf');
+            case 'BACK_FRIDGE':      return t('context_fridge');
+            case 'BACK_FRIDGE_SLIM': return t('context_fridge_slim');
             default: return key;
         }
     }
@@ -687,11 +701,7 @@ class ArtbarApp {
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             const hint = document.querySelector('.canvas-hint');
             if (hint) {
-                hint.innerHTML = `
-                    <strong>Dotknij moduł:</strong> zaznacz i obróć &bull; 
-                    <strong>Dotknij złotej kropki:</strong> dołącz moduł &bull; 
-                    <strong>Przytrzymaj palec na siatce:</strong> wstaw moduł
-                `;
+                hint.innerHTML = t('canvas_hint_touch');
             }
         }
 
@@ -702,23 +712,23 @@ class ArtbarApp {
         // Szybkie dodawanie modułów z dolnego paska
         document.getElementById('btn-add-straight')?.addEventListener('click', () => {
             this.barBuilder.startGhost('BAR_STRAIGHT');
-            this.showToast('Wybrano Bar Prosty. Kliknij lewym przyciskiem myszy na siatce, aby go postawić. R - obrót, ESC - anuluj.');
+            this.showToast(t('toast_pick_straight'));
         });
         document.getElementById('btn-add-corner')?.addEventListener('click', () => {
             this.barBuilder.startGhost('BAR_CORNER');
-            this.showToast('Wybrano Narożnik 90°. Zbliż do złącza baru, aby dopasować stronę i kąt. R - obrót, ESC - anuluj.');
+            this.showToast(t('toast_pick_corner'));
         });
         document.getElementById('btn-add-shelf')?.addEventListener('click', () => {
             this.barBuilder.startGhost('BACK_SHELF');
-            this.showToast('Wybrano Regał zaplecza. Kliknij lewym przyciskiem myszy na siatce, aby go postawić. R - obrót, ESC - anuluj.');
+            this.showToast(t('toast_pick_shelf'));
         });
         document.getElementById('btn-add-fridge')?.addEventListener('click', () => {
             this.barBuilder.startGhost('BACK_FRIDGE');
-            this.showToast('Wybrano Lodówkę przeszkloną 2D (1.0m). Kliknij lewym przyciskiem myszy na siatce, aby ją postawić. R - obrót, ESC - anuluj.');
+            this.showToast(t('toast_pick_fridge'));
         });
         document.getElementById('btn-add-fridge-slim')?.addEventListener('click', () => {
             this.barBuilder.startGhost('BACK_FRIDGE_SLIM');
-            this.showToast('Wybrano Lodówkę przeszkloną 1D (0.5m). Kliknij lewym przyciskiem myszy na siatce, aby ją postawić. R - obrót, ESC - anuluj.');
+            this.showToast(t('toast_pick_fridge_slim'));
         });
 
         // Przyciski widoków
@@ -749,7 +759,7 @@ class ArtbarApp {
         document.getElementById('radial-btn-rotate')?.addEventListener('click', (e) => {
             e.stopPropagation();
             this.barBuilder.rotateSelected();
-            this.showToast('Obrócono moduł o 90°');
+            this.showToast(t('toast_rotated'));
         });
 
         document.getElementById('radial-btn-move')?.addEventListener('click', (e) => {
@@ -757,7 +767,7 @@ class ArtbarApp {
             const picked = this.barBuilder.pickupModule();
             if (picked) {
                 this.hideRadialMenu();
-                this.showToast('Tryb przesuwania modułu. Zbliż do złącza, aby dociągnąć, lub postaw na siatce. ESC/PPM - powrót.');
+                this.showToast(t('toast_move_single'));
             }
         });
 
@@ -767,7 +777,7 @@ class ArtbarApp {
             if (picked) {
                 this.hideRadialMenu();
                 const count = picked.modules ? picked.modules.length : 1;
-                this.showToast(`Przesuwanie całego modułu (${count} el.). R - obrót, LPM - postaw, ESC/PPM - powrót.`);
+                this.showToast(t('toast_move_all', { count }));
             }
         });
 
@@ -775,7 +785,7 @@ class ArtbarApp {
             e.stopPropagation();
             this.barBuilder.removeSelected();
             this.hideRadialMenu();
-            this.showToast('Usunięto moduł.');
+            this.showToast(t('toast_module_removed'));
         });
 
         document.getElementById('radial-btn-delete-all')?.addEventListener('click', (e) => {
@@ -783,14 +793,14 @@ class ArtbarApp {
             const count = this.barBuilder.removeSelectedGroup();
             this.hideRadialMenu();
             if (count > 0) {
-                this.showToast(count > 1 ? `Usunięto cały moduł (${count} el.).` : 'Usunięto moduł.');
+                this.showToast(count > 1 ? t('toast_module_all_removed', { count }) : t('toast_module_removed'));
             }
         });
 
         document.getElementById('btn-clear-scene').addEventListener('click', () => {
-            if (confirm('Czy na pewno chcesz wyczyścić całą konfigurację baru?')) {
+            if (confirm(t('confirm_clear_scene'))) {
                 this.barBuilder.clearScene();
-                this.showToast('Wyczyszczono scenę.');
+                this.showToast(t('toast_scene_cleared'));
             }
         });
 
@@ -824,10 +834,10 @@ class ArtbarApp {
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
 
-                this.showToast(`Zapisano układ do pliku: ${filename}`);
+                this.showToast(t('toast_layout_saved', { filename }));
             } catch (err) {
                 console.error('Błąd zapisu projektu:', err);
-                this.showToast('Wystąpił błąd podczas zapisu projektu.');
+                this.showToast(t('toast_layout_save_error'));
             }
         });
 
@@ -871,7 +881,7 @@ class ArtbarApp {
                             if (slider) slider.value = r;
                             const valLabel = document.getElementById('val-floor-roughness');
                             if (valLabel) {
-                                let desc = (r < 0.25) ? ' (Wysoki połysk)' : (r < 0.6 ? ' (Półmat)' : ' (Matowa)');
+                                let desc = (r < 0.25) ? ` (${t('scene_floor_high_gloss')})` : (r < 0.6 ? ` (${t('scene_floor_semi_matte')})` : ` (${t('scene_floor_full_matte')})`);
                                 valLabel.textContent = `${r.toFixed(2)}${desc}`;
                             }
                         }
@@ -901,10 +911,10 @@ class ArtbarApp {
                         document.getElementById('branding-preview-box').style.display = 'none';
                         document.getElementById('branding-adjust-controls').style.display = 'none';
                     }
-                    this.showToast('Układ baru oraz grafiki zostały wczytane!');
+                    this.showToast(t('toast_layout_loaded'));
                 } catch (err) {
                     console.error('Błąd wczytywania pliku projektu:', err);
-                    alert('Nie udało się wczytać pliku. Upewnij się, że to poprawny plik konfiguracyjny Artbar (.json).');
+                    alert(t('alert_layout_load_failed'));
                 }
             };
             reader.readAsText(file);
@@ -929,7 +939,7 @@ class ArtbarApp {
             card.addEventListener('click', () => {
                 const preset = card.dataset.preset;
                 this.barBuilder.loadPreset(preset);
-                this.showToast(`Załadowano preset: ${card.querySelector('.preset-name').textContent}`);
+                this.showToast(t('toast_preset_loaded', { name: card.querySelector('.preset-name').textContent }));
             });
         });
 
@@ -940,9 +950,9 @@ class ArtbarApp {
         togglePanorama?.addEventListener('change', (e) => {
             this.brandingManager.setBackgroundEnabled(e.target.checked);
             if (e.target.checked) {
-                this.showToast('Włączono tło panoramiczne na frontach baru.');
+                this.showToast(t('toast_pano_enabled'));
             } else {
-                this.showToast('Wyłączono tło panoramiczne na frontach.');
+                this.showToast(t('toast_pano_disabled'));
             }
         });
 
@@ -957,27 +967,13 @@ class ArtbarApp {
         const valPanoShelfSpan = document.getElementById('val-panorama-shelf-span');
         const rowPanoShelfSpan = document.getElementById('row-panorama-shelf-span');
 
-        const formatBarSpan = (count) => {
-            const meters = (count * 1.5).toFixed(1);
-            if (count === 1) return `1 bar (${meters} m)`;
-            if (count >= 2 && count <= 4) return `${count} bary (${meters} m)`;
-            return `${count} barów (${meters} m)`;
-        };
-
-        const formatShelfSpan = (count) => {
-            const meters = (count * 1.5).toFixed(1);
-            if (count === 1) return `1 regał (${meters} m)`;
-            if (count >= 2 && count <= 4) return `${count} regały (${meters} m)`;
-            return `${count} regałów (${meters} m)`;
-        };
-
         btnModeChain?.addEventListener('click', () => {
             btnModeChain.classList.add('active');
             btnModeRepeat?.classList.remove('active');
             if (rowPanoSpan) rowPanoSpan.style.display = 'flex';
             if (rowPanoShelfSpan) rowPanoShelfSpan.style.display = 'flex';
             this.brandingManager.setBackgroundMode('chain');
-            this.showToast('Tryb tła: Ciągły pas (płynna panorama na całym ciągu baru).');
+            this.showToast(t('toast_pano_chain'));
         });
 
         btnModeRepeat?.addEventListener('click', () => {
@@ -986,7 +982,7 @@ class ArtbarApp {
             if (rowPanoSpan) rowPanoSpan.style.display = 'none';
             if (rowPanoShelfSpan) rowPanoShelfSpan.style.display = 'none';
             this.brandingManager.setBackgroundMode('repeat');
-            this.showToast('Tryb tła: Powtarzaj pełną grafikę na każdym module.');
+            this.showToast(t('toast_pano_repeat'));
         });
 
         sliderPanoSpan?.addEventListener('input', (e) => {
@@ -1015,7 +1011,7 @@ class ArtbarApp {
 
                 this.brandingManager.setBackgroundPreset(presetId, () => {
                     const title = card.querySelector('.panorama-title')?.textContent || presetId;
-                    this.showToast(`Zastosowano tło panoramiczne: ${title}`);
+                    this.showToast(t('toast_pano_applied', { name: title }));
                 });
             });
         });
@@ -1051,7 +1047,7 @@ class ArtbarApp {
             this.brandingManager.resetBackgroundGraphic();
             if (togglePanorama) togglePanorama.checked = false;
             presetCards.forEach(c => c.classList.remove('active'));
-            this.showToast('Przywrócono domyślny materiał frontów baru.');
+            this.showToast(t('toast_pano_reset'));
         });
 
         // Synchronizacja UI przy zmianie stanu tła
@@ -1091,9 +1087,9 @@ class ArtbarApp {
         brandingToggle?.addEventListener('change', (e) => {
             this.brandingManager.setEnabled(e.target.checked);
             if (e.target.checked) {
-                this.showToast('Włączono branding / logo na barze prostym.');
+                this.showToast(t('toast_logo_applied'));
             } else {
-                this.showToast('Ukryto grafikę brandingu.');
+                this.showToast(t('toast_logo_removed'));
             }
         });
 
@@ -1132,7 +1128,7 @@ class ArtbarApp {
                 this.brandingManager.setEnabled(true);
             }
             this.brandingManager.applyToAllFronts();
-            this.showToast('Zastosowano grafikę do wszystkich frontów baru.');
+            this.showToast(t('toast_logo_applied'));
         });
 
         document.getElementById('btn-reset-branding').addEventListener('click', () => {
@@ -1140,7 +1136,7 @@ class ArtbarApp {
             document.getElementById('branding-preview-box').style.display = 'none';
             const adjustControls = document.getElementById('branding-adjust-controls');
             if (adjustControls) adjustControls.style.display = 'none';
-            this.showToast('Przywrócono domyślny wzór frontów.');
+            this.showToast(t('toast_logo_removed'));
         });
 
         // Kontrolki dopasowania i skali brandingu
@@ -1380,7 +1376,7 @@ class ArtbarApp {
                 toggle.checked = true;
                 this.brandingManager.setEnabled(true);
             }
-            this.showToast('Wgrano grafikę logo i zaktualizowano fronty baru!');
+            this.showToast(t('toast_logo_loaded'));
         });
     }
 
@@ -1389,7 +1385,7 @@ class ArtbarApp {
             const toggle = document.getElementById('toggle-panorama-enable');
             if (toggle && !toggle.checked) toggle.checked = true;
             document.querySelectorAll('.panorama-card').forEach(c => c.classList.remove('active'));
-            this.showToast('Wgrano własną grafikę na fronty baru!');
+            this.showToast(t('toast_pano_custom_loaded'));
         });
     }
 
@@ -1502,7 +1498,7 @@ class ArtbarApp {
             const totalCount = stats.BAR_STRAIGHT + stats.BAR_CORNER + stats.BACK_SHELF + stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM;
 
             if (totalCount === 0) {
-                this.showToast('Wskazówka: Dodaj moduły baru na scenie, aby przygotować precyzyjną wycenę.');
+                this.showToast(t('toast_quote_empty_hint'));
             }
 
             // Zamknij ewentualnie otwarte panele boczne i inne okna dialogowe
@@ -1538,7 +1534,8 @@ class ArtbarApp {
             const now = new Date();
             const dateEl = document.getElementById('quote-preview-date');
             if (dateEl) {
-                dateEl.textContent = `${now.toLocaleDateString('pl-PL')} ${now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}`;
+                const dateLocale = this.currentLang === 'en' ? 'en-US' : 'pl-PL';
+                dateEl.textContent = `${now.toLocaleDateString(dateLocale)} ${now.toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' })}`;
             }
 
             // Wypełnienie parametrów w karcie specyfikacji technicznej
@@ -1548,26 +1545,26 @@ class ArtbarApp {
             const modulesEl = document.getElementById('quote-spec-modules');
             if (modulesEl) {
                 const totalBar = stats.BAR_STRAIGHT + stats.BAR_CORNER;
-                modulesEl.textContent = `${totalBar} szt. (${stats.BAR_STRAIGHT} prostych + ${stats.BAR_CORNER} narożnych)`;
+                modulesEl.textContent = t('modules_breakdown', { total: totalBar, straight: stats.BAR_STRAIGHT, corners: stats.BAR_CORNER });
             }
 
             const shelvesEl = document.getElementById('quote-spec-shelves');
-            if (shelvesEl) shelvesEl.textContent = `${stats.BACK_SHELF} szt.`;
+            if (shelvesEl) shelvesEl.textContent = `${stats.BACK_SHELF} ${t('unit_pcs')}`;
 
             const fridgesEl = document.getElementById('quote-spec-fridges');
             if (fridgesEl) {
                 const totalFridges = stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM;
-                fridgesEl.textContent = `${totalFridges} szt. (${stats.BACK_FRIDGE} 2D + ${stats.BACK_FRIDGE_SLIM} 1D)`;
+                fridgesEl.textContent = t('fridges_breakdown', { total: totalFridges, f2d: stats.BACK_FRIDGE, f1d: stats.BACK_FRIDGE_SLIM });
             }
 
             // Rozpoznanie motywu graficznego
-            let brandingDesc = 'Standardowy ArtBar';
+            let brandingDesc = t('branding_default');
             if (brandingSettings?.mode === 'ai') {
-                brandingDesc = 'Grafika generatywna AI';
+                brandingDesc = t('branding_ai');
             } else if (brandingSettings?.background?.presetName) {
                 brandingDesc = `Preset: ${brandingSettings.background.presetName}`;
             } else if (this.brandingManager.currentDataUrl) {
-                brandingDesc = 'Własna grafika klienta';
+                brandingDesc = t('branding_custom');
             }
             const brandEl = document.getElementById('quote-spec-branding');
             if (brandEl) brandEl.textContent = brandingDesc;
@@ -1585,7 +1582,7 @@ class ArtbarApp {
 
             // Otwórz okno modalne
             modalSaveSend.classList.add('visible');
-            this.showToast('Zapisano układ baru. Uzupełnij formularz, aby wysłać zapytanie.');
+            this.showToast(t('toast_quote_opened'));
         };
 
         this.closeSaveSendModal = () => {
@@ -1625,7 +1622,7 @@ class ArtbarApp {
         // Pobranie kopii pliku projektu .json na dysk użytkownika
         btnDownloadJson?.addEventListener('click', () => {
             if (!this.currentExportedData) {
-                this.showToast('Brak danych projektu do pobrania.');
+                this.showToast(t('toast_quote_no_data'));
                 return;
             }
             try {
@@ -1643,10 +1640,10 @@ class ArtbarApp {
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-                this.showToast(`Pobrano plik projektu: ${filename}`);
+                this.showToast(t('toast_quote_downloaded', { filename }));
             } catch (err) {
                 console.error('Błąd pobierania pliku JSON:', err);
-                this.showToast('Wystąpił błąd podczas generowania pliku JSON.');
+                this.showToast(t('toast_layout_save_error'));
             }
         });
 
@@ -1665,10 +1662,10 @@ class ArtbarApp {
             const stats = this.barBuilder.getStats();
             const brandingSettings = this.brandingManager.getSettings();
             const ledSettings = this.ledManager.getSettings();
-            let brandingDesc = 'Standardowy ArtBar';
-            if (brandingSettings?.mode === 'ai') brandingDesc = 'Grafika generatywna AI';
+            let brandingDesc = t('branding_default');
+            if (brandingSettings?.mode === 'ai') brandingDesc = t('branding_ai');
             else if (brandingSettings?.background?.presetName) brandingDesc = `Preset: ${brandingSettings.background.presetName}`;
-            else if (this.brandingManager.currentDataUrl) brandingDesc = 'Własna grafika klienta';
+            else if (this.brandingManager.currentDataUrl) brandingDesc = t('branding_custom');
             const ledColor = ledSettings?.color || '#facb7d';
 
             const quotePayload = {
@@ -1693,39 +1690,22 @@ class ArtbarApp {
             } catch (_) {}
 
             // Przygotowanie linku mailto (zgodnego ze wszystkimi klientami pocztowymi)
-            const mailSubject = encodeURIComponent(`Zapytanie Ofertowe - Konfigurator Baru 3D: ${name}${company ? ' (' + company + ')' : ''}`);
-            const mailBody = encodeURIComponent(
-`Dzień dobry Zespole ArtBar Solutions,
-
-Przesyłam zapytanie ofertowe dotyczące konfiguracji baru 3D przygotowanej w konfiguratorze.
-
-DANE KONTAKTOWE:
-- Imię i nazwisko: ${name}
-- Firma / Organizator: ${company || 'Nie podano'}
-- Adres e-mail: ${email}
-- Telefon: ${phone}
-- Termin wydarzenia: ${date || 'Do ustalenia'}
-- Miejsce eventu: ${location || 'Do ustalenia'}
-
-PARAMETRY SKONFIGUROWANEGO BARU:
-- Łączna długość frontu: ${stats.totalFrontMeters.toFixed(1)} m
-- Liczba modułów baru: ${stats.BAR_STRAIGHT + stats.BAR_CORNER} szt. (proste: ${stats.BAR_STRAIGHT}, narożniki: ${stats.BAR_CORNER})
-- Regały zaplecza: ${stats.BACK_SHELF} szt.
-- Lodówki gastronomiczne: ${stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM} szt. (2D: ${stats.BACK_FRIDGE}, 1D: ${stats.BACK_FRIDGE_SLIM})
-- Motyw graficzny / branding: ${brandingDesc}
-- Podświetlenie LED: ${ledColor}
-
-DODATKOWE UWAGI:
-${notes || 'Brak dodatkowych uwag.'}
-
----
-Wiadomość z Konfiguratora Barów 3D ArtBar Solutions
-https://artbar.com.pl`
-            );
+            const mailtoHref = getTranslatedMailto({
+                name,
+                company,
+                email,
+                phone,
+                date,
+                location,
+                notes,
+                stats,
+                brandingDesc,
+                ledColor
+            });
 
             const mailtoLink = document.getElementById('quote-mailto-link');
             if (mailtoLink) {
-                mailtoLink.href = `mailto:eventy@artbar.com.pl?subject=${mailSubject}&body=${mailBody}`;
+                mailtoLink.href = mailtoHref;
             }
 
             // Komunikacja z oknem rodzica (jeśli konfigurator jest osadzony w iframe na stronie głównej)
@@ -1738,7 +1718,7 @@ https://artbar.com.pl`
             // Przełączenie na ekran potwierdzenia sukcesu
             formSaveSend.style.display = 'none';
             if (successScreen) successScreen.style.display = 'flex';
-            this.showToast('Zapytanie z układem baru zostało przygotowane!');
+            this.showToast(t('toast_quote_submitted'));
         });
     }
 
@@ -1770,21 +1750,22 @@ https://artbar.com.pl`
     }
 
     updateUIStats(stats) {
+        const unit = t('unit_pcs');
         // Panel podsumowania
         const sumStraight = document.getElementById('sum-straight');
-        if (sumStraight) sumStraight.textContent = `${stats.BAR_STRAIGHT} szt.`;
+        if (sumStraight) sumStraight.textContent = `${stats.BAR_STRAIGHT} ${unit}`;
 
         const sumCorners = document.getElementById('sum-corners');
-        if (sumCorners) sumCorners.textContent = `${stats.BAR_CORNER} szt.`;
+        if (sumCorners) sumCorners.textContent = `${stats.BAR_CORNER} ${unit}`;
 
         const sumShelves = document.getElementById('sum-shelves');
-        if (sumShelves) sumShelves.textContent = `${stats.BACK_SHELF} szt.`;
+        if (sumShelves) sumShelves.textContent = `${stats.BACK_SHELF} ${unit}`;
 
         const sumFridges = document.getElementById('sum-fridges');
-        if (sumFridges) sumFridges.textContent = `${stats.BACK_FRIDGE} szt.`;
+        if (sumFridges) sumFridges.textContent = `${stats.BACK_FRIDGE} ${unit}`;
 
         const sumFridgesSlim = document.getElementById('sum-fridges-slim');
-        if (sumFridgesSlim) sumFridgesSlim.textContent = `${stats.BACK_FRIDGE_SLIM || 0} szt.`;
+        if (sumFridgesSlim) sumFridgesSlim.textContent = `${stats.BACK_FRIDGE_SLIM || 0} ${unit}`;
 
         const sumTotalLength = document.getElementById('sum-total-length');
         if (sumTotalLength) sumTotalLength.textContent = `${stats.totalFrontMeters.toFixed(1)} m`;

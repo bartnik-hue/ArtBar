@@ -117,6 +117,48 @@ body, html {
     background: rgba(250, 203, 125, 0.2);
 }
 
+/* PRZEŁĄCZNIK JĘZYKA W KONFIGURATORZE */
+.lang-switch-config {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(250, 203, 125, 0.25);
+    border-radius: 9999px;
+    padding: 2px 4px;
+    gap: 2px;
+}
+
+.lang-switch-config .lang-btn {
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.lang-switch-config .lang-btn:hover {
+    color: #facb7d;
+}
+
+.lang-switch-config .lang-btn.active {
+    background: #facb7d;
+    color: #050505;
+    box-shadow: 0 0 10px rgba(250, 203, 125, 0.4);
+}
+
+.lang-switch-config .lang-divider {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.65rem;
+    user-select: none;
+}
+
+
 .stats-bar {
     display: flex;
     gap: 18px;
@@ -1867,6 +1909,17 @@ body, html {
     .brand-subtitle {
         display: none;
     }
+
+    .lang-switch-config {
+        padding: 1px 3px;
+        gap: 1px;
+    }
+
+    .lang-switch-config .lang-btn {
+        font-size: 0.60rem;
+        padding: 2px 5px;
+    }
+
 
     /* Pasek narzędzi u góry: kompaktowa wstęga w jednym rzędzie */
     .top-actions {
