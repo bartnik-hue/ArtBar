@@ -1434,6 +1434,23 @@
         // Fallback czasowy na wypadek wolnego łącza / blokad zdarzeń iframe
         setTimeout(hideConfigOverlay, 3500);
       });
+
+      // Synchronizacja danych z konfiguratora 3D do formularza głównego
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'ARTBAR_QUOTE_SUBMITTED') {
+          const payload = event.data.payload;
+          const contactForm = document.getElementById('contact-form');
+          if (contactForm && payload && payload.client) {
+            const inputs = contactForm.querySelectorAll('input, textarea');
+            if (inputs[0] && payload.client.name) inputs[0].value = payload.client.name;
+            if (inputs[1] && payload.client.company) inputs[1].value = payload.client.company;
+            if (inputs[2] && payload.client.email) inputs[2].value = payload.client.email;
+            if (inputs[3] && payload.client.phone) inputs[3].value = payload.client.phone;
+            if (inputs[4] && payload.client.location) inputs[4].value = `${payload.client.location} (Termin: ${payload.client.date || 'b/d'})`;
+            if (inputs[5]) inputs[5].value = `[Układ 3D: Długość ${payload.spec?.totalFrontMeters || '0'}m, moduły: ${payload.spec?.modulesCount || '0'}]\n${payload.client.notes || ''}`;
+          }
+        }
+      });
     }
 
     // ── OBSŁUGA WYSKAKUJĄCEJ RAMKI & SLIDESHOW DLA SEKCJI OFERTA (ARTBAR & SOLUTIONS) ─

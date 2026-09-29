@@ -79,6 +79,7 @@ class ArtbarApp {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,
+            preserveDrawingBuffer: true,
             powerPreference: 'high-performance'
         });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -310,6 +311,11 @@ class ArtbarApp {
                     if (this.closeHelpModal) this.closeHelpModal();
                     return;
                 }
+                const modalSaveSend = document.getElementById('modal-save-send');
+                if (modalSaveSend && modalSaveSend.classList.contains('visible')) {
+                    if (this.closeSaveSendModal) this.closeSaveSendModal();
+                    return;
+                }
                 this.barBuilder.cancelGhost();
                 this.barBuilder.deselectModule();
                 this.hideContextMenu();
@@ -346,7 +352,8 @@ class ArtbarApp {
     }
 
     onMouseMove(e) {
-        if (document.getElementById('modal-help')?.classList.contains('visible')) return;
+        if (document.getElementById('modal-help')?.classList.contains('visible') || 
+            document.getElementById('modal-save-send')?.classList.contains('visible')) return;
         this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
@@ -385,7 +392,8 @@ class ArtbarApp {
 
     onPointerDown(e) {
         if (e.button !== 0 && e.pointerType !== 'touch') return;
-        if (document.getElementById('modal-help')?.classList.contains('visible')) return;
+        if (document.getElementById('modal-help')?.classList.contains('visible') || 
+            document.getElementById('modal-save-send')?.classList.contains('visible')) return;
         this.pointerDownPos = { x: e.clientX, y: e.clientY, time: performance.now(), pointerType: e.pointerType };
 
         // Obsługa długiego dotknięcia (Long Press) na urządzeniach dotykowych -> symulacja PPM (wstawienie modułu pod palec)
@@ -413,8 +421,9 @@ class ArtbarApp {
         // Tylko LPM (przycisk 0) lub dotyk
         if (e.button !== 0 && e.pointerType !== 'touch') return;
 
-        // Jeśli modal pomocy jest otwarty, ignoruj interakcje ze sceną
-        if (document.getElementById('modal-help')?.classList.contains('visible')) return;
+        // Jeśli modal pomocy lub formularza jest otwarty, ignoruj interakcje ze sceną
+        if (document.getElementById('modal-help')?.classList.contains('visible') || 
+            document.getElementById('modal-save-send')?.classList.contains('visible')) return;
 
         // Jeśli kliknięto w elementy UI, ignoruj
         if (e.target.closest('.top-header') || e.target.closest('.top-actions') || 
@@ -488,8 +497,9 @@ class ArtbarApp {
     onContextMenu(e) {
         e.preventDefault();
 
-        // Jeśli modal pomocy jest otwarty, ignoruj
-        if (document.getElementById('modal-help')?.classList.contains('visible')) return;
+        // Jeśli modal pomocy lub formularza jest otwarty, ignoruj
+        if (document.getElementById('modal-help')?.classList.contains('visible') || 
+            document.getElementById('modal-save-send')?.classList.contains('visible')) return;
 
         // Jeśli jesteśmy w trybie ghosta, PPM anuluje ghosta
         if (this.barBuilder.ghostModule) {
@@ -910,6 +920,9 @@ class ArtbarApp {
 
         // Modal pomocy i instrukcji
         this.setupHelpModal();
+
+        // Modal "Zapisz i wyślij" z formularzem kontaktowym
+        this.setupSaveAndSendModal();
 
         // Presety gotowych układów baru
         document.querySelectorAll('.preset-card').forEach(card => {
@@ -1470,6 +1483,263 @@ class ArtbarApp {
             modalHelp.classList.add('visible');
             btnOpen?.classList.add('active');
         }
+    }
+
+    setupSaveAndSendModal() {
+        const modalSaveSend = document.getElementById('modal-save-send');
+        const btnSaveSend = document.getElementById('btn-save-send');
+        const btnSummarySend = document.getElementById('btn-summary-send');
+        const btnClose = document.getElementById('btn-close-save-send');
+        const btnQuoteDone = document.getElementById('btn-quote-done');
+        const btnDownloadJson = document.getElementById('btn-quote-download-json');
+        const formSaveSend = document.getElementById('form-save-send');
+        const successScreen = document.getElementById('quote-success-screen');
+
+        if (!modalSaveSend) return;
+
+        this.openSaveAndSendModal = () => {
+            const stats = this.barBuilder.getStats();
+            const totalCount = stats.BAR_STRAIGHT + stats.BAR_CORNER + stats.BACK_SHELF + stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM;
+
+            if (totalCount === 0) {
+                this.showToast('Wskazówka: Dodaj moduły baru na scenie, aby przygotować precyzyjną wycenę.');
+            }
+
+            // Zamknij ewentualnie otwarte panele boczne i inne okna dialogowe
+            document.querySelectorAll('.side-panel').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.btn-tool').forEach(b => b.classList.remove('active'));
+            document.getElementById('modal-help')?.classList.remove('visible');
+            btnSaveSend?.classList.add('active');
+
+            // Przygotowanie danych projektu do zapisu
+            const brandingSettings = this.brandingManager.getSettings();
+            const ledSettings = this.ledManager.getSettings();
+            const projectData = this.barBuilder.exportProject(
+                this.brandingManager.currentDataUrl,
+                brandingSettings,
+                ledSettings
+            );
+            projectData.floorSettings = {
+                roughness: this.floorMesh?.material?.roughness ?? 0.50,
+                metalness: this.floorMesh?.material?.metalness ?? 0.20
+            };
+            this.currentExportedData = projectData;
+
+            // Zrzut ekranu 3D aktualnego widoku baru
+            try {
+                this.renderer.render(this.scene, this.camera);
+                const screenshotUrl = this.canvas.toDataURL('image/jpeg', 0.85);
+                const previewImg = document.getElementById('quote-preview-img');
+                if (previewImg) previewImg.src = screenshotUrl;
+            } catch (err) {
+                console.warn('Nie udało się wygenerować zrzutu ekranu 3D:', err);
+            }
+
+            const now = new Date();
+            const dateEl = document.getElementById('quote-preview-date');
+            if (dateEl) {
+                dateEl.textContent = `${now.toLocaleDateString('pl-PL')} ${now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}`;
+            }
+
+            // Wypełnienie parametrów w karcie specyfikacji technicznej
+            const lengthEl = document.getElementById('quote-spec-length');
+            if (lengthEl) lengthEl.textContent = `${stats.totalFrontMeters.toFixed(1)} m`;
+
+            const modulesEl = document.getElementById('quote-spec-modules');
+            if (modulesEl) {
+                const totalBar = stats.BAR_STRAIGHT + stats.BAR_CORNER;
+                modulesEl.textContent = `${totalBar} szt. (${stats.BAR_STRAIGHT} prostych + ${stats.BAR_CORNER} narożnych)`;
+            }
+
+            const shelvesEl = document.getElementById('quote-spec-shelves');
+            if (shelvesEl) shelvesEl.textContent = `${stats.BACK_SHELF} szt.`;
+
+            const fridgesEl = document.getElementById('quote-spec-fridges');
+            if (fridgesEl) {
+                const totalFridges = stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM;
+                fridgesEl.textContent = `${totalFridges} szt. (${stats.BACK_FRIDGE} 2D + ${stats.BACK_FRIDGE_SLIM} 1D)`;
+            }
+
+            // Rozpoznanie motywu graficznego
+            let brandingDesc = 'Standardowy ArtBar';
+            if (brandingSettings?.mode === 'ai') {
+                brandingDesc = 'Grafika generatywna AI';
+            } else if (brandingSettings?.background?.presetName) {
+                brandingDesc = `Preset: ${brandingSettings.background.presetName}`;
+            } else if (this.brandingManager.currentDataUrl) {
+                brandingDesc = 'Własna grafika klienta';
+            }
+            const brandEl = document.getElementById('quote-spec-branding');
+            if (brandEl) brandEl.textContent = brandingDesc;
+
+            // Podświetlenie LED
+            const ledColor = ledSettings?.color || '#facb7d';
+            const ledEl = document.getElementById('quote-spec-led');
+            if (ledEl) {
+                ledEl.innerHTML = `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${ledColor};margin-right:6px;vertical-align:middle;box-shadow:0 0 6px ${ledColor};"></span>${ledColor.toUpperCase()}`;
+            }
+
+            // Reset stanu formularza (pokazanie pól wejściowych, schowanie ekranu sukcesu)
+            if (formSaveSend) formSaveSend.style.display = 'flex';
+            if (successScreen) successScreen.style.display = 'none';
+
+            // Otwórz okno modalne
+            modalSaveSend.classList.add('visible');
+            this.showToast('Zapisano układ baru. Uzupełnij formularz, aby wysłać zapytanie.');
+        };
+
+        this.closeSaveSendModal = () => {
+            modalSaveSend.classList.remove('visible');
+            btnSaveSend?.classList.remove('active');
+            btnSummarySend?.classList.remove('active');
+        };
+
+        // Podpięcie przycisków otwierających modal
+        btnSaveSend?.addEventListener('click', () => {
+            if (modalSaveSend.classList.contains('visible')) {
+                this.closeSaveSendModal();
+            } else {
+                this.openSaveAndSendModal();
+            }
+        });
+
+        btnSummarySend?.addEventListener('click', () => {
+            this.openSaveAndSendModal();
+        });
+
+        // Przyciski zamykające
+        btnClose?.addEventListener('click', () => {
+            this.closeSaveSendModal();
+        });
+
+        btnQuoteDone?.addEventListener('click', () => {
+            this.closeSaveSendModal();
+        });
+
+        modalSaveSend.addEventListener('click', (e) => {
+            if (e.target === modalSaveSend) {
+                this.closeSaveSendModal();
+            }
+        });
+
+        // Pobranie kopii pliku projektu .json na dysk użytkownika
+        btnDownloadJson?.addEventListener('click', () => {
+            if (!this.currentExportedData) {
+                this.showToast('Brak danych projektu do pobrania.');
+                return;
+            }
+            try {
+                const jsonStr = JSON.stringify(this.currentExportedData, null, 2);
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const now = new Date();
+                const timestamp = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+                const filename = `artbar-uklad-${timestamp}.json`;
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                this.showToast(`Pobrano plik projektu: ${filename}`);
+            } catch (err) {
+                console.error('Błąd pobierania pliku JSON:', err);
+                this.showToast('Wystąpił błąd podczas generowania pliku JSON.');
+            }
+        });
+
+        // Obsługa wysłania formularza kontaktowego
+        formSaveSend?.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('quote-name')?.value.trim() || '';
+            const company = document.getElementById('quote-company')?.value.trim() || '';
+            const email = document.getElementById('quote-email')?.value.trim() || '';
+            const phone = document.getElementById('quote-phone')?.value.trim() || '';
+            const date = document.getElementById('quote-event-date')?.value || '';
+            const location = document.getElementById('quote-location')?.value.trim() || '';
+            const notes = document.getElementById('quote-notes')?.value.trim() || '';
+
+            const stats = this.barBuilder.getStats();
+            const brandingSettings = this.brandingManager.getSettings();
+            const ledSettings = this.ledManager.getSettings();
+            let brandingDesc = 'Standardowy ArtBar';
+            if (brandingSettings?.mode === 'ai') brandingDesc = 'Grafika generatywna AI';
+            else if (brandingSettings?.background?.presetName) brandingDesc = `Preset: ${brandingSettings.background.presetName}`;
+            else if (this.brandingManager.currentDataUrl) brandingDesc = 'Własna grafika klienta';
+            const ledColor = ledSettings?.color || '#facb7d';
+
+            const quotePayload = {
+                client: { name, company, email, phone, date, location, notes },
+                spec: {
+                    totalFrontMeters: stats.totalFrontMeters.toFixed(1),
+                    modulesCount: stats.BAR_STRAIGHT + stats.BAR_CORNER,
+                    straightModules: stats.BAR_STRAIGHT,
+                    cornerModules: stats.BAR_CORNER,
+                    backShelves: stats.BACK_SHELF,
+                    backFridges: stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM,
+                    branding: brandingDesc,
+                    ledColor: ledColor
+                },
+                projectData: this.currentExportedData,
+                timestamp: new Date().toISOString()
+            };
+
+            // Zapisz kopię w pamięci przeglądarki
+            try {
+                localStorage.setItem('artbar_last_quote', JSON.stringify(quotePayload));
+            } catch (_) {}
+
+            // Przygotowanie linku mailto (zgodnego ze wszystkimi klientami pocztowymi)
+            const mailSubject = encodeURIComponent(`Zapytanie Ofertowe - Konfigurator Baru 3D: ${name}${company ? ' (' + company + ')' : ''}`);
+            const mailBody = encodeURIComponent(
+`Dzień dobry Zespole ArtBar Solutions,
+
+Przesyłam zapytanie ofertowe dotyczące konfiguracji baru 3D przygotowanej w konfiguratorze.
+
+DANE KONTAKTOWE:
+- Imię i nazwisko: ${name}
+- Firma / Organizator: ${company || 'Nie podano'}
+- Adres e-mail: ${email}
+- Telefon: ${phone}
+- Termin wydarzenia: ${date || 'Do ustalenia'}
+- Miejsce eventu: ${location || 'Do ustalenia'}
+
+PARAMETRY SKONFIGUROWANEGO BARU:
+- Łączna długość frontu: ${stats.totalFrontMeters.toFixed(1)} m
+- Liczba modułów baru: ${stats.BAR_STRAIGHT + stats.BAR_CORNER} szt. (proste: ${stats.BAR_STRAIGHT}, narożniki: ${stats.BAR_CORNER})
+- Regały zaplecza: ${stats.BACK_SHELF} szt.
+- Lodówki gastronomiczne: ${stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM} szt. (2D: ${stats.BACK_FRIDGE}, 1D: ${stats.BACK_FRIDGE_SLIM})
+- Motyw graficzny / branding: ${brandingDesc}
+- Podświetlenie LED: ${ledColor}
+
+DODATKOWE UWAGI:
+${notes || 'Brak dodatkowych uwag.'}
+
+---
+Wiadomość z Konfiguratora Barów 3D ArtBar Solutions
+https://artbar.com.pl`
+            );
+
+            const mailtoLink = document.getElementById('quote-mailto-link');
+            if (mailtoLink) {
+                mailtoLink.href = `mailto:eventy@artbar.com.pl?subject=${mailSubject}&body=${mailBody}`;
+            }
+
+            // Komunikacja z oknem rodzica (jeśli konfigurator jest osadzony w iframe na stronie głównej)
+            if (window.parent && window.parent !== window) {
+                try {
+                    window.parent.postMessage({ type: 'ARTBAR_QUOTE_SUBMITTED', payload: quotePayload }, '*');
+                } catch (_) {}
+            }
+
+            // Przełączenie na ekran potwierdzenia sukcesu
+            formSaveSend.style.display = 'none';
+            if (successScreen) successScreen.style.display = 'flex';
+            this.showToast('Zapytanie z układem baru zostało przygotowane!');
+        });
     }
 
     setActiveViewBtn(btn) {

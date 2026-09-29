@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Artbar Solutions - Konfigurator Barów Eventowych 3D</title>
-    <link rel="stylesheet" href="css/style.css?v=60">
+    <link rel="stylesheet" href="css/style.css?v=61">
     <!-- Google Fonts: Montserrat & Cinzel dla luksusowego wyglądu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +63,10 @@
         <button class="btn-tool" id="btn-open-summary" data-short="Podsumowanie" title="Zestawienie elementów baru">
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
             <span class="btn-tool-txt">Podsumowanie</span>
+        </button>
+        <button class="btn-tool btn-save-send-cta" id="btn-save-send" data-short="Wyślij" title="Zapisz ten układ i wyślij formularz zapytania">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            <span class="btn-tool-txt">Zapisz i wyślij</span>
         </button>
         <button class="btn-tool" id="btn-save-project" data-short="Zapisz" title="Zapisz bieżący układ i grafikę do pliku JSON">
             <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
@@ -763,6 +767,10 @@
             <button class="btn-tool active" id="btn-print-spec" style="width: 100%; justify-content: center;">
                 Drukuj / Eksportuj Zestawienie
             </button>
+            <button class="btn-tool btn-save-send-cta" id="btn-summary-send" style="width: 100%; justify-content: center; margin-top: 8px;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="margin-right: 6px;"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                <span>Zapisz i wyślij zapytanie</span>
+            </button>
         </div>
     </div>
 
@@ -900,10 +908,160 @@
         </div>
     </div>
 
+    <!-- MODAL OKNO: ZAPISZ I WYŚLIJ (FORMULARZ KONTAKTOWY Z ZAŁĄCZONYM UKŁADEM) -->
+    <div class="modal-overlay" id="modal-save-send">
+        <div class="modal-window modal-quote-window">
+            <div class="modal-header">
+                <div class="modal-header-left">
+                    <div class="modal-header-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="modal-title">Zapisz i Wyślij Konfigurację</div>
+                        <div class="modal-subtitle">Twój układ 3D został automatycznie zapisany i dołączony do zapytania ofertowego</div>
+                    </div>
+                </div>
+                <button class="panel-close-btn" id="btn-close-save-send" title="Zamknij okno">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="quote-modal-layout">
+                    <!-- LEWA KARTA: PODGLĄD ZAŁĄCZONEGO PROJEKTU -->
+                    <div class="quote-project-card">
+                        <div class="quote-project-badge">
+                            <span class="badge-dot"></span>
+                            <span>Załączony układ 3D</span>
+                        </div>
+                        
+                        <!-- Podgląd zrzutu 3D -->
+                        <div class="quote-preview-wrap">
+                            <img id="quote-preview-img" src="" alt="Podgląd układu baru 3D" class="quote-preview-img">
+                            <div class="quote-preview-overlay">
+                                <span id="quote-preview-date">Dzisiaj</span>
+                            </div>
+                        </div>
+
+                        <!-- Parametry techniczne układu -->
+                        <div class="quote-specs-list">
+                            <div class="quote-spec-item">
+                                <span class="spec-label">Długość frontu:</span>
+                                <strong class="spec-val" id="quote-spec-length">0.0 m</strong>
+                            </div>
+                            <div class="quote-spec-item">
+                                <span class="spec-label">Moduły baru:</span>
+                                <strong class="spec-val" id="quote-spec-modules">0 szt.</strong>
+                            </div>
+                            <div class="quote-spec-item">
+                                <span class="spec-label">Regały zaplecza:</span>
+                                <strong class="spec-val" id="quote-spec-shelves">0 szt.</strong>
+                            </div>
+                            <div class="quote-spec-item">
+                                <span class="spec-label">Lodówki:</span>
+                                <strong class="spec-val" id="quote-spec-fridges">0 szt.</strong>
+                            </div>
+                            <div class="quote-spec-item">
+                                <span class="spec-label">Grafika frontów:</span>
+                                <strong class="spec-val" id="quote-spec-branding">Domyślna</strong>
+                            </div>
+                            <div class="quote-spec-item">
+                                <span class="spec-label">Podświetlenie LED:</span>
+                                <strong class="spec-val" id="quote-spec-led">Złoty</strong>
+                            </div>
+                        </div>
+
+                        <!-- Przycisk pobrania pliku JSON dla klienta -->
+                        <div class="quote-download-box">
+                            <button type="button" class="btn-download-json-copy" id="btn-quote-download-json" title="Pobierz kopię pliku projektu na dysk">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                                <span>Pobierz kopię pliku (.json)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRAWA KOLUMNA: FORMULARZ DANYCH KONTAKTOWYCH -->
+                    <div class="quote-form-wrap">
+                        <form id="form-save-send" class="quote-form">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-name">Imię i Nazwisko / Osoba kontaktowa *</label>
+                                    <input type="text" id="quote-name" required class="form-input" placeholder="np. Jan Kowalski">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-company">Nazwa Firmy / Organizatora</label>
+                                    <input type="text" id="quote-company" class="form-input" placeholder="np. Agencja Eventowa / Festiwal">
+                                </div>
+                            </div>
+
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-email">Adres E-mail *</label>
+                                    <input type="email" id="quote-email" required class="form-input" placeholder="twoj-email@domena.pl">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-phone">Numer Telefonu *</label>
+                                    <input type="tel" id="quote-phone" required class="form-input" placeholder="+48 123 456 789">
+                                </div>
+                            </div>
+
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-event-date">Termin wydarzenia</label>
+                                    <input type="date" id="quote-event-date" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-location">Miejsce eventu / Miasto</label>
+                                    <input type="text" id="quote-location" class="form-input" placeholder="np. Warszawa / Kraków / Plener">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="quote-notes">Dodatkowe uwagi / pytania</label>
+                                <textarea id="quote-notes" rows="3" class="form-textarea" placeholder="Napisz, czy potrzebujesz także obsługi barmańskiej, koncesji ABC, fabryki lodu, kubków eco lub autorskiego systemu ArtPOS..."></textarea>
+                            </div>
+
+                            <div class="quote-privacy-note">
+                                Wysyłając zapytanie, przesyłasz przygotowany układ baru do zespołu ArtBar Solutions w celu bezpłatnej wyceny i konsultacji technicznej.
+                            </div>
+
+                            <button type="submit" class="btn-submit-quote" id="btn-submit-quote">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                </svg>
+                                <span>Wyślij zapytanie z załączonym układem</span>
+                            </button>
+                        </form>
+
+                        <!-- EKRAN SUKCESU PO WYSŁANIU -->
+                        <div id="quote-success-screen" class="quote-success-screen" style="display: none;">
+                            <div class="quote-success-icon">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </div>
+                            <h3 class="quote-success-title">Dziękujemy! Zapytanie zostało przyjęte</h3>
+                            <p class="quote-success-desc">Twój układ baru oraz dane kontaktowe zostały zapisane. Specjaliści ArtBar Solutions skontaktują się z Tobą w najkrótszym możliwym czasie.</p>
+                            
+                            <div class="quote-success-actions">
+                                <a id="quote-mailto-link" href="#" class="btn-mailto-cta" target="_blank">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                    <span>Otwórz kopię zapytania w programie pocztowym</span>
+                                </a>
+                                <button type="button" class="btn-tool active" id="btn-quote-done" style="width: 100%; justify-content: center; padding: 10px 16px;">
+                                    Wróć do konfiguratora
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST NOTIFICATIONS -->
     <div id="toast-container"></div>
 
     <!-- GŁÓWNY SKRYPT APLIKACJI -->
-    <script type="module" src="js/app.js?v=79"></script>
+    <script type="module" src="js/app.js?v=80"></script>
 </body>
 </html>
