@@ -267,253 +267,149 @@
     }
 
     /* ══════════════════════════════════════════════════════════
-       PEŁNOEKRANOWE SKALOWANIE RAMKI OFERTY (ART / BAR / SOLUTIONS)
-       DOPASOWANIE DO CAŁEGO EKRANU ORAZ SKALOWANIE 4K ULTRA HD
+       PEŁNOEKRANOWE I PŁYNNE SKALOWANIE (FLUID SCALING) DLA RAMKI OFERTY
+       PERFEKCYJNE SKALOWANIE TEKSTÓW, IKON I ZAWARTOŚCI OD HD DO 4K ULTRA HD
        ══════════════════════════════════════════════════════════ */
     #offer-modal {
-      padding: clamp(8px, 1.8vw, 28px);
+      padding: clamp(8px, 1.6vw, 36px) !important;
     }
 
     #offer-modal-card {
-      width: 96vw;
-      max-width: 1560px;
-      height: 94vh;
-      max-height: 94vh;
+      width: clamp(94vw, 96vw, 98vw) !important;
+      max-width: clamp(1200px, 94vw, 3600px) !important;
+      height: clamp(90vh, 94vh, 96vh) !important;
+      max-height: 96vh !important;
+      border-radius: clamp(14px, 1vw + 10px, 36px) !important;
     }
 
-    .offer-modal-slideshow-wrap {
-      width: 100%;
-      height: 230px;
+    #offer-modal-header-bar {
+      padding: clamp(10px, 0.6vw + 8px, 30px) clamp(16px, 1.2vw + 12px, 52px) !important;
     }
-    @media (min-width: 640px) {
-      .offer-modal-slideshow-wrap {
-        height: 280px;
-      }
+
+    #offer-modal-scroll {
+      padding: clamp(16px, 1.2vw + 10px, 56px) clamp(16px, 1.5vw + 12px, 64px) !important;
+      gap: clamp(18px, 1.2vw + 12px, 48px) !important;
+    }
+
+    /* Przyciski zakładek (art, bar, SOLUTIONS) */
+    .modal-tab-btn {
+      font-size: clamp(0.72rem, 0.45vw + 0.5rem, 1.45rem) !important;
+      padding: clamp(6px, 0.35vw + 4px, 18px) clamp(12px, 0.6vw + 8px, 34px) !important;
+      border-radius: clamp(6px, 0.25vw + 4px, 16px) !important;
+      gap: clamp(6px, 0.25vw + 4px, 16px) !important;
+      letter-spacing: 0.12em !important;
+    }
+    .modal-tab-btn span:first-child {
+      width: clamp(6px, 0.2vw + 4px, 14px) !important;
+      height: clamp(6px, 0.2vw + 4px, 14px) !important;
+    }
+
+    /* Przycisk zamknięcia [ × ] */
+    #btn-close-offer-modal {
+      width: clamp(34px, 1.2vw + 24px, 72px) !important;
+      height: clamp(34px, 1.2vw + 24px, 72px) !important;
+    }
+    #btn-close-offer-modal svg {
+      width: clamp(16px, 0.6vw + 12px, 36px) !important;
+      height: clamp(16px, 0.6vw + 12px, 36px) !important;
+    }
+
+    /* Badge i tytuł kategorii */
+    #modal-category-badge {
+      font-size: clamp(0.72rem, 0.45vw + 0.55rem, 1.45rem) !important;
+      letter-spacing: clamp(0.18em, 0.1vw + 0.15em, 0.35em) !important;
+      margin-bottom: clamp(6px, 0.3vw + 4px, 18px) !important;
+    }
+    #modal-category-badge span:first-child {
+      width: clamp(7px, 0.2vw + 5px, 16px) !important;
+      height: clamp(7px, 0.2vw + 5px, 16px) !important;
+    }
+
+    #modal-category-title {
+      font-size: clamp(1.4rem, 1.5vw + 0.9rem, 4.2rem) !important;
+      line-height: 1.15 !important;
+      margin-bottom: clamp(10px, 0.5vw + 6px, 26px) !important;
+    }
+
+    /* Cytat / lead kategorii */
+    #modal-category-lead {
+      font-size: clamp(0.82rem, 0.65vw + 0.6rem, 1.85rem) !important;
+      line-height: clamp(1.5, 0.2vw + 1.45, 1.75) !important;
+      padding: clamp(10px, 0.7vw + 6px, 32px) clamp(14px, 0.9vw + 8px, 42px) !important;
+      border-left-width: clamp(2px, 0.15vw + 2px, 6px) !important;
+      border-radius: clamp(8px, 0.35vw + 6px, 20px) !important;
+      max-width: clamp(40rem, 45vw + 15rem, 95rem) !important;
+    }
+
+    /* Slideshow zdjęć z realizacji */
+    .offer-modal-slideshow-wrap {
+      width: 100% !important;
+      height: clamp(220px, 18vw + 80px, 680px) !important;
+      border-radius: clamp(10px, 0.4vw + 8px, 24px) !important;
     }
     @media (min-width: 1024px) {
       .offer-modal-slideshow-wrap {
-        width: 480px;
-        height: 300px;
+        width: clamp(420px, 24vw + 120px, 1100px) !important;
+        height: clamp(280px, 16vw + 80px, 640px) !important;
       }
     }
 
-    /* ── EKRANY QHD / 2K (min-width: 1920px) ─────────────────── */
-    @media (min-width: 1920px) {
-      #offer-modal-card {
-        max-width: 2200px;
-        height: 94vh;
-        max-height: 94vh;
-      }
-      .offer-modal-slideshow-wrap {
-        width: 640px;
-        height: 380px;
-      }
-      #modal-category-badge {
-        font-size: 0.92rem;
-        letter-spacing: 0.25em;
-      }
-      #modal-category-title {
-        font-size: 2.4rem;
-        line-height: 1.2;
-      }
-      #modal-category-lead {
-        font-size: 1.15rem;
-        line-height: 1.6;
-        max-width: 52rem;
-        padding: 1.25rem 1.5rem;
-      }
-      .modal-tab-btn {
-        font-size: 0.85rem;
-        padding: 0.65rem 1.35rem;
-      }
-      #btn-close-offer-modal {
-        width: 3rem;
-        height: 3rem;
-      }
-      #btn-close-offer-modal svg {
-        width: 1.5rem;
-        height: 1.5rem;
-      }
-      .modal-services-header-title {
-        font-size: 1.1rem !important;
-      }
-      .modal-service-card {
-        padding: 1.2rem 1.4rem;
-        gap: 1.2rem;
-        border-radius: 1rem;
-      }
-      .modal-service-icon {
-        width: 3.6rem;
-        height: 3.6rem;
-        border-radius: 0.9rem;
-      }
-      .modal-service-icon svg {
-        width: 1.9rem;
-        height: 1.9rem;
-      }
-      .modal-service-title {
-        font-size: 0.98rem;
-      }
-      .modal-service-desc {
-        font-size: 0.85rem;
-        line-height: 1.55;
-      }
-      .modal-service-nr {
-        font-size: 0.75rem;
-        padding: 0.25rem 0.5rem;
-      }
+    /* Nagłówek sekcji usług */
+    .modal-services-header-title {
+      font-size: clamp(0.85rem, 0.6vw + 0.65rem, 2rem) !important;
+      letter-spacing: 0.12em !important;
+    }
+    .modal-services-header-title span:first-child {
+      width: clamp(6px, 0.2vw + 4px, 14px) !important;
+      height: clamp(6px, 0.2vw + 4px, 14px) !important;
+    }
+    .modal-services-spec-label {
+      font-size: clamp(0.7rem, 0.35vw + 0.55rem, 1.35rem) !important;
     }
 
-    /* ── EKRANY QHD+ / 2.5K (min-width: 2560px) ───────────────── */
-    @media (min-width: 2560px) {
-      #offer-modal-card {
-        width: 95vw;
-        max-width: 2800px;
-        height: 95vh;
-        max-height: 95vh;
-      }
-      .offer-modal-slideshow-wrap {
-        width: 800px;
-        height: 460px;
-      }
-      #modal-category-badge {
-        font-size: 1.1rem;
-        letter-spacing: 0.28em;
-      }
-      #modal-category-title {
-        font-size: 3rem;
-      }
-      #modal-category-lead {
-        font-size: 1.35rem;
-        max-width: 62rem;
-        padding: 1.5rem 1.8rem;
-      }
-      .modal-tab-btn {
-        font-size: 1rem;
-        padding: 0.85rem 1.7rem;
-      }
-      #btn-close-offer-modal {
-        width: 3.6rem;
-        height: 3.6rem;
-      }
-      #btn-close-offer-modal svg {
-        width: 1.8rem;
-        height: 1.8rem;
-      }
-      .modal-services-header-title {
-        font-size: 1.35rem !important;
-      }
-      .modal-service-card {
-        padding: 1.5rem 1.75rem;
-        gap: 1.5rem;
-      }
-      .modal-service-icon {
-        width: 4.5rem;
-        height: 4.5rem;
-      }
-      .modal-service-icon svg {
-        width: 2.3rem;
-        height: 2.3rem;
-      }
-      .modal-service-title {
-        font-size: 1.15rem;
-      }
-      .modal-service-desc {
-        font-size: 0.98rem;
-        line-height: 1.6;
-      }
-      .modal-service-nr {
-        font-size: 0.88rem;
-        padding: 0.3rem 0.6rem;
-      }
+    /* Siatka kafelków usług */
+    #modal-services-container {
+      gap: clamp(10px, 0.75vw + 6px, 32px) !important;
     }
 
-    /* ── EKRANY 4K ULTRA HD (min-width: 3400px) ──────────────── */
-    @media (min-width: 3400px) {
-      #offer-modal {
-        padding: 2.5rem;
-      }
-      #offer-modal-card {
-        width: 96vw;
-        max-width: 3600px;
-        height: 95vh;
-        max-height: 95vh;
-        border-radius: 2.25rem;
-        border-width: 2px;
-      }
-      #offer-modal-scroll {
-        padding: 3.5rem 4.5rem;
-        gap: 3.5rem;
-      }
-      .offer-modal-slideshow-wrap {
-        width: 1050px;
-        height: 600px;
-        border-radius: 1.75rem;
-      }
-      #modal-category-badge {
-        font-size: 1.35rem;
-        letter-spacing: 0.35em;
-        margin-bottom: 1.25rem;
-      }
-      #modal-category-title {
-        font-size: 4rem;
-        line-height: 1.15;
-        margin-bottom: 1.75rem;
-      }
-      #modal-category-lead {
-        font-size: 1.75rem;
-        line-height: 1.65;
-        max-width: 78rem;
-        padding: 2rem 2.5rem;
-        border-radius: 1.5rem;
-        border-left-width: 5px;
-      }
-      .modal-tab-btn {
-        font-size: 1.25rem;
-        padding: 1.1rem 2.4rem;
-        border-radius: 1rem;
-        gap: 1rem;
-      }
-      .modal-tab-btn span.w-1\.5 {
-        width: 0.75rem;
-        height: 0.75rem;
-      }
-      #btn-close-offer-modal {
-        width: 4.75rem;
-        height: 4.75rem;
-      }
-      #btn-close-offer-modal svg {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
-      .modal-services-header-title {
-        font-size: 1.75rem !important;
-      }
-      .modal-service-card {
-        padding: 2rem 2.4rem;
-        gap: 2rem;
-        border-radius: 1.5rem;
-      }
-      .modal-service-icon {
-        width: 6rem;
-        height: 6rem;
-        border-radius: 1.5rem;
-      }
-      .modal-service-icon svg {
-        width: 3.2rem;
-        height: 3.2rem;
-      }
-      .modal-service-title {
-        font-size: 1.6rem;
-      }
-      .modal-service-desc {
-        font-size: 1.3rem;
-        line-height: 1.65;
-      }
-      .modal-service-nr {
-        font-size: 1.15rem;
-        padding: 0.35rem 0.75rem;
-      }
+    /* Pojedynczy kafel usługi */
+    .modal-service-card {
+      padding: clamp(12px, 0.8vw + 8px, 36px) clamp(14px, 0.9vw + 8px, 42px) !important;
+      gap: clamp(12px, 0.8vw + 8px, 32px) !important;
+      border-radius: clamp(10px, 0.4vw + 8px, 24px) !important;
+    }
+
+    /* Ikona w kaflu usługi */
+    .modal-service-icon {
+      width: clamp(46px, 1.5vw + 32px, 105px) !important;
+      height: clamp(46px, 1.5vw + 32px, 105px) !important;
+      border-radius: clamp(10px, 0.4vw + 8px, 24px) !important;
+    }
+    .modal-service-icon svg {
+      width: clamp(24px, 0.85vw + 16px, 56px) !important;
+      height: clamp(24px, 0.85vw + 16px, 56px) !important;
+    }
+
+    /* Numer usługi (01, 02, itp.) */
+    .modal-service-nr {
+      font-size: clamp(0.68rem, 0.35vw + 0.55rem, 1.35rem) !important;
+      padding: clamp(2px, 0.12vw + 2px, 8px) clamp(6px, 0.25vw + 4px, 16px) !important;
+      border-radius: clamp(4px, 0.15vw + 3px, 10px) !important;
+    }
+
+    /* Tytuł usługi */
+    .modal-service-title {
+      font-size: clamp(0.85rem, 0.65vw + 0.65rem, 2.05rem) !important;
+      line-height: 1.25 !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: unset !important;
+    }
+
+    /* Opis usługi */
+    .modal-service-desc {
+      font-size: clamp(0.72rem, 0.5vw + 0.55rem, 1.5rem) !important;
+      line-height: clamp(1.45, 0.15vw + 1.4, 1.75) !important;
     }
   </style>
 </head>
@@ -1056,43 +952,43 @@
         <div id="offer-modal-card" class="relative z-10 flex flex-col obsidian-card rounded-2xl border border-[#FACB7D]/40 shadow-[0_0_80px_rgba(0,0,0,0.95)] bg-[#070707] overflow-hidden transform transition-all duration-300 scale-95 opacity-0">
           
           <!-- Pasek nagłówkowy ramki (Sticky na górze okna) -->
-          <div class="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-[#0a0a0a] border-b border-[#FACB7D]/20 shrink-0">
+          <div id="offer-modal-header-bar" class="flex flex-wrap items-center justify-between gap-3 bg-[#0a0a0a] border-b border-[#FACB7D]/20 shrink-0">
             <!-- Zakładki przełączania wewnątrz wyskakującej ramki -->
             <div class="flex flex-wrap items-center gap-2 sm:gap-3" id="offer-modal-tabs">
-              <button type="button" class="modal-tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer" data-tab="art">
+              <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer" data-tab="art">
                 <span class="w-1.5 h-1.5 bg-black rotate-45 inline-block"></span>
                 <span>art — Kreacja</span>
               </button>
-              <button type="button" class="modal-tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="bar">
+              <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="bar">
                 <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
                 <span>bar — Infrastruktura</span>
               </button>
-              <button type="button" class="modal-tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="solutions">
+              <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="solutions">
                 <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
                 <span>SOLUTIONS — Technologia</span>
               </button>
             </div>
 
             <!-- Przycisk zamknięcia modalnego [ × ] -->
-            <button id="btn-close-offer-modal" type="button" aria-label="Zamknij ramkę" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#FACB7D] flex items-center justify-center hover:bg-[#FACB7D] hover:text-black transition-all cursor-pointer shadow-lg ml-auto">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            <button id="btn-close-offer-modal" type="button" aria-label="Zamknij ramkę" class="rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#FACB7D] flex items-center justify-center hover:bg-[#FACB7D] hover:text-black transition-all cursor-pointer shadow-lg ml-auto">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
           </div>
 
           <!-- Treść przewijana wewnątrz ramki -->
-          <div class="overflow-y-auto p-5 sm:p-7 lg:p-8 space-y-6" id="offer-modal-scroll">
+          <div class="overflow-y-auto flex flex-col" id="offer-modal-scroll">
             
             <!-- GÓRNA SEKCJA: Filozofia kategorii + Czysty pokaz fotek z realizacji -->
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/5">
               <div class="flex-1 min-w-0 pr-0 lg:pr-6">
-                <div class="flex items-center gap-2 text-xs font-semibold text-[#FACB7D] uppercase tracking-widest mb-2" id="modal-category-badge">
-                  <span class="w-2 h-2 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <div class="flex items-center gap-2 font-semibold text-[#FACB7D] uppercase tracking-widest" id="modal-category-badge">
+                  <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
                   <span>Kreacja Wizualna i Scenografia Wydarzenia</span>
                 </div>
-                <h3 class="font-serif-luxury text-xl sm:text-2xl lg:text-3xl font-bold text-[#f5efe6] mb-2.5" id="modal-category-title">
+                <h3 class="font-serif-luxury font-bold text-[#f5efe6]" id="modal-category-title">
                   Filozofia <span class="gold-gradient-text">art</span>: Sztuka Tworzenia Niezapomnianej Atmosfery
                 </h3>
-                <blockquote class="p-3.5 rounded-lg bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-xs sm:text-sm text-[#f5efe6]/85 font-light leading-relaxed italic max-w-4xl" id="modal-category-lead">
+                <blockquote class="bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-[#f5efe6]/85 font-light leading-relaxed italic" id="modal-category-lead">
                   "Tworzymy unikalne, spersonalizowane aranżacje, które nie tylko wzmacniają wizerunek marki, ale także budują atmosferę i angażują uczestników na każdym etapie wydarzenia."
                 </blockquote>
               </div>
@@ -1109,11 +1005,11 @@
             <!-- DOLNA SEKCJA: ZAKRES USŁUG I MOŻLIWOŚCI -->
             <div>
               <div class="flex items-center justify-between mb-4 pb-2 border-b border-white/5">
-                <h4 class="modal-services-header-title font-serif-luxury text-xs sm:text-sm font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <h4 class="modal-services-header-title font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2">
+                  <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
                   <span>Zakres usług i możliwości</span>
                 </h4>
-                <span class="text-[11px] text-[#f5efe6]/40 font-mono hidden sm:inline">Specyfikacja techniczna</span>
+                <span class="modal-services-spec-label text-[#f5efe6]/40 font-mono hidden sm:inline">Specyfikacja techniczna</span>
               </div>
 
               <!-- Kontener siatki usług -->
@@ -1956,36 +1852,36 @@
       document.querySelectorAll('.modal-tab-btn').forEach(tab => {
         const tabCat = tab.getAttribute('data-tab');
         if (tabCat === catKey) {
-          tab.className = 'modal-tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer shadow-[0_0_15px_rgba(250,203,125,0.3)]';
+          tab.className = 'modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer shadow-[0_0_15px_rgba(250,203,125,0.3)]';
           const icon = tab.querySelector('span:first-child');
-          if (icon) icon.className = 'w-1.5 h-1.5 bg-black rotate-45 inline-block';
+          if (icon) icon.className = 'bg-black rotate-45 inline-block';
         } else {
-          tab.className = 'modal-tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer';
+          tab.className = 'modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer';
           const icon = tab.querySelector('span:first-child');
-          if (icon) icon.className = 'w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block';
+          if (icon) icon.className = 'bg-[#FACB7D] rotate-45 inline-block';
         }
       });
 
       const data = OFFER_PILLARS_DATA[catKey];
 
       // Wstrzyknij dane kategorii
-      if (modalCategoryBadge) modalCategoryBadge.innerHTML = `<span class="w-2 h-2 bg-[#FACB7D] rotate-45 inline-block"></span><span>${data.badge}</span>`;
+      if (modalCategoryBadge) modalCategoryBadge.innerHTML = `<span class="bg-[#FACB7D] rotate-45 inline-block"></span><span>${data.badge}</span>`;
       if (modalCategoryTitle) modalCategoryTitle.innerHTML = `Filozofia <span class="gold-gradient-text">${data.key}</span>: ${data.title.split(':')[1] || data.title}`;
       if (modalCategoryLead) modalCategoryLead.textContent = data.lead;
 
       // Wstrzyknij listę usług wraz z dedykowanymi ikonami tematycznymi (układ zoptymalizowany pod pełny ekran i 4K)
       if (modalServicesContainer) {
         modalServicesContainer.innerHTML = data.services.map(s => `
-          <div class="modal-service-card p-3.5 rounded-xl bg-[#0d0d0d] border border-white/5 hover:border-[#FACB7D]/40 transition-all flex items-start gap-3.5 group hover:bg-[#121212]">
-            <div class="modal-service-icon w-12 h-12 rounded-xl bg-[#FACB7D]/10 border border-[#FACB7D]/25 flex items-center justify-center shrink-0 text-[#FACB7D] group-hover:scale-105 group-hover:bg-[#FACB7D]/20 group-hover:border-[#FACB7D]/50 transition-all shadow-[0_0_12px_rgba(250,203,125,0.12)]">
+          <div class="modal-service-card rounded-xl bg-[#0d0d0d] border border-white/5 hover:border-[#FACB7D]/40 transition-all flex items-start group hover:bg-[#121212]">
+            <div class="modal-service-icon rounded-xl bg-[#FACB7D]/10 border border-[#FACB7D]/25 flex items-center justify-center shrink-0 text-[#FACB7D] group-hover:scale-105 group-hover:bg-[#FACB7D]/20 group-hover:border-[#FACB7D]/50 transition-all shadow-[0_0_12px_rgba(250,203,125,0.12)]">
               ${s.icon}
             </div>
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-1.5 mb-1">
-                <span class="modal-service-nr font-mono text-[10px] font-bold text-[#FACB7D]/90 bg-[#FACB7D]/10 px-1.5 py-0.5 rounded border border-[#FACB7D]/20 shrink-0">${s.nr}</span>
-                <h5 class="modal-service-title text-xs font-bold text-white group-hover:text-[#FACB7D] transition-colors truncate">${s.name}</h5>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="modal-service-nr font-mono font-bold text-[#FACB7D]/90 bg-[#FACB7D]/10 border border-[#FACB7D]/20 shrink-0">${s.nr}</span>
+                <h5 class="modal-service-title font-bold text-white group-hover:text-[#FACB7D] transition-colors">${s.name}</h5>
               </div>
-              <p class="modal-service-desc text-[11px] text-[#f5efe6]/70 leading-relaxed font-light">${s.desc}</p>
+              <p class="modal-service-desc text-[#f5efe6]/70 font-light">${s.desc}</p>
             </div>
           </div>
         `).join('');
