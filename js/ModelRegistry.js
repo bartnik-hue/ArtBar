@@ -418,11 +418,13 @@ export class ModelRegistry {
                         child.material = child.material.map(m => {
                             const cloned = m.clone();
                             cloned.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
+                            cloned.shadowSide = isFront ? THREE.FrontSide : THREE.DoubleSide;
                             return cloned;
                         });
                     } else {
                         child.material = child.material.clone();
                         child.material.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
+                        child.material.shadowSide = isFront ? THREE.FrontSide : THREE.DoubleSide;
                     }
                 }
                 if (this.isBrandingTarget(child)) {
@@ -475,25 +477,32 @@ export class ModelRegistry {
      * Po odwróceniu lico wskazuje dokładnie w stronę gości (+Z i +X), a przy side: THREE.FrontSide
      * jest automatycznie odcinane (culling) od strony wnętrza baru, całkowicie eliminując
      * przenikanie grafiki brandingu na stanowisko barmana.
+     * Odwraca wyłącznie indeksy lica frontowego (max 36 indeksów / 12 trójkątów dla nowej siatki lub 24 dla legacy).
      */
     fixCornerFrontWinding(geometry) {
         if (!geometry || !geometry.index) return;
         const indices = geometry.index.array;
-        const count = geometry.index.count;
+        const count = (geometry.index.count === 747) ? 24 : Math.min(geometry.index.count, 36);
+        const start = (geometry.index.count === 747) ? 717 : 0;
 
-        // Zamień miejscami wierzchołek 1 i 2 w każdym trójkącie, odwracając kolejność nawijania (CW <-> CCW)
-        for (let i = 0; i < count; i += 3) {
+        // Zamień miejscami wierzchołek 1 i 2 w każdym trójkącie frontu, odwracając kolejność nawijania (CW <-> CCW)
+        for (let i = start; i < start + count; i += 3) {
             const tmp = indices[i + 1];
             indices[i + 1] = indices[i + 2];
             indices[i + 2] = tmp;
         }
         geometry.index.needsUpdate = true;
 
-        // Odwróć wektory normalne, aby wskazywały na zewnątrz bryły
+        // Odwróć wektory normalne wyłącznie dla wierzchołków lica frontowego, aby wskazywały na zewnątrz bryły
         if (geometry.attributes.normal) {
             const normals = geometry.attributes.normal;
-            for (let i = 0; i < normals.count; i++) {
-                normals.setXYZ(i, -normals.getX(i), -normals.getY(i), -normals.getZ(i));
+            const visited = new Set();
+            for (let i = start; i < start + count; i++) {
+                const idx = indices[i];
+                if (!visited.has(idx)) {
+                    visited.add(idx);
+                    normals.setXYZ(idx, -normals.getX(idx), -normals.getY(idx), -normals.getZ(idx));
+                }
             }
             normals.needsUpdate = true;
         }
@@ -528,9 +537,9 @@ export class ModelRegistry {
         const spanY = maxY - minY;
 
         // Dla siatki legacy (747 indeksów) przednie lico to 24 indeksy (717 do 741).
-        // Dla nowej siatki z materiałem 'branding' wszystkie indeksy (42) to lico frontu.
+        // Dla nowej siatki z materiałem 'branding' lico frontu to 36 indeksów (12 trójkątów).
         const startIndex = (geometry.index.count === 747) ? 717 : 0;
-        const endIndex = (geometry.index.count === 747) ? 741 : geometry.index.count;
+        const endIndex = (geometry.index.count === 747) ? 741 : Math.min(geometry.index.count, 36);
         const visited = new Set();
 
         for (let i = startIndex; i < endIndex; i++) {
@@ -559,6 +568,119 @@ export class ModelRegistry {
         uv.needsUpdate = true;
     }
 
+    /**
+     * Kalibruje geometrię i siatki narożnika (rog.glb):
+     * 1. Wyodrębnia trójkąty wewnętrznej ścianki i skosu z siatki 'branding' do dedykowanej siatki 'BarCornerInnerWall'.
+     *    W pliku rog.glb materiał 'branding' miał 42 indeksy (14 trójkątów), z czego ostatnie 6 indeksów (T12 i T13)
+     *    to w rzeczywistości wewnętrzne ścianki korpusu mebla! Pozostawienie ich w siatce brandingu z materiałem FrontSide
+     *    powodowało, że były one odcinane (backface culling) od strony barmana, tworząc dużą przezroczystą dziurę w ściance.
+     * 2. Naprawia odwrócone wektory normalne oraz nawinięcie trójkątów wewnętrznej ścianki skrzydła 1 (w osi X)
+     *    w korpusie mebla (BarArt002: trójkąty 187, 188, 189, 265, 266, 268), tak aby wskazywały do wnętrza baru (-Z).
+     */
+    setupCornerMeshes(root) {
+        let bodyMesh = null;
+        let brandingMesh = null;
+
+        root.traverse(child => {
+            if (child.isMesh) {
+                const mats = Array.isArray(child.material) ? child.material : [child.material];
+                const hasBranding = mats.some(m => m && (m.name || '').toLowerCase().includes('branding'));
+                if (hasBranding) {
+                    brandingMesh = child;
+                } else if ((child.name || '').toLowerCase().includes('barart') || (child.name || '').toLowerCase().includes('002')) {
+                    bodyMesh = child;
+                }
+            }
+        });
+
+        if (brandingMesh && brandingMesh.geometry && brandingMesh.geometry.index && brandingMesh.geometry.index.count === 42) {
+            const brandGeom = brandingMesh.geometry;
+            const brandIndices = brandGeom.index.array;
+            const bPos = brandGeom.attributes.position;
+            const bNorm = brandGeom.attributes.normal;
+            const bUv = brandGeom.attributes.uv;
+
+            const innerIndices = brandIndices.slice(36, 42); // [9, 25, 24, 15, 12, 0]
+            const innerPosArr = [];
+            const innerNormArr = [];
+            const innerUvArr = [];
+
+            for (let i = 0; i < innerIndices.length; i++) {
+                const vIdx = innerIndices[i];
+                innerPosArr.push(bPos.getX(vIdx), bPos.getY(vIdx), bPos.getZ(vIdx));
+                innerNormArr.push(bNorm.getX(vIdx), bNorm.getY(vIdx), bNorm.getZ(vIdx));
+                innerUvArr.push(bUv.getX(vIdx), bUv.getY(vIdx));
+            }
+
+            const innerGeom = new THREE.BufferGeometry();
+            innerGeom.setAttribute('position', new THREE.Float32BufferAttribute(innerPosArr, 3));
+            innerGeom.setAttribute('normal', new THREE.Float32BufferAttribute(innerNormArr, 3));
+            innerGeom.setAttribute('uv', new THREE.Float32BufferAttribute(innerUvArr, 2));
+            innerGeom.setIndex([0, 1, 2, 3, 4, 5]);
+
+            const innerMat = new THREE.MeshStandardMaterial({
+                name: 'corner_interior',
+                color: new THREE.Color('#141414'),
+                roughness: 0.5,
+                metalness: 0.05,
+                side: THREE.DoubleSide,
+                shadowSide: THREE.DoubleSide
+            });
+
+            const innerMesh = new THREE.Mesh(innerGeom, innerMat);
+            innerMesh.name = 'BarCornerInnerWall';
+            innerMesh.userData.isFrontPanel = false;
+            innerMesh.userData.isCornerFront = false;
+            innerMesh.userData.isLedMesh = false;
+            innerMesh.castShadow = true;
+            innerMesh.receiveShadow = true;
+
+            if (brandingMesh.parent) {
+                brandingMesh.parent.add(innerMesh);
+            } else {
+                root.add(innerMesh);
+            }
+
+            brandGeom.setIndex(new THREE.BufferAttribute(brandIndices.slice(0, 36), 1));
+            brandGeom.index.needsUpdate = true;
+        }
+
+        if (bodyMesh && bodyMesh.geometry && bodyMesh.geometry.index) {
+            const bodyGeom = bodyMesh.geometry;
+            const bodyIndices = bodyGeom.index.array;
+            const bodyPos = bodyGeom.attributes.position;
+            const bodyNorm = bodyGeom.attributes.normal;
+            const bodyUv = bodyGeom.attributes.uv;
+
+            const wing1Triangles = [187, 188, 189, 265, 266, 268];
+            const modifiedVerts = new Set();
+
+            wing1Triangles.forEach(t => {
+                const base = t * 3;
+                if (base + 2 < bodyIndices.length) {
+                    const tmp = bodyIndices[base + 1];
+                    bodyIndices[base + 1] = bodyIndices[base + 2];
+                    bodyIndices[base + 2] = tmp;
+
+                    [bodyIndices[base], bodyIndices[base + 1], bodyIndices[base + 2]].forEach(vIdx => {
+                        if (!modifiedVerts.has(vIdx)) {
+                            modifiedVerts.add(vIdx);
+                            bodyNorm.setXYZ(vIdx, -bodyNorm.getX(vIdx), -bodyNorm.getY(vIdx), -bodyNorm.getZ(vIdx));
+                            const px = bodyPos.getX(vIdx);
+                            const py = bodyPos.getY(vIdx);
+                            const u = (px - (-0.330)) / (0.328 - (-0.330));
+                            const v = (py - 0.097) / (1.201 - 0.097);
+                            bodyUv.setXY(vIdx, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
+                        }
+                    });
+                }
+            });
+            bodyGeom.index.needsUpdate = true;
+            bodyNorm.needsUpdate = true;
+            bodyUv.needsUpdate = true;
+        }
+    }
+
     setupShadowsAndMaterials(root, modelKey) {
         // 1. Całkowicie usuń zduplikowaną w Blenderze planszę PLANSZA.001 (BarArt.001) oraz stare plansze z pliku BarModel.glb.
         // Three.js GLTFLoader usuwa kropki z nazw obiektów (np. 'PLANSZA.001' -> 'PLANSZA001'), dlatego oczyszczamy znaki nieliterowe.
@@ -573,6 +695,11 @@ export class ModelRegistry {
             if (c.parent) c.parent.remove(c);
             if (c.geometry) c.geometry.dispose();
         });
+
+        // 2. Napraw siatki narożnika (wyodrębnienie wewnętrznej ścianki z siatki brandingu, naprawa normalnych ścianki skrzydła 1)
+        if (modelKey === 'RAW_CORNER') {
+            this.setupCornerMeshes(root);
+        }
 
         root.traverse(child => {
             if (child.isMesh) {
@@ -695,6 +822,7 @@ export class ModelRegistry {
                         // natomiast panele frontowe z brandingiem pozostają FrontSide (brak przenikania grafiki do szafek barmana)
                         if (!child.userData.isFrontPanel && !child.userData.isCornerFront) {
                             m.side = THREE.DoubleSide;
+                            m.shadowSide = THREE.DoubleSide;
                         }
                         if (m.map) {
                             m.map.anisotropy = 8;
