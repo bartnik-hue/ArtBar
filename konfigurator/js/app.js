@@ -717,6 +717,21 @@ class ArtbarApp {
         const calibContainer = document.getElementById('calibration-container');
         this.calibrationTool = new CalibrationTool(this.registry, this.barBuilder, calibContainer);
 
+        // Obsługa horyzontalnego przewijania kółkiem myszy na komputerze w pasku narzędzi
+        const setupWheelScroll = (selector) => {
+            const el = document.querySelector(selector);
+            if (el) {
+                el.addEventListener('wheel', (e) => {
+                    if (e.deltaY !== 0 && el.scrollWidth > el.clientWidth) {
+                        e.preventDefault();
+                        el.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
+            }
+        };
+        setupWheelScroll('.top-actions');
+        setupWheelScroll('.bottom-controls');
+
         // Szybkie dodawanie modułów z dolnego paska
         document.getElementById('btn-add-straight')?.addEventListener('click', () => {
             this.barBuilder.startGhost('BAR_STRAIGHT');
