@@ -360,6 +360,33 @@ export class BarBuilder {
 
             if (isConnected) {
                 neighbors.push(other);
+                continue;
+            }
+
+            // Specjalne sprawdzenie dla regałów połączonych pod kątem 90 stopni (styk narożników tylnych)
+            if (mod.modelKey === 'BACK_SHELF' && other.modelKey === 'BACK_SHELF') {
+                const getCorners = (m) => {
+                    const p = m.mesh.position;
+                    const r = m.mesh.rotation.y;
+                    const c1 = new THREE.Vector3(0.75, 0, -0.335).applyAxisAngle(new THREE.Vector3(0, 1, 0), r).add(p);
+                    const c2 = new THREE.Vector3(-0.75, 0, -0.335).applyAxisAngle(new THREE.Vector3(0, 1, 0), r).add(p);
+                    return [c1, c2];
+                };
+                const corners1 = getCorners(mod);
+                const corners2 = getCorners(other);
+                let cornerConnected = false;
+                for (const c1 of corners1) {
+                    for (const c2 of corners2) {
+                        if (c1.distanceTo(c2) < 0.15) {
+                            cornerConnected = true;
+                            break;
+                        }
+                    }
+                    if (cornerConnected) break;
+                }
+                if (cornerConnected) {
+                    neighbors.push(other);
+                }
             }
         }
 
@@ -527,8 +554,8 @@ export class BarBuilder {
             const worldDir = socketDef.direction.clone();
             worldDir.applyAxisAngle(new THREE.Vector3(0, 1, 0), moduleData.mesh.rotation.y);
 
-            // Sprawdź czy dane gniazdo nie jest już zajęte przez inny moduł
-            if (this.isSocketOccupied(worldPos, moduleData)) {
+            // Sprawdź czy dane gniazdo nie jest już zajęte przez inny moduł (również pod kątem narożnika 90°)
+            if (this.isSocketOccupied(worldPos, moduleData, socketDef.id)) {
                 return;
             }
 
@@ -570,7 +597,7 @@ export class BarBuilder {
         });
     }
 
-    isSocketOccupied(worldPos, currentModule) {
+    isSocketOccupied(worldPos, currentModule, socketId = null) {
         const threshold = 0.35; // promień wykrywania zajętości
         for (const m of this.modules) {
             if (m === currentModule) continue;
@@ -588,6 +615,28 @@ export class BarBuilder {
                 }
             }
         }
+
+        // Specjalna kontrola dla narożników regałów (BACK_SHELF):
+        // Jeśli przy danym złączu stoi już regał obrócony o 90 stopni, to dane złącze narożne jest zajęte
+        if (currentModule?.modelKey === 'BACK_SHELF' && socketId) {
+            const isRight = (socketId === 'right');
+            const sign = isRight ? 1 : -1;
+            const parentRot = currentModule.mesh.rotation.y;
+            const parentPos = currentModule.mesh.position;
+            const shelfOffset = 1.085; // 0.75 + 0.335
+            const localShift = new THREE.Vector3(sign * shelfOffset, 0, -shelfOffset);
+            localShift.applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot);
+            const targetPos = parentPos.clone().add(localShift);
+
+            const hasCornerShelf = this.modules.some(m => {
+                if (m === currentModule || m.modelKey !== 'BACK_SHELF') return false;
+                return m.mesh.position.distanceTo(targetPos) < threshold;
+            });
+            if (hasCornerShelf) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -690,6 +739,15 @@ export class BarBuilder {
                 targetPos.copy(parentPos).add(shift);
                 targetRot = parentRot;
             }
+        } else if (newModelKey === 'BACK_SHELF_90' || (parentModule.modelKey === 'BACK_SHELF' && newModelKey === 'BACK_SHELF_90')) {
+            const isRight = (socketDef.id === 'right');
+            const sign = isRight ? 1 : -1;
+            const shelfOffset = 1.085; // 0.75 (szerokość/2) + 0.335 (głębokość/2)
+            const localShift = new THREE.Vector3(sign * shelfOffset, 0, -shelfOffset);
+            localShift.applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot);
+            targetPos.copy(parentPos).add(localShift);
+            targetRot = parentRot + sign * (Math.PI / 2);
+            return { targetPos, targetRot, resolvedKey: 'BACK_SHELF' };
         } else {
             const sign = (socketDef.id === 'right') ? 1 : -1;
             const shift = new THREE.Vector3(sign * offset, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot);
@@ -735,6 +793,22 @@ export class BarBuilder {
     }
 
     /**
+     * Sprawdza czy dwa kąty w radianach są do siebie prostopadłe (różnica 90° lub 270° modulo 2*PI)
+     */
+    isPerpendicularRotation(rotA, rotB, tolerance = 0.08) {
+        const norm = (angle) => {
+            let a = angle % (2 * Math.PI);
+            if (a < 0) a += 2 * Math.PI;
+            return a;
+        };
+        const a1 = norm(rotA);
+        const a2 = norm(rotB);
+        let diff = Math.abs(a1 - a2);
+        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+        return Math.abs(diff - Math.PI / 2) < tolerance;
+    }
+
+    /**
      * Wyszukuje najbliższe kompatybilne i wolne gniazdo do przyciągnięcia (Magnetic Snap)
      */
     findBestSocketSnap(cursorPoint, modelKey, currentRotation = this.ghostRotation) {
@@ -751,11 +825,83 @@ export class BarBuilder {
             if (
                 (isFridge(modelKey) && isShelf(m.modelKey)) ||
                 (isShelf(modelKey) && isFridge(m.modelKey)) ||
-                (isFridge(modelKey) && isFridge(m.modelKey)) ||
-                (isShelf(modelKey) && isShelf(m.modelKey))
+                (isFridge(modelKey) && isFridge(m.modelKey))
             ) {
                 if (currentRotation !== undefined && !this.isSameRotation(currentRotation, m.mesh.rotation.y)) {
                     continue;
+                }
+            }
+
+            // Regał do regału: mogą łączyć się na wprost (taki sam obrót) LUB pod kątem 90 stopni (prostopadły obrót)
+            if (isShelf(modelKey) && isShelf(m.modelKey)) {
+                if (currentRotation !== undefined) {
+                    const sameRot = this.isSameRotation(currentRotation, m.mesh.rotation.y);
+                    const perpRot = this.isPerpendicularRotation(currentRotation, m.mesh.rotation.y);
+                    if (!sameRot && !perpRot) {
+                        continue;
+                    }
+
+                    // Jeśli regały są obrócone pod kątem 90 stopni, sprawdzamy narożne punkty przyciągania 90°
+                    if (perpRot) {
+                        const parentPos = m.mesh.position;
+                        const parentRot = m.mesh.rotation.y;
+                        const shelfOffset = 1.085; // 0.75 + 0.335
+
+                        // 1. Sprawdź prawy narożnik (+90°)
+                        if (this.isSameRotation(currentRotation, parentRot + Math.PI / 2)) {
+                            const localShift = new THREE.Vector3(shelfOffset, 0, -shelfOffset);
+                            localShift.applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot);
+                            const targetPos = parentPos.clone().add(localShift);
+
+                            const cornerLocal = new THREE.Vector3(0.75, 0.9, -0.335);
+                            const cornerWorld = parentPos.clone().add(cornerLocal.applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot));
+
+                            const dist = Math.min(cursorPoint.distanceTo(cornerWorld), cursorPoint.distanceTo(targetPos));
+                            const isOccupied = this.modules.some(other => other !== m && other.mesh.position.distanceTo(targetPos) < 0.35);
+
+                            if (!isOccupied && dist < minDistance) {
+                                minDistance = dist;
+                                bestSnap = {
+                                    parentModule: m,
+                                    socketDef: { id: 'right', label: 'Prawa strona (90°)' },
+                                    targetPos: targetPos,
+                                    targetRot: currentRotation,
+                                    resolvedKey: 'BACK_SHELF',
+                                    socketWorldPos: cornerWorld,
+                                    distance: dist
+                                };
+                            }
+                        }
+
+                        // 2. Sprawdź lewy narożnik (-90°)
+                        if (this.isSameRotation(currentRotation, parentRot - Math.PI / 2)) {
+                            const localShift = new THREE.Vector3(-shelfOffset, 0, -shelfOffset);
+                            localShift.applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot);
+                            const targetPos = parentPos.clone().add(localShift);
+
+                            const cornerLocal = new THREE.Vector3(-0.75, 0.9, -0.335);
+                            const cornerWorld = parentPos.clone().add(cornerLocal.applyAxisAngle(new THREE.Vector3(0, 1, 0), parentRot));
+
+                            const dist = Math.min(cursorPoint.distanceTo(cornerWorld), cursorPoint.distanceTo(targetPos));
+                            const isOccupied = this.modules.some(other => other !== m && other.mesh.position.distanceTo(targetPos) < 0.35);
+
+                            if (!isOccupied && dist < minDistance) {
+                                minDistance = dist;
+                                bestSnap = {
+                                    parentModule: m,
+                                    socketDef: { id: 'left', label: 'Lewa strona (90°)' },
+                                    targetPos: targetPos,
+                                    targetRot: currentRotation,
+                                    resolvedKey: 'BACK_SHELF',
+                                    socketWorldPos: cornerWorld,
+                                    distance: dist
+                                };
+                            }
+                        }
+
+                        // Skoro to układ narożny 90°, równoległe gniazda na wprost nie mają zastosowania
+                        continue;
+                    }
                 }
             }
 
@@ -1194,9 +1340,9 @@ export class BarBuilder {
         this.addModule('BAR_STRAIGHT', new THREE.Vector3(0, 0, -5.45), 3.1416);
         this.addModule('BAR_STRAIGHT', new THREE.Vector3(1.5, 0, -5.45), 3.1416);
 
-        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -1.5), 0);
-        this.addModule('BACK_SHELF', new THREE.Vector3(1.0625, 0, -2.625), 1.5708);
-        this.addModule('BACK_SHELF', new THREE.Vector3(-1.0625, 0, -2.625), 4.7124);
-        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -3.75), 3.1416);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -1.54), 0);
+        this.addModule('BACK_SHELF', new THREE.Vector3(1.085, 0, -2.625), 1.5708);
+        this.addModule('BACK_SHELF', new THREE.Vector3(-1.085, 0, -2.625), 4.7124);
+        this.addModule('BACK_SHELF', new THREE.Vector3(0, 0, -3.71), 3.1416);
     }
 }

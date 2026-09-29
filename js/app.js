@@ -562,16 +562,22 @@ class ArtbarApp {
     openSocketAttachMenu(clientX, clientY, parentModule, socketDef) {
         this.activeSocketClickContext = { parentModule, socketDef };
 
+        const isShelfParent = parentModule?.modelKey === 'BACK_SHELF';
+
         // Filtruj opcje do dozwolonych dla tego gniazda (narożnik jest zunifikowany)
         const allOptions = [
             { key: 'BAR_STRAIGHT',     label: 'Dostaw prosty bar (1.5m)', icon: '▮' },
             { key: 'BAR_CORNER',       label: 'Dostaw narożnik 90°',      icon: '⌐' },
-            { key: 'BACK_SHELF',       label: 'Dostaw regał zaplecza',    icon: '☲' },
+            { key: 'BACK_SHELF',       label: isShelfParent ? 'Dostaw regał na wprost (1.5m)' : 'Dostaw regał zaplecza', icon: '☲' },
+            { key: 'BACK_SHELF_90',    label: 'Dostaw regał pod kątem 90°', icon: '⌐' },
             { key: 'BACK_FRIDGE',      label: 'Dostaw lodówkę 2D (1.0m)', icon: '🗄' },
             { key: 'BACK_FRIDGE_SLIM', label: 'Dostaw lodówkę 1D (0.5m)', icon: '🗄' }
         ];
 
         const filtered = allOptions.filter(opt => {
+            if (opt.key === 'BACK_SHELF_90') {
+                return isShelfParent;
+            }
             if (opt.key === 'BAR_CORNER') {
                 return socketDef.compatible.includes('BAR_CORNER') ||
                        socketDef.compatible.includes('BAR_CORNER_RIGHT') ||
