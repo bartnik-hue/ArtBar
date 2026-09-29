@@ -7,7 +7,7 @@ foreach ($url in $photos) {
     $category = "Wszystkie"
     $title = "Realizacja ArtBar"
 
-    if ($url -match "2024\.12\.31") {
+    if ($url -match "2024\.12\.31" -or $url -match "12-31") {
         $category = "Sylwester"
         $title = "Sylwester - Produkcja Stref Barowych"
     } elseif ($url -match "OczkiHalloween") {

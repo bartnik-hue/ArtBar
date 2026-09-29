@@ -2,8 +2,8 @@
     {
         "id":  1,
         "url":  "assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg",
-        "title":  "Realizacja ArtBar #1",
-        "category":  "Wszystkie"
+        "title":  "Sylwester - Produkcja Stref Barowych #1",
+        "category":  "Sylwester"
     },
     {
         "id":  2,

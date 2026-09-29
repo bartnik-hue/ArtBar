@@ -1019,82 +1019,111 @@
         </div>
       </div>
 
+      <!-- PASEK WYBORU IMPREZY NAD SIATKĄ -->
+      <div id="realizacje-filter-bar" class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-3 mb-8 scrollbar-none">
+        <button type="button" data-filter="all" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20">Wszystkie (123)</button>
+        <button type="button" data-filter="Sylwester" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Sylwester (36)</button>
+        <button type="button" data-filter="Halloween" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Halloween Oczki (36)</button>
+        <button type="button" data-filter="Klubowe" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Klubowe & Barmani (27)</button>
+        <button type="button" data-filter="Scenografia" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Scenografia Pandora (24)</button>
+      </div>
+
       <!-- SIATKA WYRÓŻNIONYCH ZDJĘĆ -->
       <div id="featured-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Karta 1 -->
-        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-index="0">
+        <!-- Karta 1: Sylwester -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Sylwester" data-image="assets/images/2024.12.31-Art-Bar-26-768x512.jpg">
           <img src="assets/images/2024.12.31-Art-Bar-26-768x512.jpg" alt="Art Bar Sylwester VIP" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
           <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
           </div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Sylwester & Masowe</span>
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Sylwester & Masowe • 36 zdjęć</span>
             <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Sylwestrowa Strefa VIP</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
           </div>
         </div>
 
-        <!-- Karta 2 -->
-        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-index="1">
+        <!-- Karta 2: Halloween -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Halloween" data-image="assets/images/gallery/OczkiHalloween-106-of-592-2-scaled.jpg">
           <img src="assets/images/gallery/OczkiHalloween-106-of-592-2-scaled.jpg" alt="Halloween Oczki" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
           <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
           </div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Halloween Oczki</span>
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Halloween Oczki • 36 zdjęć</span>
             <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Halloween — Scenografia Mroku</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
           </div>
         </div>
 
-        <!-- Karta 3 -->
-        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-index="2">
+        <!-- Karta 3: Bar z Neonowym Akcentem / Sylwester -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Sylwester" data-image="assets/images/gallery/2024.12.31-Art-Bar-89.jpg">
           <img src="assets/images/2024.12.31-Art-Bar-89.jpg" alt="Bar z podświetleniem LED" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
           <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
           </div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Design & LED</span>
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Design & LED • Sylwester</span>
             <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Bar z Neonowym Akcentem</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
           </div>
         </div>
 
-        <!-- Karta 4 -->
-        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-index="3">
+        <!-- Karta 4: Pandora Scenografia -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Scenografia" data-image="assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg">
           <img src="assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg" alt="Pandora Two Worlds" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
           <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
           </div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Scenografia Tematyczna</span>
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Scenografia Tematyczna • 24 zdjęcia</span>
             <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Pandora — Two Worlds</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
           </div>
         </div>
 
-        <!-- Karta 5 -->
-        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-index="4">
+        <!-- Karta 5: Klubowe -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Klubowe" data-image="assets/images/gallery/ArtBar02.03-45-z-462-scaled.jpg">
           <img src="assets/images/gallery/ArtBar02.03-45-z-462-scaled.jpg" alt="Klubowy Bar i Barmani" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
           <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
           </div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Klubowe & Barmani</span>
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Klubowe & Barmani • 27 zdjęć</span>
             <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Miksologia & Obsługa Gości</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
           </div>
         </div>
 
         <!-- Karta 6 — Karta z zaproszeniem do całej galerii -->
-        <div id="card-open-more" class="group relative rounded-xl overflow-hidden aspect-[4/3] border border-[#FACB7D]/30 bg-[#0a0a0a] flex flex-col items-center justify-center p-6 text-center cursor-pointer hover:border-[#FACB7D] transition-all shadow-[0_0_30px_rgba(250,203,125,0.05)]">
+        <div id="card-open-more" class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-[#FACB7D]/30 bg-[#0a0a0a] flex flex-col items-center justify-center p-6 text-center cursor-pointer hover:border-[#FACB7D] transition-all shadow-[0_0_30px_rgba(250,203,125,0.05)]" data-category="all">
           <div class="w-16 h-16 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
           </div>
-          <span class="font-serif-luxury text-2xl font-bold gold-gradient-text">+117 zdjęć</span>
-          <span class="text-xs uppercase tracking-widest text-[#f5efe6]/70 mt-2 font-medium">Otwórz pełny ekran</span>
-          <p class="text-[11px] text-[#f5efe6]/40 mt-1">Przeglądaj wszystkie ujęcia w wysokiej rozdzielczości</p>
+          <span class="font-serif-luxury text-2xl font-bold gold-gradient-text">123 zdjęcia</span>
+          <span class="text-xs uppercase tracking-widest text-[#f5efe6]/70 mt-2 font-medium">Otwórz pełną galerię</span>
+          <p class="text-[11px] text-[#f5efe6]/40 mt-1">Wszystkie imprezy w wysokiej rozdzielczości</p>
         </div>
 
       </div>
@@ -1348,15 +1377,21 @@
   ══════════════════════════════════════════════ -->
   <div id="gallery-lightbox" class="fixed inset-0 z-[10000] hidden flex flex-col justify-between bg-[#030303]/98 backdrop-blur-2xl transition-all duration-300 select-none">
     
-    <!-- GÓRNY PASEK KONTROLNY -->
-    <div class="px-6 py-4 flex items-center justify-between border-b border-[#FACB7D]/15 bg-black/40">
-      <div class="flex items-center gap-4">
-        <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar" class="h-6 w-auto brightness-125 hidden sm:inline">
-        <span class="text-xs uppercase tracking-[0.25em] text-[#FACB7D] font-mono border-l border-[#FACB7D]/20 pl-4 hidden md:inline">Galeria Realizacji</span>
+    <!-- GÓRNY PASEK KONTROLNY Z WYBOREM IMPREZY -->
+    <div class="px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 border-b border-[#FACB7D]/15 bg-black/60">
+      <div class="flex items-center gap-3 overflow-x-auto py-0.5 scrollbar-none w-full sm:w-auto">
+        <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar" class="h-6 w-auto brightness-125 hidden lg:inline mr-1 shrink-0">
+        <div id="lb-categories-bar" class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button type="button" data-cat="all" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-[#FACB7D] text-black font-bold">Wszystkie (123)</button>
+          <button type="button" data-cat="Sylwester" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Sylwester (36)</button>
+          <button type="button" data-cat="Halloween" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Halloween (36)</button>
+          <button type="button" data-cat="Klubowe" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Klubowe (27)</button>
+          <button type="button" data-cat="Scenografia" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Scenografia (24)</button>
+        </div>
       </div>
 
       <!-- PRAWA STRONA: LICZNIK & PRZYCISKI -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3 shrink-0 ml-auto sm:ml-0">
         <div id="lb-counter" class="text-xs font-mono font-bold tracking-widest text-[#FACB7D] px-3 py-1 rounded border border-[#FACB7D]/20 bg-[#FACB7D]/5">
           001 / 123
         </div>
@@ -1451,12 +1486,25 @@
     const lbSpinner = document.getElementById('lb-spinner');
     const thumbsTrack = document.getElementById('lb-thumbs-track');
 
-    let galleryItems = (typeof REALIZACJE_GALLERY !== 'undefined') ? REALIZACJE_GALLERY : [];
+    let allGalleryItems = (typeof REALIZACJE_GALLERY !== 'undefined') ? REALIZACJE_GALLERY : [];
+    let currentGalleryCategory = 'all';
+    let activeGalleryItems = [...allGalleryItems];
     let currentIndex = 0;
+
+    function updateLightboxCategoryButtons() {
+      document.querySelectorAll('.lb-cat-btn').forEach(btn => {
+        const cat = btn.getAttribute('data-cat');
+        if (cat === currentGalleryCategory) {
+          btn.className = 'lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20';
+        } else {
+          btn.className = 'lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white';
+        }
+      });
+    }
 
     function renderThumbnails() {
       thumbsTrack.innerHTML = '';
-      galleryItems.forEach((item, idx) => {
+      activeGalleryItems.forEach((item, idx) => {
         const thumb = document.createElement('div');
         thumb.className = `w-14 h-10 sm:w-16 sm:h-11 shrink-0 rounded overflow-hidden cursor-pointer border transition-all ${idx === currentIndex ? 'border-[#FACB7D] ring-2 ring-[#FACB7D]/40 scale-105' : 'border-white/10 opacity-50 hover:opacity-100'}`;
         thumb.innerHTML = `<img src="${item.url}" class="w-full h-full object-cover" loading="lazy">`;
@@ -1468,13 +1516,13 @@
     }
 
     function showSlide(index) {
-      if (!galleryItems.length) return;
+      if (!activeGalleryItems.length) return;
 
-      if (index < 0) index = galleryItems.length - 1;
-      if (index >= galleryItems.length) index = 0;
+      if (index < 0) index = activeGalleryItems.length - 1;
+      if (index >= activeGalleryItems.length) index = 0;
       currentIndex = index;
 
-      const item = galleryItems[currentIndex];
+      const item = activeGalleryItems[currentIndex];
 
       // Animacja ładowania
       lbSpinner.classList.remove('hidden');
@@ -1490,8 +1538,9 @@
       lbCategory.textContent = item.category;
       
       const currentFormatted = String(currentIndex + 1).padStart(3, '0');
-      const totalFormatted = String(galleryItems.length).padStart(3, '0');
-      lbCounter.textContent = `${currentFormatted} / ${totalFormatted}`;
+      const totalFormatted = String(activeGalleryItems.length).padStart(3, '0');
+      const catLabel = currentGalleryCategory === 'all' ? '' : ` • ${currentGalleryCategory}`;
+      lbCounter.textContent = `${currentFormatted} / ${totalFormatted}${catLabel}`;
 
       // Zaktualizuj stan miniaturek
       const thumbs = thumbsTrack.children;
@@ -1505,9 +1554,50 @@
       });
     }
 
-    function openGallery(initialIndex = 0) {
+    function setGalleryCategory(cat = 'all', targetIndexOrImage = 0) {
+      currentGalleryCategory = cat;
+      if (cat === 'all') {
+        activeGalleryItems = [...allGalleryItems];
+      } else {
+        activeGalleryItems = allGalleryItems.filter(item => item.category === cat);
+      }
+      if (!activeGalleryItems.length) {
+        activeGalleryItems = [...allGalleryItems];
+        currentGalleryCategory = 'all';
+      }
+
+      let startIdx = 0;
+      if (typeof targetIndexOrImage === 'number') {
+        startIdx = Math.max(0, Math.min(targetIndexOrImage, activeGalleryItems.length - 1));
+      } else if (typeof targetIndexOrImage === 'string' && targetIndexOrImage.length > 0) {
+        const fileName = targetIndexOrImage.split('/').pop();
+        const found = activeGalleryItems.findIndex(it => it.url.includes(fileName));
+        if (found !== -1) startIdx = found;
+      }
+
+      updateLightboxCategoryButtons();
       renderThumbnails();
-      showSlide(initialIndex);
+      showSlide(startIdx);
+    }
+
+    function openGallery(categoryOrIndex = 'all', targetIndexOrImage = 0) {
+      if (typeof categoryOrIndex === 'number') {
+        setGalleryCategory('all', categoryOrIndex);
+      } else if (typeof categoryOrIndex === 'string') {
+        if (['Sylwester', 'Halloween', 'Klubowe', 'Scenografia', 'all'].includes(categoryOrIndex)) {
+          setGalleryCategory(categoryOrIndex, targetIndexOrImage);
+        } else {
+          const parsed = parseInt(categoryOrIndex, 10);
+          if (!isNaN(parsed)) {
+            setGalleryCategory('all', parsed);
+          } else {
+            setGalleryCategory('all', 0);
+          }
+        }
+      } else {
+        setGalleryCategory('all', 0);
+      }
+
       lightbox.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
@@ -1520,20 +1610,71 @@
       }
     }
 
+    // Kliknięcie w kategorie w lightboxie
+    document.querySelectorAll('.lb-cat-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const cat = btn.getAttribute('data-cat') || 'all';
+        setGalleryCategory(cat, 0);
+      });
+    });
+
+    // Filtry na stronie głównej w sekcji Realizacje
+    const pageFilterButtons = document.querySelectorAll('.realizacje-filter-btn');
+    const photoCards = document.querySelectorAll('.featured-photo-card');
+
+    pageFilterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter') || 'all';
+
+        // Aktualizacja stylu przycisków na stronie
+        pageFilterButtons.forEach(b => {
+          if (b === btn) {
+            b.className = 'realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20';
+          } else {
+            b.className = 'realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white';
+          }
+        });
+
+        // Filtrowanie kart na stronie głównej
+        photoCards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (card.id === 'card-open-more') {
+            card.style.display = '';
+            const titleSpan = card.querySelector('.gold-gradient-text');
+            if (titleSpan) {
+              if (filter === 'all') titleSpan.textContent = '123 zdjęcia';
+              else if (filter === 'Sylwester') titleSpan.textContent = '36 zdjęć';
+              else if (filter === 'Halloween') titleSpan.textContent = '36 zdjęć';
+              else if (filter === 'Klubowe') titleSpan.textContent = '27 zdjęć';
+              else if (filter === 'Scenografia') titleSpan.textContent = '24 zdjęcia';
+            }
+            card.setAttribute('data-category', filter);
+          } else {
+            if (filter === 'all' || cardCat === filter) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+
     // Event listenery dla przycisków w galerii
     document.getElementById('lb-close-btn').addEventListener('click', closeGallery);
     document.getElementById('lb-prev-btn').addEventListener('click', () => showSlide(currentIndex - 1));
     document.getElementById('lb-next-btn').addEventListener('click', () => showSlide(currentIndex + 1));
 
     // Otwarcie z przycisków na stronie
-    document.getElementById('btn-open-full-gallery')?.addEventListener('click', () => openGallery(0));
-    document.getElementById('card-open-more')?.addEventListener('click', () => openGallery(5));
+    document.getElementById('btn-open-full-gallery')?.addEventListener('click', () => openGallery('all', 0));
 
-    // Karty w sekcji portfolio
-    document.querySelectorAll('.featured-photo-card').forEach(card => {
+    // Karty w sekcji portfolio — kliknięcie otwiera DOKŁADNIE wybraną imprezę
+    photoCards.forEach(card => {
       card.addEventListener('click', () => {
-        const idx = parseInt(card.getAttribute('data-index') || '0', 10);
-        openGallery(idx);
+        const cat = card.getAttribute('data-category') || 'all';
+        const img = card.getAttribute('data-image') || '';
+        openGallery(cat, img);
       });
     });
 
