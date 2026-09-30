@@ -602,7 +602,7 @@
   <!-- ══════════════════════════════════════════════
        HERO SECTION Z WIDEO W TLE
   ══════════════════════════════════════════════ -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden">
+  <section id="hero" class="relative min-h-screen flex flex-col justify-between pt-28 pb-0 overflow-hidden">
     
     <!-- TŁO WIDEO / ANIMOWANE ZŁOTE EFEKTY ŚWIETLNE -->
     <div class="absolute inset-0 z-0 overflow-hidden">
@@ -623,7 +623,7 @@
     </div>
 
     <!-- TREŚĆ GŁÓWNA HERO -->
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center my-auto pt-6 pb-8">
       
       <!-- MONUMENTALNE DUŻE LOGO ARTBAR (4x) -->
       <div class="mb-8 flex justify-center">
@@ -648,7 +648,7 @@
       </p>
 
       <!-- CTA BUTTONS -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
         <a href="#konfigurator-section" class="solid-gold-btn w-full sm:w-auto px-8 py-4 rounded text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
           Launch 3D Configurator
@@ -659,53 +659,31 @@
         </a>
       </div>
 
-      <!-- KLUCZOWE LICZBY W HERO -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-[#FACB7D]/15 max-w-4xl mx-auto">
-        <div class="text-center">
-          <div class="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#FACB7D]">480+</div>
-          <div class="text-[10px] sm:text-xs uppercase tracking-wider text-[#f5efe6]/50 mt-1">Events Delivered</div>
-        </div>
-        <div class="text-center">
-          <div class="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#FACB7D]">12</div>
-          <div class="text-[10px] sm:text-xs uppercase tracking-wider text-[#f5efe6]/50 mt-1">Simultaneous Bars</div>
-        </div>
-        <div class="text-center">
-          <div class="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#FACB7D]">100%</div>
-          <div class="text-[10px] sm:text-xs uppercase tracking-wider text-[#f5efe6]/50 mt-1">Modularity</div>
-        </div>
-        <div class="text-center">
-          <div class="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#FACB7D]">A-Z</div>
-          <div class="text-[10px] sm:text-xs uppercase tracking-wider text-[#f5efe6]/50 mt-1">Full ABC License & POS</div>
+    </div>
+
+    <!-- ZAUFALI NAM — MARQUEE LOGO KLIENTÓW & FESTIWALI (ZASTĘPUJE LICZBY W HERO) -->
+    <div class="w-full relative z-10 pt-8 sm:pt-10 pb-6 border-t border-[#FACB7D]/15 overflow-hidden bg-[#030303]/65 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 mb-5 text-center">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D]/60 font-semibold">Trusted by premier festival and event organizers</span>
+      </div>
+      <div class="relative w-full overflow-hidden">
+        <div class="marquee-track flex items-center gap-16 sm:gap-24 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
+          <!-- Zestaw 1 -->
+          <img src="assets/images/wisloujscie.png" alt="Wisłoujście" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/summercontrast.png" alt="Summer Contrast" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/so-Hard.png" alt="So Hard" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/festivaland.png" alt="Festivaland" class="h-8 sm:h-10 w-auto object-contain brightness-200">
+          <img src="assets/images/malta.png" alt="Malta Festival" class="h-9 sm:h-11 w-auto object-contain brightness-200">
+          <!-- Zestaw 2 (dla nieskończonej pętli) -->
+          <img src="assets/images/wisloujscie.png" alt="Wisłoujście" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/summercontrast.png" alt="Summer Contrast" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/so-Hard.png" alt="So Hard" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/festivaland.png" alt="Festivaland" class="h-8 sm:h-10 w-auto object-contain brightness-200">
+          <img src="assets/images/malta.png" alt="Malta Festival" class="h-9 sm:h-11 w-auto object-contain brightness-200">
         </div>
       </div>
-
     </div>
 
-  </section>
-
-  <!-- ══════════════════════════════════════════════
-       ZAUFALI NAM — MARQUEE LOGO KLIENTÓW
-  ══════════════════════════════════════════════ -->
-  <section class="py-12 bg-[#050505] border-y border-[#FACB7D]/10 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 mb-6 text-center">
-      <span class="text-[10px] uppercase tracking-[0.3em] text-[#FACB7D]/60 font-semibold">Trusted by premier festival and event organizers</span>
-    </div>
-    <div class="relative w-full overflow-hidden">
-      <div class="marquee-track flex items-center gap-16 sm:gap-24 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
-        <!-- Zestaw 1 -->
-        <img src="assets/images/wisloujscie.png" alt="Wisłoujście" class="h-10 sm:h-12 w-auto object-contain brightness-200">
-        <img src="assets/images/summercontrast.png" alt="Summer Contrast" class="h-10 sm:h-12 w-auto object-contain brightness-200">
-        <img src="assets/images/so-Hard.png" alt="So Hard" class="h-10 sm:h-12 w-auto object-contain brightness-200">
-        <img src="assets/images/festivaland.png" alt="Festivaland" class="h-8 sm:h-10 w-auto object-contain brightness-200">
-        <img src="assets/images/malta.png" alt="Malta Festival" class="h-9 sm:h-11 w-auto object-contain brightness-200">
-        <!-- Zestaw 2 (dla nieskończonej pętli) -->
-        <img src="assets/images/wisloujscie.png" alt="Wisłoujście" class="h-10 sm:h-12 w-auto object-contain brightness-200">
-        <img src="assets/images/summercontrast.png" alt="Summer Contrast" class="h-10 sm:h-12 w-auto object-contain brightness-200">
-        <img src="assets/images/so-Hard.png" alt="So Hard" class="h-10 sm:h-12 w-auto object-contain brightness-200">
-        <img src="assets/images/festivaland.png" alt="Festivaland" class="h-8 sm:h-10 w-auto object-contain brightness-200">
-        <img src="assets/images/malta.png" alt="Malta Festival" class="h-9 sm:h-11 w-auto object-contain brightness-200">
-      </div>
-    </div>
   </section>
 
   <!-- ══════════════════════════════════════════════
