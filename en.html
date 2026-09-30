@@ -659,9 +659,20 @@
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
           +48 880 626 783
         </a>
-        <a href="#konfigurator-section" class="solid-gold-btn px-5 py-2.5 rounded text-[11px] font-bold tracking-[0.15em] uppercase">
-          3D Configurator
-        </a>
+
+        <!-- SQUARE 3D CONFIGURATOR BUTTON (SYMBOL.SVG) -->
+        <div class="relative group/cfg-btn">
+          <a href="#konfigurator-section" class="w-10 h-10 rounded-lg bg-white/5 border border-[#FACB7D]/40 flex items-center justify-center p-1.5 text-[#FACB7D] hover:bg-[#FACB7D]/20 hover:border-[#FACB7D] hover:scale-105 transition-all shadow-[0_0_15px_rgba(250,203,125,0.15)] hover:shadow-[0_0_20px_rgba(250,203,125,0.4)] cursor-pointer" title="3D Configurator" aria-label="3D Configurator">
+            <img src="symbol.svg" alt="3D Configurator" class="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(250,203,125,0.4)] group-hover/cfg-btn:scale-110 transition-transform">
+          </a>
+          <!-- Tooltip on hover -->
+          <div class="absolute right-0 top-full mt-2.5 pointer-events-none opacity-0 group-hover/cfg-btn:opacity-100 transition-all duration-200 transform translate-y-1 group-hover/cfg-btn:translate-y-0 z-50 whitespace-nowrap hidden sm:block">
+            <div class="bg-[#0c0c0c] border border-[#FACB7D]/50 text-[#f5efe6] text-[11px] px-3 py-1.5 rounded-lg shadow-2xl flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-ping"></span>
+              <span>3D Configurator</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- PRAWA STRONA MOBILE: JĘZYK + SOCIALE + HAMBURGER -->
