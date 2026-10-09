@@ -64,7 +64,7 @@
 
     /* KONTENER 3D */
     .radial-scene-container {
-      perspective: 1400px;
+      perspective: 1800px;
       perspective-origin: 50% 50%;
       transform-style: preserve-3d;
       position: relative;
@@ -81,6 +81,9 @@
       position: absolute;
       top: 50%;
       left: 50%;
+      margin-left: 0;
+      margin-top: 0;
+      transform-origin: center center;
       transform-style: preserve-3d;
       will-change: transform, opacity, filter;
       cursor: pointer;
@@ -810,20 +813,20 @@
       const w = wrapper.clientWidth;
       if (w < 640) {
         radiusX = 180;
-        radiusY = 120;
-        radiusZ = 140;
+        radiusY = 110;
+        radiusZ = 50;
       } else if (w < 1024) {
-        radiusX = 300;
-        radiusY = 170;
-        radiusZ = 200;
+        radiusX = 290;
+        radiusY = 165;
+        radiusZ = 70;
       } else if (w < 1440) {
         radiusX = 410;
-        radiusY = 220;
-        radiusZ = 260;
+        radiusY = 230;
+        radiusZ = 90;
       } else {
-        radiusX = 460;
+        radiusX = 450;
         radiusY = 250;
-        radiusZ = 300;
+        radiusZ = 100;
       }
 
       // Aktualizacja elipsy w SVG
@@ -865,7 +868,7 @@
         }
       }
 
-      // Płynna interpolacja nachylenia myszy (Parallax Tilt)
+      // Płynna interpolacja nachylenia myszy (Subtelna paralaksa)
       currentTiltX += (mouseTiltX - currentTiltX) * 0.08;
       currentTiltY += (mouseTiltY - currentTiltY) * 0.08;
 
@@ -878,25 +881,24 @@
         // Kąt w przestrzeni orbity
         const angle = currentAngle + i * step;
 
-        // Współrzędne na elipsie
+        // Współrzędne na elipsie - dokładnie pokrywające się z krzywą SVG
         const x = Math.cos(angle) * radiusX;
-        const y = Math.sin(angle) * (radiusY * 0.45); // Spłaszczenie w rzucie pionowym
-        const z = Math.sin(angle) * radiusZ; // Oś głębi Z
+        const y = Math.sin(angle) * radiusY;
+        const z = Math.sin(angle) * radiusZ; // Subtelna oś głębi Z
 
         // Normalizacja Z (od 0 w tle do 1 na pierwszym planie)
         const normZ = (z + radiusZ) / (2 * radiusZ);
 
-        // Skalowanie, przezroczystość i głębia
-        const scale = 0.82 + normZ * 0.38; // Od 0.82 do 1.20
-        const opacity = 0.55 + normZ * 0.45; // Od 0.55 do 1.0
+        // Bardzo subtelne skalowanie i przezroczystość
+        const scale = 0.94 + normZ * 0.12;
+        const opacity = 0.88 + normZ * 0.12;
         const zIndex = Math.round(normZ * 200) + 10;
-        const blur = (1 - normZ) * 2; // Delikatna głębia ostrości (DoF)
 
-        // Pozycjonowanie i billboardowanie (karty zawsze patrzą prosto na użytkownika)
-        el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
+        // Środek elementu idealnie na krzywej orbity SVG
+        el.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
         el.style.opacity = opacity;
         el.style.zIndex = zIndex;
-        el.style.filter = blur > 0.8 ? `blur(${blur.toFixed(1)}px)` : 'none';
+        el.style.filter = 'none';
       });
 
       // Aktualizacja nazwy aktywnego działu w centrum
@@ -922,13 +924,13 @@
     });
 
     window.addEventListener('mousemove', (e) => {
-      // Paralaksa 3D sceny w oparciu o pozycję kursora
+      // Subtelna paralaksa 3D sceny w oparciu o pozycję kursora
       const rect = wrapper.getBoundingClientRect();
       const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
       const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
       
-      mouseTiltY = relX * 12; // Obrót lewo/prawo do 12 stopni
-      mouseTiltX = -relY * 8; // Nachylenie góra/dół do 8 stopni
+      mouseTiltY = relX * 5; // Delikatne odchylenie poziome do 5 stopni
+      mouseTiltX = -relY * 3.5; // Delikatne odchylenie pionowe do 3.5 stopnia
 
       // Przeciąganie koła
       if (isDragging) {

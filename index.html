@@ -395,7 +395,7 @@
        RADIALNE MENU 3D (NOWA KONCEPCJA EKOSYSTEMU Z NOWAKONCEPCJA)
        ══════════════════════════════════════════════════════════ */
     .radial-scene-container {
-      perspective: 1400px;
+      perspective: 1800px;
       perspective-origin: 50% 50%;
       transform-style: preserve-3d;
       position: relative;
@@ -411,6 +411,9 @@
       position: absolute;
       top: 50%;
       left: 50%;
+      margin-left: 0;
+      margin-top: 0;
+      transform-origin: center center;
       transform-style: preserve-3d;
       will-change: transform, opacity, filter;
       cursor: pointer;
@@ -2636,20 +2639,20 @@
       const w = radial3dWrapper.clientWidth;
       if (w < 640) {
         radRadiusX = 180;
-        radRadiusY = 120;
-        radRadiusZ = 140;
+        radRadiusY = 110;
+        radRadiusZ = 50;
       } else if (w < 1024) {
-        radRadiusX = 300;
-        radRadiusY = 170;
-        radRadiusZ = 200;
+        radRadiusX = 290;
+        radRadiusY = 165;
+        radRadiusZ = 70;
       } else if (w < 1440) {
         radRadiusX = 410;
-        radRadiusY = 220;
-        radRadiusZ = 260;
+        radRadiusY = 230;
+        radRadiusZ = 90;
       } else {
-        radRadiusX = 460;
+        radRadiusX = 450;
         radRadiusY = 250;
-        radRadiusZ = 300;
+        radRadiusZ = 100;
       }
 
       const svgEllipseBase = document.querySelector('#orbit-svg ellipse:first-of-type');
@@ -2705,19 +2708,18 @@
       radNodeElements.forEach((el, i) => {
         const angle = radCurrentAngle + i * step;
         const x = Math.cos(angle) * radRadiusX;
-        const y = Math.sin(angle) * (radRadiusY * 0.45);
+        const y = Math.sin(angle) * radRadiusY;
         const z = Math.sin(angle) * radRadiusZ;
 
         const normZ = (z + radRadiusZ) / (2 * radRadiusZ);
-        const scale = 0.82 + normZ * 0.38;
-        const opacity = 0.55 + normZ * 0.45;
+        const scale = 0.94 + normZ * 0.12;
+        const opacity = 0.88 + normZ * 0.12;
         const zIndex = Math.round(normZ * 200) + 10;
-        const blur = (1 - normZ) * 2;
 
-        el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
+        el.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
         el.style.opacity = opacity;
         el.style.zIndex = zIndex;
-        el.style.filter = blur > 0.8 ? `blur(${blur.toFixed(1)}px)` : 'none';
+        el.style.filter = 'none';
       });
 
       const closestIdx = getClosestFrontDeptIndex();
@@ -2745,8 +2747,8 @@
         const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
         const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
         
-        radMouseTiltY = relX * 12;
-        radMouseTiltX = -relY * 8;
+        radMouseTiltY = relX * 5;
+        radMouseTiltX = -relY * 3.5;
 
         if (radIsDragging) {
           const deltaX = e.clientX - radLastDragX;
