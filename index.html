@@ -2525,9 +2525,10 @@
     let radRadiusZ = 280;
 
     let radCurrentAngle = 0;
+    let radTargetAngle = null;
     let radRotationVelocity = 0;
     let radIsAutoSpinning = true;
-    let radAutoSpinSpeed = 0.0022;
+    let radAutoSpinSpeed = 0.00022; // 10 razy wolniejszy autoobrót dla subtelnej, luksusowej dynamiki
 
     let radIsDragging = false;
     let radLastDragX = 0;
@@ -2567,8 +2568,9 @@
         `;
 
         itemEl.addEventListener('click', () => {
-          focusRadialDept(idx);
-          openOfferModal(catKey);
+          focusRadialDept(idx, () => {
+            openOfferModal(catKey);
+          });
         });
 
         itemEl.addEventListener('mouseenter', () => {
@@ -2680,6 +2682,8 @@
       return frontIdx;
     }
 
+    let radFocusCallback = null;
+
     function radialRenderLoop() {
       if (!radial3dWrapper || radial3dWrapper.classList.contains('hidden')) {
         requestAnimationFrame(radialRenderLoop);
@@ -2687,7 +2691,20 @@
       }
 
       if (!radIsDragging) {
-        if (radIsAutoSpinning) {
+        if (radTargetAngle !== null) {
+          const diff = radTargetAngle - radCurrentAngle;
+          if (Math.abs(diff) > 0.001) {
+            radCurrentAngle += diff * 0.055; // Płynne, majestatyczne przekręcenie pierścienia
+          } else {
+            radCurrentAngle = radTargetAngle;
+            radTargetAngle = null;
+            if (radFocusCallback) {
+              const cb = radFocusCallback;
+              radFocusCallback = null;
+              cb();
+            }
+          }
+        } else if (radIsAutoSpinning) {
           radCurrentAngle += radAutoSpinSpeed;
         } else if (Math.abs(radRotationVelocity) > 0.0001) {
           radCurrentAngle += radRotationVelocity;
@@ -2736,6 +2753,8 @@
       radial3dWrapper.addEventListener('mousedown', (e) => {
         if (e.target.closest('button') || e.target.closest('#center-hub')) return;
         radIsDragging = true;
+        radTargetAngle = null;
+        radFocusCallback = null;
         radLastDragX = e.clientX;
         radial3dWrapper.classList.remove('cursor-grab');
         radial3dWrapper.classList.add('cursor-grabbing');
@@ -2770,6 +2789,8 @@
       radial3dWrapper.addEventListener('touchstart', (e) => {
         if (e.target.closest('button') || e.target.closest('#center-hub')) return;
         radIsDragging = true;
+        radTargetAngle = null;
+        radFocusCallback = null;
         radLastDragX = e.touches[0].clientX;
       }, { passive: true });
 
@@ -2800,15 +2821,16 @@
       radIsAutoSpinning = false;
       updateRadSpinUI();
       const step = (2 * Math.PI) / DEPT_ORDER.length;
-      radRotationVelocity = direction * step * 0.08;
-      radCurrentAngle += direction * step;
+      radRotationVelocity = 0;
+      const base = radTargetAngle !== null ? radTargetAngle : radCurrentAngle;
+      radTargetAngle = base + direction * step;
     }
 
     btnRadPrev?.addEventListener('click', () => rotateRadialByStep(-1));
     btnRadNext?.addEventListener('click', () => rotateRadialByStep(1));
 
     btnRadReset?.addEventListener('click', () => {
-      radCurrentAngle = 0;
+      radTargetAngle = 0;
       radRotationVelocity = 0;
       radMouseTiltX = 0;
       radMouseTiltY = 0;
@@ -2816,6 +2838,7 @@
 
     btnRadToggleSpin?.addEventListener('click', () => {
       radIsAutoSpinning = !radIsAutoSpinning;
+      if (radIsAutoSpinning) radTargetAngle = null;
       updateRadSpinUI();
     });
 
@@ -2829,14 +2852,18 @@
       }
     }
 
-    function focusRadialDept(targetIdx) {
+    function focusRadialDept(targetIdx, callback = null) {
       radIsAutoSpinning = false;
       updateRadSpinUI();
+      radRotationVelocity = 0;
       const count = DEPT_ORDER.length;
       const targetPhi = Math.PI / 2;
       const currentDeptAngle = (radCurrentAngle + (targetIdx * 2 * Math.PI) / count) % (2 * Math.PI);
-      const diff = targetPhi - currentDeptAngle;
-      radCurrentAngle += diff;
+      let diff = targetPhi - currentDeptAngle;
+      while (diff < -Math.PI) diff += 2 * Math.PI;
+      while (diff > Math.PI) diff -= 2 * Math.PI;
+      radTargetAngle = radCurrentAngle + diff;
+      radFocusCallback = callback;
     }
 
     // Przełączanie widoku: 3D / Siatka

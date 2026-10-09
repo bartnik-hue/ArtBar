@@ -742,10 +742,10 @@
 
     // Kąt orbity (w radianach)
     let currentAngle = 0;
-    let targetAngle = 0;
+    let targetAngle = null;
     let rotationVelocity = 0;
     let isAutoSpinning = true;
-    let autoSpinSpeed = 0.0022; // Elegancka, płynna prędkość kinowa
+    let autoSpinSpeed = 0.00022; // 10 razy wolniejszy autoobrót dla subtelnej, luksusowej dynamiki
 
     // Obsługa przeciągania myszą / dotykiem (Drag & Inertia)
     let isDragging = false;
@@ -786,10 +786,11 @@
           </div>
         `;
 
-        // Kliknięcie w węzeł otwiera szczegóły i wyśrodkowuje węzeł
+        // Kliknięcie w węzeł powoli obraca pierścień na wprost, a po dojechaniu otwiera szczegóły
         itemEl.addEventListener('click', () => {
-          focusDepartment(idx);
-          openDeptModal(idx);
+          focusDepartment(idx, () => {
+            openDeptModal(idx);
+          });
         });
 
         // Hover podświetla w centrum
@@ -856,11 +857,26 @@
       return frontIdx;
     }
 
+    let focusCallback = null;
+
     // Pętla animacji 3D (60/120 FPS requestAnimationFrame)
     function renderLoop() {
       // Obsługa automatycznego obrotu lub bezwładności po przeciągnięciu
       if (!isDragging) {
-        if (isAutoSpinning) {
+        if (targetAngle !== null) {
+          const diff = targetAngle - currentAngle;
+          if (Math.abs(diff) > 0.001) {
+            currentAngle += diff * 0.055; // Płynne, majestatyczne przekręcenie pierścienia
+          } else {
+            currentAngle = targetAngle;
+            targetAngle = null;
+            if (focusCallback) {
+              const cb = focusCallback;
+              focusCallback = null;
+              cb();
+            }
+          }
+        } else if (isAutoSpinning) {
           currentAngle += autoSpinSpeed;
         } else if (Math.abs(rotationVelocity) > 0.0001) {
           currentAngle += rotationVelocity;
@@ -917,6 +933,8 @@
       // Ignoruj kliknięcia w przyciski i centrum
       if (e.target.closest('button') || e.target.closest('#center-hub')) return;
       isDragging = true;
+      targetAngle = null;
+      focusCallback = null;
       startX = e.clientX;
       lastDragX = e.clientX;
       wrapper.classList.remove('cursor-grab');
@@ -954,6 +972,8 @@
     wrapper.addEventListener('touchstart', (e) => {
       if (e.target.closest('button') || e.target.closest('#center-hub')) return;
       isDragging = true;
+      targetAngle = null;
+      focusCallback = null;
       startX = e.touches[0].clientX;
       lastDragX = e.touches[0].clientX;
     }, { passive: true });
@@ -986,15 +1006,16 @@
       isAutoSpinning = false;
       updateSpinButtonUI();
       const step = (2 * Math.PI) / DEPARTMENTS.length;
-      rotationVelocity = direction * step * 0.08;
-      currentAngle += direction * step;
+      rotationVelocity = 0;
+      const base = targetAngle !== null ? targetAngle : currentAngle;
+      targetAngle = base + direction * step;
     }
 
     btnPrev.addEventListener('click', () => rotateByStep(-1));
     btnNext.addEventListener('click', () => rotateByStep(1));
 
     btnReset.addEventListener('click', () => {
-      currentAngle = 0;
+      targetAngle = 0;
       rotationVelocity = 0;
       mouseTiltX = 0;
       mouseTiltY = 0;
@@ -1002,6 +1023,7 @@
 
     btnToggleSpin.addEventListener('click', () => {
       isAutoSpinning = !isAutoSpinning;
+      if (isAutoSpinning) targetAngle = null;
       updateSpinButtonUI();
     });
 
@@ -1016,14 +1038,18 @@
     }
 
     // Wyśrodkowanie wybranego działu na pierwszym planie (Z = max)
-    function focusDepartment(targetIdx) {
+    function focusDepartment(targetIdx, callback = null) {
       isAutoSpinning = false;
       updateSpinButtonUI();
+      rotationVelocity = 0;
       const count = DEPARTMENTS.length;
       const targetPhi = Math.PI / 2; // Przód to kąt pi/2 (sin = 1)
       const currentDeptAngle = (currentAngle + (targetIdx * 2 * Math.PI) / count) % (2 * Math.PI);
-      const diff = targetPhi - currentDeptAngle;
-      currentAngle += diff;
+      let diff = targetPhi - currentDeptAngle;
+      while (diff < -Math.PI) diff += 2 * Math.PI;
+      while (diff > Math.PI) diff -= 2 * Math.PI;
+      targetAngle = currentAngle + diff;
+      focusCallback = callback;
     }
 
     // ════════════════════════════════════════════════════════════
