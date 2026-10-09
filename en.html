@@ -475,9 +475,10 @@
 
     .orbit-svg {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 1;
     }
@@ -1039,40 +1040,44 @@
           We unite all vital event pillars under one roof: artistic creation (<strong class="text-[#FACB7D]">Art</strong>), modular bars (<strong class="text-[#FACB7D]">Bar</strong>), real-time live telemetry (<strong class="text-[#FACB7D]">ArtPOS</strong>), deposit eco-cups (<strong class="text-[#FACB7D]">ECO Cups</strong>), in-house ice plant (<strong class="text-[#FACB7D]">Ice</strong>), professional bar staff (<strong class="text-[#FACB7D]">Staffing</strong>), and Just-In-Time fleet transport (<strong class="text-[#FACB7D]">Logistics</strong>).
         </p>
 
-        <!-- VIEW MODE TOGGLE: 3D SPACE / GRID -->
-        <div class="inline-flex items-center gap-2 bg-white/5 border border-[#FACB7D]/30 rounded-full p-1 shadow-lg">
+        <!-- VIEW MODE TOGGLE: 3D SPACE / GRID / FULL SCREEN -->
+        <div class="inline-flex items-center gap-2 bg-white/5 border border-[#FACB7D]/30 rounded-full p-1 shadow-lg backdrop-blur-md">
           <button id="view-mode-3d-btn" type="button" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)] cursor-pointer">
             3D Space
           </button>
           <button id="view-mode-grid-btn" type="button" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white cursor-pointer">
             Department Grid
           </button>
+          <a href="propozycja_menu_radialnego_3d.html" class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-[#FACB7D] hover:text-white hover:bg-white/10 transition-all flex items-center gap-1.5" title="Open full-screen 3D presentation">
+            <span>Full Screen 3D</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
         </div>
       </div>
 
       <!-- ══════════════════════════════════════════════
            VIEW 1: INTERACTIVE 3D RADIAL SCENE
            ══════════════════════════════════════════════ -->
-      <div id="radial-3d-wrapper" class="w-full max-w-[1400px] h-[660px] sm:h-[720px] md:h-[760px] relative radial-scene-container cursor-grab mx-auto flex items-center justify-center my-6">
+      <div id="radial-3d-wrapper" class="w-full max-w-[1500px] h-[700px] sm:h-[760px] lg:h-[820px] xl:h-[860px] relative radial-scene-container cursor-grab mx-auto flex items-center justify-center my-6 select-none">
 
         <!-- 3D STAGE -->
         <div id="radial-stage" class="radial-stage-3d w-full h-full flex items-center justify-center">
 
           <!-- SVG 3D ORBIT ELLIPSE -->
-          <svg id="orbit-svg" class="orbit-svg w-[960px] h-[620px]" viewBox="0 0 960 620" fill="none">
+          <svg id="orbit-svg" class="orbit-svg" fill="none">
             <defs>
               <linearGradient id="orbitGoldGradEn" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.8" />
+                <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.85" />
                 <stop offset="50%" stop-color="#FACB7D" stop-opacity="0.25" />
-                <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.85" />
               </linearGradient>
               <filter id="goldGlowFilterEn" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feGaussianBlur stdDeviation="3.5" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
             </defs>
-            <ellipse cx="480" cy="310" rx="420" ry="240" stroke="rgba(250, 203, 125, 0.15)" stroke-width="1.5" />
-            <ellipse cx="480" cy="310" rx="420" ry="240" stroke="url(#orbitGoldGradEn)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilterEn)" />
+            <ellipse id="orbit-ellipse-base" cx="50%" cy="50%" rx="450" ry="250" stroke="rgba(250, 203, 125, 0.16)" stroke-width="1.5" />
+            <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="450" ry="250" stroke="url(#orbitGoldGradEn)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilterEn)" />
           </svg>
 
           <!-- CENTER HUB -->
@@ -2647,29 +2652,24 @@
     function updateRadialDimensions() {
       if (!radial3dWrapper) return;
       const w = radial3dWrapper.clientWidth;
-      if (w < 640) {
-        radRadiusX = 180;
-        radRadiusY = 110;
-        radRadiusZ = 50;
-      } else if (w < 1024) {
-        radRadiusX = 290;
-        radRadiusY = 165;
-        radRadiusZ = 70;
-      } else if (w < 1440) {
-        radRadiusX = 410;
-        radRadiusY = 230;
-        radRadiusZ = 90;
-      } else {
-        radRadiusX = 450;
-        radRadiusY = 250;
-        radRadiusZ = 100;
-      }
+      const h = radial3dWrapper.clientHeight;
 
-      const svgEllipseBase = document.querySelector('#orbit-svg ellipse:first-of-type');
-      const svgEllipseDash = document.querySelector('#orbit-svg .orbit-ellipse-dashed');
+      radRadiusX = Math.max(220, Math.min(w * 0.40, w / 2 - 130));
+      radRadiusY = Math.max(130, Math.min(h * 0.34, h / 2 - 110));
+      radRadiusZ = Math.min(95, Math.max(45, radRadiusY * 0.28));
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const svgEllipseBase = document.getElementById('orbit-ellipse-base') || document.querySelector('#orbit-svg ellipse:first-of-type');
+      const svgEllipseDash = document.getElementById('orbit-ellipse-dash') || document.querySelector('#orbit-svg .orbit-ellipse-dashed');
       if (svgEllipseBase && svgEllipseDash) {
+        svgEllipseBase.setAttribute('cx', cx);
+        svgEllipseBase.setAttribute('cy', cy);
         svgEllipseBase.setAttribute('rx', radRadiusX);
         svgEllipseBase.setAttribute('ry', radRadiusY);
+
+        svgEllipseDash.setAttribute('cx', cx);
+        svgEllipseDash.setAttribute('cy', cy);
         svgEllipseDash.setAttribute('rx', radRadiusX);
         svgEllipseDash.setAttribute('ry', radRadiusY);
       }

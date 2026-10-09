@@ -147,9 +147,10 @@
     /* LINIE ORBITY (SVG) */
     .orbit-svg {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 1;
     }
@@ -218,75 +219,84 @@
     }
   </style>
 </head>
-<body class="bg-[#030303] text-[#f5efe6] min-h-screen flex flex-col justify-between selection:bg-[#FACB7D]/30 selection:text-white">
+<body class="bg-[#030303] text-[#f5efe6] h-screen w-screen overflow-hidden flex flex-col justify-between selection:bg-[#FACB7D]/30 selection:text-white select-none">
 
-  <!-- GÓRNY PASEK NAWIGACJI / TESTOWY HEADER -->
-  <header class="w-full border-b border-[#FACB7D]/15 bg-[#050505]/80 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-2 text-xs font-semibold tracking-widest text-[#FACB7D] hover:text-white uppercase transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-          Powrót do strony głównej
-        </a>
-      </div>
-      <div class="flex items-center gap-4">
-        <span class="text-[11px] uppercase tracking-[0.25em] text-[#FACB7D]/80 font-medium hidden sm:inline">Koncepcja: Radialne Menu 3D</span>
-        <div class="flex items-center gap-2 bg-white/5 border border-[#FACB7D]/30 rounded-full p-1">
-          <button id="view-mode-3d" type="button" class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]">
-            Przestrzeń 3D
-          </button>
-          <button id="view-mode-grid" type="button" class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white">
-            Siatka
-          </button>
-        </div>
+  <!-- GÓRNY PASEK NAWIGACJI / NAKŁADKA PEŁNOEKRANOWA -->
+  <header class="absolute top-0 inset-x-0 z-50 bg-gradient-to-b from-[#030303]/95 via-[#030303]/60 to-transparent px-6 sm:px-10 py-4 flex items-center justify-between pointer-events-none">
+    <div class="flex items-center gap-3 pointer-events-auto">
+      <a href="index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-[#FACB7D]/30 text-xs font-semibold tracking-widest text-[#FACB7D] hover:text-white hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 uppercase transition-all backdrop-blur-md shadow-lg">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Powrót do strony głównej</span>
+      </a>
+    </div>
+
+    <!-- Środkowy luksusowy napis -->
+    <div class="hidden md:flex items-center gap-2 pointer-events-auto">
+      <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45"></span>
+      <span class="text-xs uppercase tracking-[0.25em] text-[#FACB7D]/85 font-medium font-serif-luxury">EKOSYSTEM KOMPLEKSOWEJ OBSŁUGI • WIDOK PEŁNOEKRANOWY</span>
+      <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45"></span>
+    </div>
+
+    <div class="pointer-events-auto flex items-center gap-3">
+      <!-- Przycisk Pełnego Ekranu (Browser Fullscreen API) -->
+      <button id="toggle-fullscreen-btn" type="button" class="px-3.5 py-1.5 rounded-full bg-black/60 border border-[#FACB7D]/30 text-xs font-semibold uppercase tracking-wider text-[#FACB7D] hover:text-white hover:border-[#FACB7D] transition-all flex items-center gap-1.5 backdrop-blur-md shadow-lg cursor-pointer" title="Przełącz tryb pełnego ekranu (F11)">
+        <svg id="fullscreen-icon-expand" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        <svg id="fullscreen-icon-compress" class="w-3.5 h-3.5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9H5m4 0V5m0 4L4 4m10 5h4m-4 0V5m0 4l5-5M9 15H5m4 0v4m0-4L4 20m10-5h4m-4 0v4m0-4l5 5"/></svg>
+        <span class="hidden sm:inline" id="fullscreen-text">Pełny Ekran</span>
+      </button>
+
+      <!-- Przełącznik 3D / Siatka -->
+      <div class="flex items-center gap-1 bg-black/70 border border-[#FACB7D]/30 rounded-full p-1 backdrop-blur-md shadow-lg">
+        <button id="view-mode-3d" type="button" class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]">
+          3D
+        </button>
+        <button id="view-mode-grid" type="button" class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white">
+          Siatka
+        </button>
       </div>
     </div>
   </header>
 
   <!-- GŁÓWNA SEKCJA: RADIALNE MENU 3D EKOSYSTEMU ARTBAR -->
-  <main class="flex-1 relative flex flex-col justify-center items-center py-10 px-4 overflow-hidden">
+  <main class="w-screen h-screen relative flex items-center justify-center overflow-hidden">
     
     <!-- SUBTELNE ZŁOTE POŚWIATY W TLE -->
-    <div class="gold-orb-glow w-[700px] h-[700px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute w-[900px] h-[500px] bg-gradient-to-r from-transparent via-[#FACB7D]/5 to-transparent blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+    <div class="gold-orb-glow w-[85vw] h-[85vw] max-w-[1100px] max-h-[1100px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#FACB7D]/5 to-transparent blur-[140px] pointer-events-none"></div>
 
-    <!-- TYTUŁ I WSKAZÓWKA OBSŁUGI -->
-    <div class="relative z-20 text-center max-w-3xl mx-auto mb-4 px-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#FACB7D]/30 bg-[#FACB7D]/10 text-[#FACB7D] text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-3 backdrop-blur-md">
-        <span class="w-2 h-2 bg-[#FACB7D] rotate-45 inline-block animate-pulse"></span>
-        <span>Ekosystem Kompleksowej Obsługi</span>
-      </div>
-      <p class="text-xs sm:text-sm text-[#f5efe6]/60 font-light flex items-center justify-center gap-2">
-        <svg class="w-4 h-4 text-[#FACB7D] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
-        <span>Przeciągaj kursorem lub palcem, aby obracać koło w 3D. Kliknij dowolny dział, aby rozwinąć ofertę.</span>
+    <!-- SUBTELNA WSKAZÓWKA NA GÓRZE POD HEADEREM -->
+    <div class="absolute top-20 sm:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center px-4">
+      <p class="text-xs text-[#f5efe6]/60 font-light flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/5">
+        <svg class="w-3.5 h-3.5 text-[#FACB7D] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+        <span>Przeciągaj lub użyj kółka myszy, aby obracać koło w 3D • Kliknij dział, aby obrócić na przód i otworzyć ofertę</span>
       </p>
     </div>
 
     <!-- ══════════════════════════════════════════════
          WIDOK 1: SCENA RADIALNA 3D (DESKTOP / WIDESCREEN)
          ══════════════════════════════════════════════ -->
-    <div id="radial-3d-wrapper" class="w-full max-w-[1400px] h-[680px] sm:h-[720px] md:h-[760px] relative radial-scene-container cursor-grab mx-auto flex items-center justify-center">
+    <div id="radial-3d-wrapper" class="w-full h-full relative radial-scene-container cursor-grab flex items-center justify-center select-none">
 
       <!-- SCENA 3D (TRANSLACJA I ROTACJA STAGE'U) -->
       <div id="radial-stage" class="radial-stage-3d w-full h-full flex items-center justify-center">
 
         <!-- SVG ORBITA (ELIPSA 3D Z ANIMOWANYMI PUNKTAMI) -->
-        <svg id="orbit-svg" class="orbit-svg w-[960px] h-[620px]" viewBox="0 0 960 620" fill="none">
+        <svg id="orbit-svg" class="orbit-svg" fill="none">
           <defs>
             <linearGradient id="orbitGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.8" />
+              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.85" />
               <stop offset="50%" stop-color="#FACB7D" stop-opacity="0.25" />
-              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.85" />
             </linearGradient>
             <filter id="goldGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
           <!-- Ciągła subtelna orbita bazowa -->
-          <ellipse cx="480" cy="310" rx="420" ry="240" stroke="rgba(250, 203, 125, 0.15)" stroke-width="1.5" />
+          <ellipse id="orbit-ellipse-base" cx="50%" cy="50%" rx="480" ry="260" stroke="rgba(250, 203, 125, 0.16)" stroke-width="1.5" />
           <!-- Animowana przerywana złota linia z poświatą -->
-          <ellipse cx="480" cy="310" rx="420" ry="240" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
+          <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="480" ry="260" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
         </svg>
 
         <!-- SERCE CENTRUM: LOGO ARTBAR + GŁÓWNY TYTUŁ Z KONCEPCJI -->
@@ -369,26 +379,26 @@
     <!-- ══════════════════════════════════════════════
          WIDOK 2: RESPONSYWNA SIATKA (TABLET / MOBILE)
          ══════════════════════════════════════════════ -->
-    <div id="radial-grid-wrapper" class="hidden w-full max-w-6xl mx-auto px-4 z-20">
-      
-      <!-- Nagłówek centralny dla widoku siatki -->
-      <div class="text-center max-w-xl mx-auto mb-10 p-6 rounded-2xl bg-black/60 border border-[#FACB7D]/25 backdrop-blur-md">
-        <h2 class="font-serif-luxury text-2xl font-bold text-white uppercase mb-2">
-          Kompleksowa Realizacja <span class="gold-gradient-text">Stref Barowych</span>
-        </h2>
-        <div class="inline-block px-3 py-1 bg-[#FACB7D]/15 border border-[#FACB7D]/40 rounded text-[11px] font-bold tracking-[0.2em] text-[#FACB7D] uppercase mb-3">
-          Jeden Partner = Cała Strefa Barowa
+    <div id="radial-grid-wrapper" class="hidden w-full h-full overflow-y-auto pt-28 pb-16 px-4 sm:px-8 z-20 scrollbar-thin">
+      <div class="max-w-6xl mx-auto">
+        <!-- Nagłówek centralny dla widoku siatki -->
+        <div class="text-center max-w-xl mx-auto mb-10 p-6 rounded-2xl bg-black/60 border border-[#FACB7D]/25 backdrop-blur-md">
+          <h2 class="font-serif-luxury text-2xl font-bold text-white uppercase mb-2">
+            Kompleksowa Realizacja <span class="gold-gradient-text">Stref Barowych</span>
+          </h2>
+          <div class="inline-block px-3 py-1 bg-[#FACB7D]/15 border border-[#FACB7D]/40 rounded text-[11px] font-bold tracking-[0.2em] text-[#FACB7D] uppercase mb-3">
+            Jeden Partner = Cała Strefa Barowa
+          </div>
+          <p class="text-xs text-[#f5efe6]/70 leading-relaxed font-light">
+            Wybierz interesujący Cię obszar, aby zobaczyć zakres oferowanych rozwiązań, infrastrukturę i galerię realizacji.
+          </p>
         </div>
-        <p class="text-xs text-[#f5efe6]/70 leading-relaxed font-light">
-          Wybierz interesujący Cię obszar, aby zobaczyć zakres oferowanych rozwiązań, infrastrukturę i galerię realizacji.
-        </p>
-      </div>
 
-      <!-- KARTY DZIAŁÓW W SIATCE 2-KOLUMNOWEJ / 1-KOLUMNOWEJ -->
-      <div id="grid-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Renderowane przez JS -->
+        <!-- KARTY DZIAŁÓW W SIATCE 2-KOLUMNOWEJ / 1-KOLUMNOWEJ -->
+        <div id="grid-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Renderowane przez JS -->
+        </div>
       </div>
-
     </div>
 
   </main>
@@ -809,33 +819,31 @@
       });
     }
 
-    // Wyznaczenie wymiarów adaptacyjnych
+    // Wyznaczenie wymiarów adaptacyjnych (Pełnoekranowe skalowanie 3D)
     function updateDimensions() {
-      const w = wrapper.clientWidth;
-      if (w < 640) {
-        radiusX = 180;
-        radiusY = 110;
-        radiusZ = 50;
-      } else if (w < 1024) {
-        radiusX = 290;
-        radiusY = 165;
-        radiusZ = 70;
-      } else if (w < 1440) {
-        radiusX = 410;
-        radiusY = 230;
-        radiusZ = 90;
-      } else {
-        radiusX = 450;
-        radiusY = 250;
-        radiusZ = 100;
-      }
+      const w = wrapper.clientWidth || window.innerWidth;
+      const h = wrapper.clientHeight || window.innerHeight;
 
-      // Aktualizacja elipsy w SVG
-      const svgEllipseBase = document.querySelector('#orbit-svg ellipse:first-of-type');
-      const svgEllipseDash = document.querySelector('#orbit-svg .orbit-ellipse-dashed');
+      // Pełnoekranowe promienie elipsy:
+      // Poziomo: optymalne wykorzystanie szerokości ekranu z marginesem na karty
+      // Pionowo: optymalne wykorzystanie wysokości ekranu z miejscem na nagłówek i pasek dolny
+      radiusX = Math.max(220, Math.min(w * 0.40, w / 2 - 130));
+      radiusY = Math.max(130, Math.min(h * 0.34, h / 2 - 110));
+      radiusZ = Math.min(95, Math.max(45, radiusY * 0.28));
+
+      // Aktualizacja elipsy w SVG (idealne zbieganie się z pozycjami węzłów)
+      const cx = w / 2;
+      const cy = h / 2;
+      const svgEllipseBase = document.getElementById('orbit-ellipse-base') || document.querySelector('#orbit-svg ellipse:first-of-type');
+      const svgEllipseDash = document.getElementById('orbit-ellipse-dash') || document.querySelector('#orbit-svg .orbit-ellipse-dashed');
       if (svgEllipseBase && svgEllipseDash) {
+        svgEllipseBase.setAttribute('cx', cx);
+        svgEllipseBase.setAttribute('cy', cy);
         svgEllipseBase.setAttribute('rx', radiusX);
         svgEllipseBase.setAttribute('ry', radiusY);
+
+        svgEllipseDash.setAttribute('cx', cx);
+        svgEllipseDash.setAttribute('cy', cy);
         svgEllipseDash.setAttribute('rx', radiusX);
         svgEllipseDash.setAttribute('ry', radiusY);
       }
@@ -991,6 +999,19 @@
     window.addEventListener('touchend', () => {
       isDragging = false;
     });
+
+    // Płynny obrót za pomocą kółka myszy na pełnym ekranie
+    wrapper.addEventListener('wheel', (e) => {
+      if (modalBackdrop && !modalBackdrop.classList.contains('is-hidden')) return;
+      e.preventDefault();
+      isAutoSpinning = false;
+      updateSpinButtonUI();
+      targetAngle = null;
+      focusCallback = null;
+      const wheelDelta = e.deltaY * 0.0012;
+      currentAngle += wheelDelta;
+      rotationVelocity = wheelDelta * 0.2;
+    }, { passive: false });
 
     // ════════════════════════════════════════════════════════════
     // PRZYCISKI STEROWANIA 3D
@@ -1205,6 +1226,44 @@
       const nextIdx = (currentOpenDeptIdx + 1) % DEPARTMENTS.length;
       openDeptModal(nextIdx);
       focusDepartment(nextIdx);
+    });
+
+    // Obsługa przełącznika pełnoekranowego (Browser Fullscreen API)
+    const toggleFullscreenBtn = document.getElementById('toggle-fullscreen-btn');
+    const fsExpandIcon = document.getElementById('fullscreen-icon-expand');
+    const fsCompressIcon = document.getElementById('fullscreen-icon-compress');
+    const fsText = document.getElementById('fullscreen-text');
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    if (toggleFullscreenBtn) {
+      toggleFullscreenBtn.addEventListener('click', toggleFullscreen);
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const isFs = !!document.fullscreenElement;
+      if (fsExpandIcon && fsCompressIcon) {
+        if (isFs) {
+          fsExpandIcon.classList.add('hidden');
+          fsCompressIcon.classList.remove('hidden');
+          if (fsText) fsText.textContent = 'Zamknij';
+        } else {
+          fsExpandIcon.classList.remove('hidden');
+          fsCompressIcon.classList.add('hidden');
+          if (fsText) fsText.textContent = 'Pełny Ekran';
+        }
+      }
+      setTimeout(updateDimensions, 100);
     });
 
     // Inicjalizacja
