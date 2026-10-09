@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtBar Solutions — Kompleksowa obsługa i produkcja stref barowych</title>
+  <meta name="description" content="Projektujemy i budujemy funkcjonalne, estetyczne bary modułowe oraz dostarczamy pełną infrastrukturę barową na eventy i festiwale.">
+  <link rel="icon" type="image/jpeg" href="assets/logos/cropped-ArtBar-Solutions_jpg_10-32x32.jpg">
+
+  <!-- Google Fonts: Cinzel & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            '3xl': '1920px',
+            '4k': '2560px',
+            'uhd': '3840px'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Konfigurator 3D: pełna szerokość i adaptacja do ekranów Ultra-Wide oraz 4K */
+    .configurator-fluid-container {
+      width: 100%;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .configurator-fluid-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .configurator-fluid-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+    @media (min-width: 1536px) {
+      .configurator-fluid-container {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+    }
+    @media (min-width: 2560px) {
+      .configurator-fluid-container {
+        padding-left: 4rem;
+        padding-right: 4rem;
+      }
+      #configurator-wrapper {
+        height: 1050px !important;
+      }
+    }
+    @media (min-width: 3840px) {
+      .configurator-fluid-container {
+        padding-left: 6rem;
+        padding-right: 6rem;
+      }
+      #configurator-wrapper {
+        height: 1350px !important;
+      }
+    }
+
+    :root {
+      --gold: #FACB7D;
+      --gold-light: #fdd596;
+      --gold-dark: #c39f65;
+      --gold-deep: #8c734a;
+      --obsidian: #030303;
+      --obsidian-surface: #0a0a0a;
+      --obsidian-card: #111111;
+      --obsidian-border: rgba(250, 203, 125, 0.18);
+    }
+
+    body {
+      background-color: var(--obsidian);
+      color: #f5efe6;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════════════
+       EKSKLUZYWNY PASEK PRZEWIJANIA (SCROLLBAR)
+       TŁO: CZARNE (#030303), SUWAK I STRZAŁKI: ZŁOTE (#FACB7D)
+       ══════════════════════════════════════════════ */
+    /* Firefox & standard CSS */
+    html, body {
+      scrollbar-color: #FACB7D #030303;
+      scrollbar-width: auto;
+    }
+
+    /* WebKit / Chromium (Chrome, Edge, Opera, Safari) */
+    ::-webkit-scrollbar {
+      width: 14px;
+      height: 14px;
+      background-color: #030303;
+    }
+
+    /* Tło paska przewijania (Track) */
+    ::-webkit-scrollbar-track {
+      background: #030303;
+      border-left: 1px solid rgba(250, 203, 125, 0.15);
+      border-top: 1px solid rgba(250, 203, 125, 0.15);
+    }
+
+    /* Suwak przewijania (Thumb) */
+    ::-webkit-scrollbar-thumb {
+      background-color: #FACB7D;
+      background-image: linear-gradient(180deg, #fdd596 0%, #FACB7D 50%, #c39f65 100%);
+      border-radius: 4px;
+      border: 2px solid #030303;
+      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #ffe0b3;
+      background-image: linear-gradient(180deg, #fff2db 0%, #ffe0b3 50%, #FACB7D 100%);
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.6), inset 0 0 4px rgba(0, 0, 0, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+      background-color: #e5b360;
+      background-image: linear-gradient(180deg, #FACB7D 0%, #c39f65 100%);
+    }
+
+    /* Narożnik zbiegu pionowego i poziomego paska */
+    ::-webkit-scrollbar-corner {
+      background: #030303;
+    }
+
+    /* Przyciski ze strzałkami góra/dół/lewo/prawo */
+    ::-webkit-scrollbar-button {
+      display: block;
+      background-color: #030303;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 14px;
+      height: 16px;
+      border-left: 1px solid rgba(250, 203, 125, 0.15);
+    }
+
+    ::-webkit-scrollbar-button:hover {
+      background-color: #0d0d0d;
+    }
+
+    /* Strzałka w górę */
+    ::-webkit-scrollbar-button:single-button:vertical:decrement {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23FACB7D'%3E%3Cpolygon points='12,4 3,18 21,18'/%3E%3C/svg%3E");
+      border-bottom: 1px solid rgba(250, 203, 125, 0.12);
+    }
+    ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpolygon points='12,4 3,18 21,18'/%3E%3C/svg%3E");
+    }
+
+    /* Strzałka w dół */
+    ::-webkit-scrollbar-button:single-button:vertical:increment {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23FACB7D'%3E%3Cpolygon points='12,20 3,6 21,6'/%3E%3C/svg%3E");
+      border-top: 1px solid rgba(250, 203, 125, 0.12);
+    }
+    ::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpolygon points='12,20 3,6 21,6'/%3E%3C/svg%3E");
+    }
+
+    /* Strzałka w lewo (dla poziomego paska) */
+    ::-webkit-scrollbar-button:single-button:horizontal:decrement {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23FACB7D'%3E%3Cpolygon points='4,12 18,3 18,21'/%3E%3C/svg%3E");
+      border-right: 1px solid rgba(250, 203, 125, 0.12);
+    }
+    ::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpolygon points='4,12 18,3 18,21'/%3E%3C/svg%3E");
+    }
+
+    /* Strzałka w prawo (dla poziomego paska) */
+    ::-webkit-scrollbar-button:single-button:horizontal:increment {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23FACB7D'%3E%3Cpolygon points='20,12 6,3 6,21'/%3E%3C/svg%3E");
+      border-left: 1px solid rgba(250, 203, 125, 0.12);
+    }
+    ::-webkit-scrollbar-button:single-button:horizontal:increment:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpolygon points='20,12 6,3 6,21'/%3E%3C/svg%3E");
+    }
+
+    /* Klasy pomocnicze do kontrolowania pasków wewnętrznych */
+    .scrollbar-none {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    .scrollbar-none::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    .scrollbar-thin {
+      scrollbar-width: thin !important;
+      scrollbar-color: #FACB7D #030303 !important;
+    }
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px !important;
+      height: 6px !important;
+    }
+    .scrollbar-thin::-webkit-scrollbar-button {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    .font-serif-luxury {
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Złote gradienty tekstu */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FACB7D 0%, #ffe0b3 40%, #c39f65 70%, #FACB7D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gold-subtle-text {
+      background: linear-gradient(135deg, #f5efe6 30%, #FACB7D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Efekt Shimmer w tle */
+    .obsidian-shimmer {
+      background: linear-gradient(125deg, transparent 0%, rgba(250,203,125,0.04) 30%, transparent 60%, rgba(250,203,125,0.03) 80%, transparent 100%);
+      background-size: 250% 250%;
+      animation: shimmerMove 12s ease-in-out infinite;
+    }
+
+    @keyframes shimmerMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Animowane złote światła i flary */
+    .golden-light-beam {
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 140%;
+      height: 160%;
+      background: radial-gradient(ellipse at 35% 30%, rgba(250, 203, 125, 0.18) 0%, rgba(250, 203, 125, 0.05) 35%, transparent 65%),
+                  linear-gradient(115deg, transparent 35%, rgba(250, 203, 125, 0.12) 48%, rgba(255, 235, 180, 0.22) 50%, rgba(250, 203, 125, 0.12) 52%, transparent 65%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      filter: blur(24px);
+      animation: beamSweep 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes beamSweep {
+      0% { transform: translate(-8%, -6%) rotate(-3deg) scale(0.95); opacity: 0.6; }
+      50% { transform: translate(4%, 3%) rotate(2deg) scale(1.05); opacity: 0.9; }
+      100% { transform: translate(8%, -4%) rotate(-1deg) scale(1); opacity: 0.7; }
+    }
+
+    .golden-orb-1 {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(250, 203, 125, 0.25) 0%, rgba(212, 160, 80, 0.08) 45%, transparent 70%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      filter: blur(60px);
+      top: 15%;
+      left: 10%;
+      animation: orbFloat1 18s ease-in-out infinite alternate;
+    }
+
+    .golden-orb-2 {
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 224, 150, 0.2) 0%, rgba(250, 203, 125, 0.06) 50%, transparent 75%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      filter: blur(70px);
+      bottom: 10%;
+      right: 5%;
+      animation: orbFloat2 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbFloat1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 40px) scale(1.15); }
+      100% { transform: translate(-30px, 80px) scale(0.9); }
+    }
+
+    @keyframes orbFloat2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-80px, -50px) scale(1.2); }
+      100% { transform: translate(40px, -90px) scale(0.95); }
+    }
+
+    /* Glassmorphism przyciski i panele */
+    .glass-gold-btn {
+      background: rgba(250, 203, 125, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(250, 203, 125, 0.35);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .glass-gold-btn:hover {
+      background: rgba(250, 203, 125, 0.18);
+      border-color: rgba(250, 203, 125, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(250, 203, 125, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .solid-gold-btn {
+      background: linear-gradient(135deg, #FACB7D 0%, #fdd596 50%, #c39f65 100%);
+      color: #0c0800;
+      border: 1px solid #FACB7D;
+      box-shadow: 0 6px 24px rgba(250, 203, 125, 0.3);
+      transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .solid-gold-btn:hover {
+      background: linear-gradient(135deg, #ffe0b3 0%, #FACB7D 60%, #e0b470 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(250, 203, 125, 0.45);
+    }
+
+    /* Karty Obsidian */
+    .obsidian-card {
+      background: rgba(10, 10, 10, 0.75);
+      border: 1px solid var(--obsidian-border);
+      backdrop-filter: blur(14px);
+      transition: all 0.4s ease;
+    }
+
+    .obsidian-card:hover {
+      border-color: rgba(250, 203, 125, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(250, 203, 125, 0.1);
+    }
+
+    /* Linia ozdobna ze złotym diamentem */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(250,203,125,0.4) 20%, rgba(250,203,125,0.8) 50%, rgba(250,203,125,0.4) 80%, transparent);
+      position: relative;
+    }
+
+    .gold-divider::after {
+      content: '◆';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--gold);
+      font-size: 0.65rem;
+      background: var(--obsidian);
+      padding: 0 8px;
+    }
+
+    /* Płynny pasek marquee logo */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 28s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       PEŁNOEKRANOWE I PŁYNNE SKALOWANIE (FLUID SCALING) DLA RAMKI OFERTY
+       PERFEKCYJNE SKALOWANIE TEKSTÓW, IKON I ZAWARTOŚCI OD HD DO 4K ULTRA HD
+       ══════════════════════════════════════════════════════════ */
+    #offer-modal {
+      z-index: 9999 !important;
+      padding: clamp(12px, 1.8vw, 36px) !important;
+    }
+
+    #offer-modal-card {
+      width: clamp(94vw, 96vw, 98vw) !important;
+      max-width: clamp(1200px, 94vw, 3600px) !important;
+      height: clamp(86vh, 90vh, 94vh) !important;
+      max-height: 94vh !important;
+      margin: auto !important;
+      border-radius: clamp(14px, 1vw + 10px, 36px) !important;
+    }
+
+    #offer-modal-header-bar {
+      padding: clamp(10px, 0.6vw + 8px, 30px) clamp(16px, 1.2vw + 12px, 52px) !important;
+    }
+
+    #offer-modal-scroll {
+      padding: clamp(16px, 1.2vw + 10px, 56px) clamp(16px, 1.5vw + 12px, 64px) !important;
+      gap: clamp(18px, 1.2vw + 12px, 48px) !important;
+    }
+
+    /* Przyciski zakładek (art, bar, SOLUTIONS) */
+    .modal-tab-btn {
+      font-size: clamp(0.72rem, 0.45vw + 0.5rem, 1.45rem) !important;
+      padding: clamp(6px, 0.35vw + 4px, 18px) clamp(12px, 0.6vw + 8px, 34px) !important;
+      border-radius: clamp(6px, 0.25vw + 4px, 16px) !important;
+      gap: clamp(6px, 0.25vw + 4px, 16px) !important;
+      letter-spacing: 0.12em !important;
+    }
+    .modal-tab-btn span:first-child {
+      width: clamp(6px, 0.2vw + 4px, 14px) !important;
+      height: clamp(6px, 0.2vw + 4px, 14px) !important;
+    }
+
+    /* Przycisk zamknięcia [ × ] */
+    #btn-close-offer-modal {
+      width: clamp(34px, 1.2vw + 24px, 72px) !important;
+      height: clamp(34px, 1.2vw + 24px, 72px) !important;
+    }
+    #btn-close-offer-modal svg {
+      width: clamp(16px, 0.6vw + 12px, 36px) !important;
+      height: clamp(16px, 0.6vw + 12px, 36px) !important;
+    }
+
+    /* Badge i tytuł kategorii */
+    #modal-category-badge {
+      font-size: clamp(0.72rem, 0.45vw + 0.55rem, 1.45rem) !important;
+      letter-spacing: clamp(0.18em, 0.1vw + 0.15em, 0.35em) !important;
+      margin-bottom: clamp(6px, 0.3vw + 4px, 18px) !important;
+    }
+    #modal-category-badge span:first-child {
+      width: clamp(7px, 0.2vw + 5px, 16px) !important;
+      height: clamp(7px, 0.2vw + 5px, 16px) !important;
+    }
+
+    #modal-category-title {
+      font-size: clamp(1.4rem, 1.5vw + 0.9rem, 4.2rem) !important;
+      line-height: 1.15 !important;
+      margin-bottom: clamp(10px, 0.5vw + 6px, 26px) !important;
+    }
+
+    /* Cytat / lead kategorii */
+    #modal-category-lead {
+      font-size: clamp(0.82rem, 0.65vw + 0.6rem, 1.85rem) !important;
+      line-height: clamp(1.5, 0.2vw + 1.45, 1.75) !important;
+      padding: clamp(10px, 0.7vw + 6px, 32px) clamp(14px, 0.9vw + 8px, 42px) !important;
+      border-left-width: clamp(2px, 0.15vw + 2px, 6px) !important;
+      border-radius: clamp(8px, 0.35vw + 6px, 20px) !important;
+      max-width: clamp(40rem, 45vw + 15rem, 95rem) !important;
+    }
+
+    /* Slideshow zdjęć z realizacji */
+    .offer-modal-slideshow-wrap {
+      width: 100% !important;
+      height: clamp(220px, 18vw + 80px, 680px) !important;
+      border-radius: clamp(10px, 0.4vw + 8px, 24px) !important;
+    }
+    @media (min-width: 1024px) {
+      .offer-modal-slideshow-wrap {
+        width: clamp(420px, 24vw + 120px, 1100px) !important;
+        height: clamp(280px, 16vw + 80px, 640px) !important;
+      }
+    }
+
+    /* Nagłówek sekcji usług */
+    .modal-services-header-title {
+      font-size: clamp(0.85rem, 0.6vw + 0.65rem, 2rem) !important;
+      letter-spacing: 0.12em !important;
+    }
+    .modal-services-header-title span:first-child {
+      width: clamp(6px, 0.2vw + 4px, 14px) !important;
+      height: clamp(6px, 0.2vw + 4px, 14px) !important;
+    }
+
+    /* Siatka kafelków usług */
+    #modal-services-container {
+      gap: clamp(10px, 0.75vw + 6px, 32px) !important;
+    }
+
+    /* Pojedynczy kafel usługi */
+    .modal-service-card {
+      padding: clamp(12px, 0.8vw + 8px, 36px) clamp(14px, 0.9vw + 8px, 42px) !important;
+      gap: clamp(12px, 0.8vw + 8px, 32px) !important;
+      border-radius: clamp(10px, 0.4vw + 8px, 24px) !important;
+    }
+
+    /* Ikona w kaflu usługi */
+    .modal-service-icon {
+      width: clamp(46px, 1.5vw + 32px, 105px) !important;
+      height: clamp(46px, 1.5vw + 32px, 105px) !important;
+      border-radius: clamp(10px, 0.4vw + 8px, 24px) !important;
+    }
+    .modal-service-icon svg {
+      width: clamp(24px, 0.85vw + 16px, 56px) !important;
+      height: clamp(24px, 0.85vw + 16px, 56px) !important;
+    }
+
+    /* Tytuł usługi */
+    .modal-service-title {
+      font-size: clamp(0.85rem, 0.65vw + 0.65rem, 2.05rem) !important;
+      line-height: 1.25 !important;
+      margin-bottom: clamp(4px, 0.25vw + 3px, 10px) !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: unset !important;
+    }
+
+    /* Opis usługi */
+    .modal-service-desc {
+      font-size: clamp(0.72rem, 0.5vw + 0.55rem, 1.5rem) !important;
+      line-height: clamp(1.45, 0.15vw + 1.4, 1.75) !important;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       PRELOADER ŁADOWANIA STRONY: ZŁOTE KWADRATY Z LOGO ARTBAR
+       ══════════════════════════════════════════════════════════ */
+    #page-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background-color: #030303;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s;
+      user-select: none;
+    }
+
+    #page-preloader.preloader-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .artbar-loader-squares {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(7px, 0.9vw + 5px, 12px);
+      margin-top: clamp(6px, 0.6vw + 3px, 10px);
+    }
+
+    .loader-square {
+      width: clamp(6px, 0.5vw + 3px, 9px);
+      height: clamp(6px, 0.5vw + 3px, 9px);
+      background-color: #FACB7D;
+      display: inline-block;
+      animation: artbarSquarePulse 1.8s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.11s);
+      opacity: 0.12;
+      transform: scale(0.85);
+      border-radius: 1px;
+    }
+
+    @keyframes artbarSquarePulse {
+      0%, 100% {
+        opacity: 0.12;
+        transform: scale(0.85);
+        box-shadow: 0 0 0 rgba(250, 203, 125, 0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.18);
+        box-shadow: 0 0 16px rgba(250, 203, 125, 0.85);
+      }
+    }
+  </style>
+</head>
+<body class="selection:bg-[#FACB7D] selection:text-black">
+
+  <!-- ══════════════════════════════════════════════
+       PRELOADER STRONY (ZŁOTE KWADRATY ARTBAR)
+  ══════════════════════════════════════════════ -->
+  <div id="page-preloader" aria-label="Ładowanie strony ArtBar">
+    <div class="flex flex-col items-center">
+      <!-- Sygnet / Logo ArtBar (logoloading.svg) zaraz nad animowanymi kwadratami -->
+      <img src="assets/logos/logoloading.svg" alt="ArtBar Solutions" class="h-[265px] sm:h-[379px] max-h-[57vh] w-auto brightness-110 drop-shadow-[0_0_35px_rgba(250,203,125,0.45)]">
+      
+      <!-- Dokładnie 11 złotych kwadracików jak u dołu logotypu ArtBar -->
+      <div class="artbar-loader-squares" aria-hidden="true">
+        <span class="loader-square" style="--i:0"></span>
+        <span class="loader-square" style="--i:1"></span>
+        <span class="loader-square" style="--i:2"></span>
+        <span class="loader-square" style="--i:3"></span>
+        <span class="loader-square" style="--i:4"></span>
+        <span class="loader-square" style="--i:5"></span>
+        <span class="loader-square" style="--i:6"></span>
+        <span class="loader-square" style="--i:7"></span>
+        <span class="loader-square" style="--i:8"></span>
+        <span class="loader-square" style="--i:9"></span>
+        <span class="loader-square" style="--i:10"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       NAWIGACJA / HEADER
+  ══════════════════════════════════════════════ -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#030303]/85 backdrop-blur-md border-b border-[#FACB7D]/10">
+    <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+      
+      <!-- LOGO (POWIĘKSZONE 2x) -->
+      <a href="#hero" class="flex items-center gap-3 group py-1">
+        <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions Logo" class="h-16 sm:h-20 w-auto transition-transform duration-300 group-hover:scale-105 filter brightness-110 drop-shadow-[0_0_18px_rgba(250,203,125,0.45)]">
+      </a>
+
+      <!-- MENU DESKTOP -->
+      <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.2em] font-medium text-[#f5efe6]/70">
+        <a href="#o-nas" class="hover:text-[#FACB7D] transition-colors">O nas</a>
+        <a href="#oferta" class="hover:text-[#FACB7D] transition-colors">Oferta</a>
+        <a href="#konfigurator-section" class="hover:text-[#FACB7D] transition-colors">Konfigurator 3D</a>
+        <a href="#realizacje" class="hover:text-[#FACB7D] transition-colors">Realizacje</a>
+        <a href="#kontakt" class="hover:text-[#FACB7D] transition-colors">Kontakt</a>
+      </nav>
+
+      <!-- PRAWA STRONA: JĘZYK + TELEFON & SOCIAL MEDIA + PRZYCISK 3D -->
+      <div class="hidden lg:flex items-center gap-4 xl:gap-5">
+        
+        <!-- PRZEŁĄCZNIK JĘZYKA (PL / EN) DESKTOP -->
+        <div class="flex items-center rounded-full bg-white/5 border border-[#FACB7D]/30 p-0.5 text-[11px] font-mono tracking-wider">
+          <span class="px-2.5 py-1 rounded-full bg-[#FACB7D] text-black font-bold shadow-sm" title="Aktualny język: Polski">PL</span>
+          <a href="en.html" class="px-2.5 py-1 rounded-full text-[#f5efe6]/70 hover:text-[#FACB7D] transition-colors" title="Switch to English">EN</a>
+        </div>
+
+        <!-- KOLUMNA: TELEFON + SOCIAL MEDIA POD SPODEM NA CAŁĄ SZEROKOŚĆ -->
+        <div class="flex flex-col items-stretch justify-center gap-1.5">
+          <a href="tel:+48880626783" class="text-xs tracking-wider text-[#FACB7D] hover:underline flex items-center justify-between gap-1.5 font-medium whitespace-nowrap">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>+48 880 626 783</span>
+          </a>
+          <!-- Ikony social media pod numerem telefonu rozłożone na całą szerokość -->
+          <div class="w-full flex items-center justify-between">
+            <a href="https://www.instagram.com/ArtBarSolutions" target="_blank" rel="noopener noreferrer" aria-label="Instagram ArtBar" class="w-8 h-8 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all hover:scale-110 shadow-sm" title="Instagram @ArtBarSolutions">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/ArtBarSolutions" target="_blank" rel="noopener noreferrer" aria-label="Facebook ArtBar" class="w-8 h-8 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all hover:scale-110 shadow-sm" title="Facebook @ArtBarSolutions">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@artbarsolutions" target="_blank" rel="noopener noreferrer" aria-label="YouTube ArtBar" class="w-8 h-8 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all hover:scale-110 shadow-sm" title="YouTube @artbarsolutions">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- KWADRATOWY PRZYCISK KONFIGURATORA 3D (SYMBOL.SVG - POWIĘKSZONY 2X) -->
+        <div class="relative group/cfg-btn">
+          <a href="#konfigurator-section" class="w-20 h-20 rounded-xl bg-white/5 border border-[#FACB7D]/40 flex items-center justify-center p-2 text-[#FACB7D] hover:bg-[#FACB7D]/20 hover:border-[#FACB7D] hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,203,125,0.2)] hover:shadow-[0_0_30px_rgba(250,203,125,0.5)] cursor-pointer" title="Konfigurator 3D" aria-label="Konfigurator 3D">
+            <img src="symbol.svg?v=3" alt="Konfigurator 3D" class="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(250,203,125,0.5)] group-hover/cfg-btn:scale-110 transition-transform">
+          </a>
+          <!-- Dymek informacyjny po najechaniu -->
+          <div class="absolute right-0 top-full mt-2.5 pointer-events-none opacity-0 group-hover/cfg-btn:opacity-100 transition-all duration-200 transform translate-y-1 group-hover/cfg-btn:translate-y-0 z-50 whitespace-nowrap hidden sm:block">
+            <div class="bg-[#0c0c0c] border border-[#FACB7D]/50 text-[#f5efe6] text-xs px-3.5 py-1.5 rounded-lg shadow-2xl flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-ping"></span>
+              <span>Konfigurator 3D</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRAWA STRONA MOBILE: SOCIALE + JĘZYK + HAMBURGER -->
+      <div class="flex lg:hidden items-center gap-2 sm:gap-3">
+        <!-- Przełącznik języka na pasku mobilnym -->
+        <a href="en.html" class="px-2.5 py-1 rounded-full bg-white/5 border border-[#FACB7D]/40 text-[#FACB7D] text-[10px] font-mono font-bold hover:bg-[#FACB7D] hover:text-black transition-all" title="Switch to English">EN</a>
+
+        <!-- Ikony social media na pasku mobilnym -->
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <a href="https://www.instagram.com/ArtBarSolutions" target="_blank" rel="noopener noreferrer" aria-label="Instagram ArtBar" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/ArtBarSolutions" target="_blank" rel="noopener noreferrer" aria-label="Facebook ArtBar" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@artbarsolutions" target="_blank" rel="noopener noreferrer" aria-label="YouTube ArtBar" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all" title="YouTube @artbarsolutions">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+
+        <!-- HAMBURGER MOBILE -->
+        <button id="mobile-menu-btn" class="text-[#FACB7D] focus:outline-none p-2" aria-label="Menu mobilne">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0a0a0a] border-b border-[#FACB7D]/20 px-6 py-6 space-y-4 text-center">
+      <a href="#o-nas" class="block text-sm tracking-widest uppercase hover:text-[#FACB7D]">O nas</a>
+      <a href="#oferta" class="block text-sm tracking-widest uppercase hover:text-[#FACB7D]">Oferta</a>
+      <a href="#konfigurator-section" class="block text-sm tracking-widest uppercase hover:text-[#FACB7D]">Konfigurator 3D</a>
+      <a href="#realizacje" class="block text-sm tracking-widest uppercase hover:text-[#FACB7D]">Realizacje</a>
+      <a href="#kontakt" class="block text-sm tracking-widest uppercase hover:text-[#FACB7D]">Kontakt</a>
+      <div class="pt-4 border-t border-white/10 space-y-3">
+        <!-- Przełącznik języka w drawerze -->
+        <div class="flex items-center justify-center gap-2 pt-1 pb-2">
+          <span class="px-4 py-1.5 rounded-full bg-[#FACB7D] text-black font-bold text-xs font-mono shadow-sm">PL</span>
+          <a href="en.html" class="px-4 py-1.5 rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#f5efe6]/70 hover:text-[#FACB7D] text-xs font-mono">EN</a>
+        </div>
+        <a href="tel:+48880626783" class="block text-sm text-[#FACB7D] mb-2">+48 880 626 783</a>
+        <a href="#konfigurator-section" class="solid-gold-btn block w-full py-3 rounded text-xs font-bold tracking-wider uppercase mb-3">Konfigurator 3D</a>
+        <!-- Rząd sociali w menu mobilnym -->
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <a href="https://www.instagram.com/ArtBarSolutions" target="_blank" rel="noopener noreferrer" aria-label="Instagram ArtBar" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/ArtBarSolutions" target="_blank" rel="noopener noreferrer" aria-label="Facebook ArtBar" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@artbarsolutions" target="_blank" rel="noopener noreferrer" aria-label="YouTube ArtBar" class="w-9 h-9 rounded-full bg-white/5 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] hover:bg-[#FACB7D] hover:text-black transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════
+       HERO SECTION Z WIDEO W TLE
+  ══════════════════════════════════════════════ -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-between pt-28 pb-0 overflow-hidden">
+    
+    <!-- TŁO WIDEO / ANIMOWANE ZŁOTE EFEKTY ŚWIETLNE -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <!-- Wideo z większą jasnością i wyrazistością -->
+      <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60 filter contrast-110 brightness-105">
+        <source src="assets/video/artbar-hero.mp4" type="video/mp4">
+      </video>
+
+      <!-- Złote animowane promienie i soczewki świetlne na filmiku -->
+      <div class="golden-light-beam"></div>
+      <div class="golden-orb-1"></div>
+      <div class="golden-orb-2"></div>
+
+      <!-- Winieta zoptymalizowana pod czytelność tekstu i wyrazistość wideo -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/35 to-[#030303]/65"></div>
+      <div class="absolute inset-0 bg-radial-at-c from-transparent via-[#030303]/20 to-[#030303]/90"></div>
+      <div class="absolute inset-0 obsidian-shimmer pointer-events-none"></div>
+    </div>
+
+    <!-- TREŚĆ GŁÓWNA HERO -->
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center my-auto pt-6 pb-8">
+      
+      <!-- MONUMENTALNE DUŻE LOGO ARTBAR (4x) -->
+      <div class="mb-8 flex justify-center">
+        <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-64 sm:h-80 md:h-96 lg:h-[440px] w-auto filter drop-shadow-[0_0_60px_rgba(250,203,125,0.65)] brightness-110 transition-transform duration-700 hover:scale-105">
+      </div>
+
+      <!-- SUB-BADGE Z KWADRACIKIEM Z LOGO -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#FACB7D]/35 bg-[#FACB7D]/10 text-[#FACB7D] text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(250,203,125,0.15)]">
+        <span class="w-2 h-2 bg-[#FACB7D] shrink-0 inline-block animate-pulse"></span>
+        Kompleksowa obsługa i produkcja stref barowych
+      </div>
+
+      <!-- NAGŁÓWEK H1 -->
+      <h1 class="font-serif-luxury text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
+        <span class="gold-gradient-text block">Ekskluzywne Bary</span>
+        <span class="text-white block mt-1">na Twoim Wydarzeniu</span>
+      </h1>
+
+      <!-- OPIS -->
+      <p class="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-[#f5efe6]/75 font-light leading-relaxed mb-10">
+        Projektujemy, budujemy i kompleksowo obsługujemy modułowe strefy barowe od A do Z. Maksymalizujemy rentowność i podnosimy prestiż festiwali, bankietów oraz imprez masowych.
+      </p>
+
+      <!-- CTA BUTTONS -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+        <a href="#konfigurator-section" class="solid-gold-btn w-full sm:w-auto px-8 py-4 rounded text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+          Uruchom Konfigurator 3D
+        </a>
+        <a href="#oferta" class="glass-gold-btn w-full sm:w-auto px-8 py-4 rounded text-xs font-bold tracking-[0.2em] uppercase text-[#FACB7D] flex items-center justify-center gap-2">
+          Poznaj Ofertę
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ZAUFALI NAM — MARQUEE LOGO KLIENTÓW & FESTIWALI (ZASTĘPUJE LICZBY W HERO) -->
+    <div class="w-full relative z-10 pt-8 sm:pt-10 pb-6 border-t border-[#FACB7D]/15 overflow-hidden bg-[#030303]/65 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 mb-5 text-center">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D]/60 font-semibold">Zaufali nam najlepsi organizatorzy festiwali i eventów</span>
+      </div>
+      <div class="relative w-full overflow-hidden">
+        <div class="marquee-track flex items-center gap-16 sm:gap-24 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
+          <!-- Zestaw 1 -->
+          <img src="assets/images/wisloujscie.png" alt="Wisłoujście" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/summercontrast.png" alt="Summer Contrast" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/so-Hard.png" alt="So Hard" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/festivaland.png" alt="Festivaland" class="h-8 sm:h-10 w-auto object-contain brightness-200">
+          <img src="assets/images/malta.png" alt="Malta Festival" class="h-9 sm:h-11 w-auto object-contain brightness-200">
+          <!-- Zestaw 2 (dla nieskończonej pętli) -->
+          <img src="assets/images/wisloujscie.png" alt="Wisłoujście" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/summercontrast.png" alt="Summer Contrast" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/so-Hard.png" alt="So Hard" class="h-10 sm:h-12 w-auto object-contain brightness-200">
+          <img src="assets/images/festivaland.png" alt="Festivaland" class="h-8 sm:h-10 w-auto object-contain brightness-200">
+          <img src="assets/images/malta.png" alt="Malta Festival" class="h-9 sm:h-11 w-auto object-contain brightness-200">
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       SEKCJA: O NAS — KIM JESTEŚMY & MISJA
+  ══════════════════════════════════════════════ -->
+  <section id="o-nas" class="pt-24 pb-8 sm:pb-12 bg-[#040404] relative overflow-hidden">
+    <!-- Subtelna poświata w tle -->
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-[#FACB7D]/5 blur-[140px] pointer-events-none -top-20 -right-20"></div>
+    <div class="absolute w-[400px] h-[400px] rounded-full bg-[#FACB7D]/4 blur-[120px] pointer-events-none -bottom-20 -left-20"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- GÓRNA CZĘŚĆ: NARRACJA O NAS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Lewa kolumna: Opis i Misja (7 kolumn) -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-5">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] inline-block"></span>
+            <span>O nas · Filozofia ArtBar Solutions</span>
+          </div>
+
+          <h2 class="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-[1.15]">
+            Sztuka Kreacji, <br>
+            <span class="gold-gradient-text">Inżynieria Eventowa</span>
+          </h2>
+
+          <p class="text-sm sm:text-base text-[#f5efe6]/80 font-light leading-relaxed mb-6">
+            ArtBar Solutions to unikalny ekosystem stworzony z pasji do miksologii na najwyższym poziomie, rzemiosła scenograficznego oraz bezkompromisowej technologii operacyjnej. Od ponad dekady projektujemy, produkujemy i kompleksowo obsługujemy strefy barowe, które stają się tętniącym sercem największych festiwali, gal oraz prestiżowych bankietów w Polsce.
+          </p>
+
+          <p class="text-xs sm:text-sm text-[#f5efe6]/65 font-light leading-relaxed mb-8">
+            Nasz największy atut to <strong class="text-[#FACB7D] font-medium">absolutna kompleksowość</strong>. Eliminujemy chaos podwykonawców – jako jeden podmiot odpowiadamy za koncepcję wizualną, produkcję modułów barowych, własną fabrykę lodu, pełną koncesję ABC, załogę barmańską oraz fiskalizację w czasie rzeczywistym dzięki autorskiemu systemowi ArtPOS.
+          </p>
+
+          <!-- Cytat / Wyróżnik -->
+          <div class="p-4 rounded-xl bg-[#0a0a0a] border-l-2 border-[#FACB7D] text-xs sm:text-sm text-[#FACB7D]/90 font-light italic mb-8">
+            "Bary na eventach to nie tylko miejsce serwowania drinków – to kluczowa strefa doświadczeń gości oraz główne źródło rentowności wydarzenia."
+          </div>
+
+          <!-- Przyciski CTA -->
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#oferta" class="solid-gold-btn px-6 py-3 rounded text-xs font-bold tracking-[0.15em] uppercase flex items-center gap-2">
+              <span>Poznaj Filary Oferty</span>
+              <span>→</span>
+            </a>
+            <a href="#kontakt" class="glass-gold-btn px-6 py-3 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
+              Skontaktuj się z nami
+            </a>
+          </div>
+        </div>
+
+        <!-- Prawa kolumna: Czysty pokaz zdjęć z realizacji (Slideshow) -->
+        <div class="lg:col-span-5 relative">
+          <div id="about-slideshow-container" class="relative rounded-2xl overflow-hidden border border-[#FACB7D]/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] aspect-[4/3] sm:aspect-[16/11] bg-black group cursor-pointer" title="Kliknij, aby otworzyć galerię">
+            <img id="about-slideshow-img-1" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="ArtBar Strefa Barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 scale-100 group-hover:scale-105 filter brightness-95">
+            <img id="about-slideshow-img-2" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="ArtBar Strefa Barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 scale-100 group-hover:scale-105 filter brightness-95">
+          </div>
+
+          <!-- Element dekoracyjny pod zdjęciem -->
+          <div class="absolute -bottom-6 -right-6 w-32 h-32 border-r-2 border-b-2 border-[#FACB7D]/30 rounded-br-2xl pointer-events-none hidden sm:block"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       OFERTA: TRZY FILARY (ART / BAR / SOLUTIONS)
+  ══════════════════════════════════════════════ -->
+  <section id="oferta" class="pt-8 sm:pt-12 pb-24 bg-[#040404] relative overflow-hidden border-b border-[#FACB7D]/10">
+    <!-- Subtelna poświata w tle -->
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-[#FACB7D]/5 blur-[120px] pointer-events-none -top-40 -left-40"></div>
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-[#FACB7D]/5 blur-[120px] pointer-events-none -bottom-20 -right-20"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Nagłówek sekcji z motywem kwadracika z logo -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-4">
+          <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+          <span>Kompleksowy Ekosystem Eventowy</span>
+        </div>
+        <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight mb-4">
+          ARTBAR <span class="gold-gradient-text">SOLUTIONS</span>
+        </h2>
+        <div class="gold-divider w-48 mx-auto my-6"></div>
+        <p class="text-sm sm:text-base text-[#f5efe6]/70 font-light leading-relaxed">
+          Wzorując się na strukturze naszej oferty, łączymy trzy nierozerwalne filary: kreację artystyczną (<span class="text-[#FACB7D] font-medium">art</span>), modułową infrastrukturę barową (<span class="text-[#FACB7D] font-medium">bar</span>) oraz zaawansowane systemy technologiczno-operacyjne (<span class="text-[#FACB7D] font-medium">SOLUTIONS</span>). Kliknij dowolny filar, aby rozwinąć ramkę ze szczegółowym wykazem usług i dedykowanym slideshowem z realizacji.
+        </p>
+      </div>
+
+      <!-- TRZY KARTY WYBORU FILARÓW (GŁÓWNY SELEKTOR) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" id="offer-category-cards">
+        
+        <!-- KARTA 1: ART -->
+        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="art">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">art</span>
+            </div>
+            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
+              <img id="card-clean-img-art-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art kreacja wizualna" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
+              <img id="card-clean-img-art-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art kreacja wizualna" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
+                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Kreacja Wizualna & Scenografia</span>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              Kompleksowy projekt, identyfikacja wizualna stref, unikalny branding, dekoracje personalizowane, oświetlenie i artystyczny performance.
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
+            <span>Czytaj więcej</span>
+            <span class="text-sm">↗</span>
+          </button>
+        </div>
+
+        <!-- KARTA 2: BAR -->
+        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="bar">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">bar</span>
+            </div>
+            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
+              <img id="card-clean-img-bar-1" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Infrastruktura barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
+              <img id="card-clean-img-bar-2" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Infrastruktura barowa" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
+                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Infrastruktura Stref Barowych</span>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              Wynajem modułowych barów na imprezy masowe, zaplecza z regałami LED, lodówki gastronomiczne, pełna logistyka i koncesja ABC.
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
+            <span>Czytaj więcej</span>
+            <span class="text-sm">↗</span>
+          </button>
+        </div>
+
+        <!-- KARTA 3: SOLUTIONS -->
+        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="solutions">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">SOLUTIONS</span>
+            </div>
+            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
+              <img id="card-clean-img-solutions-1" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="System ArtPOS" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
+              <img id="card-clean-img-solutions-2" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="System ArtPOS" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
+                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Systemy POS & Operacje</span>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              Autorski system ArtPOS (dane w czasie rzeczywistym), terminale i karty RFID, fabryka lodu Hoshizaki, eco kubki kaucyjne i kontroling.
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
+            <span>Czytaj więcej</span>
+            <span class="text-sm">↗</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- PRZYCISKI DO POBRANIA OFERT PDF -->
+      <div class="mt-12 p-6 obsidian-card rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6 border-dashed border-[#FACB7D]/30">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D]">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          </div>
+          <div>
+            <div class="font-serif-luxury text-sm font-bold text-white">Chcesz poznać pełny cennik i katalog rozwiązań?</div>
+            <div class="text-xs text-[#f5efe6]/60">Pobierz oficjalną ofertę PDF przygotowaną dla organizatorów wydarzeń.</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="assets/pdf/artbar_solution_oferta_v5_compr.pdf" target="_blank" class="glass-gold-btn px-5 py-2.5 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
+            Oferta Kompleksowa (PDF)
+          </a>
+          <a href="assets/pdf/artbart_artpos_oferta_v3_compr.pdf" target="_blank" class="glass-gold-btn px-5 py-2.5 rounded text-xs font-semibold text-[#FACB7D] uppercase tracking-wider">
+            Oferta ArtPOS (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       SEKCJA SPECJALNA: INTERAKTYWNY KONFIGURATOR 3D
+  ══════════════════════════════════════════════ -->
+  <section id="konfigurator-section" class="py-24 relative bg-gradient-to-b from-[#030303] via-[#090704] to-[#030303] overflow-hidden">
+    
+    <!-- Nagłówek sekcji konfiguratora -->
+    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14 px-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.2em] uppercase mb-4">
+        <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+        <span>Rewolucja w planowaniu eventów</span>
+      </div>
+      <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-center leading-tight">
+        <span class="block">Własny Bar</span>
+        <span class="block text-white">w <span class="gold-gradient-text">Przestrzeni 3D</span></span>
+      </h2>
+      <p class="text-sm sm:text-base text-[#f5efe6]/70 font-light leading-relaxed">
+        Nasz autorski konfigurator pozwala klientom i partnerom w kilka minut stworzyć dowolny układ baru, dobrać oświetlenie LED, nałożyć grafikę AI i natychmiast wygenerować specyfikację techniczną.
+      </p>
+    </div>
+
+    <!-- KONTENER INTERFEJSU 3D (PEŁNA SZEROKOŚĆ NA EKRANACH 4K I ADAPTACJA DO KAŻDEGO URZĄDZENIA) -->
+    <div class="configurator-fluid-container">
+      <div class="obsidian-card rounded-2xl p-2.5 sm:p-4 md:p-5 border border-[#FACB7D]/35 shadow-[0_0_60px_rgba(0,0,0,0.85)] relative w-full">
+        
+        <!-- Pasek narzędziowy symulujący aplikację -->
+        <div class="flex items-center justify-between px-4 py-3 border-b border-[#FACB7D]/15 mb-3 bg-[#0a0a0a] rounded-lg relative z-30">
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="text-xs font-mono text-[#FACB7D]/80 ml-2 hidden sm:inline">ArtBar 3D Configurator v1.0</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="relative group/fullscreen-tip">
+              <a href="konfigurator/index.html?lang=pl" target="_blank" rel="noopener noreferrer" class="glass-gold-btn px-4 py-1.5 rounded text-[11px] font-semibold text-[#FACB7D] flex items-center gap-1.5 uppercase tracking-wider transition-all hover:border-[#FACB7D]" aria-describedby="fullscreen-tooltip">
+                <span>Pełny Ekran</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+
+              <!-- DYMEK INFORMACYJNY / TOOLTIP PO NAJECHANIU -->
+              <div id="fullscreen-tooltip" role="tooltip" class="absolute right-0 top-full mt-2.5 w-72 sm:w-80 p-3.5 rounded-xl bg-[#0c0c0c]/98 backdrop-blur-md border border-[#FACB7D]/40 shadow-[0_12px_40px_rgba(0,0,0,0.9)] opacity-0 invisible group-hover/fullscreen-tip:opacity-100 group-hover/fullscreen-tip:visible transition-all duration-300 z-50 pointer-events-none">
+                <!-- Strzałka skierowana w górę do przycisku -->
+                <div class="absolute -top-1.5 right-6 w-3 h-3 bg-[#0c0c0c] border-t border-l border-[#FACB7D]/40 rotate-45"></div>
+                
+                <div class="flex items-start gap-2.5">
+                  <div class="w-6 h-6 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/30 flex items-center justify-center text-[#FACB7D] shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <div class="text-[11px] leading-relaxed text-[#f5efe6]/90 font-light text-left normal-case">
+                    <span class="text-[#FACB7D] font-semibold block mb-0.5 uppercase tracking-wider text-[10px]">Ważna informacja:</span>
+                    Pojawi się okno, w którym dotychczasowy projekt nie zostanie automatycznie zapisany. Jeśli chcesz kontynuować pracę w nowym oknie, najpierw <strong class="text-[#FACB7D] font-semibold">zapisz swój projekt</strong> i wczytaj go w nowym oknie.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IFRAME DO KONFIGURATORA (LAZY-LOAD Z FASADĄ OBSIDIAN GOLD) -->
+        <div id="configurator-wrapper" class="relative w-full h-[540px] sm:h-[640px] md:h-[700px] lg:h-[760px] xl:h-[820px] 2xl:h-[900px] rounded-xl overflow-hidden border border-white/10 bg-[#080808]">
+          <!-- Iframe ładowany wyłącznie na żądanie użytkownika -->
+          <iframe id="configurator-iframe" data-src="konfigurator/index.html?lang=pl" src="about:blank" class="w-full h-full border-0 transition-opacity duration-500" title="ArtBar Konfigurator 3D" allow="fullscreen"></iframe>
+
+          <!-- Nakładka startowa / Fasada (przyciemniona z dwoma przyciskami) -->
+          <div id="configurator-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-[#0a0a08]/95 via-[#060606]/92 to-[#0a0a08]/95 backdrop-blur-sm transition-all duration-500">
+            <!-- Tło geometryczne i delikatne złote światło -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#FACB7D_1px,transparent_1px)] [background-size:24px_24px]"></div>
+            <div class="absolute w-96 h-96 rounded-full bg-[#FACB7D]/10 blur-3xl pointer-events-none -top-12"></div>
+            <div class="absolute w-80 h-80 rounded-full bg-[#FACB7D]/5 blur-2xl pointer-events-none -bottom-10"></div>
+
+            <!-- Treść nakładki -->
+            <div class="relative z-10 max-w-xl mx-auto flex flex-col items-center text-center">
+              <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#FACB7D]/30 bg-[#FACB7D]/10 text-[#FACB7D] text-[11px] font-semibold uppercase tracking-[0.2em] mb-5 shadow-[0_0_20px_rgba(250,203,125,0.12)]">
+                <span class="w-2 h-2 bg-[#FACB7D] rotate-45 inline-block"></span>
+                <span>Studio Konfiguracji Modułów 3D</span>
+              </div>
+
+              <h3 class="font-serif-luxury text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#f5efe6] mb-3 text-center leading-tight">
+                <span class="block">Zaprojektuj Bar</span>
+                <span class="block gold-gradient-text">w Czasie Rzeczywistym</span>
+              </h3>
+
+              <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-8 max-w-lg">
+                Kliknij poniżej, aby załadować interaktywny silnik 3D bezpośrednio w oknie strony lub przejdź do widoku pełnoekranowego w nowej karcie.
+              </p>
+
+              <!-- Dwa przyciski zgodnie z wytycznymi -->
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+                <!-- 1. Uruchom konfigurator inline -->
+                <button id="btn-launch-config-inline" type="button" class="solid-gold-btn w-full sm:w-auto px-6 sm:px-8 py-4 min-h-[82px] rounded-xl text-xs sm:text-sm font-bold tracking-[0.15em] uppercase flex items-center justify-center sm:justify-start gap-4 shadow-2xl group cursor-pointer transition-all">
+                  <svg class="w-12 h-12 sm:w-16 sm:h-16 shrink-0 text-black group-hover:scale-110 transition-transform duration-300 drop-shadow" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                  <span class="text-left font-bold tracking-[0.15em]">Uruchom konfigurator</span>
+                </button>
+
+                <!-- 2. Uruchom konfigurator pełnoekranowo w nowej karcie -->
+                <a href="konfigurator/index.html?lang=pl" target="_blank" rel="noopener noreferrer" class="glass-gold-btn w-full sm:w-auto px-6 sm:px-8 py-4 min-h-[82px] rounded-xl text-xs sm:text-sm font-bold tracking-[0.15em] uppercase flex items-center justify-center sm:justify-start gap-4 text-[#FACB7D] border border-[#FACB7D]/40 hover:border-[#FACB7D] shadow-2xl group transition-all">
+                  <svg class="w-12 h-12 sm:w-16 sm:h-16 shrink-0 text-[#FACB7D] group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                  <span class="text-left leading-tight">
+                    Uruchom konfigurator pełnoekranowo<br>
+                    <span class="text-[11px] sm:text-xs opacity-85 tracking-wider">w nowej karcie</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Loader aktywowany po kliknięciu Uruchom konfigurator -->
+            <div id="config-loader" class="hidden absolute inset-0 z-30 bg-[#070707]/95 flex flex-col items-center justify-center gap-4">
+              <div class="w-12 h-12 border-2 border-[#FACB7D]/20 border-t-[#FACB7D] rounded-full animate-spin"></div>
+              <p class="font-serif-luxury text-sm tracking-widest text-[#FACB7D] uppercase animate-pulse">Ładowanie silnika 3D ArtBar...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       PORTFOLIO / REALIZACJE
+  ══════════════════════════════════════════════ -->
+  <section id="realizacje" class="py-24 bg-[#080808] border-t border-[#FACB7D]/10 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+        <div>
+          <span class="text-[#FACB7D] text-xs font-semibold tracking-[0.3em] uppercase block mb-3">Portfolio w obiektywie</span>
+          <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight">
+            Galeria <span class="gold-gradient-text">Realizacji</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-[#f5efe6]/60 max-w-xl font-light mt-3">
+            Odkryj ponad 120 fotografii z największych wydarzeń: festiwali muzycznych, nocy sylwestrowych, imprez Halloween i scenografii artystycznych.
+          </p>
+        </div>
+
+        <!-- PRZYCISK GŁÓWNY DO PEŁNEJ GALERII -->
+        <div class="flex flex-wrap items-center gap-4">
+          <button id="btn-open-full-gallery" class="solid-gold-btn px-7 py-3.5 rounded text-xs font-bold tracking-[0.2em] uppercase flex items-center gap-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Zobacz Galerię (120+ zdjęć)
+          </button>
+        </div>
+      </div>
+
+      <!-- PASEK WYBORU IMPREZY NAD SIATKĄ -->
+      <div id="realizacje-filter-bar" class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-3 mb-8 scrollbar-none">
+        <button type="button" data-filter="all" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20">Wszystkie (123)</button>
+        <button type="button" data-filter="Sylwester" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Sylwester (36)</button>
+        <button type="button" data-filter="Halloween" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Halloween Oczki (36)</button>
+        <button type="button" data-filter="Klubowe" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Klubowe & Barmani (27)</button>
+        <button type="button" data-filter="Scenografia" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Scenografia Pandora (24)</button>
+      </div>
+
+      <!-- SIATKA WYRÓŻNIONYCH ZDJĘĆ -->
+      <div id="featured-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Karta 1: Sylwester -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Sylwester" data-image="assets/images/2024.12.31-Art-Bar-26-768x512.jpg">
+          <img src="assets/images/2024.12.31-Art-Bar-26-768x512.jpg" alt="Art Bar Sylwester VIP" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+          <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+          </div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Sylwester & Masowe • 36 zdjęć</span>
+            <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Sylwestrowa Strefa VIP</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Karta 2: Halloween -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Halloween" data-image="assets/images/gallery/OczkiHalloween-106-of-592-2-scaled.jpg">
+          <img src="assets/images/gallery/OczkiHalloween-106-of-592-2-scaled.jpg" alt="Halloween Oczki" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+          <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+          </div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Halloween Oczki • 36 zdjęć</span>
+            <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Halloween — Scenografia Mroku</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Karta 3: Bar z Neonowym Akcentem / Sylwester -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Sylwester" data-image="assets/images/gallery/2024.12.31-Art-Bar-89.jpg">
+          <img src="assets/images/2024.12.31-Art-Bar-89.jpg" alt="Bar z podświetleniem LED" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+          <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+          </div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Design & LED • Sylwester</span>
+            <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Bar z Neonowym Akcentem</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Karta 4: Pandora Scenografia -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Scenografia" data-image="assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg">
+          <img src="assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg" alt="Pandora Two Worlds" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+          <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+          </div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Scenografia Tematyczna • 24 zdjęcia</span>
+            <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Pandora — Two Worlds</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Karta 5: Klubowe -->
+        <div class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-white/10 cursor-pointer" data-category="Klubowe" data-image="assets/images/gallery/ArtBar02.03-45-z-462-scaled.jpg">
+          <img src="assets/images/gallery/ArtBar02.03-45-z-462-scaled.jpg" alt="Klubowy Bar i Barmani" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+          <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+          </div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-[10px] uppercase tracking-widest text-[#FACB7D] font-mono">Klubowe & Barmani • 27 zdjęć</span>
+            <h4 class="font-serif-luxury text-lg font-bold text-white mt-1">Miksologia & Obsługa Gości</h4>
+            <span class="text-[11px] text-[#FACB7D] flex items-center gap-1.5 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Otwórz zdjęcia z tej imprezy</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Karta 6 — Karta z zaproszeniem do całej galerii -->
+        <div id="card-open-more" class="featured-photo-card group relative rounded-xl overflow-hidden aspect-[4/3] border border-[#FACB7D]/30 bg-[#0a0a0a] flex flex-col items-center justify-center p-6 text-center cursor-pointer hover:border-[#FACB7D] transition-all shadow-[0_0_30px_rgba(250,203,125,0.05)]" data-category="all">
+          <div class="w-16 h-16 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/40 flex items-center justify-center text-[#FACB7D] mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+          </div>
+          <span class="font-serif-luxury text-2xl font-bold gold-gradient-text">123 zdjęcia</span>
+          <span class="text-xs uppercase tracking-widest text-[#f5efe6]/70 mt-2 font-medium">Otwórz pełną galerię</span>
+          <p class="text-[11px] text-[#f5efe6]/40 mt-1">Wszystkie imprezy w wysokiej rozdzielczości</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       KONTAKT & FORMULARZ
+  ══════════════════════════════════════════════ -->
+  <section id="kontakt" class="py-24 bg-[#030303] relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        
+        <!-- LEWA KOLUMNA: DANE I MISJA -->
+        <div>
+          <span class="text-[#FACB7D] text-xs font-semibold tracking-[0.3em] uppercase block mb-3">Zaplanujmy Twój event</span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl font-bold tracking-tight mb-6">
+            Porozmawiajmy o <span class="gold-gradient-text">Twoim Barze</span>
+          </h2>
+          <p class="text-sm text-[#f5efe6]/70 leading-relaxed mb-8 font-light">
+            Jako jeden podmiot bierzemy na siebie pełną odpowiedzialność za organizację, logistykę, sprzęt i ludzi. Niezależnie czy planujesz kameralny bankiet, czy 3-dniowy festiwal na 20 000 osób — dostarczymy idealną strefę barową.
+          </p>
+
+          <div class="space-y-6 pt-4 border-t border-[#FACB7D]/15">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-[#FACB7D]/10 border border-[#FACB7D]/25 flex items-center justify-center text-[#FACB7D] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-[#f5efe6]/50">Telefon</div>
+                <a href="tel:+48880626783" class="text-sm font-semibold text-[#FACB7D] hover:underline">+48 880 626 783</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-[#FACB7D]/10 border border-[#FACB7D]/25 flex items-center justify-center text-[#FACB7D] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-[#f5efe6]/50">Adres E-mail</div>
+                <a href="mailto:eventy@artbar.com.pl" class="text-sm font-semibold text-[#FACB7D] hover:underline">eventy@artbar.com.pl</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-[#FACB7D]/10 border border-[#FACB7D]/25 flex items-center justify-center text-[#FACB7D] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-[#f5efe6]/50">Siedziba i Magazyn</div>
+                <div class="text-xs text-[#f5efe6]/80 font-light">Art Bar Sp. z o.o. · ul. Ogrodowa 48/54, 00-876 Warszawa</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRAWA KOLUMNA: FORMULARZ -->
+        <div class="obsidian-card rounded-2xl p-8 border border-[#FACB7D]/30 shadow-2xl relative">
+          <h3 class="font-serif-luxury text-xl font-bold text-white mb-2">Formularz kontaktowy</h3>
+          <p class="text-xs text-[#f5efe6]/60 mb-6 font-light">Napisz do nas – odpowiemy na Twoje pytania i przygotujemy dopasowaną propozycję dla Twojego wydarzenia.</p>
+
+          <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); alert('Dziękujemy za wiadomość! Zespół ArtBar Solutions skontaktuje się z Tobą.');">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-[#f5efe6]/70 mb-1">Imię i Nazwisko *</label>
+                <input type="text" required class="w-full bg-[#050505] border border-white/10 rounded px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#FACB7D]" placeholder="Jan Kowalski">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-[#f5efe6]/70 mb-1">Nazwa Firmy / Organizatora</label>
+                <input type="text" class="w-full bg-[#050505] border border-white/10 rounded px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#FACB7D]" placeholder="Agencja Eventowa">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-[#f5efe6]/70 mb-1">E-mail *</label>
+                <input type="email" required class="w-full bg-[#050505] border border-white/10 rounded px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#FACB7D]" placeholder="kontakt@firma.pl">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-[#f5efe6]/70 mb-1">Telefon *</label>
+                <input type="tel" required class="w-full bg-[#050505] border border-white/10 rounded px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#FACB7D]" placeholder="+48 123 456 789">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-[#f5efe6]/70 mb-1">Rodzaj Wydarzenia & Szacowana Liczba Gości</label>
+              <input type="text" class="w-full bg-[#050505] border border-white/10 rounded px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#FACB7D]" placeholder="np. Festiwal 3-dniowy, ok. 5000 osób / Gala 200 osób">
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-[#f5efe6]/70 mb-1">Wiadomość / Wymagania specyficzne *</label>
+              <textarea rows="4" required class="w-full bg-[#050505] border border-white/10 rounded px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#FACB7D]" placeholder="Opisz swoje potrzeby, preferowany styl baru lub wymiary przestrzeni..."></textarea>
+            </div>
+
+            <div class="text-[10px] text-[#f5efe6]/40 leading-normal">
+              Wysyłając formularz wyrażasz zgodę na przetwarzanie danych osobowych w celu przygotowania oferty zgodnie z polityką prywatności Art Bar Solutions.
+            </div>
+
+            <button type="submit" class="solid-gold-btn w-full py-3.5 rounded text-xs font-bold tracking-[0.2em] uppercase mt-2">
+              Wyślij Wiadomość
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════ -->
+  <footer class="bg-[#020202] border-t border-[#FACB7D]/10 py-16 text-xs text-[#f5efe6]/60">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        
+        <!-- KOLUMNA 1: INFO -->
+        <div class="md:col-span-2">
+          <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Logo" class="h-8 w-auto mb-4 filter brightness-110">
+          <p class="max-w-sm text-xs leading-relaxed font-light text-[#f5efe6]/50 mb-6">
+            Zajmujemy się kompleksową obsługą i produkcją stref barowych od A do Z, dopasowując ich design i funkcjonalność do specyfiki każdego wydarzenia.
+          </p>
+          <div class="flex items-center gap-4 text-sm text-[#FACB7D]">
+            <a href="https://www.facebook.com/ArtBarSolutions" target="_blank" class="hover:text-white transition-colors">Facebook</a>
+            <span class="w-1.5 h-1.5 bg-[#FACB7D]/60 inline-block"></span>
+            <a href="https://www.instagram.com/ArtBarSolutions" target="_blank" class="hover:text-white transition-colors">Instagram</a>
+            <span class="w-1.5 h-1.5 bg-[#FACB7D]/60 inline-block"></span>
+            <a href="https://www.youtube.com/@artbarsolutions" target="_blank" class="hover:text-white transition-colors">YouTube</a>
+          </div>
+        </div>
+
+        <!-- KOLUMNA 2: MENU NA SKRÓTY -->
+        <div>
+          <div class="font-serif-luxury text-sm font-bold text-white uppercase tracking-wider mb-4">Na skróty</div>
+          <ul class="space-y-2.5">
+            <li><a href="#hero" class="hover:text-[#FACB7D] transition-colors">Strona Główna</a></li>
+            <li><a href="#o-nas" class="hover:text-[#FACB7D] transition-colors">O nas</a></li>
+            <li><a href="#oferta" class="hover:text-[#FACB7D] transition-colors">Trzy Filary (art / bar / SOLUTIONS)</a></li>
+            <li><a href="#konfigurator-section" class="hover:text-[#FACB7D] transition-colors text-[#FACB7D]">Konfigurator Barów 3D</a></li>
+            <li><a href="#realizacje" class="hover:text-[#FACB7D] transition-colors">Galeria Realizacji</a></li>
+            <li><a href="#kontakt" class="hover:text-[#FACB7D] transition-colors">Kontakt & Wycena</a></li>
+          </ul>
+        </div>
+
+        <!-- KOLUMNA 3: DANE REJESTROWE -->
+        <div>
+          <div class="font-serif-luxury text-sm font-bold text-white uppercase tracking-wider mb-4">Informacje Prawne</div>
+          <div class="space-y-2 text-[11px] leading-relaxed text-[#f5efe6]/50">
+            <div>Art Bar Sp. z o.o.</div>
+            <div>NIP: 952 22 53 153</div>
+            <div>ul. Ogrodowa 48/54, 00-876 Warszawa</div>
+            <div class="pt-2 text-[#FACB7D]/70">Koncesja alkoholowa ABC · Fiskalizacja POS Live</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-white/5 flex items-center justify-center text-center text-[11px] text-[#f5efe6]/40">
+        <div>artbar © 2026. Wszelkie prawa zastrzeżone.</div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════
+       WYSKAKUJĄCA RAMKA / MODAL OFERTY (ARTBAR & SOLUTIONS)
+  ══════════════════════════════════════════════ -->
+  <div id="offer-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/85 backdrop-blur-md transition-all duration-300">
+    <!-- Tło zamykające po kliknięciu poza oknem -->
+    <div id="offer-modal-backdrop" class="absolute inset-0 bg-transparent cursor-pointer"></div>
+
+    <!-- Wyskakujące okno ramki dopasowane do pełnego ekranu i 4K -->
+    <div id="offer-modal-card" class="relative z-10 flex flex-col obsidian-card rounded-2xl border border-[#FACB7D]/40 shadow-[0_0_80px_rgba(0,0,0,0.95)] bg-[#070707] overflow-hidden transform transition-all duration-300 scale-95 opacity-0">
+      
+      <!-- Pasek nagłówkowy ramki (Sticky na górze okna) -->
+      <div id="offer-modal-header-bar" class="flex flex-wrap items-center justify-between gap-3 bg-[#0a0a0a] border-b border-[#FACB7D]/20 shrink-0">
+        <!-- Zakładki przełączania wewnątrz wyskakującej ramki -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3" id="offer-modal-tabs">
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer" data-tab="art">
+            <span class="w-1.5 h-1.5 bg-black rotate-45 inline-block"></span>
+            <span>art — Kreacja</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="bar">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>bar — Infrastruktura</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="solutions">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>SOLUTIONS — Technologia</span>
+          </button>
+        </div>
+
+        <!-- Przycisk zamknięcia modalnego [ × ] -->
+        <button id="btn-close-offer-modal" type="button" aria-label="Zamknij ramkę" class="rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#FACB7D] flex items-center justify-center hover:bg-[#FACB7D] hover:text-black transition-all cursor-pointer shadow-lg ml-auto">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Treść przewijana wewnątrz ramki -->
+      <div class="overflow-y-auto flex flex-col" id="offer-modal-scroll">
+        
+        <!-- GÓRNA SEKCJA: Filozofia kategorii + Czysty pokaz fotek z realizacji -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/5">
+          <div class="flex-1 min-w-0 pr-0 lg:pr-6">
+            <div class="flex items-center gap-2 font-semibold text-[#FACB7D] uppercase tracking-widest" id="modal-category-badge">
+              <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
+              <span>Kreacja Wizualna i Scenografia Wydarzenia</span>
+            </div>
+            <h3 class="font-serif-luxury font-bold text-[#f5efe6]" id="modal-category-title">
+              Filozofia <span class="gold-gradient-text">art</span>: Sztuka Tworzenia Niezapomnianej Atmosfery
+            </h3>
+            <blockquote class="bg-[#0e0e0e] border-l-2 border-[#FACB7D] text-[#f5efe6]/85 font-light leading-relaxed italic" id="modal-category-lead">
+              "Tworzymy unikalne, spersonalizowane aranżacje, które nie tylko wzmacniają wizerunek marki, ale także budują atmosferę i angażują uczestników na każdym etapie wydarzenia."
+            </blockquote>
+          </div>
+
+          <!-- Czysty pokaz fotek z realizacji (same obrazy, cross-fade co 4 sekundy) -->
+          <div class="offer-modal-slideshow-wrap shrink-0">
+            <div id="modal-clean-slideshow" class="relative w-full h-full rounded-xl overflow-hidden shadow-2xl bg-black cursor-pointer group" title="Kliknij, aby powiększyć zdjęcie w pełnym Lightboxie">
+              <img id="modal-clean-img-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Realizacja ArtBar" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 scale-100 group-hover:scale-105">
+              <img id="modal-clean-img-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Realizacja ArtBar" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 scale-100 group-hover:scale-105">
+            </div>
+          </div>
+        </div>
+
+        <!-- DOLNA SEKCJA: ZAKRES USŁUG I MOŻLIWOŚCI -->
+        <div>
+          <div class="flex items-center justify-between mb-4 pb-2 border-b border-white/5">
+            <h4 class="modal-services-header-title font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2">
+              <span class="bg-[#FACB7D] rotate-45 inline-block"></span>
+              <span>Zakres usług i możliwości</span>
+            </h4>
+          </div>
+
+          <!-- Kontener siatki usług -->
+          <div id="modal-services-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 2xl:gap-5">
+            <!-- Usługi wstrzykiwane przez JS -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       PEŁNOEKRANOWA GALERIA LIGHTBOX (OBSIDIAN GOLD)
+  ══════════════════════════════════════════════ -->
+  <div id="gallery-lightbox" class="fixed inset-0 z-[10000] hidden flex flex-col justify-between bg-[#030303]/98 backdrop-blur-2xl transition-all duration-300 select-none">
+    
+    <!-- GÓRNY PASEK KONTROLNY Z WYBOREM IMPREZY -->
+    <div class="px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 border-b border-[#FACB7D]/15 bg-black/60">
+      <div class="flex items-center gap-3 overflow-x-auto py-0.5 scrollbar-none w-full sm:w-auto">
+        <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar" class="h-6 w-auto brightness-125 hidden lg:inline mr-1 shrink-0">
+        <div id="lb-categories-bar" class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button type="button" data-cat="all" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-[#FACB7D] text-black font-bold">Wszystkie (123)</button>
+          <button type="button" data-cat="Sylwester" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Sylwester (36)</button>
+          <button type="button" data-cat="Halloween" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Halloween (36)</button>
+          <button type="button" data-cat="Klubowe" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Klubowe (27)</button>
+          <button type="button" data-cat="Scenografia" class="lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Scenografia (24)</button>
+        </div>
+      </div>
+
+      <!-- PRAWA STRONA: LICZNIK & PRZYCISKI -->
+      <div class="flex items-center gap-3 shrink-0 ml-auto sm:ml-0">
+        <div id="lb-counter" class="text-xs font-mono font-bold tracking-widest text-[#FACB7D] px-3 py-1 rounded border border-[#FACB7D]/20 bg-[#FACB7D]/5">
+          001 / 123
+        </div>
+
+        <button id="lb-fullscreen-btn" class="text-[#f5efe6]/70 hover:text-[#FACB7D] p-2 transition-colors hidden sm:block" title="Pełny ekran">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+        </button>
+
+        <button id="lb-close-btn" class="glass-gold-btn px-3 py-1.5 rounded text-xs font-bold text-[#FACB7D] flex items-center gap-1.5 uppercase tracking-wider" title="Zamknij (ESC)">
+          <span>Zamknij</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- CENTRALNY OBSZAR ZDJĘCIA -->
+    <div class="relative flex-1 flex items-center justify-center p-4 sm:p-8 overflow-hidden">
+      
+      <!-- PRZYCISK POPRZEDNIE -->
+      <button id="lb-prev-btn" class="absolute left-4 sm:left-8 z-20 w-12 h-12 sm:w-16 sm:h-16 rounded-full glass-gold-btn flex items-center justify-center text-[#FACB7D] hover:scale-110 active:scale-95 transition-transform" aria-label="Poprzednie zdjęcie">
+        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+
+      <!-- GŁÓWNY KONTENER OBRAZU -->
+      <div class="relative max-w-6xl max-h-[68vh] flex flex-col items-center justify-center">
+        <!-- Spinner ładowania -->
+        <div id="lb-spinner" class="absolute inset-0 flex items-center justify-center">
+          <div class="w-10 h-10 border-2 border-[#FACB7D]/20 border-t-[#FACB7D] rounded-full animate-spin"></div>
+        </div>
+
+        <img id="lb-main-image" src="" alt="Realizacja ArtBar" class="max-h-[64vh] max-w-full object-contain rounded-lg border border-[#FACB7D]/30 shadow-[0_0_80px_rgba(0,0,0,0.9)] opacity-0 transition-opacity duration-300">
+        
+        <!-- PODPIS ZDJĘCIA -->
+        <div class="mt-4 text-center">
+          <div id="lb-title" class="font-serif-luxury text-sm sm:text-base font-bold text-white tracking-wide"></div>
+          <div id="lb-category" class="text-[11px] font-mono text-[#FACB7D]/80 uppercase tracking-widest mt-0.5"></div>
+        </div>
+      </div>
+
+      <!-- PRZYCISK NASTĘPNE -->
+      <button id="lb-next-btn" class="absolute right-4 sm:right-8 z-20 w-12 h-12 sm:w-16 sm:h-16 rounded-full glass-gold-btn flex items-center justify-center text-[#FACB7D] hover:scale-110 active:scale-95 transition-transform" aria-label="Następne zdjęcie">
+        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+
+    <!-- DOLNY PASEK MINIATUREK -->
+    <div class="px-6 py-3 border-t border-[#FACB7D]/15 bg-black/60">
+      <div id="lb-thumbs-track" class="flex items-center gap-2 overflow-x-auto py-1 scrollbar-thin scrollbar-thumb-[#FACB7D]/30">
+        <!-- Miniaturki wstrzykiwane przez JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BAZA ZDJĘĆ Z REALIZACJI -->
+  <script src="assets/gallery-data.js"></script>
+
+  <!-- SKRYPT MOBILNEGO MENU I LIGHTBOXA -->
+  <script>
+    // Mobilne Menu
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+      });
+    });
+
+    // Header scroll background change
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('bg-[#030303]/95', 'shadow-2xl');
+      } else {
+        header.classList.remove('bg-[#030303]/95', 'shadow-2xl');
+      }
+    });
+
+    // ══════════════════════════════════════════════
+    // LOGIKA PEŁNOEKRANOWEGO LIGHTBOXA REALIZACJI
+    // ══════════════════════════════════════════════
+    const lightbox = document.getElementById('gallery-lightbox');
+    const mainImg = document.getElementById('lb-main-image');
+    const lbTitle = document.getElementById('lb-title');
+    const lbCategory = document.getElementById('lb-category');
+    const lbCounter = document.getElementById('lb-counter');
+    const lbSpinner = document.getElementById('lb-spinner');
+    const thumbsTrack = document.getElementById('lb-thumbs-track');
+
+    let allGalleryItems = (typeof REALIZACJE_GALLERY !== 'undefined') ? REALIZACJE_GALLERY : [];
+    let currentGalleryCategory = 'all';
+    let activeGalleryItems = [...allGalleryItems];
+    let currentIndex = 0;
+
+    function updateLightboxCategoryButtons() {
+      document.querySelectorAll('.lb-cat-btn').forEach(btn => {
+        const cat = btn.getAttribute('data-cat');
+        if (cat === currentGalleryCategory) {
+          btn.className = 'lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20';
+        } else {
+          btn.className = 'lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white';
+        }
+      });
+    }
+
+    function renderThumbnails() {
+      thumbsTrack.innerHTML = '';
+      activeGalleryItems.forEach((item, idx) => {
+        const thumb = document.createElement('div');
+        thumb.className = `w-14 h-10 sm:w-16 sm:h-11 shrink-0 rounded overflow-hidden cursor-pointer border transition-all ${idx === currentIndex ? 'border-[#FACB7D] ring-2 ring-[#FACB7D]/40 scale-105' : 'border-white/10 opacity-50 hover:opacity-100'}`;
+        thumb.innerHTML = `<img src="${item.url}" class="w-full h-full object-cover" loading="lazy">`;
+        thumb.addEventListener('click', () => {
+          showSlide(idx);
+        });
+        thumbsTrack.appendChild(thumb);
+      });
+    }
+
+    function showSlide(index) {
+      if (!activeGalleryItems.length) return;
+
+      if (index < 0) index = activeGalleryItems.length - 1;
+      if (index >= activeGalleryItems.length) index = 0;
+      currentIndex = index;
+
+      const item = activeGalleryItems[currentIndex];
+
+      // Animacja ładowania
+      lbSpinner.classList.remove('hidden');
+      mainImg.classList.add('opacity-0');
+
+      mainImg.onload = () => {
+        lbSpinner.classList.add('hidden');
+        mainImg.classList.remove('opacity-0');
+      };
+      mainImg.src = item.url;
+
+      lbTitle.textContent = item.title;
+      lbCategory.textContent = item.category;
+      
+      const currentFormatted = String(currentIndex + 1).padStart(3, '0');
+      const totalFormatted = String(activeGalleryItems.length).padStart(3, '0');
+      const catLabel = currentGalleryCategory === 'all' ? '' : ` • ${currentGalleryCategory}`;
+      lbCounter.textContent = `${currentFormatted} / ${totalFormatted}${catLabel}`;
+
+      // Zaktualizuj stan miniaturek
+      const thumbs = thumbsTrack.children;
+      Array.from(thumbs).forEach((t, i) => {
+        if (i === currentIndex) {
+          t.className = 'w-14 h-10 sm:w-16 sm:h-11 shrink-0 rounded overflow-hidden cursor-pointer border border-[#FACB7D] ring-2 ring-[#FACB7D]/40 scale-105 opacity-100';
+          t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } else {
+          t.className = 'w-14 h-10 sm:w-16 sm:h-11 shrink-0 rounded overflow-hidden cursor-pointer border border-white/10 opacity-50 hover:opacity-100';
+        }
+      });
+    }
+
+    function setGalleryCategory(cat = 'all', targetIndexOrImage = 0) {
+      currentGalleryCategory = cat;
+      if (cat === 'all') {
+        activeGalleryItems = [...allGalleryItems];
+      } else {
+        activeGalleryItems = allGalleryItems.filter(item => item.category === cat);
+      }
+      if (!activeGalleryItems.length) {
+        activeGalleryItems = [...allGalleryItems];
+        currentGalleryCategory = 'all';
+      }
+
+      let startIdx = 0;
+      if (typeof targetIndexOrImage === 'number') {
+        startIdx = Math.max(0, Math.min(targetIndexOrImage, activeGalleryItems.length - 1));
+      } else if (typeof targetIndexOrImage === 'string' && targetIndexOrImage.length > 0) {
+        const fileName = targetIndexOrImage.split('/').pop();
+        const found = activeGalleryItems.findIndex(it => it.url.includes(fileName));
+        if (found !== -1) startIdx = found;
+      }
+
+      updateLightboxCategoryButtons();
+      renderThumbnails();
+      showSlide(startIdx);
+    }
+
+    function openGallery(categoryOrIndex = 'all', targetIndexOrImage = 0) {
+      if (typeof categoryOrIndex === 'number') {
+        setGalleryCategory('all', categoryOrIndex);
+      } else if (typeof categoryOrIndex === 'string') {
+        if (['Sylwester', 'Halloween', 'Klubowe', 'Scenografia', 'all'].includes(categoryOrIndex)) {
+          setGalleryCategory(categoryOrIndex, targetIndexOrImage);
+        } else {
+          const parsed = parseInt(categoryOrIndex, 10);
+          if (!isNaN(parsed)) {
+            setGalleryCategory('all', parsed);
+          } else {
+            setGalleryCategory('all', 0);
+          }
+        }
+      } else {
+        setGalleryCategory('all', 0);
+      }
+
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGallery() {
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = '';
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Kliknięcie w kategorie w lightboxie
+    document.querySelectorAll('.lb-cat-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const cat = btn.getAttribute('data-cat') || 'all';
+        setGalleryCategory(cat, 0);
+      });
+    });
+
+    // Filtry na stronie głównej w sekcji Realizacje
+    const pageFilterButtons = document.querySelectorAll('.realizacje-filter-btn');
+    const photoCards = document.querySelectorAll('.featured-photo-card');
+
+    pageFilterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter') || 'all';
+
+        // Aktualizacja stylu przycisków na stronie
+        pageFilterButtons.forEach(b => {
+          if (b === btn) {
+            b.className = 'realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20';
+          } else {
+            b.className = 'realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white';
+          }
+        });
+
+        // Filtrowanie kart na stronie głównej
+        photoCards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (card.id === 'card-open-more') {
+            card.style.display = '';
+            const titleSpan = card.querySelector('.gold-gradient-text');
+            if (titleSpan) {
+              if (filter === 'all') titleSpan.textContent = '123 zdjęcia';
+              else if (filter === 'Sylwester') titleSpan.textContent = '36 zdjęć';
+              else if (filter === 'Halloween') titleSpan.textContent = '36 zdjęć';
+              else if (filter === 'Klubowe') titleSpan.textContent = '27 zdjęć';
+              else if (filter === 'Scenografia') titleSpan.textContent = '24 zdjęcia';
+            }
+            card.setAttribute('data-category', filter);
+          } else {
+            if (filter === 'all' || cardCat === filter) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+
+    // Event listenery dla przycisków w galerii
+    document.getElementById('lb-close-btn').addEventListener('click', closeGallery);
+    document.getElementById('lb-prev-btn').addEventListener('click', () => showSlide(currentIndex - 1));
+    document.getElementById('lb-next-btn').addEventListener('click', () => showSlide(currentIndex + 1));
+
+    // Otwarcie z przycisków na stronie
+    document.getElementById('btn-open-full-gallery')?.addEventListener('click', () => openGallery('all', 0));
+
+    // Karty w sekcji portfolio — kliknięcie otwiera DOKŁADNIE wybraną imprezę
+    photoCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const cat = card.getAttribute('data-category') || 'all';
+        const img = card.getAttribute('data-image') || '';
+        openGallery(cat, img);
+      });
+    });
+
+    // Obsługa klawiatury
+    window.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeGallery();
+      if (e.key === 'ArrowLeft') showSlide(currentIndex - 1);
+      if (e.key === 'ArrowRight') showSlide(currentIndex + 1);
+    });
+
+    // Obsługa Fullscreen
+    document.getElementById('lb-fullscreen-btn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        lightbox.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Obsługa gestów dotykowych (Swipe na telefonie)
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) showSlide(currentIndex - 1); // swipe right -> poprzednie
+        else showSlide(currentIndex + 1); // swipe left -> nastepne
+      }
+    }, { passive: true });
+
+    // ── OBSŁUGA LAZY-LOAD KONFIGURATORA 3D ───────────────────
+    const btnLaunchConfigInline = document.getElementById('btn-launch-config-inline');
+    const configIframe = document.getElementById('configurator-iframe');
+    const configOverlay = document.getElementById('configurator-overlay');
+    const configLoader = document.getElementById('config-loader');
+
+    if (btnLaunchConfigInline && configIframe && configOverlay) {
+      let isConfigLoaded = false;
+
+      function hideConfigOverlay() {
+        if (isConfigLoaded) return;
+        isConfigLoaded = true;
+        configOverlay.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          configOverlay.classList.add('hidden');
+        }, 500);
+      }
+
+      btnLaunchConfigInline.addEventListener('click', () => {
+        if (configLoader) configLoader.classList.remove('hidden');
+
+        // Uruchom ładowanie tylko gdy jeszcze nie przypisano adresu
+        if (!configIframe.src || configIframe.src === 'about:blank' || !configIframe.src.includes('konfigurator')) {
+          configIframe.src = configIframe.getAttribute('data-src');
+        }
+
+        // Kiedy iframe zakończy wczytywanie zasobów
+        configIframe.addEventListener('load', () => {
+          setTimeout(hideConfigOverlay, 400);
+        }, { once: true });
+
+        // Fallback czasowy na wypadek wolnego łącza / blokad zdarzeń iframe
+        setTimeout(hideConfigOverlay, 3500);
+      });
+
+      // Synchronizacja danych z konfiguratora 3D do formularza głównego
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'ARTBAR_QUOTE_SUBMITTED') {
+          const payload = event.data.payload;
+          const contactForm = document.getElementById('contact-form');
+          if (contactForm && payload && payload.client) {
+            const inputs = contactForm.querySelectorAll('input, textarea');
+            if (inputs[0] && payload.client.name) inputs[0].value = payload.client.name;
+            if (inputs[1] && payload.client.company) inputs[1].value = payload.client.company;
+            if (inputs[2] && payload.client.email) inputs[2].value = payload.client.email;
+            if (inputs[3] && payload.client.phone) inputs[3].value = payload.client.phone;
+            if (inputs[4] && payload.client.location) inputs[4].value = `${payload.client.location} (Termin: ${payload.client.date || 'b/d'})`;
+            if (inputs[5]) inputs[5].value = `[Układ 3D: Długość ${payload.spec?.totalFrontMeters || '0'}m, moduły: ${payload.spec?.modulesCount || '0'}]\n${payload.client.notes || ''}`;
+          }
+        }
+      });
+    }
+
+    // ── OBSŁUGA WYSKAKUJĄCEJ RAMKI & SLIDESHOW DLA SEKCJI OFERTA (ARTBAR & SOLUTIONS) ─
+    const OFFER_PILLARS_DATA = {
+      art: {
+        key: 'art',
+        badge: 'Kreacja Wizualna i Scenografia Wydarzenia',
+        title: 'Filozofia art: Sztuka Tworzenia Niezapomnianej Atmosfery',
+        lead: '"Tworzymy unikalne, spersonalizowane aranżacje, które nie tylko wzmacniają wizerunek marki, ale także budują atmosferę i angażują uczestników na każdym etapie wydarzenia."',
+        services: [
+          {
+            nr: '01',
+            name: 'Projekt',
+            desc: 'Kompleksowa koncepcja wizualna i przestrzenna, która we współpracy z organizatorem integruje wszystkie elementy wydarzenia w spójną całość.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>`
+          },
+          {
+            nr: '02',
+            name: 'Identyfikacja wizualna',
+            desc: 'Klucz do wyjątkowej atmosfery: dbamy o każdy detal – od barów i menu po dekoracje i scenografię – tworząc unikalny charakter eventu.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`
+          },
+          {
+            nr: '03',
+            name: 'Kreatywny branding',
+            desc: 'Opracowujemy unikalne elementy graficzne i dekoracyjne, które budują silny wizerunek marki i pozostają w pamięci gości.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>`
+          },
+          {
+            nr: '04',
+            name: 'Scenografie eventowe',
+            desc: 'Projektujemy i realizujemy instalacje przestrzenne odzwierciedlające temat wydarzenia z użyciem nowoczesnych technologii i materiałów.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`
+          },
+          {
+            nr: '05',
+            name: 'Personalizowane dekoracje',
+            desc: 'Dekoracje skrojone na miarę, dostosowane do koncepcji i charakteru wydarzenia, nadające przestrzeni ekskluzywny klimat.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3l3.057 6.114a1 1 0 00.894.553h6.098a1 1 0 00.894-.553L19 3l-3 15H8L5 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 18v3m-4 0h8"/></svg>`
+          },
+          {
+            nr: '06',
+            name: 'Oświetlenie dekoracyjne',
+            desc: 'Światło jako kluczowe narzędzie kreacji nastroju. Precyzyjne podświetlenia akcentujące architekturę strefy barowej.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`
+          },
+          {
+            nr: '07',
+            name: 'Performance',
+            desc: 'Wprowadzamy interaktywne i artystyczne elementy angażujące uczestników, współpracując z uznanymi artystami i performerami.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>`
+          },
+          {
+            nr: '08',
+            name: 'Kompleksowa produkcja i montaż',
+            desc: 'Pełna realizacja od projektu po finalną instalację. Koordynujemy produkcję, logistykę i montaż na najwyższym poziomie.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`
+          },
+          {
+            nr: '09',
+            name: 'Współpraca z zespołem graficznym',
+            desc: 'Dedykowany zespół grafików przygotowujący materiały wizualne idealnie łączące estetykę z funkcjonalnością strefy.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`
+          }
+        ],
+        slides: [
+          { url: 'assets/images/2024.12.31-Art-Bar-28-1.jpg', galleryIndex: 0 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-104-1.jpg', galleryIndex: 1 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-112-1-1536x1024.jpg', galleryIndex: 3 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-140-2.jpg', galleryIndex: 6 },
+          { url: 'assets/images/gallery/OczkiHalloween-106-of-592-3-scaled.jpg', galleryIndex: 10 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-34-2.jpg', galleryIndex: 12 }
+        ]
+      },
+      bar: {
+        key: 'bar',
+        badge: 'Infrastruktura Stref Barowych',
+        title: 'Filozofia bar: Modułowa Funkcjonalność i Sprzedaż Masowa',
+        lead: '"Kompleksowe rozwiązanie dla organizatorów wydarzeń masowych, festiwali i gal. Modułowe, funkcjonalne i estetyczne konstrukcje zapewniające sprawną obsługę gości, optymalizację sprzedaży oraz efektowny design."',
+        services: [
+          {
+            nr: '01',
+            name: 'Projekt Strefy Barowej',
+            desc: 'Optymalne wykorzystanie przestrzeni eventowej, tworzące funkcjonalne i estetyczne strefy będące sercem całego wydarzenia.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 10h16M10 4v16"/></svg>`
+          },
+          {
+            nr: '02',
+            name: 'Wynajem Modułowych Barów',
+            desc: 'Bary proste (1.5m), narożniki 90°, moduły zaplecza. Dowolna konfiguracja, szybki montaż i personalizacja frontów oraz regałów.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>`
+          },
+          {
+            nr: '03',
+            name: 'Wyposażenie Barów',
+            desc: 'Pełny asortyment sprzętu: przeszklone lodówki, zamrażarki, profesjonalny sprzęt barmański oraz zintegrowane systemy sprzedaży.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 4l9 9 9-9H3z"/></svg>`
+          },
+          {
+            nr: '04',
+            name: 'Obsługa Zamówień',
+            desc: 'Precyzyjna estymacja ilości alkoholi i składników pod profil i liczbę gości, logistyka chłodnicza i terminowe dostawy.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>`
+          },
+          {
+            nr: '05',
+            name: 'Koncesja na Alkohol ABC',
+            desc: 'Posiadamy koncesję ABC. Zapewniamy pełne wsparcie formalne, a dzięki systemowi ArtPOS – fiskalizacja odbywa się w czasie rzeczywistym.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`
+          }
+        ],
+        slides: [
+          { url: 'assets/images/2024.12.31-Art-Bar-73-2.jpg', galleryIndex: 20 },
+          { url: 'assets/images/2024.12.31-Art-Bar-26-768x512.jpg', galleryIndex: 21 },
+          { url: 'assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg', galleryIndex: 22 },
+          { url: 'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg', galleryIndex: 23 },
+          { url: 'assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg', galleryIndex: 0 },
+          { url: 'assets/images/gallery/ArtBar02.03-45-z-462-1-scaled.jpg', galleryIndex: 24 }
+        ]
+      },
+      solutions: {
+        key: 'solutions',
+        badge: 'Kompleksowe Rozwiązania & Systemy POS',
+        title: 'Filozofia SOLUTIONS: Technologia, Operacje i Zysk',
+        lead: '"Zaawansowane rozwiązania technologiczne i operacyjne dla stref barowych. Dostęp do danych w czasie rzeczywistym daje organizatorom pełną kontrolę nad stanami magazynowymi, personelem i maksymalnym zyskiem."',
+        services: [
+          {
+            nr: '01',
+            name: 'ArtPOS – System Sprzedażowy',
+            desc: 'Szybkość obsługi, fiskalizacja live, kontrola stanów magazynowych w czasie rzeczywistym i precyzyjne rozliczenia powydarzeniowe.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`
+          },
+          {
+            nr: '02',
+            name: 'Terminale Płatnicze',
+            desc: 'Preferencyjne stawki prowizji, obsługa kart płatniczych, płatności zbliżeniowych oraz kart festiwalowych (prepaid RFID).',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>`
+          },
+          {
+            nr: '03',
+            name: 'Fabryka Lodu Hoshizaki',
+            desc: 'Własna produkcja lodu w kostkach i kruszonego najwyższej czystości. Samochody mroźnie, kontenery termoizolacyjne i rzeźby lodowe.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2v20M2 12h20m-2-2-1.5 2 1.5 2M4 10l-1.5 2L4 14m6 10-1.25-2.5L6 18m4-14L8.75 6.5 6 6m8 14 1.25-2.5L18 18m-4-14 1.25 2.5L18 6m-1 15 3-6-1.5-3m0-6 1.5-3L17 3M3 4l1.5 3L6 6m-3 14 1.5-3L6 18m4 3-3-6 1.5-3m0-6-1.5-3L7 3"/></svg>`
+          },
+          {
+            nr: '04',
+            name: 'Obsługa i Outsourcing',
+            desc: 'Wykwalifikowany, doświadczony personel: barmani, barbackowie, bariści, technicy, koordynatorzy i menedżerowie stref barowych.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`
+          },
+          {
+            nr: '05',
+            name: 'Eco Kubki Kaucyjne',
+            desc: 'Wielorazowe kubki z atestem, obsługa systemu kaucyjnego, profesjonalne mycie, magazynowanie i opcja personalizacji graficznej.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`
+          },
+          {
+            nr: '06',
+            name: 'Logistyka i Transport',
+            desc: 'Kompleksowa flota transportowa, chłodnie i precyzyjne dostawy "just-in-time" na teren każdego wydarzenia w Polsce.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM2 5h11v11H2V5zm11 3h4l3 3v5h-7V8z"/></svg>`
+          },
+          {
+            nr: '07',
+            name: 'Montaż i Demontaż',
+            desc: 'Doświadczona ekipa techniczna. Sprawny montaż przed imprezą oraz błyskawiczny demontaż zgodnie z harmonogramem obiektu.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>`
+          },
+          {
+            nr: '08',
+            name: 'Kontroling i Audyt',
+            desc: 'Bieżąca analiza wydajności sprzedaży, optymalizacja marży, monitorowanie strat i szczegółowy raport zysków po evencie.',
+            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/></svg>`
+          }
+        ],
+        slides: [
+          { url: 'assets/images/2024.12.31-Art-Bar-46-1.jpg', galleryIndex: 15 },
+          { url: 'assets/images/2024.12.31-Art-Bar-89.jpg', galleryIndex: 16 },
+          { url: 'assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg', galleryIndex: 17 },
+          { url: 'assets/images/gallery/2024.12.31-Art-Bar-102-2.jpg', galleryIndex: 18 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-20-1.jpg', galleryIndex: 19 }
+        ]
+      }
+    };
+
+    // ── OBSŁUGA WYSKAKUJĄCEJ RAMKI / MODALA OFERTY (ARTBAR & SOLUTIONS) ─
+    let activeOfferCat = 'art';
+    let currentOfferSlideIdx = 0;
+    let offerSlideshowInterval = null;
+    let activeCleanSlot = 1;
+
+    const offerModal = document.getElementById('offer-modal');
+    const offerModalCard = document.getElementById('offer-modal-card');
+    const offerModalBackdrop = document.getElementById('offer-modal-backdrop');
+    const btnCloseOfferModal = document.getElementById('btn-close-offer-modal');
+
+    const modalCategoryBadge = document.getElementById('modal-category-badge');
+    const modalCategoryTitle = document.getElementById('modal-category-title');
+    const modalCategoryLead = document.getElementById('modal-category-lead');
+    const modalServicesContainer = document.getElementById('modal-services-container');
+
+    const modalCleanSlideshow = document.getElementById('modal-clean-slideshow');
+    const modalCleanImg1 = document.getElementById('modal-clean-img-1');
+    const modalCleanImg2 = document.getElementById('modal-clean-img-2');
+
+    // Czysty pokaz slajdów: płynne przenikanie (cross-fade) samych obrazów bez ramki, napisów czy numerków (co 4 sekundy)
+    function renderOfferCleanSlide(idx) {
+      const data = OFFER_PILLARS_DATA[activeOfferCat];
+      if (!data || !data.slides || data.slides.length === 0) return;
+
+      currentOfferSlideIdx = (idx + data.slides.length) % data.slides.length;
+      const nextSlide = data.slides[currentOfferSlideIdx];
+
+      if (!modalCleanImg1 || !modalCleanImg2) return;
+
+      if (activeCleanSlot === 1) {
+        modalCleanImg2.src = nextSlide.url;
+        modalCleanImg2.classList.remove('opacity-0');
+        modalCleanImg2.classList.add('opacity-100');
+        modalCleanImg1.classList.remove('opacity-100');
+        modalCleanImg1.classList.add('opacity-0');
+        activeCleanSlot = 2;
+      } else {
+        modalCleanImg1.src = nextSlide.url;
+        modalCleanImg1.classList.remove('opacity-0');
+        modalCleanImg1.classList.add('opacity-100');
+        modalCleanImg2.classList.remove('opacity-100');
+        modalCleanImg2.classList.add('opacity-0');
+        activeCleanSlot = 1;
+      }
+    }
+
+    function startOfferAutoplay() {
+      stopOfferAutoplay();
+      offerSlideshowInterval = setInterval(() => {
+        renderOfferCleanSlide(currentOfferSlideIdx + 1);
+      }, 4000);
+    }
+
+    function stopOfferAutoplay() {
+      if (offerSlideshowInterval) {
+        clearInterval(offerSlideshowInterval);
+        offerSlideshowInterval = null;
+      }
+    }
+
+    function switchOfferModalCategory(catKey) {
+      if (!OFFER_PILLARS_DATA[catKey]) return;
+      activeOfferCat = catKey;
+      currentOfferSlideIdx = 0;
+
+      // Zaktualizuj zakładki wewnątrz wyskakującej ramki
+      document.querySelectorAll('.modal-tab-btn').forEach(tab => {
+        const tabCat = tab.getAttribute('data-tab');
+        if (tabCat === catKey) {
+          tab.className = 'modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer shadow-[0_0_15px_rgba(250,203,125,0.3)]';
+          const icon = tab.querySelector('span:first-child');
+          if (icon) icon.className = 'bg-black rotate-45 inline-block';
+        } else {
+          tab.className = 'modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer';
+          const icon = tab.querySelector('span:first-child');
+          if (icon) icon.className = 'bg-[#FACB7D] rotate-45 inline-block';
+        }
+      });
+
+      const data = OFFER_PILLARS_DATA[catKey];
+
+      // Wstrzyknij dane kategorii
+      if (modalCategoryBadge) modalCategoryBadge.innerHTML = `<span class="bg-[#FACB7D] rotate-45 inline-block"></span><span>${data.badge}</span>`;
+      if (modalCategoryTitle) modalCategoryTitle.innerHTML = `Filozofia <span class="gold-gradient-text">${data.key}</span>: ${data.title.split(':')[1] || data.title}`;
+      if (modalCategoryLead) modalCategoryLead.textContent = data.lead;
+
+      // Wstrzyknij listę usług wraz z dedykowanymi ikonami tematycznymi (układ zoptymalizowany pod pełny ekran i 4K)
+      if (modalServicesContainer) {
+        modalServicesContainer.innerHTML = data.services.map(s => `
+          <div class="modal-service-card rounded-xl bg-[#0d0d0d] border border-white/5 hover:border-[#FACB7D]/40 transition-all flex items-start group hover:bg-[#121212]">
+            <div class="modal-service-icon rounded-xl bg-[#FACB7D]/10 border border-[#FACB7D]/25 flex items-center justify-center shrink-0 text-[#FACB7D] group-hover:scale-105 group-hover:bg-[#FACB7D]/20 group-hover:border-[#FACB7D]/50 transition-all shadow-[0_0_12px_rgba(250,203,125,0.12)]">
+              ${s.icon}
+            </div>
+            <div class="flex-1 min-w-0">
+              <h5 class="modal-service-title font-bold text-white group-hover:text-[#FACB7D] transition-colors">${s.name}</h5>
+              <p class="modal-service-desc text-[#f5efe6]/70 font-light">${s.desc}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Zainicjuj pierwszy slajd w czystym pokazie
+      if (modalCleanImg1 && modalCleanImg2 && data.slides && data.slides.length > 0) {
+        modalCleanImg1.src = data.slides[0].url;
+        modalCleanImg1.classList.remove('opacity-0');
+        modalCleanImg1.classList.add('opacity-100');
+        modalCleanImg2.classList.remove('opacity-100');
+        modalCleanImg2.classList.add('opacity-0');
+        activeCleanSlot = 1;
+      }
+
+      startOfferAutoplay();
+
+      // Przewiń zawartość modalnego okna do samej góry
+      const scrollEl = document.getElementById('offer-modal-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
+    }
+
+    function openOfferModal(catKey = 'art') {
+      if (!offerModal) return;
+      switchOfferModalCategory(catKey);
+      offerModal.classList.remove('hidden');
+      offerModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(() => {
+        if (offerModalCard) {
+          offerModalCard.classList.remove('scale-95', 'opacity-0');
+          offerModalCard.classList.add('scale-100', 'opacity-100');
+        }
+      }, 10);
+    }
+
+    function closeOfferModal() {
+      if (!offerModal) return;
+      stopOfferAutoplay();
+
+      if (offerModalCard) {
+        offerModalCard.classList.remove('scale-100', 'opacity-100');
+        offerModalCard.classList.add('scale-95', 'opacity-0');
+      }
+
+      setTimeout(() => {
+        offerModal.classList.add('hidden');
+        offerModal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }, 250);
+    }
+
+    // Podpięcie kliknięć w karty na stronie głównej
+    document.querySelectorAll('.offer-pillar-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const cat = card.getAttribute('data-category') || 'art';
+        openOfferModal(cat);
+      });
+    });
+
+    // Zakładki wewnątrz wyskakującej ramki
+    document.querySelectorAll('.modal-tab-btn').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const cat = tab.getAttribute('data-tab');
+        switchOfferModalCategory(cat);
+      });
+    });
+
+    // Zamykanie wyskakującej ramki
+    btnCloseOfferModal?.addEventListener('click', closeOfferModal);
+    offerModalBackdrop?.addEventListener('click', closeOfferModal);
+
+    // Klawiatura Escape dla ramki
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && offerModal && !offerModal.classList.contains('hidden')) {
+        closeOfferModal();
+      }
+    });
+
+    // Kliknięcie w czysty pokaz zdjęć otwiera aktualną fotografię w pełnym Lightboxie
+    modalCleanSlideshow?.addEventListener('click', () => {
+      const data = OFFER_PILLARS_DATA[activeOfferCat];
+      if (data && data.slides && data.slides[currentOfferSlideIdx]) {
+        openGallery(data.slides[currentOfferSlideIdx].galleryIndex || 0);
+      }
+    });
+
+    modalCleanSlideshow?.addEventListener('mouseenter', stopOfferAutoplay);
+    modalCleanSlideshow?.addEventListener('mouseleave', startOfferAutoplay);
+
+    // ── AUTOMATYCZNY POKAZ ZDJĘĆ NA KARTACH KATEGORII NA STRONIE GŁÓWNEJ (CO 4 SEKUNDY) ─
+    const cardSlideshowState = {
+      art: { idx: 0, slot: 1 },
+      bar: { idx: 0, slot: 1 },
+      solutions: { idx: 0, slot: 1 }
+    };
+
+    function advanceCardSlideshow(catKey) {
+      const data = OFFER_PILLARS_DATA[catKey];
+      if (!data || !data.slides || data.slides.length <= 1) return;
+
+      const state = cardSlideshowState[catKey];
+      state.idx = (state.idx + 1) % data.slides.length;
+      const nextSlide = data.slides[state.idx];
+
+      const img1 = document.getElementById(`card-clean-img-${catKey}-1`);
+      const img2 = document.getElementById(`card-clean-img-${catKey}-2`);
+      if (!img1 || !img2) return;
+
+      if (state.slot === 1) {
+        img2.src = nextSlide.url;
+        img2.classList.remove('opacity-0');
+        img2.classList.add('opacity-100');
+        img1.classList.remove('opacity-100');
+        img1.classList.add('opacity-0');
+        state.slot = 2;
+      } else {
+        img1.src = nextSlide.url;
+        img1.classList.remove('opacity-0');
+        img1.classList.add('opacity-100');
+        img2.classList.remove('opacity-100');
+        img2.classList.add('opacity-0');
+        state.slot = 1;
+      }
+    }
+
+    let cardsSlideshowInterval = setInterval(() => {
+      advanceCardSlideshow('art');
+      setTimeout(() => advanceCardSlideshow('bar'), 650);
+      setTimeout(() => advanceCardSlideshow('solutions'), 1300);
+    }, 4000);
+
+    // ── AUTOMATYCZNY SLIDESHOW W SEKCJI O NAS (CO 4 SEKUNDY) ───────────────────
+    const aboutPhotos = [
+      { url: 'assets/images/2024.12.31-Art-Bar-73-2.jpg', galleryIndex: 20 },
+      { url: 'assets/images/2024.12.31-Art-Bar-28-1.jpg', galleryIndex: 0 },
+      { url: 'assets/images/2024.12.31-Art-Bar-46-1.jpg', galleryIndex: 15 },
+      { url: 'assets/images/2024.12.31-Art-Bar-26-768x512.jpg', galleryIndex: 21 },
+      { url: 'assets/images/2024.12.31-Art-Bar-89.jpg', galleryIndex: 16 },
+      { url: 'assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg', galleryIndex: 17 }
+    ];
+    let aboutSlideIdx = 0;
+    let aboutSlideSlot = 1;
+
+    function advanceAboutSlideshow() {
+      if (!aboutPhotos || aboutPhotos.length <= 1) return;
+      aboutSlideIdx = (aboutSlideIdx + 1) % aboutPhotos.length;
+      const nextSlide = aboutPhotos[aboutSlideIdx];
+
+      const img1 = document.getElementById('about-slideshow-img-1');
+      const img2 = document.getElementById('about-slideshow-img-2');
+      if (!img1 || !img2) return;
+
+      if (aboutSlideSlot === 1) {
+        img2.src = nextSlide.url;
+        img2.classList.remove('opacity-0');
+        img2.classList.add('opacity-100');
+        img1.classList.remove('opacity-100');
+        img1.classList.add('opacity-0');
+        aboutSlideSlot = 2;
+      } else {
+        img1.src = nextSlide.url;
+        img1.classList.remove('opacity-0');
+        img1.classList.add('opacity-100');
+        img2.classList.remove('opacity-100');
+        img2.classList.add('opacity-0');
+        aboutSlideSlot = 1;
+      }
+    }
+
+    let aboutSlideshowInterval = setInterval(advanceAboutSlideshow, 4000);
+
+    const aboutContainer = document.getElementById('about-slideshow-container');
+    if (aboutContainer) {
+      aboutContainer.addEventListener('click', () => {
+        if (typeof openGallery === 'function' && aboutPhotos[aboutSlideIdx]) {
+          openGallery(aboutPhotos[aboutSlideIdx].galleryIndex || 0);
+        }
+      });
+      aboutContainer.addEventListener('mouseenter', () => {
+        clearInterval(aboutSlideshowInterval);
+      });
+      aboutContainer.addEventListener('mouseleave', () => {
+        clearInterval(aboutSlideshowInterval);
+        aboutSlideshowInterval = setInterval(advanceAboutSlideshow, 4000);
+      });
+    }
+
+    // ── PRELOADER STRONY (ZŁOTE KWADRATY ARTBAR) ─────────────────────────────
+    function dismissPreloader() {
+      const preloader = document.getElementById('page-preloader');
+      if (preloader && !preloader.classList.contains('preloader-hidden')) {
+        preloader.classList.add('preloader-hidden');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 750);
+      }
+    }
+
+    // Płynne schowanie po pełnym wczytaniu strony (z minimalnym czasem dla estetyki animacji)
+    window.addEventListener('load', () => {
+      setTimeout(dismissPreloader, 850);
+    });
+
+    // Zabezpieczenie awaryjne (fallback max 2.5s na wypadek opóźnień sieciowych)
+    setTimeout(dismissPreloader, 2500);
+  </script>
+
+</body>
+</html>
