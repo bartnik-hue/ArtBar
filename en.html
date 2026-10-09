@@ -392,6 +392,128 @@
     }
 
     /* ══════════════════════════════════════════════════════════
+       RADIALNE MENU 3D (NOWA KONCEPCJA EKOSYSTEMU Z NOWAKONCEPCJA)
+       ══════════════════════════════════════════════════════════ */
+    .radial-scene-container {
+      perspective: 1400px;
+      perspective-origin: 50% 50%;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .radial-stage-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+    }
+
+    .radial-node-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .radial-node-card {
+      position: relative;
+      background: radial-gradient(130% 130% at 30% 20%, rgba(30, 24, 18, 0.95) 0%, rgba(10, 10, 10, 0.96) 70%, rgba(3, 3, 3, 0.98) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(250, 203, 125, 0.35);
+      border-radius: 20px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.9),
+                  0 0 20px -5px rgba(250, 203, 125, 0.12),
+                  inset 0 1px 1px 0 rgba(255, 240, 200, 0.25);
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .radial-node-item:hover .radial-node-card,
+    .radial-node-item.is-active .radial-node-card {
+      border-color: #FACB7D;
+      background: radial-gradient(130% 130% at 30% 20%, rgba(45, 34, 22, 0.98) 0%, rgba(16, 14, 12, 0.98) 70%, rgba(4, 4, 4, 1) 100%);
+      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.95),
+                  0 0 35px 5px rgba(250, 203, 125, 0.35),
+                  inset 0 1px 2px 0 rgba(255, 245, 215, 0.5);
+      transform: translateY(-6px) scale(1.06);
+    }
+
+    .icon-badge-box {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 35% 30%, rgba(45, 36, 25, 0.8) 0%, rgba(14, 14, 14, 0.9) 100%);
+      border: 1.5px solid rgba(250, 203, 125, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(250, 203, 125, 0.1),
+                  0 4px 15px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .radial-node-item:hover .icon-badge-box,
+    .radial-node-item.is-active .icon-badge-box {
+      border-color: #FACB7D;
+      box-shadow: inset 0 0 20px rgba(250, 203, 125, 0.25),
+                  0 0 25px rgba(250, 203, 125, 0.4);
+      transform: scale(1.05);
+    }
+
+    .orbit-svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes orbitDashMove {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 120; }
+    }
+
+    .orbit-ellipse-dashed {
+      stroke-dasharray: 6 10;
+      animation: orbitDashMove 25s linear infinite;
+    }
+
+    .control-btn-3d {
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid rgba(250, 203, 125, 0.35);
+      backdrop-filter: blur(8px);
+      color: #FACB7D;
+      transition: all 0.25s ease;
+    }
+    .control-btn-3d:hover {
+      background: rgba(250, 203, 125, 0.15);
+      border-color: #FACB7D;
+      box-shadow: 0 0 15px rgba(250, 203, 125, 0.3);
+      transform: translateY(-2px);
+    }
+    .control-btn-3d:active {
+      transform: translateY(0);
+    }
+
+    .cursor-grab {
+      cursor: grab;
+    }
+    .cursor-grabbing {
+      cursor: grabbing;
+    }
+
+    /* ══════════════════════════════════════════════════════════
        PEŁNOEKRANOWE I PŁYNNE SKALOWANIE (FLUID SCALING) DLA RAMKI OFERTY
        PERFEKCYJNE SKALOWANIE TEKSTÓW, IKON I ZAWARTOŚCI OD HD DO 4K ULTRA HD
        ══════════════════════════════════════════════════════════ */
@@ -897,99 +1019,136 @@
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       
-      <!-- Nagłówek sekcji z motywem kwadracika z logo -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
+      <!-- Nagłówek sekcji z motywem kwadracika z logo oraz przełącznikiem trybów widoku -->
+      <div class="text-center max-w-3xl mx-auto mb-10">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-4">
           <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
           <span>Comprehensive Event Ecosystem</span>
         </div>
         <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight mb-4">
-          ARTBAR <span class="gold-gradient-text">SOLUTIONS</span>
+          COMPREHENSIVE REALIZATION OF <br class="hidden sm:inline">
+          <span class="gold-gradient-text">BAR ZONES</span>
         </h2>
-        <div class="gold-divider w-48 mx-auto my-6"></div>
-        <p class="text-sm sm:text-base text-[#f5efe6]/70 font-light leading-relaxed">
-          Reflecting our signature tripartite methodology, we unite three inseparable pillars: artistic creation (<span class="text-[#FACB7D] font-medium">art</span>), modular bar infrastructure (<span class="text-[#FACB7D] font-medium">bar</span>), and high-performance operational systems (<span class="text-[#FACB7D] font-medium">SOLUTIONS</span>). Click any pillar below to inspect the service breakdown and live portfolio showcase.
+        <div class="inline-block px-4 py-1.5 bg-[#FACB7D]/10 border border-[#FACB7D]/35 rounded-full text-xs font-bold tracking-[0.25em] text-[#FACB7D] uppercase mb-5">
+          One Partner = The Entire Bar Area
+        </div>
+        <p class="text-sm sm:text-base text-[#f5efe6]/75 font-light leading-relaxed mb-6">
+          We unite all vital event pillars under one roof: artistic creation (<strong class="text-[#FACB7D]">Art</strong>), modular bars (<strong class="text-[#FACB7D]">Bar</strong>), real-time live telemetry (<strong class="text-[#FACB7D]">ArtPOS</strong>), deposit eco-cups (<strong class="text-[#FACB7D]">ECO Cups</strong>), in-house ice plant (<strong class="text-[#FACB7D]">Ice</strong>), professional bar staff (<strong class="text-[#FACB7D]">Staffing</strong>), and Just-In-Time fleet transport (<strong class="text-[#FACB7D]">Logistics</strong>).
         </p>
+
+        <!-- VIEW MODE TOGGLE: 3D SPACE / GRID -->
+        <div class="inline-flex items-center gap-2 bg-white/5 border border-[#FACB7D]/30 rounded-full p-1 shadow-lg">
+          <button id="view-mode-3d-btn" type="button" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)] cursor-pointer">
+            3D Space
+          </button>
+          <button id="view-mode-grid-btn" type="button" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white cursor-pointer">
+            Department Grid
+          </button>
+        </div>
       </div>
 
-      <!-- TRZY KARTY WYBORU FILARÓW (GŁÓWNY SELEKTOR) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" id="offer-category-cards">
-        
-        <!-- KARTA 1: ART -->
-        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="art">
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">art</span>
-            </div>
-            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
-              <img id="card-clean-img-art-1" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art visual creation" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
-              <img id="card-clean-img-art-2" src="assets/images/2024.12.31-Art-Bar-28-1.jpg" alt="Art visual creation" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>Visual Creation & Scenography</span>
+      <!-- ══════════════════════════════════════════════
+           VIEW 1: INTERACTIVE 3D RADIAL SCENE
+           ══════════════════════════════════════════════ -->
+      <div id="radial-3d-wrapper" class="w-full max-w-[1400px] h-[660px] sm:h-[720px] md:h-[760px] relative radial-scene-container cursor-grab mx-auto flex items-center justify-center my-6">
+
+        <!-- 3D STAGE -->
+        <div id="radial-stage" class="radial-stage-3d w-full h-full flex items-center justify-center">
+
+          <!-- SVG 3D ORBIT ELLIPSE -->
+          <svg id="orbit-svg" class="orbit-svg w-[960px] h-[620px]" viewBox="0 0 960 620" fill="none">
+            <defs>
+              <linearGradient id="orbitGoldGradEn" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.8" />
+                <stop offset="50%" stop-color="#FACB7D" stop-opacity="0.25" />
+                <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.8" />
+              </linearGradient>
+              <filter id="goldGlowFilterEn" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+            <ellipse cx="480" cy="310" rx="420" ry="240" stroke="rgba(250, 203, 125, 0.15)" stroke-width="1.5" />
+            <ellipse cx="480" cy="310" rx="420" ry="240" stroke="url(#orbitGoldGradEn)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilterEn)" />
+          </svg>
+
+          <!-- CENTER HUB -->
+          <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-auto max-w-[400px] px-6 py-8 rounded-3xl bg-black/65 backdrop-blur-md border border-[#FACB7D]/25 shadow-[0_0_60px_rgba(0,0,0,0.9)] transition-all duration-500 hover:border-[#FACB7D]/60 hover:shadow-[0_0_80px_rgba(250,203,125,0.25)]">
+            <div class="mb-3 relative group">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto flex items-center justify-center">
+                <svg viewBox="0 0 100 100" class="w-full h-full filter drop-shadow-[0_0_20px_rgba(250,203,125,0.6)]">
+                  <path d="M15 15 L25 15 L25 85 L15 85 Z" fill="#FACB7D" opacity="0.9"/>
+                  <path d="M30 25 L40 25 L40 85 L30 85 Z" fill="#FACB7D" opacity="0.95"/>
+                  <path d="M45 35 L55 35 L55 85 L45 85 Z" fill="#FACB7D" opacity="1"/>
+                  <path d="M60 25 L70 25 L70 85 L60 85 Z" fill="#FACB7D" opacity="0.95"/>
+                  <path d="M75 15 L85 15 L85 85 L75 85 Z" fill="#FACB7D" opacity="0.9"/>
+                </svg>
+              </div>
+              <div class="mt-1 text-center">
+                <span class="font-serif-luxury text-xl sm:text-2xl font-black tracking-widest text-[#FACB7D] block">artbar</span>
+                <span class="text-[9px] tracking-[0.4em] uppercase text-white/90 font-bold block mt-0.5">S O L U T I O N S</span>
+                <div class="flex items-center justify-center gap-1 mt-1.5">
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                  <span class="w-1 h-1 bg-[#FACB7D]"></span>
+                </div>
               </div>
             </div>
-            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
-              Turnkey design, visual zone identity, bespoke branding, personalized decor, architectural lighting, and artistic performance.
-            </p>
+
+            <h3 class="font-serif-luxury text-base sm:text-lg font-bold text-white uppercase leading-snug mb-2">
+              Comprehensive Realization of <span class="gold-gradient-text block">Bar Zones</span>
+            </h3>
+            
+            <div class="inline-block px-3 py-0.5 bg-[#FACB7D]/15 border border-[#FACB7D]/35 rounded text-[10px] font-bold tracking-[0.2em] text-[#FACB7D] uppercase mb-3">
+              One Partner = The Entire Bar Area
+            </div>
+
+            <div id="center-active-hint" class="text-[11px] text-white/70 font-light flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-ping"></span>
+              <span>Department: <strong id="center-active-title" class="text-[#FACB7D] font-bold">Select on wheel</strong></span>
+            </div>
           </div>
-          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Read More</span>
-            <span class="text-sm">↗</span>
+
+          <!-- 7 3D NODES -->
+          <div id="radial-nodes-container" class="absolute inset-0 pointer-events-none">
+            <!-- Dynamically injected -->
+          </div>
+
+        </div>
+
+        <!-- BOTTOM 3D TOOLBAR -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3 bg-black/75 backdrop-blur-md px-4 sm:px-5 py-2 rounded-full border border-[#FACB7D]/30 shadow-2xl">
+          <button id="btn-rot-prev" type="button" class="control-btn-3d w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-sm cursor-pointer" title="Rotate left" aria-label="Previous department">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+
+          <button id="btn-toggle-spin" type="button" class="control-btn-3d px-3.5 h-8 sm:h-9 rounded-full text-[11px] sm:text-xs font-semibold uppercase tracking-wider flex items-center gap-2 cursor-pointer" title="Toggle auto rotation">
+            <span id="spin-indicator" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="spin-btn-text">Auto: ON</span>
+          </button>
+
+          <button id="btn-rot-next" type="button" class="control-btn-3d w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-sm cursor-pointer" title="Rotate right" aria-label="Next department">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+
+          <button id="btn-rot-reset" type="button" class="control-btn-3d px-3 h-8 sm:h-9 rounded-full text-[11px] sm:text-xs font-medium uppercase tracking-wider text-white/70 hover:text-white cursor-pointer" title="Center view">
+            Reset
           </button>
         </div>
 
-        <!-- KARTA 2: BAR -->
-        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="bar">
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">bar</span>
-            </div>
-            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
-              <img id="card-clean-img-bar-1" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Bar infrastructure" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
-              <img id="card-clean-img-bar-2" src="assets/images/2024.12.31-Art-Bar-73-2.jpg" alt="Bar infrastructure" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>Bar Zone Infrastructure</span>
-              </div>
-            </div>
-            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
-              Modular bar hire for mass events, LED backbars, commercial refrigeration, end-to-end logistics, and full ABC alcohol licensing.
-            </p>
-          </div>
-          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Read More</span>
-            <span class="text-sm">↗</span>
-          </button>
-        </div>
+      </div>
 
-        <!-- KARTA 3: SOLUTIONS -->
-        <div class="offer-pillar-card obsidian-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer border border-[#FACB7D]/25 hover:border-[#FACB7D] shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 group" data-category="solutions">
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-serif-luxury text-4xl font-black gold-gradient-text">SOLUTIONS</span>
-            </div>
-            <div class="w-full h-44 rounded-xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-[#FACB7D]/30 transition-colors">
-              <img id="card-clean-img-solutions-1" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="ArtPOS System" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-100 group-hover:scale-105 filter brightness-90">
-              <img id="card-clean-img-solutions-2" src="assets/images/2024.12.31-Art-Bar-46-1.jpg" alt="ArtPOS System" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out opacity-0 group-hover:scale-105 filter brightness-90">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-3 left-3 text-xs font-semibold text-[#FACB7D] tracking-wide flex items-center gap-1.5 pointer-events-none">
-                <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-                <span>POS Systems & Operations</span>
-              </div>
-            </div>
-            <p class="text-xs sm:text-sm text-[#f5efe6]/70 leading-relaxed font-light mb-6">
-              Proprietary ArtPOS system (real-time live telemetry), RFID terminals & wristbands, Hoshizaki ice plant, reusable eco-cups, and inventory auditing.
-            </p>
-          </div>
-          <button type="button" class="solid-gold-btn w-full py-3 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg group-hover:shadow-[0_0_20px_rgba(250,203,125,0.3)] transition-all cursor-pointer">
-            <span>Read More</span>
-            <span class="text-sm">↗</span>
-          </button>
+      <!-- ══════════════════════════════════════════════
+           VIEW 2: RESPONSIVE GRID (TABLET / MOBILE)
+           ══════════════════════════════════════════════ -->
+      <div id="radial-grid-wrapper" class="hidden w-full max-w-7xl mx-auto my-6 z-20">
+        <div id="grid-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Dynamically injected -->
         </div>
-
       </div>
 
       <!-- PRZYCISKI DO POBRANIA OFERT PDF -->
@@ -1451,19 +1610,35 @@
       
       <!-- Pasek nagłówkowy ramki (Sticky na górze okna) -->
       <div id="offer-modal-header-bar" class="flex flex-wrap items-center justify-between gap-3 bg-[#0a0a0a] border-b border-[#FACB7D]/20 shrink-0">
-        <!-- Zakładki przełączania wewnątrz wyskakującej ramki -->
-        <div class="flex flex-wrap items-center gap-2 sm:gap-3" id="offer-modal-tabs">
+        <!-- Zakładki przełączania wewnątrz wyskakującej ramki (7 departments) -->
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2.5 max-w-full overflow-x-auto py-1" id="offer-modal-tabs">
           <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer" data-tab="art">
             <span class="w-1.5 h-1.5 bg-black rotate-45 inline-block"></span>
-            <span>art — Creation</span>
+            <span>Art</span>
           </button>
           <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="bar">
             <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-            <span>bar — Infrastructure</span>
+            <span>Bar</span>
           </button>
-          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="solutions">
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="artpos">
             <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-            <span>SOLUTIONS — Technology</span>
+            <span>ArtPOS</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="kubki-eco">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>ECO Cups</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="lod">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>Ice</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="obsluga">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>Staffing</span>
+          </button>
+          <button type="button" class="modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border border-[#FACB7D]/30 text-[#f5efe6]/80 hover:text-[#FACB7D] hover:border-[#FACB7D] cursor-pointer" data-tab="logistyka">
+            <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
+            <span>Logistics</span>
           </button>
         </div>
 
@@ -1919,188 +2094,237 @@
       });
     }
 
-    // ── OBSŁUGA WYSKAKUJĄCEJ RAMKI & SLIDESHOW DLA SEKCJI OFERTA (ARTBAR & SOLUTIONS) ─
+    // ── OBSŁUGA WYSKAKUJĄCEJ RAMKI & SLIDESHOW DLA SEKCJI OFERTA (7 DEPARTAMENTÓW) ─
     const OFFER_PILLARS_DATA = {
       art: {
-        key: 'art',
+        key: 'Art',
         badge: 'Visual Creation & Event Scenography',
-        title: 'The art Philosophy: The Craft of Creating an Unforgettable Atmosphere',
-        lead: '"We craft bespoke, immersive spatial environments that not only amplify brand prestige, but shape the emotional ambiance and engage attendees at every moment of the event."',
+        title: 'The Art Philosophy: The Craft of Creating an Unforgettable Atmosphere',
+        subtitle: 'SCENOGRAPHY, CONCEPT, CREATIVE DESIGN',
+        lead: 'We craft bespoke, immersive spatial environments that not only amplify brand prestige, but shape the emotional ambiance and engage attendees at every moment of the event.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 28h40l-4-12H16l-4 12z" />
+            <path d="M20 16v6m0 0l-3 4h6l-3-4z" />
+            <path d="M32 16v6m0 0l-3 4h6l-3-4z" />
+            <path d="M44 16v6m0 0l-3 4h6l-3-4z" />
+            <path d="M12 28h40" />
+            <path d="M14 28v24" />
+            <path d="M50 28v24" />
+            <rect x="18" y="34" width="28" height="18" rx="2" stroke-width="2"/>
+            <path d="M24 44h4v8h-4z" />
+            <path d="M36 42h4v10h-4z" />
+            <line x1="18" y1="44" x2="46" y2="44" stroke-dasharray="2 2"/>
+          </svg>
+        `,
         services: [
-          {
-            nr: '01',
-            name: 'Concept Design',
-            desc: 'Comprehensive visual and spatial blueprinting, collaborating closely with event producers to weave every detail into a seamless aesthetic identity.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>`
-          },
-          {
-            nr: '02',
-            name: 'Visual Identity',
-            desc: 'The cornerstone of memorable atmospheres: from custom bar fascias and bespoke menus to themed installations, creating a unique signature for your event.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`
-          },
-          {
-            nr: '03',
-            name: 'Creative Branding',
-            desc: 'Tailor-made graphic and structural elements engineered to elevate corporate brand exposure and leave a lasting impression on guests.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>`
-          },
-          {
-            nr: '04',
-            name: 'Event Scenography',
-            desc: 'Conceiving and erecting bespoke architectural installations reflecting the event narrative, utilizing cutting-edge materials and precision fabrication.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`
-          },
-          {
-            nr: '05',
-            name: 'Custom Decor',
-            desc: 'Hand-crafted decorative styling attuned to the specific theme, delivering an elite, sophisticated finish across all guest touchpoints.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3l3.057 6.114a1 1 0 00.894.553h6.098a1 1 0 00.894-.553L19 3l-3 15H8L5 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 18v3m-4 0h8"/></svg>`
-          },
-          {
-            nr: '06',
-            name: 'Architectural Lighting',
-            desc: 'Light as an essential narrative instrument. Precision LED contour accents highlighting the structural architecture of the bar zone.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`
-          },
-          {
-            nr: '07',
-            name: 'Artistic Performance',
-            desc: 'Curating interactive spectacles and live artistic acts that mesmerize audiences, partnering with premier performers and visual artists.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>`
-          },
-          {
-            nr: '08',
-            name: 'Turnkey Production & Rigging',
-            desc: 'Flawless execution from concept to final installation. Overseeing manufacturing, freight logistics, and expert on-site rigging.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`
-          },
-          {
-            nr: '09',
-            name: 'Graphic Design Studio',
-            desc: 'In-house creative design team dedicated to developing visual assets that harmonize aesthetic elegance with operational clarity.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`
-          }
+          { nr: '01', name: 'Concept Design', desc: 'Comprehensive visual and spatial blueprinting, collaborating closely with event producers to weave every detail into a seamless aesthetic identity.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>` },
+          { nr: '02', name: 'Visual Identity', desc: 'The cornerstone of memorable atmospheres: from custom bar fascias and bespoke menus to themed installations, creating a unique signature for your event.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` },
+          { nr: '03', name: 'Creative Branding', desc: 'Tailor-made graphic and structural elements engineered to elevate corporate brand exposure and leave a lasting impression on guests.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>` },
+          { nr: '04', name: 'Event Scenography', desc: 'Conceiving and erecting bespoke architectural installations reflecting the event narrative, utilizing cutting-edge materials and precision fabrication.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>` },
+          { nr: '05', name: 'Custom Decor', desc: 'Hand-crafted decorative styling attuned to the specific theme, delivering an elite, sophisticated finish across all guest touchpoints.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3l3.057 6.114a1 1 0 00.894.553h6.098a1 1 0 00.894-.553L19 3l-3 15H8L5 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 18v3m-4 0h8"/></svg>` },
+          { nr: '06', name: 'Architectural Lighting', desc: 'Light as an essential narrative instrument. Precision LED contour accents highlighting the structural architecture of the bar zone.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>` },
+          { nr: '07', name: 'Artistic Performance', desc: 'Curating interactive spectacles and live artistic acts that mesmerize audiences, partnering with premier performers and visual artists.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>` }
         ],
         slides: [
           { url: 'assets/images/2024.12.31-Art-Bar-28-1.jpg', galleryIndex: 0 },
           { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-104-1.jpg', galleryIndex: 1 },
           { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-112-1-1536x1024.jpg', galleryIndex: 3 },
           { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-140-2.jpg', galleryIndex: 6 },
-          { url: 'assets/images/gallery/OczkiHalloween-106-of-592-3-scaled.jpg', galleryIndex: 10 },
-          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-34-2.jpg', galleryIndex: 12 }
+          { url: 'assets/images/gallery/OczkiHalloween-106-of-592-3-scaled.jpg', galleryIndex: 10 }
         ]
       },
       bar: {
-        key: 'bar',
-        badge: 'Bar Zone Infrastructure',
-        title: 'The bar Philosophy: Modular Efficiency & High-Volume Operations',
-        lead: '"A complete turnkey solution for producers of mass festivals, arena shows, and prestigious galas. Modular, ultra-durable, and visually striking structures engineered for rapid service, sales velocity, and effortless luxury."',
+        key: 'Bar',
+        badge: 'Modular Bar Infrastructure',
+        title: 'The Bar Philosophy: Modular Functionality & High-Volume Sales',
+        subtitle: 'BAR INFRASTRUCTURE - mds bar',
+        lead: 'A turnkey solution for mass event producers, arena shows, festivals, and prestigious galas. Modular, ultra-durable, and visually striking structures engineered for high service velocity, sales optimization, and effortless design.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]">
+            <path d="M12 22h-4v-10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M52 22h4v-10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M12 42h-4v10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M52 42h4v10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="32" y="27" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">mds</text>
+            <line x1="16" y1="33" x2="48" y2="33" stroke="#FACB7D" stroke-width="2"/>
+            <text x="32" y="47" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">bar</text>
+          </svg>
+        `,
         services: [
-          {
-            nr: '01',
-            name: 'Bar Zone Spatial Planning',
-            desc: 'Optimizing festival venue grounds to engineer high-capacity, visually commanding bar zones that serve as the vibrant focal hub of the event.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 10h16M10 4v16"/></svg>`
-          },
-          {
-            nr: '02',
-            name: 'Modular Bar Hire',
-            desc: 'Linear modules (1.5m), 90° corners, and backbar tiers. Fully flexible geometry, ultra-fast assembly, and custom front panel branding.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>`
-          },
-          {
-            nr: '03',
-            name: 'Commercial Equipment',
-            desc: 'Heavy-duty commercial inventory: glass-door backbar coolers, chest freezers, professional bartending tools, and integrated POS stations.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 4l9 9 9-9H3z"/></svg>`
-          },
-          {
-            nr: '04',
-            name: 'Beverage Logistics & Procurement',
-            desc: 'Precision forecasting of spirits, beer, and mixers tailored to attendee demographics, with dedicated refrigerated transit and punctual deliveries.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>`
-          },
-          {
-            nr: '05',
-            name: 'Full ABC Liquor Licensing',
-            desc: 'Full ABC liquor licensing compliance. Complete legal and regulatory handling, with live fiscal transaction streaming via ArtPOS.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`
-          }
+          { nr: '01', name: 'Bar Zone Spatial Planning', desc: 'Optimizing festival venue grounds to engineer high-capacity, visually commanding bar zones that serve as the vibrant focal hub of the event.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 10h16M10 4v16"/></svg>` },
+          { nr: '02', name: 'Modular Bar Hire', desc: 'Linear modules (1.5m), 90° corners, and backbar tiers. Fully flexible geometry, ultra-fast assembly, and custom front panel branding.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>` },
+          { nr: '03', name: 'Commercial Equipment', desc: 'Heavy-duty commercial inventory: glass-door backbar coolers, chest freezers, professional bartending stations, and integrated electrical routing.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 4l9 9 9-9H3z"/></svg>` },
+          { nr: '04', name: 'Beverage Logistics & Procurement', desc: 'Precision forecasting of spirits, beer, and mixers tailored to attendee demographics, with dedicated refrigerated transit and punctual deliveries.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>` },
+          { nr: '05', name: 'Full ABC Liquor Licensing', desc: 'Full ABC liquor licensing compliance. Complete legal and regulatory handling, with live fiscal transaction streaming via ArtPOS.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>` }
         ],
         slides: [
           { url: 'assets/images/2024.12.31-Art-Bar-73-2.jpg', galleryIndex: 20 },
           { url: 'assets/images/2024.12.31-Art-Bar-26-768x512.jpg', galleryIndex: 21 },
           { url: 'assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg', galleryIndex: 22 },
           { url: 'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg', galleryIndex: 23 },
-          { url: 'assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg', galleryIndex: 0 },
-          { url: 'assets/images/gallery/ArtBar02.03-45-z-462-1-scaled.jpg', galleryIndex: 24 }
+          { url: 'assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg', galleryIndex: 0 }
         ]
       },
-      solutions: {
-        key: 'solutions',
-        badge: 'Turnkey Solutions & POS Systems',
-        title: 'The SOLUTIONS Philosophy: Technology, Operations & Profitability',
-        lead: '"Advanced operational and technological systems engineered for high-volume bar zones. Real-time live data telemetry provides event producers with absolute oversight of inventory, workforce, and net profits."',
+      artpos: {
+        key: 'ArtPOS',
+        badge: 'Advanced POS Sales System',
+        title: 'The ArtPOS Philosophy: Live Telemetry, Control & Profit Optimization',
+        subtitle: 'SALES SYSTEMS, CONTROL, AUDITING',
+        lead: 'Proprietary cloud POS ecosystem purpose-built for high-volume festivals and mass events. Real-time fiscalization, instant stock depletion telemetry, integrated card readers, and granular post-event audits.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="34" height="28" rx="3" />
+            <path d="M15 16h6M25 16h6M35 16h4" />
+            <path d="M15 21h6M25 21h6M35 21h4" />
+            <path d="M15 26h6M25 26h6" />
+            <path d="M15 31h16" />
+            <path d="M22 38v8h10v-8" />
+            <path d="M18 46h18" />
+            <path d="M38 28l5-8a2 2 0 0 1 3.5 1.5l-2.5 7.5h5a2 2 0 0 1 2 2v2a6 6 0 0 1-6 6h-3" fill="none" stroke-width="2"/>
+            <path d="M43 38v8" />
+            <path d="M48 38v8" />
+          </svg>
+        `,
         services: [
-          {
-            nr: '01',
-            name: 'ArtPOS — Live Sales Platform',
-            desc: 'Lightning-fast throughput, live fiscalization, real-time stock depletion telemetry, and detailed post-event financial audits.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`
-          },
-          {
-            nr: '02',
-            name: 'Payment & RFID Terminals',
-            desc: 'Preferential merchant fee rates, contactless card processing, mobile payments, and custom festival closed-loop RFID wristbands.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>`
-          },
-          {
-            nr: '03',
-            name: 'Hoshizaki Industrial Ice Plant',
-            desc: 'In-house manufacturing of ultra-dense gourmet cube and crushed ice. Temperature-controlled refrigerated vans, insulated silos, and ice sculptures.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2v20M2 12h20m-2-2-1.5 2 1.5 2M4 10l-1.5 2L4 14m6 10-1.25-2.5L6 18m4-14L8.75 6.5 6 6m8 14 1.25-2.5L18 18m-4-14 1.25 2.5L18 6m-1 15 3-6-1.5-3m0-6 1.5-3L17 3M3 4l1.5 3L6 6m-3 14 1.5-3L6 18m4 3-3-6 1.5-3m0-6-1.5-3L7 3"/></svg>`
-          },
-          {
-            nr: '04',
-            name: 'Staffing & Mixology Outsourcing',
-            desc: 'Highly trained, battle-tested personnel: flair bartenders, barbacks, master baristas, technicians, zone supervisors, and event directors.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`
-          },
-          {
-            nr: '05',
-            name: 'Eco Reusable Deposit Cups',
-            desc: 'Certified reusable festival cups, end-to-end deposit token management, professional sanitization cycles, storage, and bespoke custom printing.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`
-          },
-          {
-            nr: '06',
-            name: 'Freight Logistics & Cold Chain',
-            desc: 'Dedicated transport fleet, mobile cold rooms, and precision just-in-time delivery directly to festival grounds nationwide.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM2 5h11v11H2V5zm11 3h4l3 3v5h-7V8z"/></svg>`
-          },
-          {
-            nr: '07',
-            name: 'Setup & Teardown Crews',
-            desc: 'Seasoned technical rigging teams. Rapid on-schedule setup before doors open and overnight teardown strictly adhering to venue deadlines.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>`
-          },
-          {
-            nr: '08',
-            name: 'Auditing & Revenue Controlling',
-            desc: 'Continuous live sales velocity analysis, margin optimization, shrinkage prevention, and comprehensive post-event profit breakdown reports.',
-            icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/></svg>`
-          }
+          { nr: '01', name: 'ArtPOS Proprietary Software', desc: 'Lightning-fast transaction speed, intuitive touch interface, and uninterrupted offline hybrid caching during network outages.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>` },
+          { nr: '02', name: 'Real-Time Cloud Fiscalization', desc: 'Full legal compliance and instant cloud recording of every sale without latency or bottlenecks.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>` },
+          { nr: '03', name: 'Live Stock Telemetry & Alerts', desc: 'Continuous automated monitoring of bottle counts, beer keg levels, and syrups with low-stock alerts.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>` },
+          { nr: '04', name: 'Payment Terminals & Cashless', desc: 'Competitive merchant fee rates, contactless Visa/MC, BLIK, smart devices, and festival RFID closed-loop wristbands.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>` },
+          { nr: '05', name: 'Organizer Analytics Dashboard', desc: 'Real-time sales charts and velocity metrics on your smartphone, employee throughput benchmarks, and audit logs.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/></svg>` }
         ],
         slides: [
           { url: 'assets/images/2024.12.31-Art-Bar-46-1.jpg', galleryIndex: 15 },
           { url: 'assets/images/2024.12.31-Art-Bar-89.jpg', galleryIndex: 16 },
-          { url: 'assets/images/2023.03.31-Pandora-Two-Worlds-45.jpg', galleryIndex: 17 },
-          { url: 'assets/images/gallery/2024.12.31-Art-Bar-102-2.jpg', galleryIndex: 18 },
-          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-20-1.jpg', galleryIndex: 19 }
+          { url: 'assets/images/gallery/2024.12.31-Art-Bar-102-2.jpg', galleryIndex: 18 }
+        ]
+      },
+      'kubki-eco': {
+        key: 'ECO Cups',
+        badge: 'Eco-Friendly Reusable Cup System',
+        title: 'The ECO Cups Philosophy: Zero Waste, Deposit Systems & Ecology',
+        subtitle: 'REUSABLE CUP CIRCULAR SYSTEM',
+        lead: 'Comprehensive, certified reusable deposit cup system fully compliant with EU SUP directives. Eliminating tons of festival waste, industrial HACCP cleaning tunnels, and striking custom brand printing.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 16h32" stroke-width="3" />
+            <path d="M22 13h20" stroke-width="2" />
+            <path d="M19 16l4 34a3 3 0 0 0 3 2.5h12a3 3 0 0 0 3-2.5l4-34" />
+            <path d="M26 35c0-6 6-9 12-9c0 6-6 9-12 9z" fill="rgba(250,203,125,0.15)" stroke-width="2"/>
+            <path d="M26 35c3-2 6-4 12-9" stroke-width="1.5"/>
+          </svg>
+        `,
+        services: [
+          { nr: '01', name: 'Certified Reusable Cups', desc: 'Durable, premium polypropylene BPA-free cups in 0.3L, 0.4L, and 0.5L standard formats.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>` },
+          { nr: '02', name: 'Integrated Deposit Workflow', desc: 'Seamless deposit handling at bars and dedicated Cup Return collection hubs with live fiscal syncing.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>` },
+          { nr: '03', name: 'Industrial HACCP Washing Lines', desc: 'Automated high-temperature sterilization, sanitization, and drying in industrial washer tunnels.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>` },
+          { nr: '04', name: 'Custom Branding & Sponsor Ads', desc: 'High-definition full-color IML printing showcasing festival artwork and headline corporate sponsors.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>` },
+          { nr: '05', name: 'SUP Directives Compliance', desc: 'Helping organizers meet stringent European environmental policies while substantially reducing cleanup costs.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>` }
+        ],
+        slides: [
+          { url: 'assets/images/gallery/ArtBar02.03-45-z-462-1-scaled.jpg', galleryIndex: 24 },
+          { url: 'assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg', galleryIndex: 0 },
+          { url: 'assets/images/gallery/ArtBar02.03-101-z-462-scaled.jpg', galleryIndex: 25 }
+        ]
+      },
+      lod: {
+        key: 'Ice',
+        badge: 'In-House Hoshizaki Ice Plant',
+        title: 'The Ice Philosophy: Crystal Purity & Dedicated Freezer Fleet',
+        subtitle: 'PROPRIETARY ICE PRODUCTION FACTORY',
+        lead: 'Our own industrial manufacturing of gourmet ice cubes and crushed ice on world-class Japanese Hoshizaki machines. Mobile refrigerated fleet (-18°C), thermal storage containers, dry ice, and bespoke gala ice sculptures.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="18,22 24,15 32,18 26,25" />
+            <polygon points="31,17 38,12 46,16 39,23" />
+            <polygon points="25,23 35,21 37,27 27,28" />
+            <polygon points="41,20 49,18 52,24 45,26" />
+            <path d="M12 26h40l-5 24a3 3 0 0 1-3 2.5H20a3 3 0 0 1-3-2.5L12 26z" />
+            <path d="M32 34v12M26 40h12M28 36l8 8M36 36l-8 8" stroke-width="1.8"/>
+            <circle cx="32" cy="40" r="1.5" fill="#FACB7D"/>
+          </svg>
+        `,
+        services: [
+          { nr: '01', name: 'Crystal Clear Ice Cubes', desc: 'Ultra-dense, slow-melting gourmet cubes manufactured on premier Hoshizaki generators.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2v20M2 12h20m-2-2-1.5 2 1.5 2M4 10l-1.5 2L4 14m6 10-1.25-2.5L6 18m4-14L8.75 6.5 6 6m8 14 1.25-2.5L18 18m-4-14 1.25 2.5L18 6m-1 15 3-6-1.5-3m0-6 1.5-3L17 3M3 4l1.5 3L6 6m-3 14 1.5-3L6 18m4 3-3-6 1.5-3m0-6-1.5-3L7 3"/></svg>` },
+          { nr: '02', name: 'Gourmet Crushed Ice', desc: 'Perfect granulation for mojitos, caipirinhas, and luxurious champagne bottle chilling displays.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>` },
+          { nr: '03', name: 'Dry Ice (-78.5°C)', desc: 'For theatrical smoke cascades, misting cocktail presentations, and molecular gastronomic chilling.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>` },
+          { nr: '04', name: 'Ice Sculptures & Brand Blocks', desc: 'Bespoke hand-carved ice sculptures and crystal blocks embedding fresh flowers, logos, or spirits bottles.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>` },
+          { nr: '05', name: 'Dedicated Freezer Fleet', desc: 'Our own fleet of refrigerated trucks (-18°C) and heavy insulated silos guaranteeing multi-ton continuous delivery.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM2 5h11v11H2V5zm11 3h4l3 3v5h-7V8z"/></svg>` }
+        ],
+        slides: [
+          { url: 'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg', galleryIndex: 23 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-20-1.jpg', galleryIndex: 19 },
+          { url: 'assets/images/gallery/ArtBar02.03-18-z-462-scaled.jpg', galleryIndex: 26 }
+        ]
+      },
+      obsluga: {
+        key: 'Staffing',
+        badge: 'Trained Hospitality Workforce',
+        title: 'The Staffing Philosophy: Bartending Elite & Hospitality Culture',
+        subtitle: 'HIGHLY TRAINED HOSPITALITY WORKFORCE',
+        lead: 'A vetted pool of over 200 rigorously trained bartenders, barbacks, master baristas, and zone supervisors. Polished service standards, coordinated uniforms, and exceptional composure under peak event rushes.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 22c0-5 3.5-9 8-9s8 4 8 9v3a8 8 0 0 1-16 0v-3z" />
+            <path d="M24 20c2-3 5-5 8-5s6 2 8 5" />
+            <path d="M27 34l5 4 5-4" />
+            <polygon points="27,39 37,39 32,42" fill="rgba(250,203,125,0.3)"/>
+            <polygon points="27,45 37,45 32,42" fill="rgba(250,203,125,0.3)"/>
+            <circle cx="32" cy="42" r="1.5" fill="#FACB7D"/>
+            <path d="M16 52c0-8 6-12 11-13l5 5 5-5c5 1 11 5 11 13" />
+            <path d="M27 46v6M37 46v6" />
+          </svg>
+        `,
+        services: [
+          { nr: '01', name: 'Mixologists & Flair Bartenders', desc: 'Craft cocktail mixology specialists providing dynamic, captivating service even during peak volume hours.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>` },
+          { nr: '02', name: 'High-Pace Barbacks', desc: 'Unbroken replenishment of glassware, cups, fresh ice, fruits, and spirits stock directly behind the bar.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>` },
+          { nr: '03', name: 'Bar Zone Supervisors', desc: 'Rigorous oversight of fiscal compliance, staff shift rotas, and queue management throughout the night.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>` },
+          { nr: '04', name: 'Coordinated Elite Uniforms', desc: 'Elegant, matching artisan aprons and styling aligned with the upscale aesthetic of your corporate event or festival.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3l3.057 6.114a1 1 0 00.894.553h6.098a1 1 0 00.894-.553L19 3l-3 15H8L5 3z"/></svg>` },
+          { nr: '05', name: 'HACCP & ArtPOS Certified', desc: 'Every crew member completes mandatory food safety protocols and speedy POS register operation certifications.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>` }
+        ],
+        slides: [
+          { url: 'assets/images/gallery/OczkiHalloween-106-of-592-3-scaled.jpg', galleryIndex: 10 },
+          { url: 'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-34-2.jpg', galleryIndex: 12 },
+          { url: 'assets/images/gallery/ArtBar02.03-353-z-462-scaled.jpg', galleryIndex: 27 }
+        ]
+      },
+      logistyka: {
+        key: 'Logistics',
+        badge: 'Fleet Transit & Warehousing',
+        title: 'The Logistics Philosophy: Just-In-Time Precision & Safety',
+        subtitle: 'TRANSPORT, WAREHOUSING, INVENTORY DISPATCH',
+        lead: 'Our own delivery fleet and refrigerated vehicles, strategic warehouse facilities, and disciplined Just-In-Time supply procedures. Safe freight transit, on-time arrivals, and expert rigging anywhere nationwide.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 28h5M6 34h9M10 40h4" stroke-width="2"/>
+            <path d="M30 14a4 4 0 0 1 4 4c0 3-4 7-4 7s-4-4-4-7a4 4 0 0 1 4-4z" />
+            <circle cx="30" cy="18" r="1.5" fill="#FACB7D"/>
+            <rect x="18" y="25" width="22" height="18" rx="1.5" />
+            <path d="M40 31h8l4 6v6h-12v-12z" />
+            <path d="M43 32h5l2.5 4h-7.5v-4z" />
+            <circle cx="26" cy="45" r="4" stroke-width="2" fill="#0c0c0c"/>
+            <circle cx="46" cy="45" r="4" stroke-width="2" fill="#0c0c0c"/>
+            <path d="M18 43h4M30 43h12M50 43h3" />
+          </svg>
+        `,
+        services: [
+          { nr: '01', name: 'Refrigerated & Transport Fleet', desc: 'Vehicles equipped with sub-zero freezing units, hydraulic lifts, and trucks customized for festival grounds.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM2 5h11v11H2V5zm11 3h4l3 3v5h-7V8z"/></svg>` },
+          { nr: '02', name: 'High-Bay Warehousing', desc: 'Secure logistics hubs featuring climate-controlled storage and regulated security for excise goods.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>` },
+          { nr: '03', name: 'Just-In-Time Deliveries', desc: 'Disciplined supply schedules prior to, throughout, and after event hours to eliminate congestion.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>` },
+          { nr: '04', name: 'Real-Time GPS Fleet Telemetry', desc: 'Live vehicle tracking and real-time cargo temperature monitoring to ensure absolute cold-chain integrity.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>` },
+          { nr: '05', name: 'Inventory & Swift Teardown', desc: 'Rapid post-event dismantling and stock inventory strictly compliant with venue handover timelines.', icon: `<svg class="w-8 h-8 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>` }
+        ],
+        slides: [
+          { url: 'assets/images/gallery/2024.12.31-Art-Bar-81-1-1536x1024.jpg', galleryIndex: 28 },
+          { url: 'assets/images/gallery/ArtBar02.03-188-z-462-scaled.jpg', galleryIndex: 29 },
+          { url: 'assets/images/gallery/ArtBar02.03-270-z-462-scaled.jpg', galleryIndex: 30 }
         ]
       }
     };
+
+    // Alias kompatybilności
+    OFFER_PILLARS_DATA.solutions = OFFER_PILLARS_DATA.artpos;
+    const DEPT_ORDER = ['art', 'bar', 'artpos', 'kubki-eco', 'lod', 'obsluga', 'logistyka'];
 
     // ── OBSŁUGA WYSKAKUJĄCEJ RAMKI / MODALA OFERTY (ARTBAR & SOLUTIONS) ─
     let activeOfferCat = 'art';
@@ -2169,7 +2393,7 @@
       currentOfferSlideIdx = 0;
 
       // Zaktualizuj zakładki wewnątrz wyskakującej ramki
-      document.querySelectorAll('.modal-tab-btn').forEach(tab => {
+      document.querySelectorAll('#offer-modal-tabs .modal-tab-btn').forEach(tab => {
         const tabCat = tab.getAttribute('data-tab');
         if (tabCat === catKey) {
           tab.className = 'modal-tab-btn rounded-lg font-bold uppercase tracking-wider transition-all flex items-center border bg-[#FACB7D] text-black border-[#FACB7D] cursor-pointer shadow-[0_0_15px_rgba(250,203,125,0.3)]';
@@ -2261,7 +2485,7 @@
     });
 
     // Zakładki wewnątrz wyskakującej ramki
-    document.querySelectorAll('.modal-tab-btn').forEach(tab => {
+    document.querySelectorAll('#offer-modal-tabs .modal-tab-btn').forEach(tab => {
       tab.addEventListener('click', () => {
         const cat = tab.getAttribute('data-tab');
         switchOfferModalCategory(cat);
@@ -2290,47 +2514,372 @@
     modalCleanSlideshow?.addEventListener('mouseenter', stopOfferAutoplay);
     modalCleanSlideshow?.addEventListener('mouseleave', startOfferAutoplay);
 
-    // ── AUTOMATYCZNY POKAZ ZDJĘĆ NA KARTACH KATEGORII NA STRONIE GŁÓWNEJ (CO 4 SEKUNDY) ─
-    const cardSlideshowState = {
-      art: { idx: 0, slot: 1 },
-      bar: { idx: 0, slot: 1 },
-      solutions: { idx: 0, slot: 1 }
-    };
+    // ── SILNIK RADIALNEGO MENU 3D & RESPONSYWNA SIATKA ─────────────────────────
+    const radialStage = document.getElementById('radial-stage');
+    const radialNodesContainer = document.getElementById('radial-nodes-container');
+    const radial3dWrapper = document.getElementById('radial-3d-wrapper');
+    const radialGridWrapper = document.getElementById('radial-grid-wrapper');
+    const gridCardsContainer = document.getElementById('grid-cards-container');
+    const centerActiveTitle = document.getElementById('center-active-title');
 
-    function advanceCardSlideshow(catKey) {
-      const data = OFFER_PILLARS_DATA[catKey];
-      if (!data || !data.slides || data.slides.length <= 1) return;
+    const viewMode3dBtn = document.getElementById('view-mode-3d-btn');
+    const viewModeGridBtn = document.getElementById('view-mode-grid-btn');
 
-      const state = cardSlideshowState[catKey];
-      state.idx = (state.idx + 1) % data.slides.length;
-      const nextSlide = data.slides[state.idx];
+    let radRadiusX = 420;
+    let radRadiusY = 240;
+    let radRadiusZ = 280;
 
-      const img1 = document.getElementById(`card-clean-img-${catKey}-1`);
-      const img2 = document.getElementById(`card-clean-img-${catKey}-2`);
-      if (!img1 || !img2) return;
+    let radCurrentAngle = 0;
+    let radRotationVelocity = 0;
+    let radIsAutoSpinning = true;
+    let radAutoSpinSpeed = 0.0022;
 
-      if (state.slot === 1) {
-        img2.src = nextSlide.url;
-        img2.classList.remove('opacity-0');
-        img2.classList.add('opacity-100');
-        img1.classList.remove('opacity-100');
-        img1.classList.add('opacity-0');
-        state.slot = 2;
+    let radIsDragging = false;
+    let radLastDragX = 0;
+
+    let radMouseTiltX = 0;
+    let radMouseTiltY = 0;
+    let radCurrentTiltX = 0;
+    let radCurrentTiltY = 0;
+
+    const radNodeElements = [];
+
+    function initRadial3DNodes() {
+      if (!radialNodesContainer) return;
+      radialNodesContainer.innerHTML = '';
+      radNodeElements.length = 0;
+
+      DEPT_ORDER.forEach((catKey, idx) => {
+        const dept = OFFER_PILLARS_DATA[catKey];
+        if (!dept) return;
+
+        const itemEl = document.createElement('div');
+        itemEl.className = 'radial-node-item pointer-events-auto';
+        itemEl.setAttribute('data-category', catKey);
+
+        itemEl.innerHTML = `
+          <div class="radial-node-card w-[160px] sm:w-[185px]">
+            <div class="icon-badge-box">
+              ${dept.iconSvg}
+            </div>
+            <h4 class="font-serif-luxury text-base sm:text-lg font-bold text-white mb-1 leading-tight group-hover:text-[#FACB7D]">
+              ${dept.key}
+            </h4>
+            <p class="text-[9px] sm:text-[9.5px] text-[#FACB7D] font-bold tracking-wider uppercase leading-snug">
+              ${dept.subtitle}
+            </p>
+          </div>
+        `;
+
+        itemEl.addEventListener('click', () => {
+          focusRadialDept(idx);
+          openOfferModal(catKey);
+        });
+
+        itemEl.addEventListener('mouseenter', () => {
+          if (centerActiveTitle) centerActiveTitle.textContent = dept.key;
+          itemEl.classList.add('is-active');
+        });
+
+        itemEl.addEventListener('mouseleave', () => {
+          itemEl.classList.remove('is-active');
+          const closest = getClosestFrontDeptIndex();
+          if (centerActiveTitle && OFFER_PILLARS_DATA[DEPT_ORDER[closest]]) {
+            centerActiveTitle.textContent = OFFER_PILLARS_DATA[DEPT_ORDER[closest]].key;
+          }
+        });
+
+        radialNodesContainer.appendChild(itemEl);
+        radNodeElements.push(itemEl);
+      });
+    }
+
+    function renderRadialGridView() {
+      if (!gridCardsContainer) return;
+      gridCardsContainer.innerHTML = '';
+
+      DEPT_ORDER.forEach((catKey) => {
+        const dept = OFFER_PILLARS_DATA[catKey];
+        if (!dept) return;
+
+        const card = document.createElement('div');
+        card.className = 'offer-pillar-card p-6 sm:p-7 rounded-2xl bg-[#0c0c0c] border border-[#FACB7D]/25 hover:border-[#FACB7D] transition-all duration-300 shadow-xl hover:shadow-[0_0_30px_rgba(250,203,125,0.2)] flex flex-col justify-between cursor-pointer group';
+        card.setAttribute('data-category', catKey);
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-14 h-14 rounded-xl bg-[#FACB7D]/10 border border-[#FACB7D]/40 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(250,203,125,0.15)]">
+                ${dept.iconSvg}
+              </div>
+              <div>
+                <h4 class="font-serif-luxury text-xl font-bold text-white group-hover:text-[#FACB7D] transition-colors">
+                  ${dept.key}
+                </h4>
+                <span class="text-[9.5px] text-[#FACB7D] font-bold tracking-wider uppercase block">
+                  ${dept.subtitle}
+                </span>
+              </div>
+            </div>
+            <p class="text-xs text-[#f5efe6]/70 leading-relaxed font-light mb-6">
+              ${dept.lead}
+            </p>
+          </div>
+          <button type="button" class="solid-gold-btn w-full py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md">
+            <span>Discover Details</span>
+            <span>↗</span>
+          </button>
+        `;
+
+        card.addEventListener('click', () => {
+          openOfferModal(catKey);
+        });
+
+        gridCardsContainer.appendChild(card);
+      });
+    }
+
+    function updateRadialDimensions() {
+      if (!radial3dWrapper) return;
+      const w = radial3dWrapper.clientWidth;
+      if (w < 640) {
+        radRadiusX = 180;
+        radRadiusY = 120;
+        radRadiusZ = 140;
+      } else if (w < 1024) {
+        radRadiusX = 300;
+        radRadiusY = 170;
+        radRadiusZ = 200;
+      } else if (w < 1440) {
+        radRadiusX = 410;
+        radRadiusY = 220;
+        radRadiusZ = 260;
       } else {
-        img1.src = nextSlide.url;
-        img1.classList.remove('opacity-0');
-        img1.classList.add('opacity-100');
-        img2.classList.remove('opacity-100');
-        img2.classList.add('opacity-0');
-        state.slot = 1;
+        radRadiusX = 460;
+        radRadiusY = 250;
+        radRadiusZ = 300;
+      }
+
+      const svgEllipseBase = document.querySelector('#orbit-svg ellipse:first-of-type');
+      const svgEllipseDash = document.querySelector('#orbit-svg .orbit-ellipse-dashed');
+      if (svgEllipseBase && svgEllipseDash) {
+        svgEllipseBase.setAttribute('rx', radRadiusX);
+        svgEllipseBase.setAttribute('ry', radRadiusY);
+        svgEllipseDash.setAttribute('rx', radRadiusX);
+        svgEllipseDash.setAttribute('ry', radRadiusY);
       }
     }
 
-    let cardsSlideshowInterval = setInterval(() => {
-      advanceCardSlideshow('art');
-      setTimeout(() => advanceCardSlideshow('bar'), 650);
-      setTimeout(() => advanceCardSlideshow('solutions'), 1300);
-    }, 4000);
+    function getClosestFrontDeptIndex() {
+      let maxZ = -Infinity;
+      let frontIdx = 0;
+      const count = DEPT_ORDER.length;
+      for (let i = 0; i < count; i++) {
+        const phi = radCurrentAngle + (i * 2 * Math.PI) / count;
+        const z = Math.sin(phi);
+        if (z > maxZ) {
+          maxZ = z;
+        }
+      }
+      return frontIdx;
+    }
+
+    function radialRenderLoop() {
+      if (!radial3dWrapper || radial3dWrapper.classList.contains('hidden')) {
+        requestAnimationFrame(radialRenderLoop);
+        return;
+      }
+
+      if (!radIsDragging) {
+        if (radIsAutoSpinning) {
+          radCurrentAngle += radAutoSpinSpeed;
+        } else if (Math.abs(radRotationVelocity) > 0.0001) {
+          radCurrentAngle += radRotationVelocity;
+          radRotationVelocity *= 0.94;
+        }
+      }
+
+      radCurrentTiltX += (radMouseTiltX - radCurrentTiltX) * 0.08;
+      radCurrentTiltY += (radMouseTiltY - radCurrentTiltY) * 0.08;
+
+      if (radialStage) {
+        radialStage.style.transform = `rotateX(${radCurrentTiltX}deg) rotateY(${radCurrentTiltY}deg)`;
+      }
+
+      const count = DEPT_ORDER.length;
+      const step = (2 * Math.PI) / count;
+
+      radNodeElements.forEach((el, i) => {
+        const angle = radCurrentAngle + i * step;
+        const x = Math.cos(angle) * radRadiusX;
+        const y = Math.sin(angle) * (radRadiusY * 0.45);
+        const z = Math.sin(angle) * radRadiusZ;
+
+        const normZ = (z + radRadiusZ) / (2 * radRadiusZ);
+        const scale = 0.82 + normZ * 0.38;
+        const opacity = 0.55 + normZ * 0.45;
+        const zIndex = Math.round(normZ * 200) + 10;
+        const blur = (1 - normZ) * 2;
+
+        el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
+        el.style.opacity = opacity;
+        el.style.zIndex = zIndex;
+        el.style.filter = blur > 0.8 ? `blur(${blur.toFixed(1)}px)` : 'none';
+      });
+
+      const closestIdx = getClosestFrontDeptIndex();
+      if (centerActiveTitle && !document.querySelector('.radial-node-item:hover')) {
+        const dept = OFFER_PILLARS_DATA[DEPT_ORDER[closestIdx]];
+        if (dept) centerActiveTitle.textContent = dept.key;
+      }
+
+      requestAnimationFrame(radialRenderLoop);
+    }
+
+    // Drag / Touch & Parallax
+    if (radial3dWrapper) {
+      radial3dWrapper.addEventListener('mousedown', (e) => {
+        if (e.target.closest('button') || e.target.closest('#center-hub')) return;
+        radIsDragging = true;
+        radLastDragX = e.clientX;
+        radial3dWrapper.classList.remove('cursor-grab');
+        radial3dWrapper.classList.add('cursor-grabbing');
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!radial3dWrapper || radial3dWrapper.classList.contains('hidden')) return;
+        const rect = radial3dWrapper.getBoundingClientRect();
+        const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+        const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+        
+        radMouseTiltY = relX * 12;
+        radMouseTiltX = -relY * 8;
+
+        if (radIsDragging) {
+          const deltaX = e.clientX - radLastDragX;
+          radLastDragX = e.clientX;
+          const angleDelta = deltaX * 0.005;
+          radCurrentAngle += angleDelta;
+          radRotationVelocity = angleDelta;
+        }
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (radIsDragging) {
+          radIsDragging = false;
+          radial3dWrapper?.classList.remove('cursor-grabbing');
+          radial3dWrapper?.classList.add('cursor-grab');
+        }
+      });
+
+      radial3dWrapper.addEventListener('touchstart', (e) => {
+        if (e.target.closest('button') || e.target.closest('#center-hub')) return;
+        radIsDragging = true;
+        radLastDragX = e.touches[0].clientX;
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (radIsDragging && e.touches[0]) {
+          const deltaX = e.touches[0].clientX - radLastDragX;
+          radLastDragX = e.touches[0].clientX;
+          const angleDelta = deltaX * 0.006;
+          radCurrentAngle += angleDelta;
+          radRotationVelocity = angleDelta;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => {
+        radIsDragging = false;
+      });
+    }
+
+    // Przyciski sterowania 3D
+    const btnRadPrev = document.getElementById('btn-rot-prev');
+    const btnRadNext = document.getElementById('btn-rot-next');
+    const btnRadReset = document.getElementById('btn-rot-reset');
+    const btnRadToggleSpin = document.getElementById('btn-toggle-spin');
+    const radSpinIndicator = document.getElementById('spin-indicator');
+    const radSpinBtnText = document.getElementById('spin-btn-text');
+
+    function rotateRadialByStep(direction) {
+      radIsAutoSpinning = false;
+      updateRadSpinUI();
+      const step = (2 * Math.PI) / DEPT_ORDER.length;
+      radRotationVelocity = direction * step * 0.08;
+      radCurrentAngle += direction * step;
+    }
+
+    btnRadPrev?.addEventListener('click', () => rotateRadialByStep(-1));
+    btnRadNext?.addEventListener('click', () => rotateRadialByStep(1));
+
+    btnRadReset?.addEventListener('click', () => {
+      radCurrentAngle = 0;
+      radRotationVelocity = 0;
+      radMouseTiltX = 0;
+      radMouseTiltY = 0;
+    });
+
+    btnRadToggleSpin?.addEventListener('click', () => {
+      radIsAutoSpinning = !radIsAutoSpinning;
+      updateRadSpinUI();
+    });
+
+    function updateRadSpinUI() {
+      if (radIsAutoSpinning) {
+        if (radSpinIndicator) radSpinIndicator.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+        if (radSpinBtnText) radSpinBtnText.textContent = 'Auto: ON';
+      } else {
+        if (radSpinIndicator) radSpinIndicator.className = 'w-2 h-2 rounded-full bg-amber-400';
+        if (radSpinBtnText) radSpinBtnText.textContent = 'Auto: OFF';
+      }
+    }
+
+    function focusRadialDept(targetIdx) {
+      radIsAutoSpinning = false;
+      updateRadSpinUI();
+      const count = DEPT_ORDER.length;
+      const targetPhi = Math.PI / 2;
+      const currentDeptAngle = (radCurrentAngle + (targetIdx * 2 * Math.PI) / count) % (2 * Math.PI);
+      const diff = targetPhi - currentDeptAngle;
+      radCurrentAngle += diff;
+    }
+
+    // Przełączanie widoku: 3D / Siatka
+    function setRadialViewMode(mode) {
+      if (mode === 'grid') {
+        radial3dWrapper?.classList.add('hidden');
+        radialGridWrapper?.classList.remove('hidden');
+        if (viewModeGridBtn) viewModeGridBtn.className = 'px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)] cursor-pointer';
+        if (viewMode3dBtn) viewMode3dBtn.className = 'px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white cursor-pointer';
+        renderRadialGridView();
+      } else {
+        radialGridWrapper?.classList.add('hidden');
+        radial3dWrapper?.classList.remove('hidden');
+        if (viewMode3dBtn) viewMode3dBtn.className = 'px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)] cursor-pointer';
+        if (viewModeGridBtn) viewModeGridBtn.className = 'px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white cursor-pointer';
+        updateRadialDimensions();
+      }
+    }
+
+    viewMode3dBtn?.addEventListener('click', () => setRadialViewMode('3d'));
+    viewModeGridBtn?.addEventListener('click', () => setRadialViewMode('grid'));
+
+    function checkResponsiveViewMode() {
+      if (window.innerWidth < 1024) {
+        setRadialViewMode('grid');
+      } else {
+        setRadialViewMode('3d');
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      updateRadialDimensions();
+    });
+
+    initRadial3DNodes();
+    updateRadialDimensions();
+    radialRenderLoop();
+    checkResponsiveViewMode();
 
     // ── AUTOMATYCZNY SLIDESHOW W SEKCJI O NAS (CO 4 SEKUNDY) ───────────────────
     const aboutPhotos = [
