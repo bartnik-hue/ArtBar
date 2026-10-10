@@ -87,7 +87,14 @@
       transform-style: preserve-3d;
       will-change: transform, opacity, filter;
       cursor: pointer;
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: filter 0.25s ease, opacity 0.25s ease;
+    }
+
+    .radial-node-item:hover,
+    .radial-node-item.is-active {
+      filter: none !important;
+      opacity: 1 !important;
+      z-index: 9999 !important;
     }
 
     .radial-node-card {
@@ -115,7 +122,7 @@
       box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.95),
                   0 0 35px 5px rgba(250, 203, 125, 0.35),
                   inset 0 1px 2px 0 rgba(255, 245, 215, 0.5);
-      transform: translateY(-4px) scale(1.05);
+      transform: translateY(-4px) scale(1.08);
     }
 
     /* BADGE IKONY */
@@ -341,12 +348,12 @@
         </svg>
 
         <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS (BEZ CZARNEJ RAMKI) -->
-        <div id="center-hub" class="absolute z-20 flex flex-col items-center justify-center text-center pointer-events-auto select-none hover:scale-105">
+        <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-none select-none transition-transform duration-500 hover:scale-105">
           <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-28 sm:h-32 md:h-36 w-auto filter drop-shadow-[0_0_28px_rgba(250,203,125,0.7)] drop-shadow-[0_0_50px_rgba(0,0,0,0.85)] brightness-110 pointer-events-none select-none transition-transform duration-500 hover:scale-105">
         </div>
 
         <!-- 7 PIKTOGRAMÓW (WĘZŁÓW) ROZMIESZCZONYCH W PRZESTRZENI 3D -->
-        <div id="radial-nodes-container" class="absolute inset-0 pointer-events-none">
+        <div id="radial-nodes-container" class="absolute inset-0 pointer-events-none" style="transform-style: preserve-3d;">
           <!-- Węzły zostaną wygenerowane i pozycjonowane dynamicznie przez JavaScript -->
         </div>
 
@@ -772,8 +779,11 @@
     let autoSpinSpeed = -0.00022; // Subtelna prędkość majestatycznego obrotu w prawo
 
     // Obsługa przeciągania myszą / dotykiem (Drag & Inertia)
+    let isPointerDown = false;
     let isDragging = false;
+    let hasDragged = false;
     let startX = 0;
+    let startY = 0;
     let lastDragX = 0;
     let dragVelocity = 0;
 
@@ -810,8 +820,9 @@
           </div>
         `;
 
-        // Kliknięcie w węzeł powoli obraca pierścień na wprost, a po dojechaniu otwiera szczegóły
+        // Kliknięcie w węzeł (jeśli nie było przeciągnięcia) obraca pierścień na wprost i otwiera szczegóły
         itemEl.addEventListener('click', () => {
+          if (hasDragged) return;
           focusDepartment(idx, () => {
             openDeptModal(idx);
           });
@@ -923,8 +934,8 @@
       if (!isDragging) {
         if (targetAngle !== null) {
           const diff = targetAngle - currentAngle;
-          if (Math.abs(diff) > 0.001) {
-            currentAngle += diff * 0.055; // Płynne przekręcenie pierścienia
+          if (Math.abs(diff) > 0.004) {
+            currentAngle += diff * 0.065; // Płynne przekręcenie pierścienia
           } else {
             currentAngle = targetAngle;
             targetAngle = null;
@@ -961,10 +972,11 @@
 
           const x = Math.cos(angle) * radiusX;
           const y = Math.sin(angle) * radiusY;
-          const z = Math.sin(angle) * radiusZ;
 
           // Normalizacja Z (od 0 w tle do 1 na pierwszym planie)
           const normZ = (Math.sin(angle) + 1) / 2;
+          // Zawsze Z >= 20px, aby kafelki nigdy nie znikały za płaszczyzną sceny (z=0)
+          const z = 20 + normZ * radiusZ;
 
           // Skalowanie: z tyłu miniaturyzacja do 0.70x, z przodu 1.14x (eliminuje wszelkie nachodzenie)
           const scale = 0.70 + normZ * 0.44;
@@ -972,11 +984,13 @@
           const blur = (1 - normZ) * 1.5;
           const zIndex = Math.round(normZ * 200) + 10;
 
+          const isHovered = el.matches(':hover') || el.classList.contains('is-active');
+
           el.style.display = 'block';
           el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) scale(${scale.toFixed(3)})`;
-          el.style.opacity = opacity.toFixed(2);
-          el.style.zIndex = zIndex;
-          el.style.filter = blur > 0.25 ? `blur(${blur.toFixed(1)}px)` : 'none';
+          el.style.opacity = isHovered ? '1' : opacity.toFixed(2);
+          el.style.zIndex = isHovered ? '9999' : zIndex;
+          el.style.filter = isHovered ? 'none' : (blur > 0.25 ? `blur(${blur.toFixed(1)}px)` : 'none');
         });
       } else {
         // ══════════════════════════════════════════════════
@@ -997,17 +1011,19 @@
 
           const x = Math.sin(rel) * arcRadius;
           const y = arcBaseY - (1 - Math.cos(rel)) * 18;
-          const z = (Math.cos(rel) - 1) * arcDepthZ;
-          const rotY = -rel * (180 / Math.PI) * 0.65; // Kąt nachylenia ku środkowi ekranu
           const cosRel = Math.cos(rel);
+          const z = 20 + cosRel * arcDepthZ;
+          const rotY = -rel * (180 / Math.PI) * 0.65; // Kąt nachylenia ku środkowi ekranu
           const scale = 0.84 + cosRel * 0.28;
           const opacity = Math.max(0, 1 - Math.pow(Math.abs(rel) / 1.55, 2.6));
           const zIndex = Math.round(cosRel * 100) + 10;
 
+          const isHovered = el.matches(':hover') || el.classList.contains('is-active');
+
           el.style.display = 'block';
           el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${rotY.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
-          el.style.opacity = opacity.toFixed(2);
-          el.style.zIndex = zIndex;
+          el.style.opacity = isHovered ? '1' : opacity.toFixed(2);
+          el.style.zIndex = isHovered ? '9999' : zIndex;
           el.style.filter = 'none';
         });
       }
@@ -1027,13 +1043,11 @@
     wrapper.addEventListener('mousedown', (e) => {
       // Ignoruj kliknięcia w przyciski i centrum
       if (e.target.closest('button') || e.target.closest('#center-hub')) return;
-      isDragging = true;
-      targetAngle = null;
-      focusCallback = null;
+      isPointerDown = true;
+      hasDragged = false;
       startX = e.clientX;
+      startY = e.clientY;
       lastDragX = e.clientX;
-      wrapper.classList.remove('cursor-grab');
-      wrapper.classList.add('cursor-grabbing');
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -1044,6 +1058,18 @@
       
       mouseTiltY = relX * 5; // Delikatne odchylenie poziome do 5 stopni
       mouseTiltX = -relY * 3.5; // Delikatne odchylenie pionowe do 3.5 stopnia
+
+      if (isPointerDown) {
+        const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
+        if (dist > 5) {
+          isDragging = true;
+          hasDragged = true;
+          targetAngle = null;
+          focusCallback = null;
+          wrapper.classList.remove('cursor-grab');
+          wrapper.classList.add('cursor-grabbing');
+        }
+      }
 
       // Przeciąganie (ruch myszą w prawo = obrót w prawo)
       if (isDragging) {
@@ -1056,6 +1082,7 @@
     });
 
     window.addEventListener('mouseup', () => {
+      isPointerDown = false;
       if (isDragging) {
         isDragging = false;
         wrapper.classList.remove('cursor-grabbing');
@@ -1066,15 +1093,26 @@
     // Obsługa dotyku (Touch Swipe na urządzeniach mobilnych)
     wrapper.addEventListener('touchstart', (e) => {
       if (e.target.closest('button') || e.target.closest('#center-hub')) return;
-      isDragging = true;
-      targetAngle = null;
-      focusCallback = null;
+      if (!e.touches[0]) return;
+      isPointerDown = true;
+      hasDragged = false;
       startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
       lastDragX = e.touches[0].clientX;
     }, { passive: true });
 
     window.addEventListener('touchmove', (e) => {
-      if (isDragging && e.touches[0]) {
+      if (!e.touches[0]) return;
+      if (isPointerDown) {
+        const dist = Math.hypot(e.touches[0].clientX - startX, e.touches[0].clientY - startY);
+        if (dist > 6) {
+          isDragging = true;
+          hasDragged = true;
+          targetAngle = null;
+          focusCallback = null;
+        }
+      }
+      if (isDragging) {
         const deltaX = e.touches[0].clientX - lastDragX;
         lastDragX = e.touches[0].clientX;
         const angleDelta = -deltaX * 0.006;
@@ -1084,6 +1122,7 @@
     }, { passive: true });
 
     window.addEventListener('touchend', () => {
+      isPointerDown = false;
       isDragging = false;
     });
 
@@ -1161,10 +1200,9 @@
         targetAngle = currentAngle - rel;
       } else {
         const targetPhi = Math.PI / 2; // Przód to kąt pi/2 (sin = 1)
-        const currentDeptAngle = (currentAngle + (targetIdx * 2 * Math.PI) / count) % (2 * Math.PI);
+        const currentDeptAngle = currentAngle + (targetIdx * 2 * Math.PI) / count;
         let diff = targetPhi - currentDeptAngle;
-        while (diff < -Math.PI) diff += 2 * Math.PI;
-        while (diff > Math.PI) diff -= 2 * Math.PI;
+        diff = ((diff + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
         targetAngle = currentAngle + diff;
       }
       focusCallback = callback;
