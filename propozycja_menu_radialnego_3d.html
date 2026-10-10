@@ -299,13 +299,12 @@
           <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="480" ry="260" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
         </svg>
 
-        <!-- SERCE CENTRUM: LOGO ARTBAR + GŁÓWNY TYTUŁ Z KONCEPCJI -->
-        <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-auto max-w-[420px] px-6 py-8 rounded-3xl bg-black/60 backdrop-blur-md border border-[#FACB7D]/25 shadow-[0_0_60px_rgba(0,0,0,0.9)] transition-all duration-500 hover:border-[#FACB7D]/60 hover:shadow-[0_0_80px_rgba(250,203,125,0.25)]">
-          <!-- Monolityczne złote logo ArtBar z pliku koncepcji -->
-          <div class="mb-4 relative group">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto flex items-center justify-center">
-              <svg viewBox="0 0 100 100" class="w-full h-full filter drop-shadow-[0_0_20px_rgba(250,203,125,0.6)]">
-                <!-- Złote kolumny logo ArtBar -->
+        <!-- SERCE CENTRUM: TYLKO LOGO ARTBAR SOLUTIONS -->
+        <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-auto select-none transition-transform duration-500 hover:scale-105">
+          <div class="relative flex flex-col items-center justify-center px-7 py-6 rounded-3xl bg-black/40 backdrop-blur-md border border-[#FACB7D]/25 shadow-[0_0_50px_rgba(0,0,0,0.85),0_0_25px_rgba(250,203,125,0.15)] group">
+            <!-- Złote kolumny logo ArtBar -->
+            <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto flex items-center justify-center mb-1.5">
+              <svg viewBox="0 0 100 100" class="w-full h-full filter drop-shadow-[0_0_20px_rgba(250,203,125,0.65)]">
                 <path d="M15 15 L25 15 L25 85 L15 85 Z" fill="#FACB7D" opacity="0.9"/>
                 <path d="M30 25 L40 25 L40 85 L30 85 Z" fill="#FACB7D" opacity="0.95"/>
                 <path d="M45 35 L55 35 L55 85 L45 85 Z" fill="#FACB7D" opacity="1"/>
@@ -314,11 +313,11 @@
               </svg>
             </div>
             <!-- Napis artbar SOLUTIONS -->
-            <div class="mt-2 text-center">
-              <span class="font-serif-luxury text-2xl sm:text-3xl font-black tracking-widest text-[#FACB7D] block">artbar</span>
-              <span class="text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-white/90 font-bold block mt-0.5">S O L U T I O N S</span>
+            <div class="text-center">
+              <span class="font-serif-luxury text-2xl sm:text-3xl font-black tracking-widest text-[#FACB7D] block leading-none">artbar</span>
+              <span class="text-[9px] sm:text-[10px] tracking-[0.45em] uppercase text-white/90 font-bold block mt-1.5">S O L U T I O N S</span>
               <!-- Kropki kwadraciki z logo -->
-              <div class="flex items-center justify-center gap-1.5 mt-2">
+              <div class="flex items-center justify-center gap-1.5 mt-2.5">
                 <span class="w-1.5 h-1.5 bg-[#FACB7D]"></span>
                 <span class="w-1.5 h-1.5 bg-[#FACB7D]"></span>
                 <span class="w-1.5 h-1.5 bg-[#FACB7D]"></span>
@@ -328,22 +327,6 @@
                 <span class="w-1.5 h-1.5 bg-[#FACB7D]"></span>
               </div>
             </div>
-          </div>
-
-          <!-- Główny slogan dokładnie jak w nowej koncepcji -->
-          <h2 class="font-serif-luxury text-xl sm:text-2xl font-extrabold text-white tracking-wide uppercase leading-tight mb-3">
-            Kompleksowa Realizacja<br>
-            <span class="gold-gradient-text">Stref Barowych</span>
-          </h2>
-          
-          <div class="inline-block px-3 py-1 bg-[#FACB7D]/15 border border-[#FACB7D]/40 rounded text-[10px] sm:text-[11px] font-bold tracking-[0.2em] text-[#FACB7D] uppercase">
-            Jeden Partner = Cała Strefa Barowa
-          </div>
-
-          <!-- Podgląd aktywnego działu w centrum -->
-          <div id="center-active-hint" class="mt-5 text-xs text-white/70 font-light flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-ping"></span>
-            <span>Aktywny dział: <strong id="center-active-title" class="text-[#FACB7D] font-bold">Wszystkie</strong></span>
           </div>
         </div>
 
@@ -755,7 +738,7 @@
     let targetAngle = null;
     let rotationVelocity = 0;
     let isAutoSpinning = true;
-    let autoSpinSpeed = 0.00022; // 10 razy wolniejszy autoobrót dla subtelnej, luksusowej dynamiki
+    let autoSpinSpeed = -0.00022; // 10 razy wolniejszy autoobrót w prawo dla subtelnej, luksusowej dynamiki
 
     // Obsługa przeciągania myszą / dotykiem (Drag & Inertia)
     let isDragging = false;
@@ -805,13 +788,13 @@
 
         // Hover podświetla w centrum
         itemEl.addEventListener('mouseenter', () => {
-          centerTitle.textContent = dept.title;
+          if (centerTitle) centerTitle.textContent = dept.title;
           itemEl.classList.add('is-active');
         });
         itemEl.addEventListener('mouseleave', () => {
           itemEl.classList.remove('is-active');
           const closestIdx = getClosestFrontIndex();
-          centerTitle.textContent = DEPARTMENTS[closestIdx].title;
+          if (centerTitle) centerTitle.textContent = DEPARTMENTS[closestIdx].title;
         });
 
         nodesContainer.appendChild(itemEl);
@@ -819,17 +802,27 @@
       });
     }
 
-    // Wyznaczenie wymiarów adaptacyjnych (Pełnoekranowe skalowanie 3D)
+    // Wyznaczenie wymiarów adaptacyjnych (Zdefiniowane proporcje bez pustych przestrzeni)
     function updateDimensions() {
       const w = wrapper.clientWidth || window.innerWidth;
       const h = wrapper.clientHeight || window.innerHeight;
 
-      // Pełnoekranowe promienie elipsy:
-      // Poziomo: optymalne wykorzystanie szerokości ekranu z marginesem na karty
-      // Pionowo: optymalne wykorzystanie wysokości ekranu z miejscem na nagłówek i pasek dolny
-      radiusX = Math.max(220, Math.min(w * 0.40, w / 2 - 130));
-      radiusY = Math.max(130, Math.min(h * 0.34, h / 2 - 110));
-      radiusZ = Math.min(95, Math.max(45, radiusY * 0.28));
+      // Zdefiniowane, zwarte promienie orbity - brak przesadnie dużych przerw między kafelkami
+      let targetRx = 350;
+      let targetRy = 195;
+
+      if (w < 860) {
+        targetRx = Math.max(190, Math.min(350, (w - 110) / 2));
+        targetRy = Math.max(115, Math.min(195, targetRx * 0.56));
+      }
+
+      if (h < 580) {
+        targetRy = Math.max(110, Math.min(targetRy, (h - 140) / 2));
+      }
+
+      radiusX = targetRx;
+      radiusY = targetRy;
+      radiusZ = Math.min(75, Math.round(radiusY * 0.35));
 
       // Aktualizacja elipsy w SVG (idealne zbieganie się z pozycjami węzłów)
       const cx = w / 2;
@@ -925,9 +918,9 @@
         el.style.filter = 'none';
       });
 
-      // Aktualizacja nazwy aktywnego działu w centrum
+      // Aktualizacja nazwy aktywnego działu w centrum (jeśli obecny)
       const closestIdx = getClosestFrontIndex();
-      if (!document.querySelector('.radial-node-item:hover')) {
+      if (centerTitle && !document.querySelector('.radial-node-item:hover')) {
         centerTitle.textContent = DEPARTMENTS[closestIdx].title;
       }
 
@@ -958,11 +951,11 @@
       mouseTiltY = relX * 5; // Delikatne odchylenie poziome do 5 stopni
       mouseTiltX = -relY * 3.5; // Delikatne odchylenie pionowe do 3.5 stopnia
 
-      // Przeciąganie koła
+      // Przeciąganie koła (ruch myszą w prawo = obrót w prawo)
       if (isDragging) {
         const deltaX = e.clientX - lastDragX;
         lastDragX = e.clientX;
-        const angleDelta = deltaX * 0.005;
+        const angleDelta = -deltaX * 0.005;
         currentAngle += angleDelta;
         rotationVelocity = angleDelta;
       }
@@ -990,7 +983,7 @@
       if (isDragging && e.touches[0]) {
         const deltaX = e.touches[0].clientX - lastDragX;
         lastDragX = e.touches[0].clientX;
-        const angleDelta = deltaX * 0.006;
+        const angleDelta = -deltaX * 0.006;
         currentAngle += angleDelta;
         rotationVelocity = angleDelta;
       }
@@ -1008,7 +1001,8 @@
       updateSpinButtonUI();
       targetAngle = null;
       focusCallback = null;
-      const wheelDelta = e.deltaY * 0.0012;
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? -e.deltaX : -e.deltaY;
+      const wheelDelta = delta * 0.0012;
       currentAngle += wheelDelta;
       rotationVelocity = wheelDelta * 0.2;
     }, { passive: false });
@@ -1029,7 +1023,7 @@
       const step = (2 * Math.PI) / DEPARTMENTS.length;
       rotationVelocity = 0;
       const base = targetAngle !== null ? targetAngle : currentAngle;
-      targetAngle = base + direction * step;
+      targetAngle = base - direction * step; // direction=1 (prawo) obraca w prawo
     }
 
     btnPrev.addEventListener('click', () => rotateByStep(-1));
