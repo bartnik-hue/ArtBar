@@ -97,7 +97,7 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(250, 203, 125, 0.35);
       border-radius: 20px;
-      padding: 18px 16px;
+      padding: 12px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -115,32 +115,37 @@
       box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.95),
                   0 0 35px 5px rgba(250, 203, 125, 0.35),
                   inset 0 1px 2px 0 rgba(255, 245, 215, 0.5);
-      transform: translateY(-6px) scale(1.06);
+      transform: translateY(-4px) scale(1.05);
     }
 
     /* BADGE IKONY */
     .icon-badge-box {
-      width: 76px;
-      height: 76px;
-      border-radius: 16px;
-      background: radial-gradient(circle at 35% 30%, rgba(45, 36, 25, 0.8) 0%, rgba(14, 14, 14, 0.9) 100%);
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 35% 30%, rgba(45, 36, 25, 0.85) 0%, rgba(14, 14, 14, 0.95) 100%);
       border: 1.5px solid rgba(250, 203, 125, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       position: relative;
       overflow: hidden;
-      box-shadow: inset 0 0 15px rgba(250, 203, 125, 0.1),
-                  0 4px 15px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 0 12px rgba(250, 203, 125, 0.12),
+                  0 4px 12px rgba(0, 0, 0, 0.6);
       transition: all 0.3s ease;
+    }
+
+    .icon-badge-box svg {
+      width: 28px;
+      height: 28px;
     }
 
     .radial-node-item:hover .icon-badge-box,
     .radial-node-item.is-active .icon-badge-box {
       border-color: #FACB7D;
-      box-shadow: inset 0 0 20px rgba(250, 203, 125, 0.25),
-                  0 0 25px rgba(250, 203, 125, 0.4);
+      box-shadow: inset 0 0 18px rgba(250, 203, 125, 0.3),
+                  0 0 20px rgba(250, 203, 125, 0.4);
       transform: scale(1.05);
     }
 
@@ -163,6 +168,23 @@
     .orbit-ellipse-dashed {
       stroke-dasharray: 6 10;
       animation: orbitDashMove 25s linear infinite;
+    }
+
+    @keyframes arcDashMove {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 90; }
+    }
+
+    .orbit-arc-dashed {
+      stroke-dasharray: 8 12;
+      animation: arcDashMove 20s linear infinite;
+    }
+
+    #center-hub {
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+    }
+    #center-hub.hub-arc-position {
+      transform: translate(-50%, -90%) scale(0.95);
     }
 
     /* PULSUJĄCE POŚWIATY */
@@ -231,7 +253,7 @@
     </div>
 
     <!-- Środkowy luksusowy napis -->
-    <div class="hidden md:flex items-center gap-2 pointer-events-auto">
+    <div class="hidden xl:flex items-center gap-2 pointer-events-auto">
       <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45"></span>
       <span class="text-xs uppercase tracking-[0.25em] text-[#FACB7D]/85 font-medium font-serif-luxury">EKOSYSTEM KOMPLEKSOWEJ OBSŁUGI • WIDOK PEŁNOEKRANOWY</span>
       <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45"></span>
@@ -245,13 +267,19 @@
         <span class="hidden sm:inline" id="fullscreen-text">Pełny Ekran</span>
       </button>
 
-      <!-- Przełącznik 3D / Siatka -->
-      <div class="flex items-center gap-1 bg-black/70 border border-[#FACB7D]/30 rounded-full p-1 backdrop-blur-md shadow-lg">
-        <button id="view-mode-3d" type="button" class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]">
-          3D
+      <!-- Przełącznik Wariantów: Wariant 1 (Orbita 3D) / Wariant 2 (Łuk 3D) / Siatka -->
+      <div class="flex items-center bg-black/80 border border-[#FACB7D]/35 rounded-full p-1 backdrop-blur-md shadow-2xl">
+        <button id="view-mode-halo" type="button" class="px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]" title="Wariant 1: Złota Orbita 3D z głębią Z">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="2" stroke-dasharray="4 4"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+          <span class="hidden md:inline">Wariant 1:</span> <span>Orbita 3D</span>
         </button>
-        <button id="view-mode-grid" type="button" class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white">
-          Siatka
+        <button id="view-mode-arc" type="button" class="px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5" title="Wariant 2: Panoramiczny Amfiteatr Cylindryczny VisionOS">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 18C7 9 17 9 21 18" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="11" r="2.5" fill="currentColor"/></svg>
+          <span class="hidden md:inline">Wariant 2:</span> <span>Łuk 3D</span>
+        </button>
+        <button id="view-mode-grid" type="button" class="px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5" title="Klasyczna responsywna siatka kart">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke-width="2"/></svg>
+          <span>Siatka</span>
         </button>
       </div>
     </div>
@@ -265,10 +293,15 @@
     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#FACB7D]/5 to-transparent blur-[140px] pointer-events-none"></div>
 
     <!-- SUBTELNA WSKAZÓWKA NA GÓRZE POD HEADEREM -->
-    <div class="absolute top-20 sm:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center px-4">
-      <p class="text-xs text-[#f5efe6]/60 font-light flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/5">
-        <svg class="w-3.5 h-3.5 text-[#FACB7D] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
-        <span>Przeciągaj lub użyj kółka myszy, aby obracać koło w 3D • Kliknij dział, aby obrócić na przód i otworzyć ofertę</span>
+    <div class="absolute top-20 sm:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center px-4 w-full max-w-xl">
+      <div id="variant-info-badge" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-[#FACB7D]/35 shadow-xl mb-1.5 transition-all duration-300">
+        <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
+        <span id="variant-title-text" class="text-[11px] sm:text-xs text-[#FACB7D] font-bold uppercase tracking-wider">
+          Wariant 1: Orbital Halo 3D • Dynamiczna Głębia Z (Zero Nakładania)
+        </span>
+      </div>
+      <p id="variant-sub-hint" class="text-[11px] text-[#f5efe6]/65 font-light">
+        Przeciągaj lub użyj kółka myszy, aby obracać koło • Kliknij kafel, aby obrócić na przód i otworzyć ofertę
       </p>
     </div>
 
@@ -280,29 +313,37 @@
       <!-- SCENA 3D (TRANSLACJA I ROTACJA STAGE'U) -->
       <div id="radial-stage" class="radial-stage-3d w-full h-full flex items-center justify-center">
 
-        <!-- SVG ORBITA (ELIPSA 3D Z ANIMOWANYMI PUNKTAMI) -->
+        <!-- SVG ORBITA (ELIPSA 3D LUB ZAKRZYWIONY ŁUK) -->
         <svg id="orbit-svg" class="orbit-svg" fill="none">
           <defs>
             <linearGradient id="orbitGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.85" />
+              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.9" />
               <stop offset="50%" stop-color="#FACB7D" stop-opacity="0.25" />
-              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.9" />
             </linearGradient>
             <filter id="goldGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="3.5" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
-          <!-- Ciągła subtelna orbita bazowa -->
-          <ellipse id="orbit-ellipse-base" cx="50%" cy="50%" rx="480" ry="260" stroke="rgba(250, 203, 125, 0.16)" stroke-width="1.5" />
-          <!-- Animowana przerywana złota linia z poświatą -->
-          <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="480" ry="260" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
+          <!-- GRUPA 1: ELIPSA DLA WARIANTU 1 (ORBITAL HALO 3D) -->
+          <g id="orbit-halo-group" class="transition-opacity duration-700">
+            <!-- Ciągła subtelna orbita bazowa -->
+            <ellipse id="orbit-ellipse-base" cx="50%" cy="50%" rx="390" ry="210" stroke="rgba(250, 203, 125, 0.16)" stroke-width="1.5" />
+            <!-- Animowana przerywana złota linia z poświatą -->
+            <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="390" ry="210" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
+          </g>
+          <!-- GRUPA 2: ZAKRZYWIONA SZYNA DLA WARIANTU 2 (CURVED VISION ARC 3D) -->
+          <g id="orbit-arc-group" class="opacity-0 transition-opacity duration-700 pointer-events-none">
+            <path id="orbit-arc-base" d="" stroke="rgba(250, 203, 125, 0.22)" stroke-width="2" stroke-linecap="round" fill="none" />
+            <path id="orbit-arc-dash" d="" stroke="url(#orbitGoldGrad)" stroke-width="2.5" class="orbit-arc-dashed" filter="url(#goldGlowFilter)" stroke-linecap="round" fill="none" />
+          </g>
         </svg>
 
         <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS -->
-        <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-auto select-none transition-transform duration-500 hover:scale-105">
-          <div class="relative flex flex-col items-center justify-center p-6 sm:p-7 rounded-3xl bg-black/50 backdrop-blur-md border border-[#FACB7D]/25 shadow-[0_0_60px_rgba(0,0,0,0.9),0_0_30px_rgba(250,203,125,0.18)] group">
-            <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-32 sm:h-36 md:h-40 w-auto filter drop-shadow-[0_0_25px_rgba(250,203,125,0.65)] brightness-110 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105">
+        <div id="center-hub" class="absolute z-20 flex flex-col items-center justify-center text-center pointer-events-auto select-none hover:scale-105">
+          <div class="relative flex flex-col items-center justify-center p-5 sm:p-6 rounded-3xl bg-black/55 backdrop-blur-md border border-[#FACB7D]/25 shadow-[0_0_60px_rgba(0,0,0,0.9),0_0_30px_rgba(250,203,125,0.18)] group">
+            <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-28 sm:h-32 md:h-36 w-auto filter drop-shadow-[0_0_25px_rgba(250,203,125,0.65)] brightness-110 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105">
           </div>
         </div>
 
@@ -697,24 +738,40 @@
     ];
 
     // ════════════════════════════════════════════════════════════
-    // SILNIK INTERAKTYWNEJ PRZESTRZENI 3D (ORBIT ENGINE)
+    // SILNIK INTERAKTYWNEJ PRZESTRZENI 3D (DUAL-VARIANT ENGINE)
     // ════════════════════════════════════════════════════════════
     const stage = document.getElementById('radial-stage');
     const nodesContainer = document.getElementById('radial-nodes-container');
     const wrapper = document.getElementById('radial-3d-wrapper');
     const centerTitle = document.getElementById('center-active-title');
+    const centerHub = document.getElementById('center-hub');
+    const orbitHaloGroup = document.getElementById('orbit-halo-group');
+    const orbitArcGroup = document.getElementById('orbit-arc-group');
+    const variantTitleText = document.getElementById('variant-title-text');
+    const variantSubHint = document.getElementById('variant-sub-hint');
+
+    // Aktywny wariant przestrzenny: 'halo' (Wariant 1) | 'arc' (Wariant 2)
+    let currentVariant = 'halo';
+    let currentViewMode = '3d'; // '3d' | 'grid'
     
-    // Promienie elipsy orbity
-    let radiusX = 420;
-    let radiusY = 240;
-    let radiusZ = 280;
+    // Geometria dla Wariantu 1 (Orbital Halo 3D)
+    let radiusX = 390;
+    let radiusY = 205;
+    let radiusZ = 110;
+
+    // Geometria dla Wariantu 2 (Curved Vision Arc 3D)
+    let arcRadius = 450;
+    let arcBaseY = 110;
+    let arcCurveY = 45;
+    let arcDepthZ = 160;
+    const arcStep = 0.44; // Skok kątowy węzłów na łuku w radianach
 
     // Kąt orbity (w radianach)
     let currentAngle = 0;
     let targetAngle = null;
     let rotationVelocity = 0;
     let isAutoSpinning = true;
-    let autoSpinSpeed = -0.00022; // 10 razy wolniejszy autoobrót w prawo dla subtelnej, luksusowej dynamiki
+    let autoSpinSpeed = -0.00022; // Subtelna prędkość majestatycznego obrotu w prawo
 
     // Obsługa przeciągania myszą / dotykiem (Drag & Inertia)
     let isDragging = false;
@@ -742,14 +799,14 @@
         itemEl.setAttribute('data-index', idx);
 
         itemEl.innerHTML = `
-          <div class="radial-node-card w-[170px] sm:w-[190px]">
+          <div class="radial-node-card w-[126px] sm:w-[136px]">
             <div class="icon-badge-box">
               ${dept.iconSvg}
             </div>
-            <h3 class="font-serif-luxury text-base sm:text-lg font-bold text-white mb-1 leading-tight group-hover:text-[#FACB7D]">
+            <h3 class="font-serif-luxury text-xs sm:text-sm font-bold text-white mb-0.5 leading-tight group-hover:text-[#FACB7D]">
               ${dept.title}
             </h3>
-            <p class="text-[9px] sm:text-[10px] text-[#FACB7D] font-bold tracking-wider uppercase leading-snug">
+            <p class="text-[8px] sm:text-[9px] text-[#FACB7D] font-bold tracking-wider uppercase leading-snug">
               ${dept.subtitle}
             </p>
           </div>
@@ -782,29 +839,22 @@
     function updateDimensions() {
       const w = wrapper.clientWidth || window.innerWidth;
       const h = wrapper.clientHeight || window.innerHeight;
-
-      // Zdefiniowane, zwarte promienie orbity - brak przesadnie dużych przerw między kafelkami
-      let targetRx = 350;
-      let targetRy = 195;
-
-      if (w < 860) {
-        targetRx = Math.max(190, Math.min(350, (w - 110) / 2));
-        targetRy = Math.max(115, Math.min(195, targetRx * 0.56));
-      }
-
-      if (h < 580) {
-        targetRy = Math.max(110, Math.min(targetRy, (h - 140) / 2));
-      }
-
-      radiusX = targetRx;
-      radiusY = targetRy;
-      radiusZ = Math.min(75, Math.round(radiusY * 0.35));
-
-      // Aktualizacja elipsy w SVG (idealne zbieganie się z pozycjami węzłów)
       const cx = w / 2;
       const cy = h / 2;
-      const svgEllipseBase = document.getElementById('orbit-ellipse-base') || document.querySelector('#orbit-svg ellipse:first-of-type');
-      const svgEllipseDash = document.getElementById('orbit-ellipse-dash') || document.querySelector('#orbit-svg .orbit-ellipse-dashed');
+
+      // 1. Kalibracja Wariantu 1 (Orbita Halo)
+      radiusX = Math.min(410, Math.max(240, (w - 240) / 2));
+      radiusY = Math.min(210, Math.max(125, radiusX * 0.52));
+      radiusZ = Math.min(100, Math.round(radiusY * 0.45));
+
+      // 2. Kalibracja Wariantu 2 (Panoramiczny Łuk)
+      arcRadius = Math.min(480, Math.max(260, (w - 180) / 2));
+      arcBaseY = Math.min(130, Math.max(85, h * 0.16));
+      arcCurveY = Math.min(50, Math.round(arcRadius * 0.1));
+
+      // Aktualizacja elipsy w SVG (Wariant 1)
+      const svgEllipseBase = document.getElementById('orbit-ellipse-base');
+      const svgEllipseDash = document.getElementById('orbit-ellipse-dash');
       if (svgEllipseBase && svgEllipseDash) {
         svgEllipseBase.setAttribute('cx', cx);
         svgEllipseBase.setAttribute('cy', cy);
@@ -816,22 +866,55 @@
         svgEllipseDash.setAttribute('rx', radiusX);
         svgEllipseDash.setAttribute('ry', radiusY);
       }
+
+      // Aktualizacja zakrzywionej szyny w SVG (Wariant 2)
+      const svgArcBase = document.getElementById('orbit-arc-base');
+      const svgArcDash = document.getElementById('orbit-arc-dash');
+      if (svgArcBase && svgArcDash) {
+        const maxRel = 1.36;
+        const xLeft = cx + Math.sin(-maxRel) * arcRadius;
+        const yLeft = cy + arcBaseY - 12;
+        const xRight = cx + Math.sin(maxRel) * arcRadius;
+        const yRight = cy + arcBaseY - 12;
+        const xMid = cx;
+        const yMid = cy + arcBaseY + 18;
+
+        const pathData = `M ${xLeft.toFixed(1)} ${yLeft.toFixed(1)} Q ${xMid.toFixed(1)} ${yMid.toFixed(1)} ${xRight.toFixed(1)} ${yRight.toFixed(1)}`;
+        svgArcBase.setAttribute('d', pathData);
+        svgArcDash.setAttribute('d', pathData);
+      }
     }
 
     // Wyznaczanie indeksu działu, który znajduje się najbardziej z przodu
     function getClosestFrontIndex() {
-      let maxZ = -Infinity;
-      let frontIdx = 0;
       const count = DEPARTMENTS.length;
-      for (let i = 0; i < count; i++) {
-        const phi = currentAngle + (i * 2 * Math.PI) / count;
-        const z = Math.sin(phi); // Przód orbity
-        if (z > maxZ) {
-          maxZ = z;
-          frontIdx = i;
+      if (currentVariant === 'arc') {
+        let minAbsRel = Infinity;
+        let frontIdx = 0;
+        const totalSpan = count * arcStep;
+        for (let i = 0; i < count; i++) {
+          const phi = currentAngle + i * arcStep;
+          let rel = ((phi % totalSpan) + totalSpan) % totalSpan;
+          if (rel > totalSpan / 2) rel -= totalSpan;
+          if (Math.abs(rel) < minAbsRel) {
+            minAbsRel = Math.abs(rel);
+            frontIdx = i;
+          }
         }
+        return frontIdx;
+      } else {
+        let maxZ = -Infinity;
+        let frontIdx = 0;
+        for (let i = 0; i < count; i++) {
+          const phi = currentAngle + (i * 2 * Math.PI) / count;
+          const z = Math.sin(phi); // Przód orbity
+          if (z > maxZ) {
+            maxZ = z;
+            frontIdx = i;
+          }
+        }
+        return frontIdx;
       }
-      return frontIdx;
     }
 
     let focusCallback = null;
@@ -843,7 +926,7 @@
         if (targetAngle !== null) {
           const diff = targetAngle - currentAngle;
           if (Math.abs(diff) > 0.001) {
-            currentAngle += diff * 0.055; // Płynne, majestatyczne przekręcenie pierścienia
+            currentAngle += diff * 0.055; // Płynne przekręcenie pierścienia
           } else {
             currentAngle = targetAngle;
             targetAngle = null;
@@ -868,31 +951,68 @@
       stage.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg)`;
 
       const count = DEPARTMENTS.length;
-      const step = (2 * Math.PI) / count;
 
-      nodeElements.forEach((el, i) => {
-        // Kąt w przestrzeni orbity
-        const angle = currentAngle + i * step;
+      if (currentVariant === 'halo') {
+        // ══════════════════════════════════════════════════
+        // WARIANT 1: ORBITAL HALO 3D (DODATKOWA GŁĘBIA Z)
+        // ══════════════════════════════════════════════════
+        const step = (2 * Math.PI) / count;
 
-        // Współrzędne na elipsie - dokładnie pokrywające się z krzywą SVG
-        const x = Math.cos(angle) * radiusX;
-        const y = Math.sin(angle) * radiusY;
-        const z = Math.sin(angle) * radiusZ; // Subtelna oś głębi Z
+        nodeElements.forEach((el, i) => {
+          const angle = currentAngle + i * step;
 
-        // Normalizacja Z (od 0 w tle do 1 na pierwszym planie)
-        const normZ = (z + radiusZ) / (2 * radiusZ);
+          const x = Math.cos(angle) * radiusX;
+          const y = Math.sin(angle) * radiusY;
+          const z = Math.sin(angle) * radiusZ;
 
-        // Bardzo subtelne skalowanie i przezroczystość
-        const scale = 0.94 + normZ * 0.12;
-        const opacity = 0.88 + normZ * 0.12;
-        const zIndex = Math.round(normZ * 200) + 10;
+          // Normalizacja Z (od 0 w tle do 1 na pierwszym planie)
+          const normZ = (Math.sin(angle) + 1) / 2;
 
-        // Środek elementu idealnie na krzywej orbity SVG
-        el.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
-        el.style.opacity = opacity;
-        el.style.zIndex = zIndex;
-        el.style.filter = 'none';
-      });
+          // Skalowanie: z tyłu miniaturyzacja do 0.70x, z przodu 1.14x (eliminuje wszelkie nachodzenie)
+          const scale = 0.70 + normZ * 0.44;
+          const opacity = 0.65 + normZ * 0.35;
+          const blur = (1 - normZ) * 1.5;
+          const zIndex = Math.round(normZ * 200) + 10;
+
+          el.style.display = 'block';
+          el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+          el.style.opacity = opacity.toFixed(2);
+          el.style.zIndex = zIndex;
+          el.style.filter = blur > 0.25 ? `blur(${blur.toFixed(1)}px)` : 'none';
+        });
+      } else {
+        // ══════════════════════════════════════════════════
+        // WARIANT 2: CURVED VISION ARC 3D (PANORAMICZNY AMFITEATR)
+        // ══════════════════════════════════════════════════
+        const totalSpan = count * arcStep;
+
+        nodeElements.forEach((el, i) => {
+          const phi = currentAngle + i * arcStep;
+          let rel = ((phi % totalSpan) + totalSpan) % totalSpan;
+          if (rel > totalSpan / 2) rel -= totalSpan;
+
+          const isVisible = Math.abs(rel) <= 1.55;
+          if (!isVisible) {
+            el.style.display = 'none';
+            return;
+          }
+
+          const x = Math.sin(rel) * arcRadius;
+          const y = arcBaseY - (1 - Math.cos(rel)) * 18;
+          const z = (Math.cos(rel) - 1) * arcDepthZ;
+          const rotY = -rel * (180 / Math.PI) * 0.65; // Kąt nachylenia ku środkowi ekranu
+          const cosRel = Math.cos(rel);
+          const scale = 0.84 + cosRel * 0.28;
+          const opacity = Math.max(0, 1 - Math.pow(Math.abs(rel) / 1.55, 2.6));
+          const zIndex = Math.round(cosRel * 100) + 10;
+
+          el.style.display = 'block';
+          el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${rotY.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+          el.style.opacity = opacity.toFixed(2);
+          el.style.zIndex = zIndex;
+          el.style.filter = 'none';
+        });
+      }
 
       // Aktualizacja nazwy aktywnego działu w centrum (jeśli obecny)
       const closestIdx = getClosestFrontIndex();
@@ -927,7 +1047,7 @@
       mouseTiltY = relX * 5; // Delikatne odchylenie poziome do 5 stopni
       mouseTiltX = -relY * 3.5; // Delikatne odchylenie pionowe do 3.5 stopnia
 
-      // Przeciąganie koła (ruch myszą w prawo = obrót w prawo)
+      // Przeciąganie (ruch myszą w prawo = obrót w prawo)
       if (isDragging) {
         const deltaX = e.clientX - lastDragX;
         lastDragX = e.clientX;
@@ -996,8 +1116,8 @@
     function rotateByStep(direction) {
       isAutoSpinning = false;
       updateSpinButtonUI();
-      const step = (2 * Math.PI) / DEPARTMENTS.length;
       rotationVelocity = 0;
+      const step = currentVariant === 'arc' ? arcStep : (2 * Math.PI) / DEPARTMENTS.length;
       const base = targetAngle !== null ? targetAngle : currentAngle;
       targetAngle = base - direction * step; // direction=1 (prawo) obraca w prawo
     }
@@ -1034,23 +1154,65 @@
       updateSpinButtonUI();
       rotationVelocity = 0;
       const count = DEPARTMENTS.length;
-      const targetPhi = Math.PI / 2; // Przód to kąt pi/2 (sin = 1)
-      const currentDeptAngle = (currentAngle + (targetIdx * 2 * Math.PI) / count) % (2 * Math.PI);
-      let diff = targetPhi - currentDeptAngle;
-      while (diff < -Math.PI) diff += 2 * Math.PI;
-      while (diff > Math.PI) diff -= 2 * Math.PI;
-      targetAngle = currentAngle + diff;
+
+      if (currentVariant === 'arc') {
+        const totalSpan = count * arcStep;
+        const phi = currentAngle + targetIdx * arcStep;
+        let rel = ((phi % totalSpan) + totalSpan) % totalSpan;
+        if (rel > totalSpan / 2) rel -= totalSpan;
+        targetAngle = currentAngle - rel;
+      } else {
+        const targetPhi = Math.PI / 2; // Przód to kąt pi/2 (sin = 1)
+        const currentDeptAngle = (currentAngle + (targetIdx * 2 * Math.PI) / count) % (2 * Math.PI);
+        let diff = targetPhi - currentDeptAngle;
+        while (diff < -Math.PI) diff += 2 * Math.PI;
+        while (diff > Math.PI) diff -= 2 * Math.PI;
+        targetAngle = currentAngle + diff;
+      }
       focusCallback = callback;
     }
 
     // ════════════════════════════════════════════════════════════
-    // PRZEŁĄCZANIE WIDOKU: 3D PRZESTRZEŃ vs SIATKA
+    // PRZEŁĄCZANIE WARIANTÓW: ORBITA 3D vs ŁUK 3D vs SIATKA
     // ════════════════════════════════════════════════════════════
-    const view3dBtn = document.getElementById('view-mode-3d');
-    const viewGridBtn = document.getElementById('view-mode-grid');
+    const btnHalo = document.getElementById('view-mode-halo');
+    const btnArc = document.getElementById('view-mode-arc');
+    const btnGrid = document.getElementById('view-mode-grid');
     const radial3dWrap = document.getElementById('radial-3d-wrapper');
     const radialGridWrap = document.getElementById('radial-grid-wrapper');
     const gridContainer = document.getElementById('grid-cards-container');
+
+    function setVariant(variant) {
+      currentVariant = variant;
+      targetAngle = null;
+      rotationVelocity = 0;
+
+      if (variant === 'halo') {
+        btnHalo.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
+        btnArc.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+        btnGrid.className = 'px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+
+        if (orbitHaloGroup) orbitHaloGroup.classList.remove('opacity-0');
+        if (orbitArcGroup) orbitArcGroup.classList.add('opacity-0');
+        if (centerHub) centerHub.classList.remove('hub-arc-position');
+
+        if (variantTitleText) variantTitleText.textContent = 'Wariant 1: Orbital Halo 3D • Dynamiczna Głębia Z (Zero Nakładania)';
+        if (variantSubHint) variantSubHint.textContent = 'Pełny obrót wokół logotypu • Kafelki z tyłu zmniejszają się do 70% i mijają logo bez kolizji';
+      } else if (variant === 'arc') {
+        btnArc.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
+        btnHalo.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+        btnGrid.className = 'px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+
+        if (orbitHaloGroup) orbitHaloGroup.classList.add('opacity-0');
+        if (orbitArcGroup) orbitArcGroup.classList.remove('opacity-0');
+        if (centerHub) centerHub.classList.add('hub-arc-position');
+
+        if (variantTitleText) variantTitleText.textContent = 'Wariant 2: Curved Vision Arc 3D • Panoramiczny Amfiteatr VisionOS';
+        if (variantSubHint) variantSubHint.textContent = 'Kafelki zwrócone do widza pod logotypem • Idealna czytelność i szerokie odstępy przestrzenne';
+      }
+
+      setViewMode('3d');
+    }
 
     function renderGridView() {
       gridContainer.innerHTML = '';
@@ -1092,23 +1254,36 @@
     }
 
     function setViewMode(mode) {
+      currentViewMode = mode;
       if (mode === 'grid') {
         radial3dWrap.classList.add('hidden');
         radialGridWrap.classList.remove('hidden');
-        viewGridBtn.className = 'px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
-        view3dBtn.className = 'px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white';
+
+        btnGrid.className = 'px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
+        btnHalo.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+        btnArc.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+
         renderGridView();
       } else {
         radialGridWrap.classList.add('hidden');
         radial3dWrap.classList.remove('hidden');
-        view3dBtn.className = 'px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
-        viewGridBtn.className = 'px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-[#FACB7D] hover:text-white';
+
+        if (currentVariant === 'halo') {
+          btnHalo.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
+          btnArc.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+        } else {
+          btnArc.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-[#FACB7D] text-[#030303] shadow-[0_0_15px_rgba(250,203,125,0.4)]';
+          btnHalo.className = 'px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+        }
+        btnGrid.className = 'px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 text-[#FACB7D] hover:text-white hover:bg-white/5';
+
         updateDimensions();
       }
     }
 
-    view3dBtn.addEventListener('click', () => setViewMode('3d'));
-    viewGridBtn.addEventListener('click', () => setViewMode('grid'));
+    btnHalo.addEventListener('click', () => setVariant('halo'));
+    btnArc.addEventListener('click', () => setVariant('arc'));
+    btnGrid.addEventListener('click', () => setViewMode('grid'));
 
     // Automatyczne dopasowanie na małych ekranach:
     function checkAutoResponsive() {
