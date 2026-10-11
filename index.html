@@ -455,34 +455,40 @@
       transform: translateY(-4px) scale(1.08);
     }
 
+    /* PIKTOGRAM BEZ RAMEK, MAKSYMALNIE DUŻY I CZYTELNY */
     .icon-badge-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 35% 30%, rgba(45, 36, 25, 0.85) 0%, rgba(14, 14, 14, 0.95) 100%);
-      border: 1.5px solid rgba(250, 203, 125, 0.5);
+      width: 100%;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 12px rgba(250, 203, 125, 0.12),
-                  0 4px 12px rgba(0, 0, 0, 0.6);
-      transition: all 0.3s ease;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
 
     .icon-badge-box svg {
-      width: 26px;
-      height: 26px;
+      width: 54px;
+      height: 54px;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 14px rgba(250, 203, 125, 0.35));
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.35s ease;
     }
 
     .radial-node-item:hover .icon-badge-box,
     .radial-node-item.is-active .icon-badge-box {
-      border-color: #FACB7D;
-      box-shadow: inset 0 0 18px rgba(250, 203, 125, 0.3),
-                  0 0 20px rgba(250, 203, 125, 0.4);
-      transform: scale(1.05);
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .radial-node-item:hover .icon-badge-box svg,
+    .radial-node-item.is-active .icon-badge-box svg {
+      transform: scale(1.15);
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 22px rgba(250, 203, 125, 0.8));
     }
 
     .orbit-svg {
@@ -1088,13 +1094,13 @@
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
             </defs>
-            <ellipse id="orbit-ellipse-base" cx="50%" cy="50%" rx="450" ry="250" stroke="rgba(250, 203, 125, 0.16)" stroke-width="1.5" />
-            <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="450" ry="250" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
+            <ellipse id="orbit-ellipse-base" cx="50%" cy="50%" rx="410" ry="235" stroke="rgba(250, 203, 125, 0.16)" stroke-width="1.5" />
+            <ellipse id="orbit-ellipse-dash" cx="50%" cy="50%" rx="410" ry="235" stroke="url(#orbitGoldGrad)" stroke-width="2" class="orbit-ellipse-dashed" filter="url(#goldGlowFilter)" />
           </svg>
 
-          <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS (BEZ CZARNEJ RAMKI) -->
+          <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS (POWIĘKSZONY 2X, BEZ CZARNEJ RAMKI) -->
           <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-none select-none transition-transform duration-500 hover:scale-105">
-            <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-28 sm:h-32 md:h-36 w-auto filter drop-shadow-[0_0_28px_rgba(250,203,125,0.7)] drop-shadow-[0_0_50px_rgba(0,0,0,0.85)] brightness-110 pointer-events-none select-none transition-transform duration-500 hover:scale-105">
+            <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-56 sm:h-64 md:h-72 lg:h-80 w-auto filter drop-shadow-[0_0_35px_rgba(250,203,125,0.65)] drop-shadow-[0_0_65px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none transition-transform duration-500 hover:scale-105">
           </div>
 
           <!-- 7 WĘZŁÓW W PRZESTRZENI 3D -->
@@ -2501,9 +2507,9 @@
     const viewMode3dBtn = document.getElementById('view-mode-3d-btn');
     const viewModeGridBtn = document.getElementById('view-mode-grid-btn');
 
-    let radRadiusX = 420;
-    let radRadiusY = 240;
-    let radRadiusZ = 280;
+    let radRadiusX = 410;
+    let radRadiusY = 235;
+    let radRadiusZ = 90;
 
     let radCurrentAngle = 0;
     let radTargetAngle = null;
@@ -2539,7 +2545,7 @@
         itemEl.setAttribute('data-category', catKey);
 
         itemEl.innerHTML = `
-          <div class="radial-node-card w-[126px] sm:w-[136px]">
+          <div class="radial-node-card w-[130px] sm:w-[142px]">
             <div class="icon-badge-box">
               ${dept.iconSvg}
             </div>
@@ -2627,22 +2633,22 @@
       const w = radial3dWrapper.clientWidth;
       const h = radial3dWrapper.clientHeight;
 
-      // Zdefiniowane, zwarte promienie orbity - zapobiegające zbyt dużym przerwom między kafelkami
-      let targetRx = 350;
-      let targetRy = 195;
+      // Zdefiniowane, zwarte promienie orbity dopasowane do powiększonego 2x logotypu
+      let targetRx = 410;
+      let targetRy = 235;
 
       if (w < 860) {
-        targetRx = Math.max(190, Math.min(350, (w - 110) / 2));
-        targetRy = Math.max(115, Math.min(195, targetRx * 0.56));
+        targetRx = Math.max(210, Math.min(410, (w - 110) / 2));
+        targetRy = Math.max(130, Math.min(235, targetRx * 0.56));
       }
 
-      if (h < 580) {
-        targetRy = Math.max(110, Math.min(targetRy, (h - 140) / 2));
+      if (h < 640) {
+        targetRy = Math.max(120, Math.min(targetRy, (h - 140) / 2));
       }
 
       radRadiusX = targetRx;
       radRadiusY = targetRy;
-      radRadiusZ = Math.min(75, Math.round(radRadiusY * 0.35));
+      radRadiusZ = Math.min(90, Math.round(radRadiusY * 0.38));
 
       const cx = w / 2;
       const cy = h / 2;
