@@ -66,14 +66,22 @@
     .radial-scene-container {
       perspective: 1800px;
       perspective-origin: 50% 50%;
-      transform-style: preserve-3d;
       position: relative;
+    }
+
+    :root {
+      --node-size: 96px;
+      --icon-max-size: 78px;
+      --logo-scale: 1.5;
+      --logo-shift-y: -36px;
+      --label-offset-y: 10px;
     }
 
     .radial-stage-3d {
       transform-style: preserve-3d;
       transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1);
       position: relative;
+      z-index: 10;
     }
 
     /* KARTY WĘZŁÓW (PIKTOGRAMY) */
@@ -81,13 +89,25 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      margin-left: 0;
-      margin-top: 0;
+      width: var(--node-size, 96px);
+      height: var(--node-size, 96px);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transform-origin: center center;
       transform-style: preserve-3d;
       will-change: transform, opacity, filter;
       cursor: pointer;
       transition: filter 0.25s ease, opacity 0.25s ease;
+    }
+
+    @media (min-width: 640px) {
+      .radial-node-item {
+        width: var(--node-size, 96px);
+        height: var(--node-size, 96px);
+      }
     }
 
     .radial-node-item:hover,
@@ -99,66 +119,104 @@
 
     .radial-node-card {
       position: relative;
-      background: radial-gradient(130% 130% at 30% 20%, rgba(30, 24, 18, 0.95) 0%, rgba(10, 10, 10, 0.96) 70%, rgba(3, 3, 3, 0.98) 100%);
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      background: radial-gradient(130% 130% at 30% 20%, rgba(35, 28, 20, 0.96) 0%, rgba(12, 12, 12, 0.98) 70%, rgba(3, 3, 3, 1) 100%);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(250, 203, 125, 0.35);
-      border-radius: 20px;
-      padding: 12px 10px;
+      border: 1.5px solid rgba(250, 203, 125, 0.45);
+      border-radius: 24px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.9),
-                  0 0 20px -5px rgba(250, 203, 125, 0.12),
-                  inset 0 1px 1px 0 rgba(255, 240, 200, 0.25);
+      justify-content: center;
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.9),
+                  0 0 25px -4px rgba(250, 203, 125, 0.2),
+                  inset 0 1px 2px 0 rgba(255, 240, 200, 0.35);
       transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
 
     .radial-node-item:hover .radial-node-card,
     .radial-node-item.is-active .radial-node-card {
       border-color: #FACB7D;
-      background: radial-gradient(130% 130% at 30% 20%, rgba(45, 34, 22, 0.98) 0%, rgba(16, 14, 12, 0.98) 70%, rgba(4, 4, 4, 1) 100%);
-      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.95),
-                  0 0 35px 5px rgba(250, 203, 125, 0.35),
-                  inset 0 1px 2px 0 rgba(255, 245, 215, 0.5);
+      background: radial-gradient(130% 130% at 30% 20%, rgba(50, 38, 24, 0.98) 0%, rgba(18, 15, 12, 0.98) 70%, rgba(4, 4, 4, 1) 100%);
+      box-shadow: 0 18px 45px -8px rgba(0, 0, 0, 0.95),
+                  0 0 38px 6px rgba(250, 203, 125, 0.5),
+                  inset 0 1px 2px 0 rgba(255, 245, 215, 0.6);
       transform: translateY(-4px) scale(1.08);
     }
 
-    /* PIKTOGRAM BEZ RAMEK, MAKSYMALNIE DUŻY I CZYTELNY */
-    .icon-badge-box {
+    .icon-symbol-wrap {
       width: 100%;
-      height: 60px;
+      height: 100%;
+      padding: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 6px;
-      position: relative;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      border-radius: 0;
-      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-sizing: border-box;
     }
 
-    .icon-badge-box svg {
-      width: 54px;
-      height: 54px;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 14px rgba(250, 203, 125, 0.35));
+    .icon-symbol-wrap svg {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: var(--icon-max-size, 78px);
+      max-height: var(--icon-max-size, 78px);
+      display: block;
+      margin: auto;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 14px rgba(250, 203, 125, 0.4));
       transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.35s ease;
     }
 
-    .radial-node-item:hover .icon-badge-box,
-    .radial-node-item.is-active .icon-badge-box {
-      background: transparent;
-      border: none;
-      box-shadow: none;
+    @media (min-width: 640px) {
+      .icon-symbol-wrap {
+        padding: 9px;
+      }
+      .icon-symbol-wrap svg {
+        max-width: var(--icon-max-size, 78px);
+        max-height: var(--icon-max-size, 78px);
+      }
     }
 
-    .radial-node-item:hover .icon-badge-box svg,
-    .radial-node-item.is-active .icon-badge-box svg {
-      transform: scale(1.15);
-      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 22px rgba(250, 203, 125, 0.8));
+    .radial-node-item:hover .icon-symbol-wrap svg,
+    .radial-node-item.is-active .icon-symbol-wrap svg {
+      transform: scale(1.10);
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(250, 203, 125, 0.85));
+    }
+
+    .radial-node-item:hover .node-label-box h3,
+    .radial-node-item:hover .node-label-box h4,
+    .radial-node-item.is-active .node-label-box h3,
+    .radial-node-item.is-active .node-label-box h4 {
+      color: #FACB7D;
+      text-shadow: 0 0 16px rgba(250, 203, 125, 0.6);
+    }
+
+    /* PRECYZYJNE MATEMATYCZNE WYŚRODKOWANIE ETYKIET W OSI PIONOWEJ PRZYCISKU */
+    .node-label-box {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      max-width: 240px;
+      text-align: center;
+      margin-top: var(--label-offset-y, 10px);
+      pointer-events: none;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .node-label-box h3,
+    .node-label-box p {
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     /* LINIE ORBITY (SVG) */
@@ -194,9 +252,62 @@
 
     #center-hub {
       transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+      z-index: 20000 !important;
+      pointer-events: none;
+      transform: translateY(var(--logo-shift-y, -36px));
     }
     #center-hub.hub-arc-position {
-      transform: translate(-50%, -90%) scale(0.95);
+      transform: translateY(-70px) scale(0.95);
+    }
+
+    /* POWIĘKSZENIE LOGOTYPU 1.5X SKIEROWANE W GÓRĘ (ZAKOTWICZONE NA DOLNEJ KRAWĘDZI) */
+    .center-logo-enlarged {
+      transform-origin: bottom center !important;
+      transform: scale(var(--logo-scale, 1.5)) !important;
+    }
+
+    /* STYLIZACJA SUWAKÓW STUDIA KALIBRACJI */
+    .tune-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .tune-slider:hover {
+      background: rgba(250, 203, 125, 0.25);
+    }
+    .tune-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FACB7D;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.8), 0 2px 4px rgba(0,0,0,0.6);
+      transition: transform 0.15s, background-color 0.15s;
+    }
+    .tune-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
+    }
+    .tune-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FACB7D;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.8), 0 2px 4px rgba(0,0,0,0.6);
+      transition: transform 0.15s, background-color 0.15s;
+    }
+    .tune-slider::-moz-range-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
     }
 
     /* PULSUJĄCE POŚWIATY */
@@ -260,7 +371,13 @@
     <div class="flex items-center gap-3 pointer-events-auto">
       <a href="index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-[#FACB7D]/30 text-xs font-semibold tracking-widest text-[#FACB7D] hover:text-white hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 uppercase transition-all backdrop-blur-md shadow-lg">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-        <span>Powrót do strony głównej</span>
+        <span>Strona Główna</span>
+      </a>
+      <a href="propozycja_menu_radialnego_3d_v2.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-[#FACB7D]/30 text-xs font-semibold tracking-wider text-[#FACB7D] hover:text-white hover:bg-[#FACB7D]/15 uppercase transition-all backdrop-blur-md shadow-lg" title="Przejdź do wersji 2 z cinematic zoom portal">
+        <span>Wersja 2</span>
+      </a>
+      <a href="propozycja_menu_radialnego_3d_v3.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FACB7D]/15 border border-[#FACB7D]/50 text-xs font-semibold tracking-wider text-[#FACB7D] hover:text-[#030303] hover:bg-[#FACB7D] uppercase transition-all backdrop-blur-md shadow-lg" title="Przejdź do Wersji 3 (Podkowa U)">
+        <span>✨ Wersja 3 (Łuk Podkowa)</span>
       </a>
     </div>
 
@@ -352,16 +469,25 @@
           </g>
         </svg>
 
-        <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS (POWIĘKSZONY 2X, BEZ CZARNEJ RAMKI) -->
-        <div id="center-hub" class="absolute z-10 flex flex-col items-center justify-center text-center pointer-events-none select-none transition-transform duration-500 hover:scale-105">
-          <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-56 sm:h-64 md:h-72 lg:h-80 w-auto filter drop-shadow-[0_0_35px_rgba(250,203,125,0.65)] drop-shadow-[0_0_65px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none transition-transform duration-500 hover:scale-105">
-        </div>
-
         <!-- 7 PIKTOGRAMÓW (WĘZŁÓW) ROZMIESZCZONYCH W PRZESTRZENI 3D -->
-        <div id="radial-nodes-container" class="absolute inset-0 pointer-events-none" style="transform-style: preserve-3d;">
+        <div id="radial-nodes-container" class="absolute inset-0 pointer-events-none" style="transform-style: preserve-3d; z-index: 10;">
           <!-- Węzły zostaną wygenerowane i pozycjonowane dynamicznie przez JavaScript -->
         </div>
 
+      </div>
+
+      <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS Z MANIFESTEM (STABILNY, BEZ PARALAKSY 3D, WYŚWIETLANY NAD PRZYCISKAMI) -->
+      <div id="center-hub" class="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none -translate-y-7 sm:-translate-y-9 md:-translate-y-11" style="z-index: 20000;">
+        <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="center-logo-enlarged h-44 sm:h-52 md:h-60 lg:h-64 w-auto filter drop-shadow-[0_0_35px_rgba(250,203,125,0.65)] drop-shadow-[0_0_65px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none transition-transform duration-500">
+        <div class="mt-2.5 sm:mt-3 text-center flex flex-col items-center">
+          <div class="font-serif-luxury font-black text-sm sm:text-base md:text-lg lg:text-xl tracking-[0.08em] text-[#FACB7D] uppercase leading-[1.15] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+            KOMPLEKSOWA REALIZACJA<br>
+            STREF BAROWYCH
+          </div>
+          <p class="text-[8.5px] sm:text-[10px] md:text-[11px] font-bold tracking-[0.24em] text-white/90 uppercase mt-1.5 sm:mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            JEDEN PARTNER = CAŁA STREFA BAROWA
+          </p>
+        </div>
       </div>
 
       <!-- DOLNY PASEK NARZĘDZIOWY STEROWANIA 3D -->
@@ -382,6 +508,122 @@
         <button id="btn-rot-reset" type="button" class="control-btn-3d px-3 h-9 rounded-full text-xs font-medium uppercase tracking-wider text-white/70 hover:text-white" title="Wyśrodkuj widok">
           Reset
         </button>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           STUDIO KALIBRACJI WYGLĄDU 3D (SUWAKI NA ŻYWO)
+           ══════════════════════════════════════════════ -->
+      <div id="tuning-dock" class="fixed bottom-4 left-4 z-[25000] flex flex-col items-start font-sans">
+        <!-- Przycisk rozwijania / zwijania -->
+        <button id="tune-toggle-btn" type="button" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-[#FACB7D]/45 text-[#FACB7D] hover:text-white hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 shadow-[0_4px_25px_rgba(0,0,0,0.85)] hover:shadow-[0_0_20px_rgba(250,203,125,0.35)] transition-all cursor-pointer group">
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-90 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          <span class="text-xs font-bold uppercase tracking-wider">Dostosuj wymiary</span>
+          <span id="tune-toggle-badge" class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
+        </button>
+
+        <!-- Panel suwaków (domyślnie ukryty) -->
+        <div id="tune-panel" class="hidden mt-3 w-80 sm:w-96 max-h-[82vh] overflow-y-auto p-5 rounded-2xl bg-[#0a0a0a]/95 backdrop-blur-2xl border border-[#FACB7D]/40 shadow-[0_15px_50px_rgba(0,0,0,0.95),0_0_35px_rgba(250,203,125,0.2)] scrollbar-thin">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#FACB7D]/20">
+            <div>
+              <div class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#FACB7D]">Kalibrator Wizualny</div>
+              <h4 class="font-serif-luxury text-sm font-black text-white uppercase tracking-wider">Studio Wymiarów 3D</h4>
+            </div>
+            <button id="tune-close-btn" type="button" class="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#FACB7D] flex items-center justify-center text-white/60 hover:text-[#FACB7D] text-xs transition-all">✕</button>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <!-- 1. Wielkość przycisków -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość przycisków</span>
+                <span id="val-node-size" class="font-mono text-[#FACB7D] font-bold">96 px</span>
+              </div>
+              <input type="range" id="slider-node-size" min="60" max="150" value="96" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>60 px</span><span>Domyślnie: 96</span><span>150 px</span></div>
+            </div>
+
+            <!-- 2. Wielkość ikon -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość ikon w przyciskach</span>
+                <span id="val-icon-size" class="font-mono text-[#FACB7D] font-bold">78 px</span>
+              </div>
+              <input type="range" id="slider-icon-size" min="45" max="120" value="78" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>45 px</span><span>Domyślnie: 78</span><span>120 px</span></div>
+            </div>
+
+            <!-- 3. Skala Logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Skala logotypu ArtBar</span>
+                <span id="val-logo-scale" class="font-mono text-[#FACB7D] font-bold">1.50x</span>
+              </div>
+              <input type="range" id="slider-logo-scale" min="0.8" max="2.3" value="1.5" step="0.05" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.8x</span><span>Domyślnie: 1.50x</span><span>2.3x</span></div>
+            </div>
+
+            <!-- 4. Przesunięcie pionowe logo (Y) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wysokość logotypu (Oś Y)</span>
+                <span id="val-logo-y" class="font-mono text-[#FACB7D] font-bold">-36 px</span>
+              </div>
+              <input type="range" id="slider-logo-y" min="-120" max="40" value="-36" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-120 px (Wyżej)</span><span>-36 px</span><span>+40 px (Niżej)</span></div>
+            </div>
+
+            <!-- 5. Promień X orbity (Szerokość) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Szerokość orbity (Promień X)</span>
+                <span id="val-radius-x" class="font-mono text-[#FACB7D] font-bold">460 px</span>
+              </div>
+              <input type="range" id="slider-radius-x" min="300" max="620" value="460" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>300 px</span><span>Domyślnie: 460</span><span>620 px</span></div>
+            </div>
+
+            <!-- 6. Promień Y orbity (Wysokość elipsy) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wypłaszczenie orbity (Promień Y)</span>
+                <span id="val-radius-y" class="font-mono text-[#FACB7D] font-bold">245 px</span>
+              </div>
+              <input type="range" id="slider-radius-y" min="140" max="360" value="245" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>140 px</span><span>Domyślnie: 245</span><span>360 px</span></div>
+            </div>
+
+            <!-- 7. Głębia 3D (Promień Z) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Głębia przestrzenna 3D (Oś Z)</span>
+                <span id="val-radius-z" class="font-mono text-[#FACB7D] font-bold">110 px</span>
+              </div>
+              <input type="range" id="slider-radius-z" min="30" max="220" value="110" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>30 px (Płaska)</span><span>110 px</span><span>220 px (Głęboka)</span></div>
+            </div>
+
+            <!-- 8. Odstęp napisów od przycisku -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Odstęp etykiety tekstowej</span>
+                <span id="val-label-y" class="font-mono text-[#FACB7D] font-bold">10 px</span>
+              </div>
+              <input type="range" id="slider-label-y" min="2" max="30" value="10" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>2 px</span><span>Domyślnie: 10</span><span>30 px</span></div>
+            </div>
+          </div>
+
+          <!-- Dolne akcje: Kopiuj ustawienia & Reset -->
+          <div class="mt-5 pt-3 border-t border-[#FACB7D]/20 flex flex-col gap-2">
+            <button id="tune-copy-btn" type="button" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#FACB7D] to-[#e6b45e] text-black font-bold uppercase tracking-wider text-xs hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_0_15px_rgba(250,203,125,0.4)] flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span id="tune-copy-text">Kopiuj wybrane wymiary</span>
+            </button>
+            <button id="tune-reset-btn" type="button" class="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white uppercase tracking-wider text-[11px] transition-all">
+              Przywróć wartości domyślne
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -812,14 +1054,16 @@
         itemEl.setAttribute('data-index', idx);
 
         itemEl.innerHTML = `
-          <div class="radial-node-card w-[130px] sm:w-[142px]">
-            <div class="icon-badge-box">
+          <div class="radial-node-card">
+            <div class="icon-symbol-wrap">
               ${dept.iconSvg}
             </div>
-            <h3 class="font-serif-luxury text-xs sm:text-sm font-bold text-white mb-0.5 leading-tight group-hover:text-[#FACB7D]">
+          </div>
+          <div class="node-label-box">
+            <h3 class="font-serif-luxury text-sm sm:text-base md:text-lg font-black text-white tracking-wider uppercase leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors">
               ${dept.title}
             </h3>
-            <p class="text-[8px] sm:text-[9px] text-[#FACB7D] font-bold tracking-wider uppercase leading-snug">
+            <p class="text-[8px] sm:text-[9.5px] text-[#FACB7D] font-bold tracking-[0.18em] uppercase mt-0.5 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
               ${dept.subtitle}
             </p>
           </div>
@@ -849,6 +1093,11 @@
       });
     }
 
+    // Zmienne konfiguracyjne ze Studia Kalibracji (jeśli ustawione, nadpisują domyślne)
+    let customRadiusX = null;
+    let customRadiusY = null;
+    let customRadiusZ = null;
+
     // Wyznaczenie wymiarów adaptacyjnych (Zdefiniowane proporcje bez pustych przestrzeni)
     function updateDimensions() {
       const w = wrapper.clientWidth || window.innerWidth;
@@ -857,12 +1106,12 @@
       const cy = h / 2;
 
       // 1. Kalibracja Wariantu 1 (Orbita Halo)
-      radiusX = Math.min(460, Math.max(260, (w - 200) / 2));
-      radiusY = Math.min(245, Math.max(140, radiusX * 0.54));
-      radiusZ = Math.min(110, Math.round(radiusY * 0.45));
+      radiusX = customRadiusX !== null ? customRadiusX : Math.min(460, Math.max(260, (w - 200) / 2));
+      radiusY = customRadiusY !== null ? customRadiusY : Math.min(245, Math.max(140, radiusX * 0.54));
+      radiusZ = customRadiusZ !== null ? customRadiusZ : Math.min(110, Math.round(radiusY * 0.45));
 
       // 2. Kalibracja Wariantu 2 (Panoramiczny Łuk)
-      arcRadius = Math.min(480, Math.max(260, (w - 180) / 2));
+      arcRadius = customRadiusX !== null ? customRadiusX : Math.min(480, Math.max(260, (w - 180) / 2));
       arcBaseY = Math.min(130, Math.max(85, h * 0.16));
       arcCurveY = Math.min(50, Math.round(arcRadius * 0.1));
 
@@ -1131,18 +1380,18 @@
       isDragging = false;
     });
 
-    // Płynny obrót za pomocą kółka myszy na pełnym ekranie
+    // Płynny, kinetyczny obrót kółkiem myszy (brak jakichkolwiek skoków – miękkie tłumienie interpolacji)
     wrapper.addEventListener('wheel', (e) => {
       if (modalBackdrop && !modalBackdrop.classList.contains('is-hidden')) return;
       e.preventDefault();
       isAutoSpinning = false;
       updateSpinButtonUI();
-      targetAngle = null;
       focusCallback = null;
+      rotationVelocity = 0;
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? -e.deltaX : -e.deltaY;
-      const wheelDelta = delta * 0.0012;
-      currentAngle += wheelDelta;
-      rotationVelocity = wheelDelta * 0.2;
+      const base = targetAngle !== null ? targetAngle : currentAngle;
+      // 4-krotnie mniejsza prędkość z płynnym ślizgiem (ease-out lerp w renderLoop)
+      targetAngle = base + delta * 0.00035;
     }, { passive: false });
 
     // ════════════════════════════════════════════════════════════
@@ -1456,6 +1705,184 @@
     window.addEventListener('resize', () => {
       updateDimensions();
     });
+
+    // ══════════════════════════════════════════════════
+    // OBSŁUGA INTERAKTYWNEGO STUDIA KALIBRACJI WYGLĄDU 3D
+    // ══════════════════════════════════════════════════
+    const tuneToggleBtn = document.getElementById('tune-toggle-btn');
+    const tuneCloseBtn = document.getElementById('tune-close-btn');
+    const tunePanel = document.getElementById('tune-panel');
+    const tuneCopyBtn = document.getElementById('tune-copy-btn');
+    const tuneCopyText = document.getElementById('tune-copy-text');
+    const tuneResetBtn = document.getElementById('tune-reset-btn');
+
+    // Slidery
+    const sNodeSize = document.getElementById('slider-node-size');
+    const sIconSize = document.getElementById('slider-icon-size');
+    const sLogoScale = document.getElementById('slider-logo-scale');
+    const sLogoY = document.getElementById('slider-logo-y');
+    const sRadiusX = document.getElementById('slider-radius-x');
+    const sRadiusY = document.getElementById('slider-radius-y');
+    const sRadiusZ = document.getElementById('slider-radius-z');
+    const sLabelY = document.getElementById('slider-label-y');
+
+    // Etykiety wartości
+    const vNodeSize = document.getElementById('val-node-size');
+    const vIconSize = document.getElementById('val-icon-size');
+    const vLogoScale = document.getElementById('val-logo-scale');
+    const vLogoY = document.getElementById('val-logo-y');
+    const vRadiusX = document.getElementById('val-radius-x');
+    const vRadiusY = document.getElementById('val-radius-y');
+    const vRadiusZ = document.getElementById('val-radius-z');
+    const vLabelY = document.getElementById('val-label-y');
+
+    if (tuneToggleBtn && tunePanel) {
+      tuneToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tunePanel.classList.toggle('hidden');
+      });
+    }
+
+    if (tuneCloseBtn && tunePanel) {
+      tuneCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tunePanel.classList.add('hidden');
+      });
+    }
+
+    // 1. Wielkość węzłów (przycisków)
+    if (sNodeSize && vNodeSize) {
+      sNodeSize.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vNodeSize.textContent = val + ' px';
+        document.documentElement.style.setProperty('--node-size', val + 'px');
+      });
+    }
+
+    // 2. Wielkość ikon wewnątrz przycisków
+    if (sIconSize && vIconSize) {
+      sIconSize.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vIconSize.textContent = val + ' px';
+        document.documentElement.style.setProperty('--icon-max-size', val + 'px');
+      });
+    }
+
+    // 3. Skala logotypu
+    if (sLogoScale && vLogoScale) {
+      sLogoScale.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value).toFixed(2);
+        vLogoScale.textContent = val + 'x';
+        document.documentElement.style.setProperty('--logo-scale', val);
+      });
+    }
+
+    // 4. Pozycja pionowa logotypu
+    if (sLogoY && vLogoY) {
+      sLogoY.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vLogoY.textContent = val + ' px';
+        document.documentElement.style.setProperty('--logo-shift-y', val + 'px');
+      });
+    }
+
+    // 5. Promień X (Szerokość orbity)
+    if (sRadiusX && vRadiusX) {
+      sRadiusX.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vRadiusX.textContent = val + ' px';
+        customRadiusX = val;
+        updateDimensions();
+      });
+    }
+
+    // 6. Promień Y (Wysokość elipsy orbity)
+    if (sRadiusY && vRadiusY) {
+      sRadiusY.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vRadiusY.textContent = val + ' px';
+        customRadiusY = val;
+        updateDimensions();
+      });
+    }
+
+    // 7. Promień Z (Głębia 3D)
+    if (sRadiusZ && vRadiusZ) {
+      sRadiusZ.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vRadiusZ.textContent = val + ' px';
+        customRadiusZ = val;
+        updateDimensions();
+      });
+    }
+
+    // 8. Odstęp etykiety pod przyciskiem
+    if (sLabelY && vLabelY) {
+      sLabelY.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vLabelY.textContent = val + ' px';
+        document.documentElement.style.setProperty('--label-offset-y', val + 'px');
+      });
+    }
+
+    // Kopiowanie wyselekcjonowanych wartości do schowka
+    if (tuneCopyBtn) {
+      tuneCopyBtn.addEventListener('click', () => {
+        const report = [
+          `Wielkość przycisków: ${sNodeSize.value}px`,
+          `Wielkość ikon: ${sIconSize.value}px`,
+          `Skala logotypu: ${parseFloat(sLogoScale.value).toFixed(2)}x`,
+          `Pozycja logo Y: ${sLogoY.value}px`,
+          `Promień orbity X: ${sRadiusX.value}px`,
+          `Promień orbity Y: ${sRadiusY.value}px`,
+          `Głębia Z: ${sRadiusZ.value}px`,
+          `Odstęp etykiet: ${sLabelY.value}px`
+        ].join('\n');
+
+        navigator.clipboard.writeText(report).then(() => {
+          if (tuneCopyText) tuneCopyText.textContent = '✓ Skopiowano do schowka!';
+          setTimeout(() => {
+            if (tuneCopyText) tuneCopyText.textContent = 'Kopiuj wybrane wymiary';
+          }, 2500);
+        }).catch(() => {
+          prompt('Skopiuj parametry ręcznie:', report);
+        });
+      });
+    }
+
+    // Resetowanie do wartości domyślnych
+    if (tuneResetBtn) {
+      tuneResetBtn.addEventListener('click', () => {
+        sNodeSize.value = 96;
+        sIconSize.value = 78;
+        sLogoScale.value = 1.5;
+        sLogoY.value = -36;
+        sRadiusX.value = 460;
+        sRadiusY.value = 245;
+        sRadiusZ.value = 110;
+        sLabelY.value = 10;
+
+        vNodeSize.textContent = '96 px';
+        vIconSize.textContent = '78 px';
+        vLogoScale.textContent = '1.50x';
+        vLogoY.textContent = '-36 px';
+        vRadiusX.textContent = '460 px';
+        vRadiusY.textContent = '245 px';
+        vRadiusZ.textContent = '110 px';
+        vLabelY.textContent = '10 px';
+
+        document.documentElement.style.removeProperty('--node-size');
+        document.documentElement.style.removeProperty('--icon-max-size');
+        document.documentElement.style.removeProperty('--logo-scale');
+        document.documentElement.style.removeProperty('--logo-shift-y');
+        document.documentElement.style.removeProperty('--label-offset-y');
+
+        customRadiusX = null;
+        customRadiusY = null;
+        customRadiusZ = null;
+        updateDimensions();
+      });
+    }
 
     init3DNodes();
     updateDimensions();

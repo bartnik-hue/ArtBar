@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtBar Solutions — Radialne Menu 3D (Wersja 2: Cinematic Zoom Portal)</title>
+  
+  <!-- Google Fonts: Cinzel & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#FACB7D',
+            'gold-light': '#fdd596',
+            'gold-dark': '#c39f65',
+            obsidian: '#030303'
+          },
+          fontFamily: {
+            luxury: ['Cinzel', 'serif'],
+            sans: ['Montserrat', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --gold: #FACB7D;
+      --gold-light: #fdd596;
+      --gold-dark: #c39f65;
+      --gold-deep: #8c734a;
+      --obsidian: #030303;
+      --obsidian-surface: #0a0a0a;
+      --obsidian-card: #111111;
+      --obsidian-border: rgba(250, 203, 125, 0.22);
+      --icon-stroke-width: 1.5px;
+    }
+
+    body {
+      background-color: var(--obsidian);
+      color: #f5efe6;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    .font-serif-luxury {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.04em;
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF1D0 0%, #FACB7D 40%, #c39f65 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* TŁO WIDEO I EFEKTY ŚWIETLNE (Zgodne z index.html) */
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: var(--video-opacity, 0.60);
+      filter: contrast(1.10) brightness(1.05);
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .obsidian-shimmer {
+      background: linear-gradient(125deg, transparent 0%, rgba(250,203,125,0.04) 30%, transparent 60%, rgba(250,203,125,0.03) 80%, transparent 100%);
+      background-size: 250% 250%;
+      animation: shimmerMove 12s ease-in-out infinite;
+    }
+
+    @keyframes shimmerMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .golden-light-beam {
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 140%;
+      height: 160%;
+      background: radial-gradient(ellipse at 35% 30%, rgba(250, 203, 125, 0.18) 0%, rgba(250, 203, 125, 0.05) 35%, transparent 65%),
+                  linear-gradient(115deg, transparent 35%, rgba(250, 203, 125, 0.12) 48%, rgba(255, 235, 180, 0.22) 50%, rgba(250, 203, 125, 0.12) 52%, transparent 65%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      filter: blur(24px);
+      animation: beamSweep 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes beamSweep {
+      0% { transform: translate(-8%, -6%) rotate(-3deg) scale(0.95); opacity: 0.6; }
+      50% { transform: translate(4%, 3%) rotate(2deg) scale(1.05); opacity: 0.9; }
+      100% { transform: translate(8%, -4%) rotate(-1deg) scale(1); opacity: 0.7; }
+    }
+
+    .golden-orb-1 {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(250, 203, 125, 0.25) 0%, rgba(212, 160, 80, 0.08) 45%, transparent 70%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      filter: blur(60px);
+      top: 15%;
+      left: 10%;
+      animation: orbFloat1 18s ease-in-out infinite alternate;
+    }
+
+    .golden-orb-2 {
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 224, 150, 0.2) 0%, rgba(250, 203, 125, 0.06) 50%, transparent 75%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      filter: blur(70px);
+      bottom: 10%;
+      right: 5%;
+      animation: orbFloat2 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbFloat1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 40px) scale(1.15); }
+      100% { transform: translate(-30px, 80px) scale(0.9); }
+    }
+
+    @keyframes orbFloat2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-80px, -50px) scale(1.2); }
+      100% { transform: translate(40px, -90px) scale(0.95); }
+    }
+
+    /* KONTENER 3D */
+    .radial-scene-container {
+      perspective: 1800px;
+      perspective-origin: 50% 50%;
+      position: relative;
+    }
+
+    :root {
+      --responsive-scale: 1;
+      --node-size: 134px;
+      --icon-max-size: 136px;
+      --logo-scale: 1.70;
+      --logo-shift-y: -52px;
+      --label-offset-y: 11px;
+      --logo-title-size: 25px;
+      --logo-slogan-size: 13.5px;
+    }
+
+    .radial-stage-3d {
+      transform-style: preserve-3d;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* KARTY WĘZŁÓW (PIKTOGRAMY) */
+    .radial-node-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--node-size, 96px);
+      height: var(--node-size, 96px);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      cursor: pointer;
+      transition: opacity 0.25s ease;
+    }
+
+    @media (min-width: 640px) {
+      .radial-node-item {
+        width: var(--node-size, 96px);
+        height: var(--node-size, 96px);
+      }
+    }
+
+    .radial-node-item:hover,
+    .radial-node-item.is-active {
+      filter: none !important;
+      opacity: 1 !important;
+      z-index: 9999 !important;
+    }
+
+    .radial-node-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      background: radial-gradient(130% 130% at 30% 20%, rgba(35, 28, 20, 0.96) 0%, rgba(12, 12, 12, 0.98) 70%, rgba(3, 3, 3, 1) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(250, 203, 125, 0.45);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.9),
+                  0 0 25px -4px rgba(250, 203, 125, 0.2),
+                  inset 0 1px 2px 0 rgba(255, 240, 200, 0.35);
+      transition: border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .radial-node-item:hover .radial-node-card,
+    .radial-node-item.is-active .radial-node-card {
+      border-color: #FACB7D;
+      background: radial-gradient(130% 130% at 30% 20%, rgba(50, 38, 24, 0.98) 0%, rgba(18, 15, 12, 0.98) 70%, rgba(4, 4, 4, 1) 100%);
+      box-shadow: 0 18px 45px -8px rgba(0, 0, 0, 0.95),
+                  0 0 38px 6px rgba(250, 203, 125, 0.5),
+                  inset 0 1px 2px 0 rgba(255, 245, 215, 0.6);
+      transform: translateY(-4px) scale(1.08);
+    }
+
+    .icon-symbol-wrap {
+      width: 100%;
+      height: 100%;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .icon-symbol-wrap svg {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: var(--icon-max-size, 78px);
+      max-height: var(--icon-max-size, 78px);
+      display: block;
+      margin: auto;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 14px rgba(250, 203, 125, 0.4));
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.35s ease;
+    }
+
+    /* KONTROLA GRUBOŚCI PIKTOGRAMÓW (STROKE-WIDTH) W IKONACH PRZYCISKÓW */
+    .icon-symbol-wrap svg path,
+    .icon-symbol-wrap svg rect,
+    .icon-symbol-wrap svg circle,
+    .icon-symbol-wrap svg line,
+    .icon-symbol-wrap svg polyline,
+    .icon-symbol-wrap svg polygon {
+      stroke-width: var(--icon-stroke-width, 2px) !important;
+    }
+    /* Zabezpieczenie dla elementów wyłącznie wypełnionych (np. kropki/ozdobniki bez konturu) */
+    .icon-symbol-wrap svg circle[fill]:not([stroke]):not([fill="none"]),
+    .icon-symbol-wrap svg polygon[fill]:not([stroke]):not([fill="none"]):not([fill="transparent"]) {
+      stroke-width: 0 !important;
+    }
+    .icon-symbol-wrap svg text {
+      stroke: none !important;
+      stroke-width: 0 !important;
+    }
+
+    @media (min-width: 640px) {
+      .icon-symbol-wrap {
+        padding: 9px;
+      }
+      .icon-symbol-wrap svg {
+        max-width: var(--icon-max-size, 78px);
+        max-height: var(--icon-max-size, 78px);
+      }
+    }
+
+    .radial-node-item:hover .icon-symbol-wrap svg,
+    .radial-node-item.is-active .icon-symbol-wrap svg {
+      transform: scale(1.10);
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(250, 203, 125, 0.85));
+    }
+
+    .radial-node-item:hover .node-label-box h3,
+    .radial-node-item:hover .node-label-box h4,
+    .radial-node-item.is-active .node-label-box h3,
+    .radial-node-item.is-active .node-label-box h4 {
+      color: #FACB7D;
+      text-shadow: 0 0 16px rgba(250, 203, 125, 0.6);
+    }
+
+    /* PRECYZYJNE MATEMATYCZNE WYŚRODKOWANIE ETYKIET W OSI PIONOWEJ PRZYCISKU */
+    .node-label-box {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      max-width: 240px;
+      text-align: center;
+      margin-top: var(--label-offset-y, 10px);
+      pointer-events: none;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .node-label-box h3,
+    .node-label-box p {
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* LINIE ORBITY (SVG) */
+    .orbit-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes orbitDashMove {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 120; }
+    }
+
+    .orbit-ellipse-dashed {
+      stroke-dasharray: 6 10;
+      animation: orbitDashMove 25s linear infinite;
+    }
+
+    @keyframes arcDashMove {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 90; }
+    }
+
+    /* Style orbity podkowy */
+    .orbit-style-animated {
+      stroke-dasharray: 8 12;
+      animation: arcDashMove 20s linear infinite;
+    }
+
+    .orbit-style-dashed {
+      stroke-dasharray: 8 12;
+      animation: none !important;
+      stroke-dashoffset: 0 !important;
+    }
+
+    .orbit-style-solid {
+      stroke-dasharray: none !important;
+      animation: none !important;
+      stroke-dashoffset: 0 !important;
+    }
+
+    #center-hub {
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+    }
+    #center-hub.hub-arc-position {
+      transform: translateY(-70px) scale(0.95);
+    }
+
+    /* PULSUJĄCE POŚWIATY */
+    .gold-orb-glow {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(250, 203, 125, 0.18) 0%, rgba(250, 203, 125, 0.04) 45%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* PRZYCISKI STEROWANIA 3D */
+    .control-btn-3d {
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(250, 203, 125, 0.35);
+      backdrop-filter: blur(8px);
+      color: #FACB7D;
+      transition: all 0.25s ease;
+    }
+    .control-btn-3d:hover {
+      background: rgba(250, 203, 125, 0.15);
+      border-color: #FACB7D;
+      box-shadow: 0 0 15px rgba(250, 203, 125, 0.3);
+      transform: translateY(-2px);
+    }
+    .control-btn-3d:active {
+      transform: translateY(0);
+    }
+
+    /* PŁYNNY SUWAK DLA DRAGOWANIA */
+    .cursor-grab {
+      cursor: grab;
+    }
+    .cursor-grabbing {
+      cursor: grabbing;
+    }
+
+    /* STYLIZACJA PRZEJŚCIA CINEMATIC ZOOM PORTAL (WERSJA 2) */
+    .radial-stage-3d {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    /* Bezpieczne kinowe wyciemnienie tła na osobnej warstwie bez niszczenia 3D preserve-3d */
+    #stage-dim-overlay {
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 40;
+    }
+    #stage-dim-overlay.is-active {
+      opacity: 1;
+    }
+
+    /* PŁYNNY FADE I COFNIĘCIE LOGOTYPU DO ŚRODKA BEZ KOLIZJI Z POZYCJONOWANIEM */
+    #center-hub {
+      transform-origin: center center;
+      z-index: 20000 !important;
+      pointer-events: none;
+      transform: translateY(calc(var(--logo-shift-y, -52px) * var(--responsive-scale, 1) + var(--responsive-lift, 0px)));
+      transition: transform 0.25s ease;
+    }
+    #center-hub-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #center-hub.hub-vanished #center-hub-inner {
+      opacity: 0 !important;
+      transform: scale(0.65) !important;
+      pointer-events: none !important;
+    }
+
+    /* POWIĘKSZENIE LOGOTYPU SKIEROWANE W GÓRĘ, SKALOWANE RESPONSYWNIE RAZEM Z MENU */
+    .center-logo-enlarged {
+      transform-origin: bottom center !important;
+      transform: scale(calc(var(--logo-scale, 1.70) * var(--responsive-scale, 1))) !important;
+      height: 256px;
+      max-height: 256px;
+    }
+
+    /* STYLIZACJA SUWAKÓW STUDIA KALIBRACJI */
+    .tune-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .tune-slider:hover {
+      background: rgba(250, 203, 125, 0.25);
+    }
+    .tune-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FACB7D;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.8), 0 2px 4px rgba(0,0,0,0.6);
+      transition: transform 0.15s, background-color 0.15s;
+    }
+    .tune-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
+    }
+    .tune-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FACB7D;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.8), 0 2px 4px rgba(0,0,0,0.6);
+      transition: transform 0.15s, background-color 0.15s;
+    }
+    .tune-slider::-moz-range-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
+    }
+
+    /* WIDOK PEŁNOEKRANOWY DZIAŁU: ELEGANCKIE KINOWE POJAWIANIE SIĘ I POWRÓT (BEZ PRZESKOKU SCROLLBARA) */
+    #dept-modal-backdrop {
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      scrollbar-width: none; /* Firefox: ukrywa scrollbar całkowicie */
+      -ms-overflow-style: none; /* IE i stary Edge */
+    }
+    #dept-modal-backdrop::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge: ukrywa scrollbar całkowicie */
+      width: 0;
+      height: 0;
+    }
+    #dept-modal-backdrop.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #dept-modal-card {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                  opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Stan ukryty widoku pełnoekranowego: subtelne przesunięcie z dołu i wygaszenie */
+    #dept-modal-backdrop.is-hidden #dept-modal-card {
+      transform: translateY(28px);
+      opacity: 0;
+    }
+
+    /* KINOWE SEKWENCYJNE POJAWIANIE SIĘ ELEMENTÓW W RAMCE (STAGGER) */
+    .portal-anim-item {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #dept-modal-backdrop:not(.is-hidden) .portal-anim-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(1) { transition-delay: 0.15s; }
+    #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(2) { transition-delay: 0.28s; }
+    #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(3) { transition-delay: 0.40s; }
+    #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(4) { transition-delay: 0.52s; }
+  </style>
+</head>
+<body class="bg-[#030303] text-[#f5efe6] h-screen w-screen overflow-hidden flex flex-col justify-center items-center selection:bg-[#FACB7D]/30 selection:text-white select-none">
+
+  <!-- GŁÓWNA SEKCJA: RADIALNE MENU 3D EKOSYSTEMU ARTBAR -->
+  <main class="w-screen h-screen relative flex items-center justify-center overflow-hidden">
+    
+    <!-- TŁO WIDEO / ANIMOWANE ZŁOTE EFEKTY ŚWIETLNE (ZGODNE Z INDEX.HTML) -->
+    <div id="video-bg-container" class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+      <!-- Wideo zoptymalizowane pod płynność w tle -->
+      <video id="hero-bg-video" autoplay muted loop playsinline class="hero-video-bg">
+        <source src="assets/video/artbar-hero.mp4" type="video/mp4">
+      </video>
+
+      <!-- Złote animowane promienie i soczewki świetlne na filmiku -->
+      <div class="golden-light-beam"></div>
+      <div class="golden-orb-1"></div>
+      <div class="golden-orb-2"></div>
+
+      <!-- Winieta i gradienty głębi zapewniające czytelność menu 3D i logotypu -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/40 to-[#030303]/70 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-radial-at-c from-transparent via-[#030303]/25 to-[#030303]/90 pointer-events-none"></div>
+      <div class="absolute inset-0 obsidian-shimmer pointer-events-none"></div>
+    </div>
+
+    <!-- SUBTELNE ZŁOTE POŚWIATY W TLE -->
+    <div class="gold-orb-glow w-[85vw] h-[85vw] max-w-[1100px] max-h-[1100px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#FACB7D]/5 to-transparent blur-[140px] pointer-events-none"></div>
+
+    <!-- ══════════════════════════════════════════════
+         SCENA RADIALNA 3D (UKŁAD PODKOWY U-SHAPE)
+         ══════════════════════════════════════════════ -->
+    <div id="radial-3d-wrapper" class="w-full h-full relative radial-scene-container cursor-grab flex items-center justify-center select-none z-10">
+
+      <!-- SCENA 3D (TRANSLACJA I ROTACJA STAGE'U) -->
+      <div id="radial-stage" class="radial-stage-3d w-full h-full flex items-center justify-center">
+
+        <!-- SVG ORBITA (ŁUK PODKOWY 3D Z DOMKNIĘCIEM DO LOGO I FADEM) -->
+        <svg id="orbit-svg" class="orbit-svg" fill="none">
+          <defs>
+            <linearGradient id="orbitGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.9" />
+              <stop offset="50%" stop-color="#FACB7D" stop-opacity="0.25" />
+              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0.9" />
+            </linearGradient>
+            
+            <!-- Gradient zanikania lewego ramienia ku górze/środkowi logo -->
+            <linearGradient id="fadeLeftArmGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.9" />
+              <stop offset="40%" stop-color="#FACB7D" stop-opacity="0.5" />
+              <stop offset="75%" stop-color="#FACB7D" stop-opacity="0.18" />
+              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Gradient zanikania prawego ramienia ku górze/środkowi logo -->
+            <linearGradient id="fadeRightArmGrad" x1="100%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.9" />
+              <stop offset="40%" stop-color="#FACB7D" stop-opacity="0.5" />
+              <stop offset="75%" stop-color="#FACB7D" stop-opacity="0.18" />
+              <stop offset="100%" stop-color="#FACB7D" stop-opacity="0" />
+            </linearGradient>
+
+            <filter id="goldGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <!-- GRUPA: GŁÓWNA ORBITA PODKOWY 3D ORAZ RAMIONA ZANIKAJĄCE KU LOGOTYPOWI -->
+          <g id="orbit-horseshoe-group" class="transition-opacity duration-700">
+            <!-- Ciągła subtelna szyna bazowa między przyciskami -->
+            <path id="orbit-horseshoe-base" d="" stroke="rgba(250, 203, 125, 0.22)" stroke-width="2" stroke-linecap="round" fill="none" />
+            <!-- Animowana przerywana złota linia z poświatą między przyciskami -->
+            <path id="orbit-horseshoe-dash" d="" stroke="url(#orbitGoldGrad)" stroke-width="2.5" class="orbit-style-animated" filter="url(#goldGlowFilter)" stroke-linecap="round" fill="none" />
+            
+            <!-- Lewe przedłużenie z fadem do przezroczystości ku górze logo -->
+            <path id="orbit-ext-left-base" d="" stroke="url(#fadeLeftArmGrad)" stroke-width="2" stroke-linecap="round" fill="none" />
+            <path id="orbit-ext-left-dash" d="" stroke="url(#fadeLeftArmGrad)" stroke-width="2.5" class="orbit-style-animated" filter="url(#goldGlowFilter)" stroke-linecap="round" fill="none" />
+
+            <!-- Prawe przedłużenie z fadem do przezroczystości ku górze logo -->
+            <path id="orbit-ext-right-base" d="" stroke="url(#fadeRightArmGrad)" stroke-width="2" stroke-linecap="round" fill="none" />
+            <path id="orbit-ext-right-dash" d="" stroke="url(#fadeRightArmGrad)" stroke-width="2.5" class="orbit-style-animated" filter="url(#goldGlowFilter)" stroke-linecap="round" fill="none" />
+          </g>
+        </svg>
+
+        <!-- KINOWE WYCIEMNIENIE TŁA DLA PORTALU (BEZ FILTRÓW NA SCENIE 3D) -->
+        <div id="stage-dim-overlay"></div>
+
+        <!-- 7 PIKTOGRAMÓW (WĘZŁÓW) ROZMIESZCZONYCH W PRZESTRZENI 3D -->
+        <div id="radial-nodes-container" class="absolute inset-0 pointer-events-none" style="transform-style: preserve-3d; z-index: 10;">
+          <!-- Węzły zostaną wygenerowane i pozycjonowane dynamicznie przez JavaScript -->
+        </div>
+
+      </div>
+
+      <!-- SERCE CENTRUM: OFICJALNY LOGOTYP ARTBAR SOLUTIONS Z MANIFESTEM (STABILNY, BEZ PARALAKSY 3D, RESPONSYWNY RAZEM Z MENU) -->
+      <div id="center-hub" class="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none" style="z-index: 20000;">
+        <div id="center-hub-inner" class="flex flex-col items-center justify-center">
+          <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="center-logo-enlarged h-64 w-auto filter drop-shadow-[0_0_35px_rgba(250,203,125,0.65)] drop-shadow-[0_0_65px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none transition-transform duration-500">
+          <div class="mt-2 text-center flex flex-col items-center">
+            <div id="center-logo-title" class="font-serif-luxury font-black tracking-[0.08em] text-[#FACB7D] uppercase leading-[1.15] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]" style="font-size: calc(var(--logo-title-size, 25px) * var(--responsive-scale, 1));">
+              KOMPLEKSOWA REALIZACJA<br>
+              STREF BAROWYCH
+            </div>
+            <p id="center-logo-slogan" class="font-bold tracking-[0.24em] text-white/90 uppercase mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-size: calc(var(--logo-slogan-size, 13.5px) * var(--responsive-scale, 1));">
+              JEDEN PARTNER = CAŁA STREFA BAROWA
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           STUDIO KALIBRACJI WYGLĄDU 3D (SUWAKI NA ŻYWO)
+           ══════════════════════════════════════════════ -->
+      <div id="tuning-dock" class="fixed bottom-4 left-4 z-[25000] flex flex-col items-start font-sans">
+        <!-- Przycisk rozwijania / zwijania -->
+        <button id="tune-toggle-btn" type="button" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-[#FACB7D]/45 text-[#FACB7D] hover:text-white hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 shadow-[0_4px_25px_rgba(0,0,0,0.85)] hover:shadow-[0_0_20px_rgba(250,203,125,0.35)] transition-all cursor-pointer group">
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-90 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          <span class="text-xs font-bold uppercase tracking-wider">Dostosuj wymiary</span>
+          <span id="tune-toggle-badge" class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
+        </button>
+
+        <!-- Panel suwaków (domyślnie ukryty) -->
+        <div id="tune-panel" class="hidden mt-3 w-80 sm:w-96 max-h-[82vh] overflow-y-auto p-5 rounded-2xl bg-[#0a0a0a]/95 backdrop-blur-2xl border border-[#FACB7D]/40 shadow-[0_15px_50px_rgba(0,0,0,0.95),0_0_35px_rgba(250,203,125,0.2)] scrollbar-thin">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#FACB7D]/20">
+            <div>
+              <div class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#FACB7D]">Kalibrator Wizualny</div>
+              <h4 class="font-serif-luxury text-sm font-black text-white uppercase tracking-wider">Studio Wymiarów 3D</h4>
+            </div>
+            <button id="tune-close-btn" type="button" class="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#FACB7D] flex items-center justify-center text-white/60 hover:text-[#FACB7D] text-xs transition-all">✕</button>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <!-- 1. Wielkość przycisków -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość przycisków</span>
+                <span id="val-node-size" class="font-mono text-[#FACB7D] font-bold">134 px</span>
+              </div>
+              <input type="range" id="slider-node-size" min="60" max="180" value="134" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>60 px</span><span>Domyślnie: 134</span><span>180 px</span></div>
+            </div>
+
+            <!-- 2. Wielkość ikon -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość ikon w przyciskach</span>
+                <span id="val-icon-size" class="font-mono text-[#FACB7D] font-bold">136 px</span>
+              </div>
+              <input type="range" id="slider-icon-size" min="45" max="160" value="136" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>45 px</span><span>Domyślnie: 136</span><span>160 px</span></div>
+            </div>
+
+            <!-- 2b. Grubość piktogramów w ikonach -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/25 shadow-[0_0_12px_rgba(250,203,125,0.06)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                  Grubość piktogramów
+                </span>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="input-icon-stroke" min="0.5" max="8.0" step="0.1" value="1.5" class="w-16 px-1.5 py-0.5 rounded bg-black/80 border border-[#FACB7D]/50 text-[#FACB7D] font-mono font-bold text-xs text-right focus:border-[#FACB7D] focus:outline-none">
+                  <span class="text-xs text-[#FACB7D] font-bold">px</span>
+                </div>
+              </div>
+              <input type="range" id="slider-icon-stroke" min="0.5" max="6.0" value="1.5" step="0.1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.5 px (Cienka)</span><span>Domyślnie: 1.5 px</span><span>6.0 px (Gruba)</span></div>
+            </div>
+
+            <!-- 3. Skala Logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Skala logotypu ArtBar</span>
+                <span id="val-logo-scale" class="font-mono text-[#FACB7D] font-bold">1.70x</span>
+              </div>
+              <input type="range" id="slider-logo-scale" min="0.8" max="2.3" value="1.70" step="0.05" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.8x</span><span>Domyślnie: 1.70x</span><span>2.3x</span></div>
+            </div>
+
+            <!-- 4. Przesunięcie pionowe logo (Y) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wysokość logotypu (Oś Y)</span>
+                <span id="val-logo-y" class="font-mono text-[#FACB7D] font-bold">-52 px</span>
+              </div>
+              <input type="range" id="slider-logo-y" min="-120" max="40" value="-52" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-120 px (Wyżej)</span><span>-52 px</span><span>+40 px (Niżej)</span></div>
+            </div>
+
+            <!-- 5. Promień X podkowy (Szerokość łuku) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Szerokość podkowy (Promień X)</span>
+                <span id="val-radius-x" class="font-mono text-[#FACB7D] font-bold">555 px</span>
+              </div>
+              <input type="range" id="slider-radius-x" min="360" max="750" value="555" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>360 px</span><span>Domyślnie: 555</span><span>750 px</span></div>
+            </div>
+
+            <!-- 6. Promień Y podkowy (Głębokość łuku w dół) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Głębokość podkowy (Promień Y)</span>
+                <span id="val-radius-y" class="font-mono text-[#FACB7D] font-bold">245 px</span>
+              </div>
+              <input type="range" id="slider-radius-y" min="150" max="450" value="245" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>150 px</span><span>Domyślnie: 245</span><span>450 px</span></div>
+            </div>
+
+            <!-- 7. Głębia 3D (Promień Z) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Głębia przestrzenna 3D (Oś Z)</span>
+                <span id="val-radius-z" class="font-mono text-[#FACB7D] font-bold">0 px</span>
+              </div>
+              <input type="range" id="slider-radius-z" min="0" max="260" value="0" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0 px (Płaska)</span><span>Domyślnie: 0 px</span><span>260 px (Głęboka)</span></div>
+            </div>
+
+            <!-- 8. Odstęp napisów od przycisku -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Odstęp etykiety tekstowej</span>
+                <span id="val-label-y" class="font-mono text-[#FACB7D] font-bold">11 px</span>
+              </div>
+              <input type="range" id="slider-label-y" min="2" max="30" value="11" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>2 px</span><span>Domyślnie: 11</span><span>30 px</span></div>
+            </div>
+
+            <!-- 9. Kąt startowy podkowy (lewa strona przy logo) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Początek łuku (Kąt lewy góra)</span>
+                <span id="val-arc-start" class="font-mono text-[#FACB7D] font-bold">236°</span>
+              </div>
+              <input type="range" id="slider-arc-start" min="180" max="270" value="236" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>180° (Poziomo)</span><span>236°</span><span>270° (Pionowo)</span></div>
+            </div>
+
+            <!-- 10. Kąt końcowy podkowy (prawa strona przy logo) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Koniec łuku (Kąt prawy góra)</span>
+                <span id="val-arc-end" class="font-mono text-[#FACB7D] font-bold">-56°</span>
+              </div>
+              <input type="range" id="slider-arc-end" min="-90" max="0" value="-56" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-90° (Pionowo)</span><span>-56°</span><span>0° (Poziomo)</span></div>
+            </div>
+
+            <!-- 11. Przesunięcie pionowe całej orbity podkowy -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wysokość orbity (Offset Y)</span>
+                <span id="val-orbit-offset-y" class="font-mono text-[#FACB7D] font-bold">40 px</span>
+              </div>
+              <input type="range" id="slider-orbit-offset-y" min="-120" max="100" value="40" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-120 px (Wyżej)</span><span>40 px</span><span>+100 px (Niżej)</span></div>
+            </div>
+
+            <!-- 12. Odstęp dolny: ArtPOS / Kubki ECO / Lód -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Zbliżenie dolne: ArtPOS ↔ Kubki ↔ Lód</span>
+                <span id="val-bottom-pinch" class="font-mono text-[#FACB7D] font-bold">25%</span>
+              </div>
+              <input type="range" id="slider-bottom-pinch" min="0" max="70" value="25" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Równy rozkład)</span><span>25% (Optymalne)</span><span>70% (B. blisko)</span></div>
+            </div>
+
+            <!-- 13. Długość domknięcia z fade'em ku logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Domknięcie łuku ku logo (Fade)</span>
+                <span id="val-arc-extension" class="font-mono text-[#FACB7D] font-bold">22°</span>
+              </div>
+              <input type="range" id="slider-arc-extension" min="5" max="45" value="22" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>5° (Krótki)</span><span>22° (Domyślnie)</span><span>45° (Pełne)</span></div>
+            </div>
+
+            <!-- 14. Wielkość głównego napisu pod logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość napisu: KOMPLEKSOWA REALIZACJA...</span>
+                <span id="val-logo-title-size" class="font-mono text-[#FACB7D] font-bold">25 px</span>
+              </div>
+              <input type="range" id="slider-logo-title-size" min="10" max="36" value="25" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>10 px</span><span>Domyślnie: 25 px</span><span>36 px</span></div>
+            </div>
+
+            <!-- 15. Wielkość hasła/manifestu pod logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość hasła: JEDEN PARTNER...</span>
+                <span id="val-logo-slogan-size" class="font-mono text-[#FACB7D] font-bold">13.5 px</span>
+              </div>
+              <input type="range" id="slider-logo-slogan-size" min="7" max="24" value="13.5" step="0.5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>7 px</span><span>Domyślnie: 13.5 px</span><span>24 px</span></div>
+            </div>
+
+            <!-- 16. Siła zbliżenia (Zoom) przy kliknięciu przycisku -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Siła zoomu kamery po kliknięciu</span>
+                <span id="val-camera-zoom" class="font-mono text-[#FACB7D] font-bold">3.50x</span>
+              </div>
+              <input type="range" id="slider-camera-zoom" min="1.1" max="4.5" value="3.5" step="0.05" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>1.1x (Subtelny)</span><span>3.5x (Domyślnie)</span><span>4.5x (Kinowy Ultra)</span></div>
+            </div>
+
+            <!-- 17. Przezroczystość wideo w tle (Video Opacity) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Przezroczystość filmu w tle</span>
+                <span id="val-video-opacity" class="font-mono text-[#FACB7D] font-bold">60%</span>
+              </div>
+              <input type="range" id="slider-video-opacity" min="0" max="100" value="60" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Wyłączone)</span><span>60% (Domyślnie)</span><span>100% (Maksimum)</span></div>
+            </div>
+
+            <!-- 18. Typ linii orbity (Styl wizualny) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/30 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-white/90 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                  Typ linii orbity
+                </span>
+                <span id="val-orbit-style" class="font-mono text-[#FACB7D] font-bold text-xs">Przerywana (Animowana)</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 p-1 bg-black/60 rounded-lg border border-white/10 text-center">
+                <button type="button" id="btn-orbit-style-animated" class="orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-[0_0_10px_rgba(250,203,125,0.3)]">
+                  Animowana
+                </button>
+                <button type="button" id="btn-orbit-style-dashed" class="orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/10">
+                  Przerywana
+                </button>
+                <button type="button" id="btn-orbit-style-solid" class="orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/10">
+                  Ciągła
+                </button>
+              </div>
+            </div>
+
+            <!-- 19. Grubość linii orbity (Suwak + Pole ręcznego wpisania dowolnej wartości) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/30 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Grubość linii orbity</span>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="input-orbit-thickness" min="0.5" max="100" step="0.5" value="2.5" class="w-16 px-1.5 py-0.5 rounded bg-black/80 border border-[#FACB7D]/50 text-[#FACB7D] font-mono font-bold text-xs text-right focus:border-[#FACB7D] focus:outline-none">
+                  <span class="text-xs text-[#FACB7D] font-bold">px</span>
+                </div>
+              </div>
+              <input type="range" id="slider-orbit-thickness" min="0.5" max="40.0" value="2.5" step="0.5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.5 px</span><span>Suwak do 40 px</span><span>(Wpisz do 100 px)</span></div>
+            </div>
+
+            <!-- 20. Przezroczystość linii orbity (Opacity / Transparentność) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/30 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Przezroczystość linii orbity</span>
+                <span id="val-orbit-opacity" class="font-mono text-[#FACB7D] font-bold">100%</span>
+              </div>
+              <input type="range" id="slider-orbit-opacity" min="0" max="100" value="100" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Niewidoczna)</span><span>50% (Półprzezroczysta)</span><span>100% (Pełna)</span></div>
+            </div>
+          </div>
+
+          <!-- Dolne akcje: Kopiuj ustawienia & Reset -->
+          <div class="mt-5 pt-3 border-t border-[#FACB7D]/20 flex flex-col gap-2">
+            <button id="tune-copy-btn" type="button" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#FACB7D] to-[#e6b45e] text-black font-bold uppercase tracking-wider text-xs hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_0_15px_rgba(250,203,125,0.4)] flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span id="tune-copy-text">Kopiuj wybrane wymiary</span>
+            </button>
+            <button id="tune-reset-btn" type="button" class="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white uppercase tracking-wider text-[11px] transition-all">
+              Przywróć wartości domyślne
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div id="dept-modal-backdrop" class="is-hidden fixed inset-0 z-50 flex flex-col bg-black/92 backdrop-blur-2xl overflow-y-auto select-text">
+    
+    <div id="dept-modal-card" class="relative w-full min-h-screen flex flex-col justify-between">
+      
+      <!-- GÓRNY PASEK NAWIGACJI PEŁNEGO EKRANU -->
+      <header class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-8 pb-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div id="modal-icon-wrap" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#FACB7D]/10 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(250,203,125,0.3)]">
+            <!-- Ikona wstawiana dynamicznie -->
+          </div>
+          <div>
+            <div id="modal-badge" class="inline-block px-3 py-0.5 rounded text-[10px] font-bold uppercase tracking-[0.22em] text-[#FACB7D] bg-[#FACB7D]/10 mb-1">
+              Dział
+            </div>
+            <div class="flex items-baseline gap-3">
+              <h2 id="modal-title" class="font-serif-luxury text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+                Tytuł Działu
+              </h2>
+            </div>
+            <p id="modal-subtitle" class="text-xs sm:text-sm text-[#FACB7D] font-semibold tracking-wider uppercase mt-0.5">
+              Podtytuł Działu
+            </p>
+          </div>
+        </div>
+
+        <!-- Przycisk powrotu do Menu 3D (Esc / Zamknij) -->
+        <button id="modal-close-btn" type="button" class="group flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-white/80 hover:text-white transition-all cursor-pointer">
+          <span class="text-xs font-bold uppercase tracking-wider hidden sm:inline text-[#FACB7D] group-hover:text-white">Powrót do Menu</span>
+          <svg class="w-5 h-5 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </header>
+
+      <!-- GŁÓWNA TREŚĆ DZIAŁU NA PEŁNYM EKRANIE -->
+      <main class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-8 flex-1 space-y-12">
+        
+        <!-- Sekcja 1: Filozofia i Zakres (Wielka typografia, pełna szerokość) -->
+        <section class="portal-anim-item max-w-4xl">
+          <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-3 flex items-center gap-2">
+            <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+            Filozofia i Zakres Operacyjny
+          </div>
+          <p id="modal-lead" class="text-base sm:text-xl lg:text-2xl text-[#f5efe6] font-light leading-relaxed">
+            Opis działu...
+          </p>
+        </section>
+
+        <!-- Sekcja 2: Kluczowe Usługi i Standardy (Przejrzysty układ szerokokątny) -->
+        <section class="portal-anim-item">
+          <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-6 flex items-center gap-2">
+            <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+            Kluczowe Usługi i Standardy Realizacji
+          </div>
+          <div id="modal-services-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Generowane przez JS -->
+          </div>
+        </section>
+
+        <!-- Sekcja 3: Zdjęcia i Galeria Realizacji (Duże panoramiczne ujęcia na pełnej szerokości) -->
+        <section class="portal-anim-item">
+          <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-6 flex items-center gap-2">
+            <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+            Zdjęcia z Wydarzeń i Realizacji
+          </div>
+          <div id="modal-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Zdjęcia generowane przez JS -->
+          </div>
+        </section>
+
+      </main>
+
+      <!-- DOLNY PASEK NAWIGACJI MIĘDZY DZIAŁAMI ORAZ KONFIGURATOR -->
+      <footer class="portal-anim-item w-full border-t border-white/10 bg-black/80 backdrop-blur-xl py-6 px-6 sm:px-10 lg:px-16">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-4 text-xs">
+            <span class="text-white/50">Nawigacja po działach:</span>
+            <button id="modal-prev-dept" type="button" class="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-[#FACB7D]/20 text-[#FACB7D] font-bold transition-all flex items-center gap-1.5 cursor-pointer">
+              ← Poprzedni
+            </button>
+            <button id="modal-next-dept" type="button" class="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-[#FACB7D]/20 text-[#FACB7D] font-bold transition-all flex items-center gap-1.5 cursor-pointer">
+              Następny →
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 w-full sm:w-auto">
+            <a href="index.html#konfigurator-section" class="w-full sm:w-auto px-7 py-3 rounded-full bg-white/5 border border-[#FACB7D]/40 text-[#FACB7D] hover:bg-[#FACB7D]/20 text-xs font-bold uppercase tracking-wider text-center transition-all">
+              Konfigurator 3D
+            </a>
+            <a href="index.html#kontakt" class="w-full sm:w-auto px-8 py-3 rounded-full bg-[#FACB7D] text-[#030303] hover:bg-[#fdd596] text-xs font-bold uppercase tracking-wider text-center shadow-[0_0_25px_rgba(250,203,125,0.4)] transition-all">
+              Zapytaj o Ofertę
+            </a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- JAVASCRIPT OBSŁUGI RADIALNEGO MENU 3D -->
+  <script>
+    // ════════════════════════════════════════════════════════════
+    // DANE 7 DZIAŁÓW Z NOWEJ KONCEPCJI (nowakoncepcja/unnamed.png)
+    // ════════════════════════════════════════════════════════════
+    const DEPARTMENTS = [
+      {
+        id: 'art',
+        title: 'Art',
+        subtitle: 'SCENOGRAFIA, KONCEPT, KREATYWNY PROJEKT',
+        badge: 'Kreacja Wizualna i Scenografia',
+        lead: 'Tworzymy unikalne, spersonalizowane aranżacje scenograficzne, dekoracje świetlne i oprawę artystyczną, które nadają strefom barowym niepowtarzalny charakter i zapadają w pamięć uczestników festiwali oraz prestiżowych gal.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 16h36" />
+            <path d="M20 16v6m0 0l-3 4h6l-3-4z" />
+            <path d="M32 16v6m0 0l-3 4h6l-3-4z" />
+            <path d="M44 16v6m0 0l-3 4h6l-3-4z" />
+            <path d="M12 28h40" />
+            <path d="M14 28v24" />
+            <path d="M50 28v24" />
+            <rect x="18" y="34" width="28" height="18" rx="2" stroke-width="2"/>
+            <path d="M24 44h4v8h-4z" />
+            <path d="M36 42h4v10h-4z" />
+            <line x1="18" y1="44" x2="46" y2="44" stroke-dasharray="2 2"/>
+          </svg>
+        `,
+        services: [
+          'Kompleksowy projekt koncepcyjny strefy barowej',
+          'Identyfikacja wizualna i spójny branding wydarzenia',
+          'Unikalne scenografie festiwalowe i eventowe',
+          'Personalizowane dekoracje, neony i logotypy 3D',
+          'Artystyczne oświetlenie architektoniczne i LED',
+          'Interaktywny performance i oprawa artystyczna',
+          'Współpraca z dedykowanym studiem graficznym'
+        ],
+        photos: [
+          'assets/images/2024.12.31-Art-Bar-28-1.jpg',
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-104-1.jpg',
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-112-1-1536x1024.jpg'
+        ]
+      },
+      {
+        id: 'logistyka',
+        title: 'Logistyka',
+        subtitle: 'TRANSPORT, MAGAZYNOWANIE, KONTROLA DOSTAW',
+        badge: 'Logistyka, Transport i Magazynowanie',
+        lead: 'Własny park samochodów dostawczych i chłodni, strategiczne hale magazynowe oraz precyzyjne procedury dostaw Just-In-Time. Bezpieczny transport, terminowość i sprawny montaż w dowolnym punkcie kraju.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 28h5M6 34h9M10 40h4" stroke-width="2"/>
+            <path d="M30 14a4 4 0 0 1 4 4c0 3-4 7-4 7s-4-4-4-7a4 4 0 0 1 4-4z" />
+            <circle cx="30" cy="18" r="1.5" fill="#FACB7D"/>
+            <rect x="18" y="25" width="22" height="18" rx="1.5" />
+            <path d="M40 31h8l4 6v6h-12v-12z" />
+            <path d="M43 32h5l2.5 4h-7.5v-4z" />
+            <circle cx="26" cy="45" r="4" stroke="#FACB7D" stroke-width="2" fill="#FACB7D"/>
+            <circle cx="46" cy="45" r="4" stroke="#FACB7D" stroke-width="2" fill="#FACB7D"/>
+            <path d="M18 43h4M30 43h12M50 43h3" />
+          </svg>
+        `,
+        services: [
+          'Własna flota transportowa: ciężarówki, busy i chłodnie',
+          'Centra magazynowe z kontrolowaną temperaturą',
+          'Dostawy w procedurze Just-In-Time bezpośrednio pod bar',
+          'Szybki rozładunek i precyzyjne lokowanie wyposażenia',
+          'Ciągły monitoring GPS i kontrola stanów magazynowych',
+          'Pełna inwentaryzacja i sprawny odbiór powydarzeniowy',
+          'Zasięg ogólnopolski oraz trasy zagraniczne'
+        ],
+        photos: [
+          'assets/images/gallery/2024.12.31-Art-Bar-81-1-1536x1024.jpg',
+          'assets/images/gallery/ArtBar02.03-188-z-462-scaled.jpg',
+          'assets/images/gallery/ArtBar02.03-270-z-462-scaled.jpg'
+        ]
+      },
+      {
+        id: 'artpos',
+        title: 'ArtPOS',
+        subtitle: 'SYSTEMY SPRZEDAŻOWE, KONTROLA, RAPORT',
+        badge: 'Zaawansowany System Sprzedażowy POS',
+        lead: 'Autorski system sprzedażowy stworzony na potrzeby imprez masowych. Fiskalizacja w czasie rzeczywistym, kontrola magazynów live, terminale płatnicze bez prowizji pośredników i precyzyjne rozliczenia po evencie.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="34" height="28" rx="3" />
+            <path d="M15 16h6M25 16h6M35 16h4" />
+            <path d="M15 21h6M25 21h6M35 21h4" />
+            <path d="M15 26h6M25 26h6" />
+            <path d="M15 31h16" />
+            <path d="M22 38v8h10v-8" />
+            <path d="M18 46h18" />
+            <path d="M38 28l5-8a2 2 0 0 1 3.5 1.5l-2.5 7.5h5a2 2 0 0 1 2 2v2a6 6 0 0 1-6 6h-3" fill="none" stroke-width="2"/>
+            <path d="M43 38v8" />
+            <path d="M48 38v8" />
+          </svg>
+        `,
+        services: [
+          'Błyskawiczna obsługa klienta i minimalizacja kolejek',
+          'Fiskalizacja w czasie rzeczywistym (Live Cloud)',
+          'Kontrola stanów magazynowych i alarmy braków towaru',
+          'Mobilne i stacjonarne terminale płatnicze',
+          'Integracja z opaskami i kartami RFID (festiwalowymi)',
+          'Pulpit analityczny dla organizatora z danymi na żywo',
+          'Dokładne audyty i raporty rentowności'
+        ],
+        photos: [
+          'assets/images/2024.12.31-Art-Bar-46-1.jpg',
+          'assets/images/2024.12.31-Art-Bar-89.jpg',
+          'assets/images/gallery/2024.12.31-Art-Bar-102-2.jpg'
+        ]
+      },
+      {
+        id: 'kubki-eco',
+        title: 'Kubki ECO',
+        subtitle: 'SYSTEM KUBKÓW WIELOKROTNEGO UŻYTKU',
+        badge: 'Ekologiczny System Kubków Wielorazowych',
+        lead: 'Kompleksowy system kubków kaucyjnych wielokrotnego użytku zgodny z dyrektywą SUP. Eliminacja ton plastikowych odpadów, profesjonalne mycie przemysłowe w standardzie HACCP oraz możliwość brandingu sponsorów.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 16h32" stroke-width="3" />
+            <path d="M22 13h20" stroke-width="2" />
+            <path d="M19 16l4 34a3 3 0 0 0 3 2.5h12a3 3 0 0 0 3-2.5l4-34" />
+            <path d="M26 35c0-6 6-9 12-9c0 6-6 9-12 9z" fill="rgba(250,203,125,0.15)" stroke-width="2"/>
+            <path d="M26 35c3-2 6-4 12-9" stroke-width="1.5"/>
+          </svg>
+        `,
+        services: [
+          'Atestowane, trwałe kubki wielorazowe 0.3L, 0.4L, 0.5L',
+          'Pełna obsługa systemu pobierania i zwrotu kaucji',
+          'Stanowiska szybkiego zwrotu kubków (Cup Return)',
+          'Logistyka magazynowa i transport w zgrzewkach',
+          'Przemysłowe mycie w standardzie sanitarnym HACCP',
+          'Personalizowany nadruk reklamowy dla partnerów',
+          'Zgodność z unijnymi regulacjami środowiskowymi'
+        ],
+        photos: [
+          'assets/images/gallery/ArtBar02.03-45-z-462-1-scaled.jpg',
+          'assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg',
+          'assets/images/gallery/ArtBar02.03-101-z-462-scaled.jpg'
+        ]
+      },
+      {
+        id: 'lod',
+        title: 'Lód',
+        subtitle: 'WŁASNA FABRYKA LODU',
+        badge: 'Własna Fabryka Lodu Hoshizaki',
+        lead: 'Własna produkcja lodu w kostkach i kruszonego na najwyższej klasy japońskich maszynach Hoshizaki. Samochody mroźnie (-18°C), termoizolacyjne skrzynie oraz widowiskowe rzeźby lodowe na gale i bankiety.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="18,22 24,15 32,18 26,25" />
+            <polygon points="31,17 38,12 46,16 39,23" />
+            <polygon points="25,23 35,21 37,27 27,28" />
+            <polygon points="41,20 49,18 52,24 45,26" />
+            <path d="M12 26h40l-5 24a3 3 0 0 1-3 2.5H20a3 3 0 0 1-3-2.5L12 26z" />
+            <path d="M32 34v12M26 40h12M28 36l8 8M36 36l-8 8" stroke-width="1.8"/>
+            <circle cx="32" cy="40" r="1.5" fill="#FACB7D"/>
+          </svg>
+        `,
+        services: [
+          'Krystaliczny lód w kostkach (technologia Hoshizaki)',
+          'Lód kruszony do koktajli i ekspozycji butelek',
+          'Suchy lód do efektów dymnych i chłodzenia barów',
+          'Artystyczne rzeźby lodowe i bloki z brandingiem',
+          'Specjalistyczne skrzynie termoizolacyjne',
+          'Dedykowana flota samochodów mroźni (-18°C)',
+          'Gwarancja ciągłości dostaw do kilkudziesięciu ton'
+        ],
+        photos: [
+          'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg',
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-20-1.jpg',
+          'assets/images/gallery/ArtBar02.03-18-z-462-scaled.jpg'
+        ]
+      },
+      {
+        id: 'obsluga',
+        title: 'Obsługa',
+        subtitle: 'WYKWALIFIKOWANA KADRA PRACOWNIKÓW',
+        badge: 'Wykwalifikowany Personel Barowy',
+        lead: 'Baza ponad 200 certyfikowanych barmanów, barbacków, baristów oraz doświadczonych kierowników stref barowych. Profesjonalizm, ujednolicone stroje, doskonała kultura serwisu i wysoka kultura pracy pod presją czasu.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 22c0-5 3.5-9 8-9s8 4 8 9v3a8 8 0 0 1-16 0v-3z" />
+            <path d="M24 20c2-3 5-5 8-5s6 2 8 5" />
+            <path d="M27 34l5 4 5-4" />
+            <polygon points="27,39 37,39 32,42" fill="rgba(250,203,125,0.3)"/>
+            <polygon points="27,45 37,45 32,42" fill="rgba(250,203,125,0.3)"/>
+            <circle cx="32" cy="42" r="1.5" fill="#FACB7D"/>
+            <path d="M16 52c0-8 6-12 11-13l5 5 5-5c5 1 11 5 11 13" />
+            <path d="M27 46v6M37 46v6" />
+          </svg>
+        `,
+        services: [
+          'Profesjonalni barmani miksolodzy i pokazy flair',
+          'Wydajni barbackowie gwarantujący ciągłość pracy baru',
+          'Bariści do stref VIP i stref kawowych',
+          'Menedżerowie i koordynatorzy stref barowych',
+          'Eleganckie, spójne uniformy dopasowane do stylu eventu',
+          'Szkolenia ze standardów HACCP, BHP i systemów ArtPOS',
+          'Elastyczne skalowanie zespołu zależnie od frekwencji'
+        ],
+        photos: [
+          'assets/images/gallery/OczkiHalloween-106-of-592-3-scaled.jpg',
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-34-2.jpg',
+          'assets/images/gallery/ArtBar02.03-353-z-462-scaled.jpg'
+        ]
+      },
+      {
+        id: 'bar',
+        title: 'Bar',
+        subtitle: 'INFRASTRUKTURA BARÓW',
+        badge: 'Modułowa Infrastruktura Barowa',
+        lead: 'Oferujemy modułowe, funkcjonalne bary eventowe na imprezy masowe, bankiety i gale. Pełna dowolność konfiguracji, ergonomiczne zaplecza z regałami LED, sprzęt gastronomiczny oraz koncesja na alkohol ABC.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]">
+            <path d="M12 22h-4v-10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M52 22h4v-10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M12 42h-4v10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M52 42h4v10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="32" y="27" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">mds</text>
+            <line x1="16" y1="33" x2="48" y2="33" stroke="#FACB7D" stroke-width="2"/>
+            <text x="32" y="47" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">bar</text>
+          </svg>
+        `,
+        services: [
+          'Wynajem modułowych barów prostych i narożnych',
+          'Ergonomiczne zaplecza z podświetlanymi regałami LED',
+          'Przeszklone lodówki gastronomiczne i zamrażarki',
+          'Kompletny sprzęt i stacje barmańskie',
+          'Precyzyjna obsługa zaopatrzenia i zamówień',
+          'Koncesja na alkohol ABC i pełna legalizacja',
+          'Błyskawiczny montaż i demontaż modułów'
+        ],
+        photos: [
+          'assets/images/2024.12.31-Art-Bar-73-2.jpg',
+          'assets/images/2024.12.31-Art-Bar-26-768x512.jpg',
+          'assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg'
+        ]
+      }
+    ];
+
+    // ════════════════════════════════════════════════════════════
+    // SILNIK INTERAKTYWNEJ PRZESTRZENI 3D (DUAL-VARIANT ENGINE)
+    // ════════════════════════════════════════════════════════════
+    const stage = document.getElementById('radial-stage');
+    const stageDimOverlay = document.getElementById('stage-dim-overlay');
+    const nodesContainer = document.getElementById('radial-nodes-container');
+    const wrapper = document.getElementById('radial-3d-wrapper');
+    const centerTitle = document.getElementById('center-active-title');
+    const centerHub = document.getElementById('center-hub');
+    const orbitHorseshoeGroup = document.getElementById('orbit-horseshoe-group');
+    const variantTitleText = document.getElementById('variant-title-text');
+    const variantSubHint = document.getElementById('variant-sub-hint');
+
+    // Wersja 3: Otwarty Łuk Podkowy (U-Shape Horseshoe Arc wokół logotypu)
+    let currentViewMode = '3d'; // '3d' | 'grid'
+    
+    // Parametry geometryczne podkowy (kalibrowane na żywo suwakami)
+    let customRadiusX = 555;
+    let customRadiusY = 245;
+    let customRadiusZ = 0;
+    let customArcStartDeg = 236; // Lewa strona na wysokości korony logotypu
+    let customArcEndDeg = -56;   // Prawa strona na wysokości korony logotypu
+    let customOrbitOffsetY = 40;  // Wycentrowanie względem środka logo
+    let customBottomPinch = 25;  // Zmniejszenie odstępu między ArtPOS, Kubki ECO i Lód (w %)
+    let customArcExtension = 22; // Kąt przedłużenia ramion ku górze logo z fadem (stopnie)
+    let customCameraZoom = 3.5;  // Siła kinowego zoomu po kliknięciu kafelka (3.5x)
+    let customOrbitStyle = 'animated'; // 'animated' | 'dashed' | 'solid'
+    let customOrbitThickness = 2.5;    // Grubość w px
+    let customOrbitOpacity = 100;      // Przezroczystość w % (0 - 100)
+    let customIconStroke = 1.5;        // Grubość piktogramów w px
+
+    let responsiveScale = 1;     // Dynamiczny współczynnik skalowania orbit i węzłów na mniejszych ekranach
+    let radiusX = 555;
+    let radiusY = 245;
+    let radiusZ = 0;
+
+    // Efekt subtelnej paralaksy 3D reagujący na kursor
+    let mouseTiltX = 0;
+    let mouseTiltY = 0;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+
+    // Tworzenie elementów DOM dla węzłów
+    const nodeElements = [];
+
+    function init3DNodes() {
+      nodesContainer.innerHTML = '';
+      nodeElements.length = 0;
+
+      DEPARTMENTS.forEach((dept, idx) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'radial-node-item pointer-events-auto';
+        itemEl.setAttribute('data-id', dept.id);
+        itemEl.setAttribute('data-index', idx);
+
+        itemEl.innerHTML = `
+          <div class="radial-node-card">
+            <div class="icon-symbol-wrap">
+              ${dept.iconSvg}
+            </div>
+          </div>
+          <div class="node-label-box">
+            <h3 class="font-serif-luxury text-sm sm:text-base md:text-lg font-black text-white tracking-wider uppercase leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors">
+              ${dept.title}
+            </h3>
+            <p class="text-[8px] sm:text-[9.5px] text-[#FACB7D] font-bold tracking-[0.18em] uppercase mt-0.5 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              ${dept.subtitle}
+            </p>
+          </div>
+        `;
+
+        // Kliknięcie w węzeł otwiera kinowy portal
+        itemEl.addEventListener('click', () => {
+          openDeptModal(idx);
+        });
+
+        // Hover podświetla w centrum
+        itemEl.addEventListener('mouseenter', () => {
+          if (centerTitle) centerTitle.textContent = dept.title;
+          itemEl.classList.add('is-active');
+        });
+        itemEl.addEventListener('mouseleave', () => {
+          itemEl.classList.remove('is-active');
+        });
+
+        nodesContainer.appendChild(itemEl);
+        nodeElements.push(itemEl);
+      });
+    }
+
+    // Wyznaczenie wymiarów adaptacyjnych podkowy i aktualizacja SVG szyny z fadem ku logo
+    function updateDimensions() {
+      const w = wrapper.clientWidth || window.innerWidth;
+      const h = wrapper.clientHeight || window.innerHeight;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      // Responsywny współczynnik proporcji (baseline: ekran o szerokości >= 1320px)
+      // Jeśli ekran jest mniejszy, cała orbita, logo i przyciski płynnie skalują się w dół, zachowując 100% proporcji
+      const availableWidth = w - 80;
+      const baselineSpan = (customRadiusX || 555) * 2 + 160; // szerokość orbity wraz z przyciskami
+      responsiveScale = Math.min(1, Math.max(0.42, availableWidth / baselineSpan));
+      document.documentElement.style.setProperty('--responsive-scale', responsiveScale.toFixed(4));
+
+      // Zabezpieczenie przed nakładaniem się hasła pod logo na dolny przycisk (Kubki ECO) poniżej szerokości ~850px:
+      // Gdy szerokość ekranu spada poniżej 860px, unosimy logotyp lekko w górę i korygujemy odstęp
+      let responsiveLift = 0;
+      if (w < 860) {
+        // Płynne podniesienie od 0px przy 860px do -35px przy 500px i poniżej
+        const tNarrow = Math.min(1, Math.max(0, (860 - w) / 360));
+        responsiveLift = -35 * tNarrow;
+      }
+      document.documentElement.style.setProperty('--responsive-lift', `${responsiveLift.toFixed(1)}px`);
+
+      const effectiveRadiusX = (customRadiusX || 555) * responsiveScale;
+      const effectiveRadiusY = (customRadiusY || 245) * responsiveScale;
+      const effectiveRadiusZ = (customRadiusZ || 20) * responsiveScale;
+      const effectiveOffsetY = (customOrbitOffsetY || 40) * responsiveScale;
+
+      radiusX = effectiveRadiusX;
+      radiusY = effectiveRadiusY;
+      radiusZ = effectiveRadiusZ;
+
+      // 1. Główny łuk podkowy między pierwszym a ostatnim przyciskiem
+      const svgBase = document.getElementById('orbit-horseshoe-base');
+      const svgDash = document.getElementById('orbit-horseshoe-dash');
+
+      // 2. Przedłużenia z fadem do przezroczystości ku górze/środkowi logo
+      const extLeftBase = document.getElementById('orbit-ext-left-base');
+      const extLeftDash = document.getElementById('orbit-ext-left-dash');
+      const extRightBase = document.getElementById('orbit-ext-right-base');
+      const extRightDash = document.getElementById('orbit-ext-right-dash');
+
+      // Konwersja kątów: startRad (lewa góra), endRad (prawa góra, obrót przez dół)
+      const startRad = (customArcStartDeg * Math.PI) / 180;
+      let endRad = (customArcEndDeg * Math.PI) / 180;
+      while (endRad > startRad) endRad -= 2 * Math.PI;
+
+      // Generowanie ścieżki głównej podkowy
+      if (svgBase && svgDash) {
+        const numSamples = 40;
+        let d = '';
+
+        for (let s = 0; s <= numSamples; s++) {
+          const t = s / numSamples;
+          const a = startRad + t * (endRad - startRad);
+          const px = cx + Math.cos(a) * radiusX;
+          const py = cy + Math.sin(a) * radiusY + effectiveOffsetY;
+          if (s === 0) {
+            d += `M ${px.toFixed(1)} ${py.toFixed(1)}`;
+          } else {
+            d += ` L ${px.toFixed(1)} ${py.toFixed(1)}`;
+          }
+        }
+
+        svgBase.setAttribute('d', d);
+        svgDash.setAttribute('d', d);
+      }
+
+      // Generowanie lewego przedłużenia (od lewego przycisku w górę ku logo z fadem)
+      const extSpanDeg = customArcExtension || 34;
+      const extRad = (extSpanDeg * Math.PI) / 180;
+
+      if (extLeftBase && extLeftDash) {
+        const numSamples = 16;
+        let dLeft = '';
+        for (let s = 0; s <= numSamples; s++) {
+          const t = s / numSamples;
+          // Od startRad (lewy przycisk) w górę ku szczytowi: kąt rośnie (w stronę 270 deg)
+          const a = startRad + t * extRad;
+          const px = cx + Math.cos(a) * radiusX;
+          const py = cy + Math.sin(a) * radiusY + effectiveOffsetY;
+          if (s === 0) {
+            dLeft += `M ${px.toFixed(1)} ${py.toFixed(1)}`;
+          } else {
+            dLeft += ` L ${px.toFixed(1)} ${py.toFixed(1)}`;
+          }
+        }
+        extLeftBase.setAttribute('d', dLeft);
+        extLeftDash.setAttribute('d', dLeft);
+      }
+
+      // Generowanie prawego przedłużenia (od prawego przycisku w górę ku logo z fadem)
+      if (extRightBase && extRightDash) {
+        const numSamples = 16;
+        let dRight = '';
+        for (let s = 0; s <= numSamples; s++) {
+          const t = s / numSamples;
+          // Od endRad (prawy przycisk) w górę ku szczytowi: kąt maleje (w stronę -90 deg)
+          const a = endRad - t * extRad;
+          const px = cx + Math.cos(a) * radiusX;
+          const py = cy + Math.sin(a) * radiusY + effectiveOffsetY;
+          if (s === 0) {
+            dRight += `M ${px.toFixed(1)} ${py.toFixed(1)}`;
+          } else {
+            dRight += ` L ${px.toFixed(1)} ${py.toFixed(1)}`;
+          }
+        }
+        extRightBase.setAttribute('d', dRight);
+        extRightDash.setAttribute('d', dRight);
+      }
+
+      // Zastosowanie wybranego typu linii (animowana, przerywana, ciągła) oraz grubości
+      applyOrbitAppearance();
+    }
+
+    function applyOrbitAppearance() {
+      const svgBase = document.getElementById('orbit-horseshoe-base');
+      const svgDash = document.getElementById('orbit-horseshoe-dash');
+      const extLeftBase = document.getElementById('orbit-ext-left-base');
+      const extLeftDash = document.getElementById('orbit-ext-left-dash');
+      const extRightBase = document.getElementById('orbit-ext-right-base');
+      const extRightDash = document.getElementById('orbit-ext-right-dash');
+
+      const thickness = customOrbitThickness || 2.5;
+      const baseThickness = Math.max(0.5, thickness * 0.8);
+      const dashThickness = thickness;
+
+      // 1. Grubość linii SVG
+      if (svgBase) svgBase.setAttribute('stroke-width', baseThickness.toString());
+      if (extLeftBase) extLeftBase.setAttribute('stroke-width', baseThickness.toString());
+      if (extRightBase) extRightBase.setAttribute('stroke-width', baseThickness.toString());
+
+      if (svgDash) svgDash.setAttribute('stroke-width', dashThickness.toString());
+      if (extLeftDash) extLeftDash.setAttribute('stroke-width', dashThickness.toString());
+      if (extRightDash) extRightDash.setAttribute('stroke-width', dashThickness.toString());
+
+      // 2. Klasa stylu wizualnego (animowana, statyczna przerywana, ciągła)
+      const dashElements = [svgDash, extLeftDash, extRightDash];
+      dashElements.forEach(el => {
+        if (!el) return;
+        el.classList.remove('orbit-style-animated', 'orbit-style-dashed', 'orbit-style-solid');
+        if (customOrbitStyle === 'animated') {
+          el.classList.add('orbit-style-animated');
+        } else if (customOrbitStyle === 'dashed') {
+          el.classList.add('orbit-style-dashed');
+        } else if (customOrbitStyle === 'solid') {
+          el.classList.add('orbit-style-solid');
+        }
+      });
+
+      // W przypadku linii ciągłej, szyna bazowa może być nieco bardziej wyrazista
+      if (svgBase) {
+        svgBase.style.opacity = (customOrbitStyle === 'solid') ? '0.45' : '1';
+      }
+
+      // 3. Przezroczystość całej grupy orbity (podkowa + przedłużenia do logo)
+      const orbitGroup = document.getElementById('orbit-horseshoe-group');
+      if (orbitGroup) {
+        const opVal = (typeof customOrbitOpacity === 'number') ? (customOrbitOpacity / 100) : 1;
+        orbitGroup.style.opacity = opVal.toFixed(2);
+      }
+    }
+
+    let isPortalTransitioning = false;
+    let cameraZoom = 1;
+    let targetCameraZoom = 1;
+    let mouseFactor = 1;
+    let targetMouseFactor = 1;
+
+    // Obliczenie parametru t wzdłuż podkowy z uwzględnieniem zbliżenia ArtPOS ↔ Kubki ECO ↔ Lód
+    function getNodeParamT(index, count) {
+      if (count <= 1) return 0.5;
+      if (count !== 7) return index / (count - 1);
+
+      const p = (customBottomPinch || 0) / 100; // np. 0.35
+      const baseStep = 1 / 6;
+
+      // index 0: Art (lewa góra)       -> t = 0
+      // index 1: Bar                   -> lekka kompensacja, aby zachować harmonię
+      // index 2: ArtPOS                -> przysunięty w stronę Kubków ECO (dół)
+      // index 3: Kubki ECO (dno łuku)  -> dokładnie t = 0.5 (90 deg)
+      // index 4: Lód                   -> przysunięty w stronę Kubków ECO (dół)
+      // index 5: Obsługa               -> lekka kompensacja
+      // index 6: Logistyka (prawa góra)-> t = 1
+      const tMap = [
+        0,
+        baseStep + p * 0.25 * baseStep,
+        2 * baseStep + p * baseStep,
+        0.5,
+        4 * baseStep - p * baseStep,
+        5 * baseStep - p * 0.25 * baseStep,
+        1.0
+      ];
+
+      return tMap[index];
+    }
+
+    // Pętla renderowania sceny 3D (60/120 FPS requestAnimationFrame)
+    function renderLoop() {
+      // Płynna, ciągła interpolacja zoomu kamery
+      const zoomDiff = targetCameraZoom - cameraZoom;
+      if (Math.abs(zoomDiff) > 0.0005) {
+        cameraZoom += zoomDiff * 0.08;
+      } else {
+        cameraZoom = targetCameraZoom;
+        if (targetCameraZoom === 1 && isPortalTransitioning) {
+          isPortalTransitioning = false;
+          if (nodesContainer) nodesContainer.style.pointerEvents = '';
+        }
+      }
+
+      // Płynna interpolacja współczynnika paralaksy
+      mouseFactor += (targetMouseFactor - mouseFactor) * 0.06;
+
+      // Subtelna paralaksa perspektywy myszy
+      currentTiltX += (mouseTiltX * mouseFactor - currentTiltX) * 0.075;
+      currentTiltY += (mouseTiltY * mouseFactor - currentTiltY) * 0.075;
+
+      stage.style.transform = `rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg) scale3d(${cameraZoom.toFixed(4)}, ${cameraZoom.toFixed(4)}, ${cameraZoom.toFixed(4)})`;
+
+      const count = DEPARTMENTS.length;
+      const startRad = (customArcStartDeg * Math.PI) / 180;
+      let endRad = (customArcEndDeg * Math.PI) / 180;
+      while (endRad > startRad) endRad -= 2 * Math.PI;
+      const totalArc = endRad - startRad;
+      const effectiveOffsetY = (customOrbitOffsetY || 40) * (responsiveScale || 1);
+
+      // Rozmieszczenie 7 działów wzdłuż otwartej podkowy z dopasowanym odstępem na dole
+      nodeElements.forEach((el, i) => {
+        const t = getNodeParamT(i, count);
+        const angle = startRad + t * totalArc;
+
+        const x = Math.cos(angle) * radiusX;
+        const y = Math.sin(angle) * radiusY + effectiveOffsetY;
+
+        // Na dole (dno podkowy, sin(angle) blisko 1) kafelki są najbardziej z przodu (Z max)
+        // Po bokach u góry (przy logotypie, sin(angle) ujemny) kafelki są lekko głębiej
+        const normZ = (Math.sin(angle) + 1) / 2; // 0 na samej górze, 1 na samym dole
+        const z = (20 + normZ * radiusZ);
+
+        // Kąt lekkiego nachylenia do środka ekranu (rotacja Y)
+        const rotY = Math.cos(angle) * -16;
+
+        const baseScale = (0.92 + normZ * 0.18) * (responsiveScale || 1);
+        const opacity = 0.88 + normZ * 0.12;
+        const zIndex = Math.round(normZ * 200) + 20;
+
+        const isHovered = el.matches(':hover') || el.classList.contains('is-active');
+
+        el.style.display = 'block';
+        el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${rotY.toFixed(1)}deg) scale(${baseScale.toFixed(3)})`;
+        el.style.opacity = isHovered ? '1' : opacity.toFixed(2);
+        el.style.zIndex = isHovered ? '9999' : zIndex;
+        el.style.filter = 'none';
+      });
+
+      requestAnimationFrame(renderLoop);
+    }
+
+    // ════════════════════════════════════════════════════════════
+    // OBSŁUGA SUBTELNEGO EFEKTU PARALAKSY MYSZY (BEZ OBROTU W KOŁO)
+    // ════════════════════════════════════════════════════════════
+    window.addEventListener('mousemove', (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      
+      mouseTiltY = relX * 5.5;  // Delikatne odchylenie poziome do 5.5 stopnia
+      mouseTiltX = -relY * 3.5; // Delikatne odchylenie pionowe do 3.5 stopnia
+    });
+
+    // Przycisk Reset Widoku kamery
+    const btnReset = document.getElementById('btn-rot-reset');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        mouseTiltX = 0;
+        mouseTiltY = 0;
+      });
+    }
+
+    // Inicjalizacja resize
+    window.addEventListener('resize', () => {
+      updateDimensions();
+    });
+
+    // ════════════════════════════════════════════════════════════
+    // OBSŁUGA MODALA SZCZEGÓŁÓW DZIAŁU
+    // ════════════════════════════════════════════════════════════
+    const modalBackdrop = document.getElementById('dept-modal-backdrop');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalIconWrap = document.getElementById('modal-icon-wrap');
+    const modalBadge = document.getElementById('modal-badge');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubtitle = document.getElementById('modal-subtitle');
+    const modalLead = document.getElementById('modal-lead');
+    const modalServicesList = document.getElementById('modal-services-list');
+    const modalGallery = document.getElementById('modal-gallery');
+    const modalPrevDeptBtn = document.getElementById('modal-prev-dept');
+    const modalNextDeptBtn = document.getElementById('modal-next-dept');
+
+    let currentOpenDeptIdx = 0;
+
+    function openDeptModal(idx) {
+      currentOpenDeptIdx = idx;
+      const dept = DEPARTMENTS[idx];
+
+      modalIconWrap.innerHTML = dept.iconSvg;
+      modalBadge.textContent = dept.badge;
+      modalTitle.textContent = dept.title;
+      modalSubtitle.textContent = dept.subtitle;
+      modalLead.textContent = dept.lead;
+
+      // Usługi (czysta, nowoczesna typografia bez obramowań kasetonowych)
+      modalServicesList.innerHTML = dept.services.map((srv, sIdx) => `
+        <div class="py-2 flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-[#FACB7D]/15 text-[#FACB7D] text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+            ${String(sIdx + 1).padStart(2, '0')}
+          </span>
+          <span class="text-xs sm:text-sm text-[#f5efe6]/90 font-normal leading-relaxed">
+            ${srv}
+          </span>
+        </div>
+      `).join('');
+
+      // Zdjęcia
+      modalGallery.innerHTML = dept.photos.map(pUrl => `
+        <div class="h-28 sm:h-36 rounded-xl overflow-hidden border border-white/10 group relative">
+          <img src="${pUrl}" alt="Realizacja" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 filter brightness-90">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+      `).join('');
+
+      // ══════════════════════════════════════════════════
+      // FAZA 1: CINEMATIC ZOOM PORTAL TRANSITION
+      // 1. Zniknięcie logotypu z manifestem w centrum (płynny fade + scale do środka)
+      // 2. Mocniejszy, kinowy zoom kamery w tamto miejsce
+      // ══════════════════════════════════════════════════
+      isPortalTransitioning = true;
+      targetCameraZoom = customCameraZoom || 1.85;
+      targetMouseFactor = 0.15;
+      if (nodesContainer) nodesContainer.style.pointerEvents = 'none';
+      if (stageDimOverlay) stageDimOverlay.classList.add('is-active');
+      if (centerHub) centerHub.classList.add('hub-vanished');
+
+      // FAZA 2: Wyłonienie się pełnego ekranu po wygaśnięciu logotypu
+      setTimeout(() => {
+        modalBackdrop.scrollTop = 0;
+        modalBackdrop.classList.remove('is-hidden');
+      }, 200);
+    }
+
+    function closeDeptModal() {
+      // 1. Zdejmij wszelkie hover / is-active z kart oraz wyłącz pointer-events do zakończenia powrotu
+      nodeElements.forEach(el => el.classList.remove('is-active'));
+      if (nodesContainer) nodesContainer.style.pointerEvents = 'none';
+
+      // 2. Schowanie widoku pełnoekranowego do środka
+      modalBackdrop.classList.add('is-hidden');
+
+      // 3. Natychmiastowe uruchomienie płynnego powrotu (odzoomowanie kamery i wygaszenie nakładki)
+      targetCameraZoom = 1;
+      targetMouseFactor = 1;
+      if (stageDimOverlay) stageDimOverlay.classList.remove('is-active');
+      if (centerHub) centerHub.classList.remove('hub-vanished');
+    }
+
+    modalCloseBtn.addEventListener('click', closeDeptModal);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeDeptModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDeptModal();
+      if (e.key === 'ArrowLeft') rotateByStep(-1);
+      if (e.key === 'ArrowRight') rotateByStep(1);
+    });
+
+    modalPrevDeptBtn.addEventListener('click', () => {
+      const prevIdx = (currentOpenDeptIdx - 1 + DEPARTMENTS.length) % DEPARTMENTS.length;
+      openDeptModal(prevIdx);
+      focusDepartment(prevIdx);
+    });
+
+    modalNextDeptBtn.addEventListener('click', () => {
+      const nextIdx = (currentOpenDeptIdx + 1) % DEPARTMENTS.length;
+      openDeptModal(nextIdx);
+      focusDepartment(nextIdx);
+    });
+
+    // Obsługa przełącznika pełnoekranowego (Browser Fullscreen API)
+    const toggleFullscreenBtn = document.getElementById('toggle-fullscreen-btn');
+    const fsExpandIcon = document.getElementById('fullscreen-icon-expand');
+    const fsCompressIcon = document.getElementById('fullscreen-icon-compress');
+    const fsText = document.getElementById('fullscreen-text');
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    if (toggleFullscreenBtn) {
+      toggleFullscreenBtn.addEventListener('click', toggleFullscreen);
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const isFs = !!document.fullscreenElement;
+      if (fsExpandIcon && fsCompressIcon) {
+        if (isFs) {
+          fsExpandIcon.classList.add('hidden');
+          fsCompressIcon.classList.remove('hidden');
+          if (fsText) fsText.textContent = 'Zamknij';
+        } else {
+          fsExpandIcon.classList.remove('hidden');
+          fsCompressIcon.classList.add('hidden');
+          if (fsText) fsText.textContent = 'Pełny Ekran';
+        }
+      }
+      setTimeout(updateDimensions, 100);
+    });
+
+    // Inicjalizacja
+    window.addEventListener('resize', () => {
+      updateDimensions();
+    });
+
+    // ══════════════════════════════════════════════════
+    // OBSŁUGA INTERAKTYWNEGO STUDIA KALIBRACJI WYGLĄDU 3D
+    // ══════════════════════════════════════════════════
+    const tuneToggleBtn = document.getElementById('tune-toggle-btn');
+    const tuneCloseBtn = document.getElementById('tune-close-btn');
+    const tunePanel = document.getElementById('tune-panel');
+    const tuneCopyBtn = document.getElementById('tune-copy-btn');
+    const tuneCopyText = document.getElementById('tune-copy-text');
+    const tuneResetBtn = document.getElementById('tune-reset-btn');
+
+    // Slidery
+    const sNodeSize = document.getElementById('slider-node-size');
+    const sIconSize = document.getElementById('slider-icon-size');
+    const sIconStroke = document.getElementById('slider-icon-stroke');
+    const inputIconStroke = document.getElementById('input-icon-stroke');
+    const sLogoScale = document.getElementById('slider-logo-scale');
+    const sLogoY = document.getElementById('slider-logo-y');
+    const sRadiusX = document.getElementById('slider-radius-x');
+    const sRadiusY = document.getElementById('slider-radius-y');
+    const sRadiusZ = document.getElementById('slider-radius-z');
+    const sLabelY = document.getElementById('slider-label-y');
+    const sArcStart = document.getElementById('slider-arc-start');
+    const sArcEnd = document.getElementById('slider-arc-end');
+    const sOrbitOffsetY = document.getElementById('slider-orbit-offset-y');
+    const sBottomPinch = document.getElementById('slider-bottom-pinch');
+    const sArcExtension = document.getElementById('slider-arc-extension');
+    const sLogoTitleSize = document.getElementById('slider-logo-title-size');
+    const sLogoSloganSize = document.getElementById('slider-logo-slogan-size');
+    const sCameraZoom = document.getElementById('slider-camera-zoom');
+    const sVideoOpacity = document.getElementById('slider-video-opacity');
+    const sOrbitThickness = document.getElementById('slider-orbit-thickness');
+    const inputOrbitThickness = document.getElementById('input-orbit-thickness');
+    const sOrbitOpacity = document.getElementById('slider-orbit-opacity');
+    const btnOrbitStyleAnimated = document.getElementById('btn-orbit-style-animated');
+    const btnOrbitStyleDashed = document.getElementById('btn-orbit-style-dashed');
+    const btnOrbitStyleSolid = document.getElementById('btn-orbit-style-solid');
+
+    // Etykiety wartości
+    const vNodeSize = document.getElementById('val-node-size');
+    const vIconSize = document.getElementById('val-icon-size');
+    const vLogoScale = document.getElementById('val-logo-scale');
+    const vLogoY = document.getElementById('val-logo-y');
+    const vRadiusX = document.getElementById('val-radius-x');
+    const vRadiusY = document.getElementById('val-radius-y');
+    const vRadiusZ = document.getElementById('val-radius-z');
+    const vLabelY = document.getElementById('val-label-y');
+    const vArcStart = document.getElementById('val-arc-start');
+    const vArcEnd = document.getElementById('val-arc-end');
+    const vOrbitOffsetY = document.getElementById('val-orbit-offset-y');
+    const vBottomPinch = document.getElementById('val-bottom-pinch');
+    const vArcExtension = document.getElementById('val-arc-extension');
+    const vLogoTitleSize = document.getElementById('val-logo-title-size');
+    const vLogoSloganSize = document.getElementById('val-logo-slogan-size');
+    const vCameraZoom = document.getElementById('val-camera-zoom');
+    const vVideoOpacity = document.getElementById('val-video-opacity');
+    const vOrbitStyle = document.getElementById('val-orbit-style');
+    const vOrbitThickness = document.getElementById('val-orbit-thickness');
+    const vOrbitOpacity = document.getElementById('val-orbit-opacity');
+
+    if (tuneToggleBtn && tunePanel) {
+      tuneToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tunePanel.classList.toggle('hidden');
+      });
+    }
+
+    if (tuneCloseBtn && tunePanel) {
+      tuneCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tunePanel.classList.add('hidden');
+      });
+    }
+
+    // 1. Wielkość węzłów (przycisków)
+    if (sNodeSize && vNodeSize) {
+      sNodeSize.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vNodeSize.textContent = val + ' px';
+        document.documentElement.style.setProperty('--node-size', val + 'px');
+      });
+    }
+
+    // 2. Wielkość ikon wewnątrz przycisków
+    if (sIconSize && vIconSize) {
+      sIconSize.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vIconSize.textContent = val + ' px';
+        document.documentElement.style.setProperty('--icon-max-size', val + 'px');
+      });
+    }
+
+    // 2b. Grubość piktogramów w ikonach (Stroke width)
+    function updateIconStroke(val) {
+      if (isNaN(val) || val <= 0) val = 0.5;
+      val = parseFloat(val.toFixed(2));
+      if (sIconStroke) sIconStroke.value = Math.min(6.0, val);
+      if (inputIconStroke) inputIconStroke.value = val;
+      document.documentElement.style.setProperty('--icon-stroke-width', val + 'px');
+    }
+
+    if (sIconStroke) {
+      sIconStroke.addEventListener('input', (e) => {
+        updateIconStroke(parseFloat(e.target.value));
+      });
+    }
+
+    if (inputIconStroke) {
+      inputIconStroke.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        if (!isNaN(val)) {
+          updateIconStroke(val);
+        }
+      });
+    }
+
+    // 3. Skala logotypu
+    if (sLogoScale && vLogoScale) {
+      sLogoScale.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value).toFixed(2);
+        vLogoScale.textContent = val + 'x';
+        document.documentElement.style.setProperty('--logo-scale', val);
+      });
+    }
+
+    // 4. Pozycja pionowa logotypu
+    if (sLogoY && vLogoY) {
+      sLogoY.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vLogoY.textContent = val + ' px';
+        document.documentElement.style.setProperty('--logo-shift-y', val + 'px');
+      });
+    }
+
+    // 5. Promień X (Szerokość podkowy)
+    if (sRadiusX && vRadiusX) {
+      sRadiusX.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vRadiusX.textContent = val + ' px';
+        customRadiusX = val;
+        updateDimensions();
+      });
+    }
+
+    // 6. Promień Y (Głębokość podkowy)
+    if (sRadiusY && vRadiusY) {
+      sRadiusY.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vRadiusY.textContent = val + ' px';
+        customRadiusY = val;
+        updateDimensions();
+      });
+    }
+
+    // 7. Promień Z (Głębia 3D)
+    if (sRadiusZ && vRadiusZ) {
+      sRadiusZ.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vRadiusZ.textContent = val + ' px';
+        customRadiusZ = val;
+        updateDimensions();
+      });
+    }
+
+    // 8. Odstęp etykiety pod przyciskiem
+    if (sLabelY && vLabelY) {
+      sLabelY.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vLabelY.textContent = val + ' px';
+        document.documentElement.style.setProperty('--label-offset-y', val + 'px');
+      });
+    }
+
+    // 9. Kąt startowy podkowy (lewa strona)
+    if (sArcStart && vArcStart) {
+      sArcStart.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vArcStart.textContent = val + '°';
+        customArcStartDeg = val;
+        updateDimensions();
+      });
+    }
+
+    // 10. Kąt końcowy podkowy (prawa strona)
+    if (sArcEnd && vArcEnd) {
+      sArcEnd.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vArcEnd.textContent = val + '°';
+        customArcEndDeg = val;
+        updateDimensions();
+      });
+    }
+
+    // 11. Przesunięcie pionowe orbity podkowy
+    if (sOrbitOffsetY && vOrbitOffsetY) {
+      sOrbitOffsetY.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vOrbitOffsetY.textContent = val + ' px';
+        customOrbitOffsetY = val;
+        updateDimensions();
+      });
+    }
+
+    // 12. Odstęp dolny: ArtPOS / Kubki ECO / Lód
+    if (sBottomPinch && vBottomPinch) {
+      sBottomPinch.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vBottomPinch.textContent = val + '%';
+        customBottomPinch = val;
+      });
+    }
+
+    // 13. Długość domknięcia z fade'em ku logo
+    if (sArcExtension && vArcExtension) {
+      sArcExtension.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vArcExtension.textContent = val + '°';
+        customArcExtension = val;
+        updateDimensions();
+      });
+    }
+
+    // 14. Wielkość głównego napisu pod logo
+    if (sLogoTitleSize && vLogoTitleSize) {
+      sLogoTitleSize.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vLogoTitleSize.textContent = val + ' px';
+        document.documentElement.style.setProperty('--logo-title-size', val + 'px');
+      });
+    }
+
+    // 15. Wielkość hasła/manifestu pod logo
+    if (sLogoSloganSize && vLogoSloganSize) {
+      sLogoSloganSize.addEventListener('input', (e) => {
+        const val = e.target.value;
+        vLogoSloganSize.textContent = val + ' px';
+        document.documentElement.style.setProperty('--logo-slogan-size', val + 'px');
+      });
+    }
+
+    // 16. Siła zoomu kamery po kliknięciu
+    if (sCameraZoom && vCameraZoom) {
+      sCameraZoom.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        vCameraZoom.textContent = val.toFixed(2) + 'x';
+        customCameraZoom = val;
+      });
+    }
+
+    // 17. Przezroczystość filmu w tle
+    if (sVideoOpacity && vVideoOpacity) {
+      sVideoOpacity.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vVideoOpacity.textContent = val + '%';
+        document.documentElement.style.setProperty('--video-opacity', (val / 100).toFixed(2));
+      });
+    }
+
+    // 18. Typ linii orbity (Styl: Animowana, Przerywana, Ciągła)
+    const orbitStyleBtns = [
+      { id: 'animated', el: btnOrbitStyleAnimated, label: 'Przerywana (Animowana)' },
+      { id: 'dashed', el: btnOrbitStyleDashed, label: 'Przerywana (Statyczna)' },
+      { id: 'solid', el: btnOrbitStyleSolid, label: 'Ciągła (Solid)' }
+    ];
+
+    function setOrbitStyle(styleKey) {
+      customOrbitStyle = styleKey;
+      orbitStyleBtns.forEach(item => {
+        if (!item.el) return;
+        if (item.id === styleKey) {
+          item.el.className = 'orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-[0_0_10px_rgba(250,203,125,0.3)]';
+          if (vOrbitStyle) vOrbitStyle.textContent = item.label;
+        } else {
+          item.el.className = 'orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/10';
+        }
+      });
+      applyOrbitAppearance();
+    }
+
+    orbitStyleBtns.forEach(item => {
+      if (item.el) {
+        item.el.addEventListener('click', () => setOrbitStyle(item.id));
+      }
+    });
+
+    // 19. Grubość linii orbity (Obsługa suwaka oraz bezpośredniego wpisywania wartości)
+    function updateOrbitThickness(val) {
+      if (isNaN(val) || val <= 0) val = 0.5;
+      customOrbitThickness = val;
+      if (sOrbitThickness) sOrbitThickness.value = Math.min(40, val);
+      if (inputOrbitThickness) inputOrbitThickness.value = val;
+      applyOrbitAppearance();
+    }
+
+    if (sOrbitThickness) {
+      sOrbitThickness.addEventListener('input', (e) => {
+        updateOrbitThickness(parseFloat(e.target.value));
+      });
+    }
+
+    if (inputOrbitThickness) {
+      inputOrbitThickness.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        if (!isNaN(val)) {
+          updateOrbitThickness(val);
+        }
+      });
+    }
+
+    // 20. Przezroczystość linii orbity (Opacity)
+    if (sOrbitOpacity && vOrbitOpacity) {
+      sOrbitOpacity.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vOrbitOpacity.textContent = val + '%';
+        customOrbitOpacity = val;
+        applyOrbitAppearance();
+      });
+    }
+
+    // Kopiowanie wyselekcjonowanych wartości do schowka
+    if (tuneCopyBtn) {
+      tuneCopyBtn.addEventListener('click', () => {
+        const styleLabel = customOrbitStyle === 'solid' ? 'Ciągła' : (customOrbitStyle === 'dashed' ? 'Przerywana (Statyczna)' : 'Przerywana (Animowana)');
+        const report = [
+          `Wersja: Wersja 3 (Łuk Podkowy U-Shape)`,
+          `Wielkość przycisków: ${sNodeSize.value}px`,
+          `Wielkość ikon: ${sIconSize.value}px`,
+          `Grubość piktogramów: ${inputIconStroke ? inputIconStroke.value : (sIconStroke ? sIconStroke.value : 2.0)}px`,
+          `Skala logotypu: ${parseFloat(sLogoScale.value).toFixed(2)}x`,
+          `Pozycja logo Y: ${sLogoY.value}px`,
+          `Promień podkowy X: ${sRadiusX.value}px`,
+          `Promień podkowy Y: ${sRadiusY.value}px`,
+          `Głębia Z: ${sRadiusZ.value}px`,
+          `Odstęp etykiet: ${sLabelY.value}px`,
+          `Kąt lewy (początek): ${sArcStart.value}°`,
+          `Kąt prawy (koniec): ${sArcEnd.value}°`,
+          `Wysokość orbity (Offset Y): ${sOrbitOffsetY.value}px`,
+          `Zbliżenie dolne (ArtPOS/Kubki/Lód): ${sBottomPinch ? sBottomPinch.value : 25}%`,
+          `Domknięcie łuku ku logo (Fade): ${sArcExtension ? sArcExtension.value : 22}°`,
+          `Wielkość napisu pod logo: ${sLogoTitleSize ? sLogoTitleSize.value : 25}px`,
+          `Wielkość hasła pod logo: ${sLogoSloganSize ? sLogoSloganSize.value : 13.5}px`,
+          `Zoom kamery po kliknięciu: ${sCameraZoom ? parseFloat(sCameraZoom.value).toFixed(2) : '3.50'}x`,
+          `Przezroczystość wideo w tle: ${sVideoOpacity ? sVideoOpacity.value : 60}%`,
+          `Typ linii orbity: ${styleLabel}`,
+          `Grubość linii orbity: ${customOrbitThickness ? customOrbitThickness.toFixed(1) : '2.5'}px`,
+          `Przezroczystość linii orbity: ${sOrbitOpacity ? sOrbitOpacity.value : 100}%`
+        ].join('\n');
+
+        navigator.clipboard.writeText(report).then(() => {
+          if (tuneCopyText) tuneCopyText.textContent = '✓ Skopiowano do schowka!';
+          setTimeout(() => {
+            if (tuneCopyText) tuneCopyText.textContent = 'Kopiuj wybrane wymiary';
+          }, 2500);
+        }).catch(() => {
+          prompt('Skopiuj parametry ręcznie:', report);
+        });
+      });
+    }
+
+    // Resetowanie do wartości domyślnych
+    if (tuneResetBtn) {
+      tuneResetBtn.addEventListener('click', () => {
+        sNodeSize.value = 134;
+        sIconSize.value = 136;
+        if (sIconStroke) sIconStroke.value = 1.5;
+        if (inputIconStroke) inputIconStroke.value = 1.5;
+        sLogoScale.value = 1.70;
+        sLogoY.value = -52;
+        sRadiusX.value = 555;
+        sRadiusY.value = 245;
+        sRadiusZ.value = 0;
+        sLabelY.value = 11;
+        sArcStart.value = 236;
+        sArcEnd.value = -56;
+        sOrbitOffsetY.value = 40;
+        if (sBottomPinch) sBottomPinch.value = 25;
+        if (sArcExtension) sArcExtension.value = 22;
+        if (sLogoTitleSize) sLogoTitleSize.value = 25;
+        if (sLogoSloganSize) sLogoSloganSize.value = 13.5;
+        if (sCameraZoom) sCameraZoom.value = 3.5;
+        if (sVideoOpacity) sVideoOpacity.value = 60;
+        if (sOrbitThickness) sOrbitThickness.value = 2.5;
+        if (inputOrbitThickness) inputOrbitThickness.value = 2.5;
+        if (sOrbitOpacity) sOrbitOpacity.value = 100;
+
+        vNodeSize.textContent = '134 px';
+        vIconSize.textContent = '136 px';
+        vLogoScale.textContent = '1.70x';
+        vLogoY.textContent = '-52 px';
+        vRadiusX.textContent = '555 px';
+        vRadiusY.textContent = '245 px';
+        vRadiusZ.textContent = '0 px';
+        vLabelY.textContent = '11 px';
+        vArcStart.textContent = '236°';
+        vArcEnd.textContent = '-56°';
+        vOrbitOffsetY.textContent = '40 px';
+        if (vBottomPinch) vBottomPinch.textContent = '25%';
+        if (vArcExtension) vArcExtension.textContent = '22°';
+        if (vLogoTitleSize) vLogoTitleSize.textContent = '25 px';
+        if (vLogoSloganSize) vLogoSloganSize.textContent = '13.5 px';
+        if (vCameraZoom) vCameraZoom.textContent = '3.50x';
+        if (vVideoOpacity) vVideoOpacity.textContent = '60%';
+        if (vOrbitOpacity) vOrbitOpacity.textContent = '100%';
+
+        setOrbitStyle('animated');
+        customOrbitThickness = 2.5;
+        customOrbitOpacity = 100;
+        applyOrbitAppearance();
+
+        document.documentElement.style.setProperty('--node-size', '134px');
+        document.documentElement.style.setProperty('--icon-max-size', '136px');
+        document.documentElement.style.setProperty('--icon-stroke-width', '1.5px');
+        document.documentElement.style.setProperty('--logo-scale', '1.70');
+        document.documentElement.style.setProperty('--logo-shift-y', '-52px');
+        document.documentElement.style.setProperty('--label-offset-y', '11px');
+        document.documentElement.style.setProperty('--logo-title-size', '25px');
+        document.documentElement.style.setProperty('--logo-slogan-size', '13.5px');
+        document.documentElement.style.setProperty('--video-opacity', '0.60');
+
+        customRadiusX = 555;
+        customRadiusY = 245;
+        customRadiusZ = 0;
+        customArcStartDeg = 236;
+        customArcEndDeg = -56;
+        customOrbitOffsetY = 40;
+        customBottomPinch = 25;
+        customArcExtension = 22;
+        customCameraZoom = 3.5;
+        updateDimensions();
+      });
+    }
+
+    init3DNodes();
+    updateDimensions();
+    renderLoop();
+  </script>
+</body>
+</html>
