@@ -544,7 +544,9 @@
       stroke-width: var(--icon-stroke-width, 2px) !important;
     }
     .icon-symbol-wrap svg circle[fill]:not([stroke]):not([fill="none"]),
-    .icon-symbol-wrap svg polygon[fill]:not([stroke]):not([fill="none"]):not([fill="transparent"]) {
+    .icon-symbol-wrap svg polygon[fill]:not([stroke]):not([fill="none"]):not([fill="transparent"]),
+    .icon-symbol-wrap svg path[fill]:not([stroke]):not([fill="none"]),
+    .icon-symbol-wrap svg path[fill-rule="evenodd"] {
       stroke-width: 0 !important;
     }
     .icon-symbol-wrap svg text {
@@ -1114,6 +1116,314 @@
             <p id="center-logo-slogan" class="font-bold tracking-[0.24em] text-white/90 uppercase mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-size: calc(var(--logo-slogan-size, 20.5px) * var(--responsive-scale, 1));">
               JEDEN PARTNER = CAŁY EVENT
             </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           STUDIO KALIBRACJI WYGLĄDU 3D (SUWAKI NA ŻYWO)
+           ══════════════════════════════════════════════ -->
+      <div id="tuning-dock" class="fixed bottom-4 left-4 z-[25000] flex flex-col items-start font-sans">
+        <!-- Przycisk rozwijania / zwijania -->
+        <button id="tune-toggle-btn" type="button" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-[#FACB7D]/45 text-[#FACB7D] hover:text-white hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 shadow-[0_4px_25px_rgba(0,0,0,0.85)] hover:shadow-[0_0_20px_rgba(250,203,125,0.35)] transition-all cursor-pointer group">
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-90 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          <span class="text-xs font-bold uppercase tracking-wider">Dostosuj wymiary</span>
+          <span id="tune-toggle-badge" class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
+        </button>
+
+        <!-- Panel suwaków (domyślnie ukryty) -->
+        <div id="tune-panel" class="hidden mt-3 w-80 sm:w-96 max-h-[82vh] overflow-y-auto p-5 rounded-2xl bg-[#0a0a0a]/95 backdrop-blur-2xl border border-[#FACB7D]/40 shadow-[0_15px_50px_rgba(0,0,0,0.95),0_0_35px_rgba(250,203,125,0.2)] scrollbar-thin">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#FACB7D]/20">
+            <div>
+              <div class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#FACB7D]">Kalibrator Wizualny</div>
+              <h4 class="font-serif-luxury text-sm font-black text-white uppercase tracking-wider">Studio Wymiarów 3D</h4>
+            </div>
+            <button id="tune-close-btn" type="button" class="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#FACB7D] flex items-center justify-center text-white/60 hover:text-[#FACB7D] text-xs transition-all">✕</button>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <!-- 1. Wielkość przycisków -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość przycisków</span>
+                <span id="val-node-size" class="font-mono text-[#FACB7D] font-bold">134 px</span>
+              </div>
+              <input type="range" id="slider-node-size" min="60" max="180" value="134" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>60 px</span><span>Domyślnie: 134</span><span>180 px</span></div>
+            </div>
+
+            <!-- 2. Wielkość ikon -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość ikon w przyciskach</span>
+                <span id="val-icon-size" class="font-mono text-[#FACB7D] font-bold">136 px</span>
+              </div>
+              <input type="range" id="slider-icon-size" min="45" max="160" value="136" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>45 px</span><span>Domyślnie: 136</span><span>160 px</span></div>
+            </div>
+
+            <!-- 2b. Grubość piktogramów w ikonach -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/25 shadow-[0_0_12px_rgba(250,203,125,0.06)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                  Grubość piktogramów
+                </span>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="input-icon-stroke" min="0.5" max="8.0" step="0.1" value="1.5" class="w-16 px-1.5 py-0.5 rounded bg-black/80 border border-[#FACB7D]/50 text-[#FACB7D] font-mono font-bold text-xs text-right focus:border-[#FACB7D] focus:outline-none">
+                  <span class="text-xs text-[#FACB7D] font-bold">px</span>
+                </div>
+              </div>
+              <input type="range" id="slider-icon-stroke" min="0.5" max="6.0" value="1.5" step="0.1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.5 px (Cienka)</span><span>Domyślnie: 1.5 px</span><span>6.0 px (Gruba)</span></div>
+            </div>
+
+            <!-- 3. Skala Logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Skala logotypu ArtBar</span>
+                <span id="val-logo-scale" class="font-mono text-[#FACB7D] font-bold">1.70x</span>
+              </div>
+              <input type="range" id="slider-logo-scale" min="0.8" max="2.3" value="1.70" step="0.05" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.8x</span><span>Domyślnie: 1.70x</span><span>2.3x</span></div>
+            </div>
+
+            <!-- 4. Przesunięcie pionowe logo (Y) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wysokość logotypu (Oś Y)</span>
+                <span id="val-logo-y" class="font-mono text-[#FACB7D] font-bold">-52 px</span>
+              </div>
+              <input type="range" id="slider-logo-y" min="-120" max="40" value="-52" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-120 px (Wyżej)</span><span>-52 px</span><span>+40 px (Niżej)</span></div>
+            </div>
+
+            <!-- 5. Promień X podkowy (Szerokość łuku) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Szerokość podkowy (Promień X)</span>
+                <span id="val-radius-x" class="font-mono text-[#FACB7D] font-bold">555 px</span>
+              </div>
+              <input type="range" id="slider-radius-x" min="360" max="750" value="555" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>360 px</span><span>Domyślnie: 555</span><span>750 px</span></div>
+            </div>
+
+            <!-- 6. Promień Y podkowy (Głębokość łuku w dół) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Głębokość podkowy (Promień Y)</span>
+                <span id="val-radius-y" class="font-mono text-[#FACB7D] font-bold">245 px</span>
+              </div>
+              <input type="range" id="slider-radius-y" min="150" max="450" value="245" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>150 px</span><span>Domyślnie: 245</span><span>450 px</span></div>
+            </div>
+
+            <!-- 7. Głębia 3D (Promień Z) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Głębia przestrzenna 3D (Oś Z)</span>
+                <span id="val-radius-z" class="font-mono text-[#FACB7D] font-bold">0 px</span>
+              </div>
+              <input type="range" id="slider-radius-z" min="0" max="260" value="0" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0 px (Płaska)</span><span>Domyślnie: 0 px</span><span>260 px (Głęboka)</span></div>
+            </div>
+
+            <!-- 8. Odstęp napisów od przycisku -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Odstęp etykiety tekstowej</span>
+                <span id="val-label-y" class="font-mono text-[#FACB7D] font-bold">11 px</span>
+              </div>
+              <input type="range" id="slider-label-y" min="2" max="30" value="11" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>2 px</span><span>Domyślnie: 11</span><span>30 px</span></div>
+            </div>
+
+            <!-- 9. Kąt startowy podkowy (lewa strona przy logo) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Początek łuku (Kąt lewy góra)</span>
+                <span id="val-arc-start" class="font-mono text-[#FACB7D] font-bold">236°</span>
+              </div>
+              <input type="range" id="slider-arc-start" min="180" max="270" value="236" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>180° (Poziomo)</span><span>236°</span><span>270° (Pionowo)</span></div>
+            </div>
+
+            <!-- 10. Kąt końcowy podkowy (prawa strona przy logo) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Koniec łuku (Kąt prawy góra)</span>
+                <span id="val-arc-end" class="font-mono text-[#FACB7D] font-bold">-56°</span>
+              </div>
+              <input type="range" id="slider-arc-end" min="-90" max="0" value="-56" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-90° (Pionowo)</span><span>-56°</span><span>0° (Poziomo)</span></div>
+            </div>
+
+            <!-- 11. Przesunięcie pionowe całej orbity podkowy -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wysokość orbity (Offset Y)</span>
+                <span id="val-orbit-offset-y" class="font-mono text-[#FACB7D] font-bold">40 px</span>
+              </div>
+              <input type="range" id="slider-orbit-offset-y" min="-120" max="100" value="40" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-120 px (Wyżej)</span><span>40 px</span><span>+100 px (Niżej)</span></div>
+            </div>
+
+            <!-- 12. GRUPA: ODSTĘPY I ROZKŁAD PRZYCISKÓW NA ORBICIE -->
+            <div class="col-span-full pt-1 pb-0.5">
+              <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FACB7D] flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                Rozstępy i geometria węzłów (8 działów)
+              </div>
+            </div>
+
+            <!-- 12a. Rozstaw boczny (Flanki Lewa / Prawa - bezpośrednia likwidacja nakładania) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/40 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                  Rozstaw boczny (Flanki L/P)
+                </span>
+                <span id="val-flank-spread" class="font-mono text-[#FACB7D] font-bold">+30%</span>
+              </div>
+              <input type="range" id="slider-flank-spread" min="-40" max="80" value="30" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-40% (Zwarte)</span><span>Domyślnie: +30% (Szerokie)</span><span>+80% (Maksimum)</span></div>
+            </div>
+
+            <!-- 12b. Wyrównanie łukowe (Równe fizyczne odstępy na elipsie w px) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/25">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wyrównanie łukowe (Równe odstępy)</span>
+                <span id="val-arc-distribution" class="font-mono text-[#FACB7D] font-bold">85%</span>
+              </div>
+              <input type="range" id="slider-arc-distribution" min="0" max="100" value="85" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Kątowy)</span><span>85% (Zalecane)</span><span>100% (Równe w px)</span></div>
+            </div>
+
+            <!-- 12c. Odstęp / Zbliżenie dolne (Środek: Technika - Logistyka) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Zbliżenie dolne (Środek)</span>
+                <span id="val-bottom-pinch" class="font-mono text-[#FACB7D] font-bold">15%</span>
+              </div>
+              <input type="range" id="slider-bottom-pinch" min="-40" max="60" value="15" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-40% (Rozszerz dół)</span><span>15% (Optymalne)</span><span>60% (Bliżej)</span></div>
+            </div>
+
+            <!-- 12d. Rozstaw górny (Góra L/P ku logo: ART i PRODUKCJA) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Rozstaw górny (ART & PRODUKCJA)</span>
+                <span id="val-top-spread" class="font-mono text-[#FACB7D] font-bold">+10%</span>
+              </div>
+              <input type="range" id="slider-top-spread" min="-30" max="60" value="10" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-30% (Bliżej)</span><span>+10% (Optymalne)</span><span>+60% (Odsunięte)</span></div>
+            </div>
+
+            <!-- 13. Długość domknięcia z fade'em ku logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Domknięcie łuku ku logo (Fade)</span>
+                <span id="val-arc-extension" class="font-mono text-[#FACB7D] font-bold">22°</span>
+              </div>
+              <input type="range" id="slider-arc-extension" min="5" max="45" value="22" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>5° (Krótki)</span><span>22° (Domyślnie)</span><span>45° (Pełne)</span></div>
+            </div>
+
+            <!-- 14. Wielkość głównego napisu pod logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość napisu: KOMPLEKSOWA REALIZACJA...</span>
+                <span id="val-logo-title-size" class="font-mono text-[#FACB7D] font-bold">25 px</span>
+              </div>
+              <input type="range" id="slider-logo-title-size" min="10" max="36" value="25" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>10 px</span><span>Domyślnie: 25 px</span><span>36 px</span></div>
+            </div>
+
+            <!-- 15. Wielkość hasła/manifestu pod logo -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Wielkość hasła: JEDEN PARTNER...</span>
+                <span id="val-logo-slogan-size" class="font-mono text-[#FACB7D] font-bold">13.5 px</span>
+              </div>
+              <input type="range" id="slider-logo-slogan-size" min="7" max="24" value="13.5" step="0.5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>7 px</span><span>Domyślnie: 13.5 px</span><span>24 px</span></div>
+            </div>
+
+            <!-- 16. Siła zbliżenia (Zoom) przy kliknięciu przycisku -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Siła zoomu kamery po kliknięciu</span>
+                <span id="val-camera-zoom" class="font-mono text-[#FACB7D] font-bold">3.50x</span>
+              </div>
+              <input type="range" id="slider-camera-zoom" min="1.1" max="4.5" value="3.5" step="0.05" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>1.1x (Subtelny)</span><span>3.5x (Domyślnie)</span><span>4.5x (Kinowy Ultra)</span></div>
+            </div>
+
+            <!-- 17. Przezroczystość wideo w tle (Video Opacity) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Przezroczystość filmu w tle</span>
+                <span id="val-video-opacity" class="font-mono text-[#FACB7D] font-bold">60%</span>
+              </div>
+              <input type="range" id="slider-video-opacity" min="0" max="100" value="60" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Wyłączone)</span><span>60% (Domyślnie)</span><span>100% (Maksimum)</span></div>
+            </div>
+
+            <!-- 18. Typ linii orbity (Styl wizualny) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/30 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-white/90 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                  Typ linii orbity
+                </span>
+                <span id="val-orbit-style" class="font-mono text-[#FACB7D] font-bold text-xs">Przerywana (Animowana)</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 p-1 bg-black/60 rounded-lg border border-white/10 text-center">
+                <button type="button" id="btn-orbit-style-animated" class="orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-[0_0_10px_rgba(250,203,125,0.3)]">
+                  Animowana
+                </button>
+                <button type="button" id="btn-orbit-style-dashed" class="orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/10">
+                  Przerywana
+                </button>
+                <button type="button" id="btn-orbit-style-solid" class="orbit-style-choice-btn py-1.5 px-2 rounded text-[10px] font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/10">
+                  Ciągła
+                </button>
+              </div>
+            </div>
+
+            <!-- 19. Grubość linii orbity (Suwak + Pole ręcznego wpisania dowolnej wartości) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/30 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Grubość linii orbity</span>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="input-orbit-thickness" min="0.5" max="100" step="0.5" value="2.5" class="w-16 px-1.5 py-0.5 rounded bg-black/80 border border-[#FACB7D]/50 text-[#FACB7D] font-mono font-bold text-xs text-right focus:border-[#FACB7D] focus:outline-none">
+                  <span class="text-xs text-[#FACB7D] font-bold">px</span>
+                </div>
+              </div>
+              <input type="range" id="slider-orbit-thickness" min="0.5" max="40.0" value="2.5" step="0.5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.5 px</span><span>Suwak do 40 px</span><span>(Wpisz do 100 px)</span></div>
+            </div>
+
+            <!-- 20. Przezroczystość linii orbity (Opacity / Transparentność) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/30 shadow-[0_0_15px_rgba(250,203,125,0.08)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Przezroczystość linii orbity</span>
+                <span id="val-orbit-opacity" class="font-mono text-[#FACB7D] font-bold">100%</span>
+              </div>
+              <input type="range" id="slider-orbit-opacity" min="0" max="100" value="100" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Niewidoczna)</span><span>50% (Półprzezroczysta)</span><span>100% (Pełna)</span></div>
+            </div>
+          </div>
+
+          <!-- Dolne akcje: Kopiuj ustawienia & Reset -->
+          <div class="mt-5 pt-3 border-t border-[#FACB7D]/20 flex flex-col gap-2">
+            <button id="tune-copy-btn" type="button" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#FACB7D] to-[#e6b45e] text-black font-bold uppercase tracking-wider text-xs hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_0_15px_rgba(250,203,125,0.4)] flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span id="tune-copy-text">Kopiuj wybrane wymiary</span>
+            </button>
+            <button id="tune-reset-btn" type="button" class="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white uppercase tracking-wider text-[11px] transition-all">
+              Przywróć wartości domyślne
+            </button>
           </div>
         </div>
       </div>
@@ -2154,7 +2464,7 @@
     }
 
     // ════════════════════════════════════════════════════════════
-    // DANE 7 DZIAŁÓW Z NOWEJ KONCEPCJI (nowakoncepcja/unnamed.png)
+    // DANE 8 DZIAŁÓW EKOSYSTEMU ARTBAR SOLUTIONS
     // ════════════════════════════════════════════════════════════
     const DEPARTMENTS = [
       {
@@ -2194,134 +2504,35 @@
         ]
       },
       {
-        id: 'logistyka',
-        title: 'Logistyka',
-        subtitle: 'TRANSPORT, MAGAZYNOWANIE, KONTROLA DOSTAW',
-        badge: 'Logistyka, Transport i Magazynowanie',
-        lead: 'Własny park samochodów dostawczych i chłodni, strategiczne hale magazynowe oraz precyzyjne procedury dostaw Just-In-Time. Bezpieczny transport, terminowość i sprawny montaż w dowolnym punkcie kraju.',
+        id: 'bar',
+        title: 'Bar',
+        subtitle: 'INFRASTRUKTURA BARÓW',
+        badge: 'Modułowa Infrastruktura Barowa',
+        lead: 'Oferujemy modułowe, funkcjonalne bary eventowe na imprezy masowe, bankiety i gale. Pełna dowolność konfiguracji, ergonomiczne zaplecza z regałami LED, sprzęt gastronomiczny oraz koncesja na alkohol ABC.',
         iconSvg: `
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 28h5M6 34h9M10 40h4" stroke-width="2"/>
-            <path d="M30 14a4 4 0 0 1 4 4c0 3-4 7-4 7s-4-4-4-7a4 4 0 0 1 4-4z" />
-            <circle cx="30" cy="18" r="1.5" fill="#FACB7D"/>
-            <rect x="18" y="25" width="22" height="18" rx="1.5" />
-            <path d="M40 31h8l4 6v6h-12v-12z" />
-            <path d="M43 32h5l2.5 4h-7.5v-4z" />
-            <circle cx="26" cy="45" r="4" stroke="#FACB7D" stroke-width="2" fill="#FACB7D"/>
-            <circle cx="46" cy="45" r="4" stroke="#FACB7D" stroke-width="2" fill="#FACB7D"/>
-            <path d="M18 43h4M30 43h12M50 43h3" />
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]">
+            <path d="M12 22h-4v-10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M52 22h4v-10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M12 42h-4v10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M52 42h4v10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="32" y="27" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">mds</text>
+            <line x1="16" y1="33" x2="48" y2="33" stroke="#FACB7D" stroke-width="2"/>
+            <text x="32" y="47" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">bar</text>
           </svg>
         `,
         services: [
-          'Własna flota transportowa: ciężarówki, busy i chłodnie',
-          'Centra magazynowe z kontrolowaną temperaturą',
-          'Dostawy w procedurze Just-In-Time bezpośrednio pod bar',
-          'Szybki rozładunek i precyzyjne lokowanie wyposażenia',
-          'Ciągły monitoring GPS i kontrola stanów magazynowych',
-          'Pełna inwentaryzacja i sprawny odbiór powydarzeniowy',
-          'Zasięg ogólnopolski oraz trasy zagraniczne'
+          'Wynajem modułowych barów prostych i narożnych',
+          'Ergonomiczne zaplecza z podświetlanymi regałami LED',
+          'Przeszklone lodówki gastronomiczne i zamrażarki',
+          'Kompletny sprzęt i stacje barmańskie',
+          'Precyzyjna obsługa zaopatrzenia i zamówień',
+          'Koncesja na alkohol ABC i pełna legalizacja',
+          'Błyskawiczny montaż i demontaż modułów'
         ],
         photos: [
-          'assets/images/gallery/2024.12.31-Art-Bar-81-1-1536x1024.jpg',
-          'assets/images/gallery/ArtBar02.03-188-z-462-scaled.jpg',
-          'assets/images/gallery/ArtBar02.03-270-z-462-scaled.jpg'
-        ]
-      },
-      {
-        id: 'artpos',
-        title: 'ArtPOS',
-        subtitle: 'SYSTEMY SPRZEDAŻOWE, KONTROLA, RAPORT',
-        badge: 'Zaawansowany System Sprzedażowy POS',
-        lead: 'Autorski system sprzedażowy stworzony na potrzeby imprez masowych. Fiskalizacja w czasie rzeczywistym, kontrola magazynów live, terminale płatnicze bez prowizji pośredników i precyzyjne rozliczenia po evencie.',
-        iconSvg: `
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="10" y="10" width="34" height="28" rx="3" />
-            <path d="M15 16h6M25 16h6M35 16h4" />
-            <path d="M15 21h6M25 21h6M35 21h4" />
-            <path d="M15 26h6M25 26h6" />
-            <path d="M15 31h16" />
-            <path d="M22 38v8h10v-8" />
-            <path d="M18 46h18" />
-            <path d="M38 28l5-8a2 2 0 0 1 3.5 1.5l-2.5 7.5h5a2 2 0 0 1 2 2v2a6 6 0 0 1-6 6h-3" fill="none" stroke-width="2"/>
-            <path d="M43 38v8" />
-            <path d="M48 38v8" />
-          </svg>
-        `,
-        services: [
-          'Błyskawiczna obsługa klienta i minimalizacja kolejek',
-          'Fiskalizacja w czasie rzeczywistym (Live Cloud)',
-          'Kontrola stanów magazynowych i alarmy braków towaru',
-          'Mobilne i stacjonarne terminale płatnicze',
-          'Integracja z opaskami i kartami RFID (festiwalowymi)',
-          'Pulpit analityczny dla organizatora z danymi na żywo',
-          'Dokładne audyty i raporty rentowności'
-        ],
-        photos: [
-          'assets/images/2024.12.31-Art-Bar-46-1.jpg',
-          'assets/images/2024.12.31-Art-Bar-89.jpg',
-          'assets/images/gallery/2024.12.31-Art-Bar-102-2.jpg'
-        ]
-      },
-      {
-        id: 'kubki-eco',
-        title: 'Kubki ECO',
-        subtitle: 'SYSTEM KUBKÓW WIELOKROTNEGO UŻYTKU',
-        badge: 'Ekologiczny System Kubków Wielorazowych',
-        lead: 'Kompleksowy system kubków kaucyjnych wielokrotnego użytku zgodny z dyrektywą SUP. Eliminacja ton plastikowych odpadów, profesjonalne mycie przemysłowe w standardzie HACCP oraz możliwość brandingu sponsorów.',
-        iconSvg: `
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 16h32" stroke-width="3" />
-            <path d="M22 13h20" stroke-width="2" />
-            <path d="M19 16l4 34a3 3 0 0 0 3 2.5h12a3 3 0 0 0 3-2.5l4-34" />
-            <path d="M26 35c0-6 6-9 12-9c0 6-6 9-12 9z" fill="rgba(250,203,125,0.15)" stroke-width="2"/>
-            <path d="M26 35c3-2 6-4 12-9" stroke-width="1.5"/>
-          </svg>
-        `,
-        services: [
-          'Atestowane, trwałe kubki wielorazowe 0.3L, 0.4L, 0.5L',
-          'Pełna obsługa systemu pobierania i zwrotu kaucji',
-          'Stanowiska szybkiego zwrotu kubków (Cup Return)',
-          'Logistyka magazynowa i transport w zgrzewkach',
-          'Przemysłowe mycie w standardzie sanitarnym HACCP',
-          'Personalizowany nadruk reklamowy dla partnerów',
-          'Zgodność z unijnymi regulacjami środowiskowymi'
-        ],
-        photos: [
-          'assets/images/gallery/ArtBar02.03-45-z-462-1-scaled.jpg',
-          'assets/images/gallery/12-31_BAJLANDO_33-scaled.jpg',
-          'assets/images/gallery/ArtBar02.03-101-z-462-scaled.jpg'
-        ]
-      },
-      {
-        id: 'lod',
-        title: 'Lód',
-        subtitle: 'WŁASNA FABRYKA LODU',
-        badge: 'Własna Fabryka Lodu Hoshizaki',
-        lead: 'Własna produkcja lodu w kostkach i kruszonego na najwyższej klasy japońskich maszynach Hoshizaki. Samochody mroźnie (-18°C), termoizolacyjne skrzynie oraz widowiskowe rzeźby lodowe na gale i bankiety.',
-        iconSvg: `
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="18,22 24,15 32,18 26,25" />
-            <polygon points="31,17 38,12 46,16 39,23" />
-            <polygon points="25,23 35,21 37,27 27,28" />
-            <polygon points="41,20 49,18 52,24 45,26" />
-            <path d="M12 26h40l-5 24a3 3 0 0 1-3 2.5H20a3 3 0 0 1-3-2.5L12 26z" />
-            <path d="M32 34v12M26 40h12M28 36l8 8M36 36l-8 8" stroke-width="1.8"/>
-            <circle cx="32" cy="40" r="1.5" fill="#FACB7D"/>
-          </svg>
-        `,
-        services: [
-          'Krystaliczny lód w kostkach (technologia Hoshizaki)',
-          'Lód kruszony do koktajli i ekspozycji butelek',
-          'Suchy lód do efektów dymnych i chłodzenia barów',
-          'Artystyczne rzeźby lodowe i bloki z brandingiem',
-          'Specjalistyczne skrzynie termoizolacyjne',
-          'Dedykowana flota samochodów mroźni (-18°C)',
-          'Gwarancja ciągłości dostaw do kilkudziesięciu ton'
-        ],
-        photos: [
-          'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg',
-          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-20-1.jpg',
-          'assets/images/gallery/ArtBar02.03-18-z-462-scaled.jpg'
+          'assets/images/2024.12.31-Art-Bar-73-2.jpg',
+          'assets/images/2024.12.31-Art-Bar-26-768x512.jpg',
+          'assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg'
         ]
       },
       {
@@ -2358,35 +2569,160 @@
         ]
       },
       {
-        id: 'bar',
-        title: 'Bar',
-        subtitle: 'INFRASTRUKTURA BARÓW',
-        badge: 'Modułowa Infrastruktura Barowa',
-        lead: 'Oferujemy modułowe, funkcjonalne bary eventowe na imprezy masowe, bankiety i gale. Pełna dowolność konfiguracji, ergonomiczne zaplecza z regałami LED, sprzęt gastronomiczny oraz koncesja na alkohol ABC.',
+        id: 'technika',
+        title: 'Technika',
+        subtitle: 'SYSTEMY SPRZEDAŻOWE, POS, KONTROLA I AUDYT',
+        badge: 'Zaawansowana Technologia i Systemy POS',
+        lead: 'Autorski ekosystem techniczny stworzony na potrzeby festiwali i imprez masowych. Fiskalizacja w chmurze w czasie rzeczywistym, terminale płatnicze online/offline bez pośredników, monitoring stanów magazynowych oraz analityka live.',
         iconSvg: `
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]">
-            <path d="M12 22h-4v-10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M52 22h4v-10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M12 42h-4v10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M52 42h4v10h-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <text x="32" y="27" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">mds</text>
-            <line x1="16" y1="33" x2="48" y2="33" stroke="#FACB7D" stroke-width="2"/>
-            <text x="32" y="47" font-family="'Montserrat', sans-serif" font-size="13" font-weight="700" fill="#FACB7D" text-anchor="middle" letter-spacing="1">bar</text>
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="34" height="28" rx="3" />
+            <path d="M15 16h6M25 16h6M35 16h4" />
+            <path d="M15 21h6M25 21h6M35 21h4" />
+            <path d="M15 26h6M25 26h6" />
+            <path d="M15 31h16" />
+            <path d="M22 38v8h10v-8" />
+            <path d="M18 46h18" />
+            <path d="M38 28l5-8a2 2 0 0 1 3.5 1.5l-2.5 7.5h5a2 2 0 0 1 2 2v2a6 6 0 0 1-6 6h-3" fill="none" stroke-width="2"/>
+            <path d="M43 38v8" />
+            <path d="M48 38v8" />
           </svg>
         `,
         services: [
-          'Wynajem modułowych barów prostych i narożnych',
-          'Ergonomiczne zaplecza z podświetlanymi regałami LED',
-          'Przeszklone lodówki gastronomiczne i zamrażarki',
-          'Kompletny sprzęt i stacje barmańskie',
-          'Precyzyjna obsługa zaopatrzenia i zamówień',
-          'Koncesja na alkohol ABC i pełna legalizacja',
-          'Błyskawiczny montaż i demontaż modułów'
+          'Błyskawiczna obsługa klienta i minimalizacja kolejek',
+          'Fiskalizacja w czasie rzeczywistym (Live Cloud POS)',
+          'Kontrola stanów magazynowych i alarmy braków towaru',
+          'Mobilne i stacjonarne terminale płatnicze odporne na brak sieci',
+          'Integracja z opaskami i kartami RFID (festiwalowymi)',
+          'Pulpit analityczny dla organizatora z danymi sprzedażowymi live',
+          'Szczegółowe audyty rentowności i rozliczenia po evencie'
         ],
         photos: [
-          'assets/images/2024.12.31-Art-Bar-73-2.jpg',
-          'assets/images/2024.12.31-Art-Bar-26-768x512.jpg',
-          'assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg'
+          'assets/images/2024.12.31-Art-Bar-46-1.jpg',
+          'assets/images/2024.12.31-Art-Bar-89.jpg',
+          'assets/images/gallery/2024.12.31-Art-Bar-102-2.jpg'
+        ]
+      },
+      {
+        id: 'logistyka',
+        title: 'Logistyka',
+        subtitle: 'TRANSPORT, MAGAZYNOWANIE, KONTROLA DOSTAW',
+        badge: 'Logistyka, Transport i Magazynowanie',
+        lead: 'Własny park samochodów dostawczych i chłodni, strategiczne hale magazynowe oraz precyzyjne procedury dostaw Just-In-Time. Bezpieczny transport, terminowość i sprawny montaż w dowolnym punkcie kraju.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 28h5M6 34h9M10 40h4" stroke-width="2"/>
+            <path d="M30 14a4 4 0 0 1 4 4c0 3-4 7-4 7s-4-4-4-7a4 4 0 0 1 4-4z" />
+            <circle cx="30" cy="18" r="1.5" fill="#FACB7D"/>
+            <rect x="18" y="25" width="22" height="18" rx="1.5" />
+            <path d="M40 31h8l4 6v6h-12v-12z" />
+            <path d="M43 32h5l2.5 4h-7.5v-4z" />
+            <circle cx="26" cy="45" r="4" stroke="#FACB7D" stroke-width="2" fill="#FACB7D"/>
+            <circle cx="46" cy="45" r="4" stroke="#FACB7D" stroke-width="2" fill="#FACB7D"/>
+            <path d="M18 43h4M30 43h12M50 43h3" />
+          </svg>
+        `,
+        services: [
+          'Własna flota transportowa: ciężarówki, busy i chłodnie',
+          'Centra magazynowe z kontrolowaną temperaturą',
+          'Dostawy w procedurze Just-In-Time bezpośrednio pod bar',
+          'Szybki rozładunek i precyzyjne lokowanie wyposażenia',
+          'Ciągły monitoring GPS i kontrola stanów magazynowych',
+          'Pełna inwentaryzacja i sprawny odbiór powydarzeniowy',
+          'Zasięg ogólnopolski oraz trasy zagraniczne'
+        ],
+        photos: [
+          'assets/images/gallery/2024.12.31-Art-Bar-81-1-1536x1024.jpg',
+          'assets/images/gallery/ArtBar02.03-188-z-462-scaled.jpg',
+          'assets/images/gallery/ArtBar02.03-270-z-462-scaled.jpg'
+        ]
+      },
+      {
+        id: 'namioty',
+        title: 'Namioty',
+        subtitle: 'ZADASZENIA MEMBRANOWE, HALE I STREFY PLENEROWE',
+        badge: 'Profesjonalne Zadaszenia i Hale Namiotowe',
+        lead: 'Kompleksowe zadaszenia eventowe: od designerskich namiotów gwiazda i stretch po całoroczne hale namiotowe. Zapewniamy pełne bezpieczeństwo stref barowych, podłogi modułowe oraz odporność na skrajne warunki atmosferyczne.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="currentColor" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-[#FACB7D]">
+            <path d="M 31.89 19.33 L 32.26 19.42 L 33.23 20.68 L 34.44 21.92 L 35.64 22.93 L 36.73 23.70 L 38.39 24.70 L 39.71 25.36 L 41.08 25.93 L 42.86 26.50 L 45.15 26.05 L 47.07 25.53 L 49.25 24.73 L 51.02 23.79 L 51.22 23.77 L 51.42 23.86 L 51.54 24.12 L 51.84 27.42 L 52.36 30.11 L 53.11 32.77 L 54.08 35.47 L 55.80 39.25 L 56.97 41.40 L 58.04 43.12 L 58.09 43.14 L 58.30 42.69 L 58.50 42.51 L 58.82 42.54 L 58.99 42.77 L 58.97 43.03 L 58.24 44.58 L 57.98 44.70 L 57.70 44.60 L 57.59 44.32 L 57.70 43.92 L 55.21 41.02 L 52.54 38.38 L 50.08 36.36 L 49.90 37.04 L 49.83 37.93 L 49.89 38.93 L 50.07 39.85 L 50.67 41.54 L 50.88 41.33 L 51.08 41.29 L 51.31 41.38 L 51.43 41.63 L 50.98 42.83 L 50.74 43.12 L 50.54 43.15 L 50.34 43.05 L 50.22 42.83 L 50.28 42.46 L 48.10 40.13 L 47.19 44.00 L 46.95 44.21 L 46.67 44.19 L 46.49 43.98 L 46.48 43.75 L 47.45 39.53 L 45.84 38.15 L 45.12 37.65 L 44.10 42.28 L 43.92 42.49 L 43.57 42.49 L 43.40 42.31 L 43.37 42.11 L 44.46 37.15 L 41.68 35.51 L 40.14 34.80 L 38.50 34.20 L 35.52 33.46 L 33.75 33.23 L 32.40 33.16 L 32.37 42.71 L 32.17 43.04 L 31.80 43.03 L 31.62 42.74 L 31.62 33.20 L 30.71 33.19 L 27.90 33.57 L 26.33 33.94 L 24.90 34.40 L 21.97 35.68 L 19.57 37.13 L 20.64 42.08 L 20.61 42.31 L 20.43 42.50 L 20.11 42.49 L 19.90 42.26 L 18.89 37.64 L 17.76 38.47 L 16.57 39.51 L 17.54 43.77 L 17.52 44.00 L 17.33 44.19 L 16.99 44.18 L 16.81 43.95 L 15.93 40.09 L 13.73 42.46 L 13.80 42.80 L 13.69 43.05 L 13.35 43.15 L 13.05 42.86 L 12.60 41.57 L 12.72 41.36 L 12.95 41.27 L 13.15 41.33 L 13.32 41.54 L 13.96 39.82 L 14.13 38.85 L 14.19 37.82 L 14.10 36.96 L 13.92 36.35 L 11.80 38.07 L 9.76 39.99 L 7.98 41.91 L 6.30 43.92 L 6.42 44.32 L 6.33 44.57 L 6.07 44.70 L 5.80 44.61 L 5.03 43.00 L 5.03 42.71 L 5.24 42.51 L 5.53 42.51 L 5.96 43.12 L 6.97 41.48 L 8.17 39.28 L 10.01 35.24 L 10.95 32.60 L 11.73 29.74 L 12.15 27.44 L 12.45 24.09 L 12.57 23.86 L 12.75 23.77 L 12.98 23.80 L 14.81 24.76 L 16.84 25.51 L 18.96 26.08 L 21.17 26.50 L 22.83 25.96 L 24.24 25.39 L 25.87 24.56 L 27.27 23.70 L 28.50 22.81 L 29.68 21.81 L 30.75 20.71 L 31.89 19.33 Z M 32.00 20.36 L 30.25 22.30 L 28.22 23.96 L 25.64 25.53 L 24.15 26.25 L 22.83 26.76 L 26.59 27.12 L 26.77 27.27 L 26.82 27.47 L 26.76 27.67 L 26.56 27.83 L 22.78 27.51 L 18.88 26.82 L 15.44 25.82 L 13.18 24.79 L 13.01 26.67 L 12.70 28.73 L 11.84 32.26 L 10.49 36.04 L 8.59 40.13 L 11.49 37.35 L 13.92 35.40 L 16.87 33.48 L 19.37 32.20 L 22.55 30.93 L 25.55 30.10 L 28.76 29.56 L 32.09 29.38 L 35.21 29.55 L 38.45 30.10 L 41.51 30.96 L 44.75 32.25 L 47.41 33.66 L 50.22 35.52 L 52.71 37.52 L 55.41 40.14 L 53.54 36.13 L 52.19 32.34 L 51.33 28.85 L 51.01 26.84 L 50.82 24.79 L 49.62 25.39 L 48.33 25.90 L 45.12 26.82 L 41.22 27.51 L 37.44 27.83 L 37.24 27.67 L 37.17 27.47 L 37.23 27.27 L 37.41 27.12 L 41.17 26.76 L 38.53 25.62 L 35.78 23.96 L 33.82 22.37 L 32.88 21.43 L 32.00 20.36 Z M 31.28 30.14 L 28.36 30.36 L 25.15 30.96 L 21.66 32.05 L 18.76 33.33 L 18.70 33.40 L 19.35 36.33 L 22.52 34.57 L 25.53 33.39 L 26.99 33.00 L 28.73 32.65 L 31.60 32.41 L 31.62 30.17 L 31.28 30.14 Z M 32.40 30.13 L 32.38 32.40 L 35.24 32.65 L 36.87 32.97 L 38.47 33.40 L 41.54 34.60 L 44.66 36.33 L 45.31 33.40 L 45.01 33.22 L 41.94 31.90 L 38.82 30.96 L 35.61 30.36 L 32.40 30.13 Z M 17.96 33.75 L 15.59 35.18 L 16.42 38.63 L 18.69 36.81 L 18.03 33.75 L 17.96 33.75 Z M 46.01 33.74 L 45.32 36.81 L 47.64 38.66 L 48.44 35.21 L 46.01 33.74 Z M 14.90 35.64 L 14.58 35.87 L 14.85 36.84 L 14.94 37.93 L 14.85 39.13 L 14.58 40.39 L 15.74 39.22 L 14.90 35.64 Z M 49.10 35.66 L 48.28 39.25 L 49.45 40.41 L 49.18 39.19 L 49.09 37.96 L 49.15 36.96 L 49.43 35.87 L 49.10 35.66 Z" />
+          </svg>
+        `,
+        services: [
+          'Wynajem hal namiotowych i zadaszeń membranowych',
+          'Nowoczesne namioty stretch i konstrukcje sferyczne',
+          'Atestowane podłogi drewniane i modułowe kładki',
+          'Ochrona strefy barowej przed deszczem, wiatrem i słońcem',
+          'Integracja oświetlenia scenicznego i nagłośnienia pod zadaszeniem',
+          'Certyfikaty przeciwpożarowe i atesty obciążenia wiatrem',
+          'Montaż przez doświadczone ekipy techniczne'
+        ],
+        photos: [
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-116-1-1536x1024.jpg',
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-140-2.jpg',
+          'assets/images/gallery/2024.12.31-Art-Bar-76-1-1536x1024.jpg'
+        ]
+      },
+      {
+        id: 'fabryka-lodu',
+        title: 'Fabryka Lodu',
+        subtitle: 'WŁASNA PRODUKCJA LODU HOSHIZAKI',
+        badge: 'Własna Fabryka Lodu Hoshizaki',
+        lead: 'Własna produkcja lodu w kostkach i kruszonego na najwyższej klasy japońskich maszynach Hoshizaki. Samochody mroźnie (-18°C), termoizolacyjne skrzynie oraz widowiskowe rzeźby lodowe na gale i bankiety.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="18,22 24,15 32,18 26,25" />
+            <polygon points="31,17 38,12 46,16 39,23" />
+            <polygon points="25,23 35,21 37,27 27,28" />
+            <polygon points="41,20 49,18 52,24 45,26" />
+            <path d="M12 26h40l-5 24a3 3 0 0 1-3 2.5H20a3 3 0 0 1-3-2.5L12 26z" />
+            <path d="M32 34v12M26 40h12M28 36l8 8M36 36l-8 8" stroke-width="1.8"/>
+            <circle cx="32" cy="40" r="1.5" fill="#FACB7D"/>
+          </svg>
+        `,
+        services: [
+          'Krystaliczny lód w kostkach (technologia Hoshizaki)',
+          'Lód kruszony do koktajli i ekspozycji butelek',
+          'Suchy lód do efektów dymnych i chłodzenia barów',
+          'Artystyczne rzeźby lodowe i bloki z brandingiem',
+          'Specjalistyczne skrzynie termoizolacyjne',
+          'Dedykowana flota samochodów mroźni (-18°C)',
+          'Gwarancja ciągłości dostaw do kilkudziesięciu ton'
+        ],
+        photos: [
+          'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg',
+          'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-20-1.jpg',
+          'assets/images/gallery/ArtBar02.03-18-z-462-scaled.jpg'
+        ]
+      },
+      {
+        id: 'produkcja',
+        title: 'Produkcja',
+        subtitle: 'PRODUKCJA STOLARSKA, ŚLUSARSKA I NAMIOTOWA',
+        badge: 'Własny Zakład Produkcyjny',
+        lead: 'Własny park maszynowy i pracownia rzemieślnicza: stolarstwo, ślusarstwo oraz obróbka stali i aluminium. Projektujemy i produkujemy autorskie moduły barowe, customowe meble eventowe oraz dedykowane instalacje scenograficzne od podstaw.',
+        iconSvg: `
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 42L22 50M18 46L36 28M42 22L36 28M42 22L46 18C48 16 51 16 53 18L54 19C56 21 56 24 54 26L50 30L44 24" />
+            <path d="M18 18L24 14L28 18L22 22Z" />
+            <path d="M22 22L12 32C10 34 10 38 12 40L14 42" />
+            <circle cx="34" cy="46" r="6" />
+            <path d="M34 43V49M31 46H37" stroke-width="1.5" />
+          </svg>
+        `,
+        services: [
+          'Projektowanie i produkcja autorskich barów modułowych',
+          'Zaawansowane prace stolarskie i ślusarskie na zamówienie',
+          'Cięcie laserowe, gięcie profili i obróbka stali nierdzewnej',
+          'Personalizowany branding i lakierowanie proszkowe',
+          'Produkcja mebli tapicerowanych i stref lounge VIP',
+          'Modernizacja i serwis techniczny wyposażenia barowego',
+          'Indywidualne realizacje architektoniczne'
+        ],
+        photos: [
+          'assets/images/gallery/2024.12.31-Art-Bar-73-1-1536x1024.jpg',
+          'assets/images/gallery/ArtBar02.03-254-z-462-scaled.jpg',
+          'assets/images/gallery/2024.12.31-Art-Bar-106-1-1536x1024.jpg'
         ]
       }
     ];
@@ -2414,7 +2750,10 @@
     let customArcStartDeg = 236; // Lewa strona na wysokości korony logotypu
     let customArcEndDeg = -56;   // Prawa strona na wysokości korony logotypu
     let customOrbitOffsetY = 40;  // Wycentrowanie względem środka logo
-    let customBottomPinch = 25;  // Zmniejszenie odstępu między ArtPOS, Kubki ECO i Lód (w %)
+    let customArcDistribution = 85; // Wyrównanie fizyczne odstępów na elipsie (0-100%, 85% zalecane)
+    let customFlankSpread = 30;   // Rozstaw boczny węzłów (Flanki L/P w %)
+    let customBottomPinch = 15;   // Zbliżenie dolne węzłów (w %)
+    let customTopSpread = 10;     // Rozstaw węzłów górnych ku koronie logo (w %)
     let customArcExtension = 22; // Kąt przedłużenia ramion ku górze logo z fadem (stopnie)
     let customCameraZoom = 3.5;  // Siła kinowego zoomu po kliknięciu kafelka (3.5x)
     let customOrbitStyle = 'animated'; // 'animated' | 'dashed' | 'solid'
@@ -2513,6 +2852,8 @@
       radiusX = effectiveRadiusX;
       radiusY = effectiveRadiusY;
       radiusZ = effectiveRadiusZ;
+
+      recalculateNodeParamPositions();
 
       // 1. Główny łuk podkowy między pierwszym a ostatnim przyciskiem
       const svgBase = document.getElementById('orbit-horseshoe-base');
@@ -2651,32 +2992,98 @@
     let mouseFactor = 1;
     let targetMouseFactor = 1;
 
-    // Obliczenie parametru t wzdłuż podkowy z uwzględnieniem zbliżenia ArtPOS ↔ Kubki ECO ↔ Lód
-    function getNodeParamT(index, count) {
-      if (count <= 1) return 0.5;
-      if (count !== 7) return index / (count - 1);
+    // ════════════════════════════════════════════════════════════
+    // OBLICZANIE FIZYCZNYCH ODSTĘPÓW I PARAMETRÓW T NA PODKOWIE (8 DZIAŁÓW)
+    // Łączy wyrównanie łukowe (Arc-length Parameterization) z dedykowanymi wagami
+    // dla flank bocznych (L/P), dołu podkowy oraz węzłów górnych przy logo.
+    // ════════════════════════════════════════════════════════════
+    const nodeTValues = [];
 
-      const p = (customBottomPinch || 0) / 100; // np. 0.35
-      const baseStep = 1 / 6;
+    function recalculateNodeParamPositions() {
+      const flank = (customFlankSpread || 0) / 100;
+      const bottom = (customBottomPinch || 0) / 100;
+      const top = (customTopSpread || 0) / 100;
+      const alpha = (typeof customArcDistribution === 'number' ? customArcDistribution : 85) / 100;
 
-      // index 0: Art (lewa góra)       -> t = 0
-      // index 1: Bar                   -> lekka kompensacja, aby zachować harmonię
-      // index 2: ArtPOS                -> przysunięty w stronę Kubków ECO (dół)
-      // index 3: Kubki ECO (dno łuku)  -> dokładnie t = 0.5 (90 deg)
-      // index 4: Lód                   -> przysunięty w stronę Kubków ECO (dół)
-      // index 5: Obsługa               -> lekka kompensacja
-      // index 6: Logistyka (prawa góra)-> t = 1
-      const tMap = [
-        0,
-        baseStep + p * 0.25 * baseStep,
-        2 * baseStep + p * baseStep,
-        0.5,
-        4 * baseStep - p * baseStep,
-        5 * baseStep - p * 0.25 * baseStep,
-        1.0
+      // 7 odstępów między 8 węzłami:
+      // 0: ART -> BAR (Góra L)
+      // 1: BAR -> OBSŁUGA (Flanka L - strefa kolizji)
+      // 2: OBSŁUGA -> TECHNIKA (Przejście do dołu)
+      // 3: TECHNIKA -> LOGISTYKA (Dno podkowy)
+      // 4: LOGISTYKA -> NAMIOTY (Przejście do flanki)
+      // 5: NAMIOTY -> FABRYKA LODU (Flanka P - strefa kolizji)
+      // 6: FABRYKA LODU -> PRODUKCJA (Góra P)
+      const w = [
+        Math.max(0.15, 1.0 + top),
+        Math.max(0.15, 1.0 + flank),
+        1.0,
+        Math.max(0.15, 1.0 - bottom * 0.7),
+        1.0,
+        Math.max(0.15, 1.0 + flank),
+        Math.max(0.15, 1.0 + top)
       ];
 
-      return tMap[index];
+      let sum = 0;
+      const cSum = [0];
+      for (let k = 0; k < w.length; k++) {
+        sum += w[k];
+        cSum.push(sum);
+      }
+
+      // Tablica dystansów na elipsie (Arc-length Parameterization)
+      const SAMPLES = 80;
+      const lut = [0];
+      let totalLength = 0;
+      const startRad = (customArcStartDeg * Math.PI) / 180;
+      let endRad = (customArcEndDeg * Math.PI) / 180;
+      while (endRad > startRad) endRad -= 2 * Math.PI;
+      const totalArc = endRad - startRad;
+
+      const rX = radiusX || 555;
+      const rY = radiusY || 245;
+
+      for (let s = 1; s <= SAMPLES; s++) {
+        const uPrev = (s - 1) / SAMPLES;
+        const uCurr = s / SAMPLES;
+        const aPrev = startRad + uPrev * totalArc;
+        const aCurr = startRad + uCurr * totalArc;
+        const xPrev = Math.cos(aPrev) * rX;
+        const yPrev = Math.sin(aPrev) * rY;
+        const xCurr = Math.cos(aCurr) * rX;
+        const yCurr = Math.sin(aCurr) * rY;
+        totalLength += Math.hypot(xCurr - xPrev, yCurr - yPrev);
+        lut.push(totalLength);
+      }
+
+      function arcLengthToU(frac) {
+        if (frac <= 0) return 0;
+        if (frac >= 1) return 1;
+        const targetS = frac * totalLength;
+        let low = 0, high = SAMPLES;
+        while (low < high - 1) {
+          const mid = (low + high) >> 1;
+          if (lut[mid] <= targetS) low = mid;
+          else high = mid;
+        }
+        const s0 = lut[low], s1 = lut[high];
+        const tSub = (s1 > s0) ? (targetS - s0) / (s1 - s0) : 0;
+        return (low + tSub) / SAMPLES;
+      }
+
+      nodeTValues.length = 0;
+      for (let i = 0; i < 8; i++) {
+        const f = cSum[i] / sum;
+        const uArc = arcLengthToU(f);
+        const u = (1 - alpha) * f + alpha * uArc;
+        nodeTValues.push(Math.max(0, Math.min(1, u)));
+      }
+    }
+
+    function getNodeParamT(index, count) {
+      if (count === 8 && nodeTValues[index] !== undefined) {
+        return nodeTValues[index];
+      }
+      return index / (count - 1);
     }
 
     // Pętla renderowania sceny 3D (60/120 FPS requestAnimationFrame)
@@ -2944,7 +3351,10 @@
     const sArcStart = document.getElementById('slider-arc-start');
     const sArcEnd = document.getElementById('slider-arc-end');
     const sOrbitOffsetY = document.getElementById('slider-orbit-offset-y');
+    const sFlankSpread = document.getElementById('slider-flank-spread');
+    const sArcDistribution = document.getElementById('slider-arc-distribution');
     const sBottomPinch = document.getElementById('slider-bottom-pinch');
+    const sTopSpread = document.getElementById('slider-top-spread');
     const sArcExtension = document.getElementById('slider-arc-extension');
     const sLogoTitleSize = document.getElementById('slider-logo-title-size');
     const sLogoSloganSize = document.getElementById('slider-logo-slogan-size');
@@ -2969,7 +3379,10 @@
     const vArcStart = document.getElementById('val-arc-start');
     const vArcEnd = document.getElementById('val-arc-end');
     const vOrbitOffsetY = document.getElementById('val-orbit-offset-y');
+    const vFlankSpread = document.getElementById('val-flank-spread');
+    const vArcDistribution = document.getElementById('val-arc-distribution');
     const vBottomPinch = document.getElementById('val-bottom-pinch');
+    const vTopSpread = document.getElementById('val-top-spread');
     const vArcExtension = document.getElementById('val-arc-extension');
     const vLogoTitleSize = document.getElementById('val-logo-title-size');
     const vLogoSloganSize = document.getElementById('val-logo-slogan-size');
@@ -3122,12 +3535,43 @@
       });
     }
 
-    // 12. Odstęp dolny: ArtPOS / Kubki ECO / Lód
+    // 12a. Rozstaw boczny (Flanki L/P)
+    if (sFlankSpread && vFlankSpread) {
+      sFlankSpread.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vFlankSpread.textContent = (val > 0 ? '+' : '') + val + '%';
+        customFlankSpread = val;
+        recalculateNodeParamPositions();
+      });
+    }
+
+    // 12b. Wyrównanie łukowe (Równe fizyczne odstępy na elipsie w px)
+    if (sArcDistribution && vArcDistribution) {
+      sArcDistribution.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vArcDistribution.textContent = val + '%';
+        customArcDistribution = val;
+        recalculateNodeParamPositions();
+      });
+    }
+
+    // 12c. Odstęp dolny: Technika / Logistyka (Środek)
     if (sBottomPinch && vBottomPinch) {
       sBottomPinch.addEventListener('input', (e) => {
         const val = parseInt(e.target.value, 10);
-        vBottomPinch.textContent = val + '%';
+        vBottomPinch.textContent = (val > 0 ? '+' : '') + val + '%';
         customBottomPinch = val;
+        recalculateNodeParamPositions();
+      });
+    }
+
+    // 12d. Rozstaw górny: ART i PRODUKCJA
+    if (sTopSpread && vTopSpread) {
+      sTopSpread.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        vTopSpread.textContent = (val > 0 ? '+' : '') + val + '%';
+        customTopSpread = val;
+        recalculateNodeParamPositions();
       });
     }
 
@@ -3256,7 +3700,10 @@
           `Kąt lewy (początek): ${sArcStart.value}°`,
           `Kąt prawy (koniec): ${sArcEnd.value}°`,
           `Wysokość orbity (Offset Y): ${sOrbitOffsetY.value}px`,
-          `Zbliżenie dolne (ArtPOS/Kubki/Lód): ${sBottomPinch ? sBottomPinch.value : 25}%`,
+          `Rozstaw boczny (Flanki L/P): ${sFlankSpread ? sFlankSpread.value : '+30'}%`,
+          `Wyrównanie łukowe (Równe odstępy): ${sArcDistribution ? sArcDistribution.value : '85'}%`,
+          `Zbliżenie dolne (Środek): ${sBottomPinch ? sBottomPinch.value : '15'}%`,
+          `Rozstaw górny (ART & PRODUKCJA): ${sTopSpread ? sTopSpread.value : '+10'}%`,
           `Domknięcie łuku ku logo (Fade): ${sArcExtension ? sArcExtension.value : 22}°`,
           `Wielkość napisu pod logo: ${sLogoTitleSize ? sLogoTitleSize.value : 28}px`,
           `Wielkość hasła pod logo: ${sLogoSloganSize ? sLogoSloganSize.value : 20.5}px`,
@@ -3294,7 +3741,10 @@
         sArcStart.value = 236;
         sArcEnd.value = -56;
         sOrbitOffsetY.value = 40;
-        if (sBottomPinch) sBottomPinch.value = 25;
+        if (sFlankSpread) sFlankSpread.value = 30;
+        if (sArcDistribution) sArcDistribution.value = 85;
+        if (sBottomPinch) sBottomPinch.value = 15;
+        if (sTopSpread) sTopSpread.value = 10;
         if (sArcExtension) sArcExtension.value = 22;
         if (sLogoTitleSize) sLogoTitleSize.value = 28;
         if (sLogoSloganSize) sLogoSloganSize.value = 20.5;
@@ -3315,7 +3765,10 @@
         vArcStart.textContent = '236°';
         vArcEnd.textContent = '-56°';
         vOrbitOffsetY.textContent = '40 px';
-        if (vBottomPinch) vBottomPinch.textContent = '25%';
+        if (vFlankSpread) vFlankSpread.textContent = '+30%';
+        if (vArcDistribution) vArcDistribution.textContent = '85%';
+        if (vBottomPinch) vBottomPinch.textContent = '15%';
+        if (vTopSpread) vTopSpread.textContent = '+10%';
         if (vArcExtension) vArcExtension.textContent = '22°';
         if (vLogoTitleSize) vLogoTitleSize.textContent = '28 px';
         if (vLogoSloganSize) vLogoSloganSize.textContent = '20.5 px';
@@ -3344,7 +3797,10 @@
         customArcStartDeg = 236;
         customArcEndDeg = -56;
         customOrbitOffsetY = 40;
-        customBottomPinch = 25;
+        customFlankSpread = 30;
+        customArcDistribution = 85;
+        customBottomPinch = 15;
+        customTopSpread = 10;
         customArcExtension = 22;
         customCameraZoom = 3.5;
         updateDimensions();
@@ -3355,17 +3811,21 @@
     updateDimensions();
     renderLoop();
 
-    // ── KOMPATYBILNOŚĆ Z POPRZEDNIM SYSTEMEM OFERTY (openOfferModal) ───────────
+    // ── KOMPATYBILNOŚĆ Z SYSTEMEM OFERTY (openOfferModal) ───────────
     function openOfferModal(catKey = 'art') {
       const mapping = {
         art: 0,
         bar: 1,
-        artpos: 2,
-        'kubki-eco': 3,
-        eco: 3,
-        lod: 4,
-        obsluga: 5,
-        logistyka: 6
+        obsluga: 2,
+        technika: 3,
+        artpos: 3, // kompatybilność wsteczna
+        logistyka: 4,
+        namioty: 5,
+        'kubki-eco': 5, // kompatybilność wsteczna
+        eco: 5,
+        'fabryka-lodu': 6,
+        lod: 6,
+        produkcja: 7
       };
       let idx = 0;
       if (typeof catKey === 'number') {
