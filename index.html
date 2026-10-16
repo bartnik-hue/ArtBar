@@ -550,7 +550,7 @@
     }
     .icon-symbol-wrap svg path[fill-rule="evenodd"] {
       stroke: currentColor !important;
-      stroke-width: 0.85px !important;
+      stroke-width: var(--tent-stroke-width, 0.85px) !important;
       stroke-linejoin: round !important;
       stroke-linecap: round !important;
     }
@@ -1219,6 +1219,22 @@
               </div>
               <input type="range" id="slider-icon-stroke" min="0.5" max="6.0" value="1.5" step="0.1" class="tune-slider">
               <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0.5 px (Cienka)</span><span>Domyślnie: 1.5 px</span><span>6.0 px (Gruba)</span></div>
+            </div>
+
+            <!-- 2c. Dedykowana grubość piktogramu NAMIOTY -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/45 shadow-[0_0_15px_rgba(250,203,125,0.12)]">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
+                  Grubość piktogramu: Namioty
+                </span>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="input-tent-stroke" min="0" max="3.0" step="0.05" value="0.85" class="w-16 px-1.5 py-0.5 rounded bg-black/80 border border-[#FACB7D]/60 text-[#FACB7D] font-mono font-bold text-xs text-right focus:border-[#FACB7D] focus:outline-none">
+                  <span class="text-xs text-[#FACB7D] font-bold">px</span>
+                </div>
+              </div>
+              <input type="range" id="slider-tent-stroke" min="0" max="2.0" value="0.85" step="0.05" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0 px (Cieniutka)</span><span>Obecnie: 0.85 px</span><span>2.0 px (Gruba)</span></div>
             </div>
 
             <!-- 3. Skala Logo -->
@@ -3438,9 +3454,15 @@
     // OBSŁUGA INTERAKTYWNEGO STUDIA KALIBRACJI WYGLĄDU 3D
     // ══════════════════════════════════════════════════
     const tuningDock = document.getElementById('tuning-dock');
-    if (tuningDock && window.location.hostname.includes('github.io') && !new URLSearchParams(window.location.search).has('tune')) {
-      tuningDock.style.display = 'none';
-    }
+    // Klawisz 'T' przełącza widoczność docku kalibratora
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === 't' || e.key === 'T') && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+        if (tuningDock) {
+          tuningDock.style.display = (tuningDock.style.display === 'none') ? 'flex' : 'none';
+          if (tuningDock.style.display === 'flex' && tunePanel) tunePanel.classList.remove('hidden');
+        }
+      }
+    });
 
     const tuneToggleBtn = document.getElementById('tune-toggle-btn');
     const tuneCloseBtn = document.getElementById('tune-close-btn');
@@ -3454,6 +3476,8 @@
     const sIconSize = document.getElementById('slider-icon-size');
     const sIconStroke = document.getElementById('slider-icon-stroke');
     const inputIconStroke = document.getElementById('input-icon-stroke');
+    const sTentStroke = document.getElementById('slider-tent-stroke');
+    const inputTentStroke = document.getElementById('input-tent-stroke');
     const sLogoScale = document.getElementById('slider-logo-scale');
     const sLogoY = document.getElementById('slider-logo-y');
     const sRadiusX = document.getElementById('slider-radius-x');
@@ -3556,6 +3580,33 @@
         const val = parseFloat(e.target.value);
         if (!isNaN(val)) {
           updateIconStroke(val);
+        }
+      });
+    }
+
+    // 2c. Dedykowana grubość piktogramu NAMIOTY
+    let customTentStroke = 0.85;
+
+    function updateTentStroke(val) {
+      if (isNaN(val) || val < 0) val = 0;
+      val = parseFloat(val.toFixed(2));
+      customTentStroke = val;
+      if (sTentStroke) sTentStroke.value = Math.min(2.0, val);
+      if (inputTentStroke) inputTentStroke.value = val;
+      document.documentElement.style.setProperty('--tent-stroke-width', val + 'px');
+    }
+
+    if (sTentStroke) {
+      sTentStroke.addEventListener('input', (e) => {
+        updateTentStroke(parseFloat(e.target.value));
+      });
+    }
+
+    if (inputTentStroke) {
+      inputTentStroke.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        if (!isNaN(val)) {
+          updateTentStroke(val);
         }
       });
     }
@@ -3802,7 +3853,8 @@
           `Wersja: Wersja 3 (Łuk Podkowy U-Shape)`,
           `Wielkość przycisków: ${sNodeSize.value}px`,
           `Wielkość ikon: ${sIconSize.value}px`,
-          `Grubość piktogramów: ${inputIconStroke ? inputIconStroke.value : (sIconStroke ? sIconStroke.value : 2.0)}px`,
+          `Grubość piktogramów: ${inputIconStroke ? inputIconStroke.value : (sIconStroke ? sIconStroke.value : 1.5)}px`,
+          `Grubość piktogramu Namioty: ${inputTentStroke ? inputTentStroke.value : (sTentStroke ? sTentStroke.value : 0.85)}px`,
           `Skala logotypu: ${parseFloat(sLogoScale.value).toFixed(2)}x`,
           `Pozycja logo Y: ${sLogoY.value}px`,
           `Promień podkowy X: ${sRadiusX.value}px`,
@@ -3844,6 +3896,9 @@
         sIconSize.value = 136;
         if (sIconStroke) sIconStroke.value = 1.5;
         if (inputIconStroke) inputIconStroke.value = 1.5;
+        if (sTentStroke) sTentStroke.value = 0.85;
+        if (inputTentStroke) inputTentStroke.value = 0.85;
+        document.documentElement.style.setProperty('--tent-stroke-width', '0.85px');
         sLogoScale.value = 1.70;
         sLogoY.value = -52;
         sRadiusX.value = 555;
