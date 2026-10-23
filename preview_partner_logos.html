@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtBar - Studio Weryfikacji Logotypów Partnerskich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #030303;
+      color: #e5e5e5;
+    }
+    .font-serif-luxury {
+      font-family: 'Cinzel', serif;
+    }
+    /* Płynny bieg paska bez szarości */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll var(--marquee-duration, 55s) linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    /* Style tła do testów */
+    .bg-mode-dark {
+      background-color: #030303 !important;
+    }
+    .bg-mode-checkered {
+      background-color: #1a1a1a !important;
+      background-image: 
+        linear-gradient(45deg, #282828 25%, transparent 25%), 
+        linear-gradient(-45deg, #282828 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #282828 75%), 
+        linear-gradient(-45deg, transparent 75%, #282828 75%) !important;
+      background-size: 20px 20px !important;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px !important;
+    }
+    .bg-mode-light {
+      background-color: #f0f0f0 !important;
+    }
+    .logo-container {
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8">
+
+  <!-- NAGŁÓWEK -->
+  <header class="max-w-7xl mx-auto mb-10 pb-6 border-b border-[#FACB7D]/25 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+    <div>
+      <div class="flex items-center gap-2 mb-1.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#FACB7D] animate-pulse"></span>
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#FACB7D]">ArtBar Solutions &bull; Weryfikacja Materiałów</span>
+      </div>
+      <h1 class="font-serif-luxury text-2xl sm:text-3xl font-black text-white uppercase tracking-wider">
+        Paczka Nowych Logotypów Wydarzeń (17 Partnerów)
+      </h1>
+      <p class="text-xs text-white/60 mt-1 max-w-2xl">
+        Wszystkie pliki zostały przygotowane zgodnie z nowym zaleceniem: <strong class="text-[#FACB7D]">pełny, stały kolor</strong>, przezroczyste tło (bez prostokątów) oraz wysoki kontrast na ciemnym tle strony.
+      </p>
+    </div>
+
+    <!-- PRZEŁĄCZNIK TŁA DO TESTÓW -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-[#0d0d0d] p-2.5 rounded-2xl border border-[#FACB7D]/30 shadow-xl">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-white/70 pl-2">Tryb tła podglądu:</span>
+      <div class="flex items-center gap-1.5">
+        <button id="btn-bg-dark" class="px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#FACB7D] text-black transition-all">
+          Ciemne ArtBar (#030303)
+        </button>
+        <button id="btn-bg-checkered" class="px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white transition-all">
+          Szachownica (Alfa)
+        </button>
+        <button id="btn-bg-light" class="px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white transition-all">
+          Jasne (#F0F0F0)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto space-y-12">
+
+    <!-- SEKCJA 1: LIVE SIMULATION PASEK (MARQUEE) -->
+    <section class="bg-[#080808] p-6 sm:p-8 rounded-3xl border border-[#FACB7D]/25 shadow-2xl relative overflow-hidden">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-[#FACB7D]">Symulacja na żywo</span>
+          <h2 class="font-serif-luxury text-lg sm:text-xl font-bold text-white uppercase tracking-wider">
+            Nowy Pasek Wydarzeń w Pełnym Kolorze
+          </h2>
+        </div>
+        <div class="flex items-center gap-3 text-xs text-white/70 bg-black/60 px-4 py-2 rounded-xl border border-white/10">
+          <span>Prędkość:</span>
+          <input type="range" id="speed-slider" min="25" max="90" value="55" class="w-24 accent-[#FACB7D]">
+          <span id="speed-val" class="font-mono text-[#FACB7D] font-bold">55s</span>
+        </div>
+      </div>
+
+      <!-- PASEK RUNNING TICKER -->
+      <div id="marquee-wrapper" class="w-full relative overflow-hidden py-8 border-y border-[#FACB7D]/20 logo-container bg-mode-dark rounded-2xl">
+        <div id="ticker" class="marquee-track flex items-center gap-16 sm:gap-24 opacity-95 hover:opacity-100 transition-opacity">
+          <!-- Zestaw 1 -->
+          <div class="flex items-center gap-16 sm:gap-24" id="ticker-set-1">
+            <!-- Wstrzykiwane przez JS -->
+          </div>
+          <!-- Zestaw 2 (nieskończona pętla) -->
+          <div class="flex items-center gap-16 sm:gap-24" id="ticker-set-2">
+            <!-- Wstrzykiwane przez JS -->
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-white/50 text-center mt-3">
+        &bull; Pasek przewija się bez końca. Najechanie kursorem (hover) pauzuje ruch. Wszystkie logotypy zachowują oryginalne barwy (brak czarno-białego filtra).
+      </p>
+    </section>
+
+    <!-- SEKCJA 2: KARTOTEKA 17 PRZETWORZONYCH LOGO -->
+    <section>
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 gap-3">
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-[#FACB7D]">Weryfikacja jakości i krawędzi</span>
+          <h2 class="font-serif-luxury text-xl sm:text-2xl font-bold text-white uppercase tracking-wider">
+            Zestawienie Szczegółowe 17 Marek
+          </h2>
+        </div>
+        <div class="text-xs text-white/60">
+          Ścieżka na dysku: <code class="text-[#FACB7D] bg-black/80 px-2 py-1 rounded border border-white/10 font-mono text-[11px]">assets/images/partners/</code>
+        </div>
+      </div>
+
+      <!-- SIATKA LOGOTYPÓW -->
+      <div id="logos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Renderowane przez JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL POWIĘKSZENIA -->
+  <div id="modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="relative max-w-4xl w-full bg-[#0a0a0a] border border-[#FACB7D]/40 rounded-3xl p-6 sm:p-8 flex flex-col items-center">
+      <button id="modal-close" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-[#FACB7D] hover:text-black flex items-center justify-center text-white text-sm transition-all">&times;</button>
+      <h3 id="modal-title" class="font-serif-luxury text-xl font-bold text-white uppercase mb-4 tracking-wider"></h3>
+      <div id="modal-box" class="w-full h-80 rounded-2xl flex items-center justify-center p-8 logo-container bg-mode-dark border border-white/10">
+        <img id="modal-img" src="" alt="" class="max-h-full max-w-full object-contain">
+      </div>
+      <p id="modal-desc" class="text-xs text-white/70 mt-4 text-center max-w-xl"></p>
+    </div>
+  </div>
+
+  <script>
+    const LOGOS = [
+      {
+        id: "festiwal-whisky",
+        name: "Festiwal Whisky",
+        file: "assets/images/partners/festiwal-whisky.png",
+        original: "images alpha.png (497x616 px)",
+        status: "Gotowe (przezroczyste)",
+        color: "Złoty / bursztynowy whisky",
+        desc: "Oryginalnie przezroczyste tło. Zachowany pełny, szlachetny kolor bursztynu. Przycięte marginesy."
+      },
+      {
+        id: "przyjazn",
+        name: "Przyjaźń",
+        file: "assets/images/partners/przyjazn.png",
+        original: "Przyjaźń.png (1102x957 px)",
+        status: "Gotowe (przezroczyste)",
+        color: "Ciepły pomarańcz",
+        desc: "Oryginalnie przezroczyste tło, wysoka jakość i ostre krawędzie, soczysty pomarańczowy sygnet."
+      },
+      {
+        id: "live-nation",
+        name: "Live Nation",
+        file: "assets/images/partners/live-nation.png",
+        original: "images (1).png (1451x1451 px)",
+        status: "Gotowe (badge okrągły)",
+        color: "Intensywna czerwień + biel",
+        desc: "Czerwony okrągły badge z białym napisem na przezroczystym tle. Zoptymalizowana rozdzielczość do ostrego wyświetlania."
+      },
+      {
+        id: "ing-silesia-beats",
+        name: "ING Silesia Beats",
+        file: "assets/images/partners/ing-silesia-beats.png",
+        original: "images.png (706x433 px)",
+        status: "Wycięte czarne tło",
+        color: "Pomarańcz ING + biel",
+        desc: "Czarne tło jednolicie usunięte. Charakterystyczny pomarańczowy lew ING oraz biała typografia zachowane w 100%."
+      },
+      {
+        id: "barber-night",
+        name: "Barber Night",
+        file: "assets/images/partners/barber-night.png",
+        original: "images.png (554x554 px)",
+        status: "Wycięte czarne tło",
+        color: "Czysta biel",
+        desc: "Czarne tło usunięte na przezroczyste. Biały piktogram nożyczek i typografia lśnią na ciemnym tle strony."
+      },
+      {
+        id: "mlynowa",
+        name: "Młynowa",
+        file: "assets/images/partners/mlynowa.png",
+        original: "326741613_...png (315x315 px)",
+        status: "Wycięte ciemnoszare tło",
+        color: "Biel i szarość",
+        desc: "Ciemnoszary kwadrat #2b2a29 został wycięty. Biały sygnet na czystej przezroczystości."
+      },
+      {
+        id: "planteray",
+        name: "Planteray Rum",
+        file: "assets/images/partners/planteray.png",
+        original: "images.png (232x163 px)",
+        status: "Wycięte białe tło + Upscale 2x",
+        color: "Złoto, brąz, zieleń",
+        desc: "Białe tło całkowicie usunięte z dekonwersją poświaty. Rozdzielczość zwiększona 2x (Lanczos) dla wyrazistości."
+      },
+      {
+        id: "targi-event-expo",
+        name: "Targi Event Expo Poland",
+        file: "assets/images/partners/targi-event-expo.png",
+        original: "images (1).png (698x400 px)",
+        status: "Wycięte białe tło",
+        color: "Purpura / fiolet",
+        desc: "Białe tło usunięte z antyaliasingiem krawędzi. Fioletowo-purpurowy znak zachowany w pełnym nasyceniu."
+      },
+      {
+        id: "rap-poludnie",
+        name: "Rap Południe",
+        file: "assets/images/partners/rap-poludnie.png",
+        original: "images.png (554x554 px)",
+        status: "Wycięte białe tło + odwrócenie tekstu",
+        color: "Turkus / morski + biel",
+        desc: "Białe tło usunięte. Znak turkusowy zachowany w oryginalnej barwie, a czarny tekst odwrócony na biel, by nie zniknął na czarnej stronie."
+      },
+      {
+        id: "targi-fbe",
+        name: "Targi FBE",
+        file: "assets/images/partners/targi-fbe.png",
+        original: "images (1).png (447x447 px)",
+        status: "Wycięte białe tło + odwrócenie na biel",
+        color: "Czysta biel",
+        desc: "Białe tło usunięte, a oryginalny czarny znak zamieniony na lśniącą biel – gwarantuje idealną czytelność na stronie."
+      },
+      {
+        id: "united-beverages",
+        name: "United Beverages",
+        file: "assets/images/partners/united-beverages.png",
+        original: "unnamed (6).png (706x252 px)",
+        status: "Wycięte białe tło + adaptacja liter",
+        color: "Bordowy + biel",
+        desc: "Białe tło usunięte. Bordowy kieliszek pozostawiony w soczystym kolorze, a ciemne litery rozjaśnione na biel."
+      },
+      {
+        id: "winiary-bookings",
+        name: "Winiary Bookings",
+        file: "assets/images/partners/winiary-bookings.png",
+        original: "images.png (180x87 px)",
+        status: "Wycięte czarne tło + Upscale 3x",
+        color: "Czerwień i żółć",
+        desc: "Czarne tło wycięte. Zwiększona rozdzielczość 3x, aby zlikwidować pikselozę małego pliku, żywe kolory zachowane."
+      },
+      {
+        id: "be-about",
+        name: "Be About",
+        file: "assets/images/partners/be-about.png",
+        original: "624563726_...jpg (200x200 px)",
+        status: "Wycięte fioletowe tło + Upscale 3x",
+        color: "Biel BE ABOUT",
+        desc: "Wycięty biały napis i sygnet BE ABOUT z kwadratowego fioletowego kafelka social media. Zwiększona ostrość."
+      },
+      {
+        id: "better-bar-show",
+        name: "Better Bar Show",
+        file: "assets/images/partners/better-bar-show.png",
+        original: "images.jpg (447x447 px)",
+        status: "Wycięte tło + kadrowanie logo",
+        color: "Miętowy / zielony + biel",
+        desc: "Logotyp wycięty z ciemnego kafelka, zachowany charakterystyczny miętowo-zielony kolor i białe napisy."
+      },
+      {
+        id: "before-festival",
+        name: "Before Festival",
+        file: "assets/images/partners/before-festival.png",
+        original: "images.jpg (554x554 px)",
+        status: "Wycięte tło plakatu",
+        color: "Srebrzysta biel",
+        desc: "Precyzyjnie wycięty główny logotyp Before Festival z całego plakatu. Czyste przezroczyste tło."
+      },
+      {
+        id: "salt-wave",
+        name: "Salt Wave",
+        file: "assets/images/partners/salt-wave.svg",
+        original: "SALTWAVE-logo-1.svg (4.3 KB)",
+        status: "Wektor SVG zamieniony na biel",
+        color: "Biel (wektor bezstratny)",
+        desc: "Oryginalny wektor SVG miał kolor czarny (#000), który na stronie byłby niewidoczny. Zamieniony na bezstratną czystą biel."
+      },
+      {
+        id: "sikelia-di-terrazzino",
+        name: "Sikelia di Terrazzino",
+        file: "assets/images/partners/sikelia-di-terrazzino.png",
+        original: "logo.svg / logo.png (1620x2110 px)",
+        status: "Czerń zamieniona na biel & złoto",
+        color: "Biel / Złoto (#FACB7D)",
+        desc: "Oryginał był czarny na przezroczystości (niewidoczny na ciemnym tle). Przygotowana wersja biała oraz wersja w złocie ArtBar."
+      }
+    ];
+
+    // Renderowanie kafelków w marquee
+    function populateTicker() {
+      const set1 = document.getElementById('ticker-set-1');
+      const set2 = document.getElementById('ticker-set-2');
+      let html = '';
+      LOGOS.forEach(logo => {
+        html += `
+          <div class="flex-shrink-0 flex items-center justify-center group cursor-pointer" onclick="openModal('${logo.id}')" title="${logo.name} (kliknij aby powiększyć)">
+            <img src="${logo.file}" alt="${logo.name}" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+          </div>
+        `;
+      });
+      set1.innerHTML = html;
+      set2.innerHTML = html;
+    }
+
+    // Renderowanie siatki kart
+    function populateGrid() {
+      const grid = document.getElementById('logos-grid');
+      let html = '';
+      LOGOS.forEach((logo, index) => {
+        html += `
+          <div class="bg-[#0b0b0b] rounded-2xl p-5 border border-white/10 hover:border-[#FACB7D]/50 transition-all shadow-lg flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] font-mono text-[#FACB7D] font-bold">#${String(index + 1).padStart(2, '0')}</span>
+                <span class="text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/80">
+                  ${logo.status}
+                </span>
+              </div>
+              
+              <!-- Podgląd Logo w kontenerze -->
+              <div class="h-36 rounded-xl flex items-center justify-center p-4 logo-container bg-mode-dark border border-white/5 cursor-pointer relative overflow-hidden group/img" onclick="openModal('${logo.id}')">
+                <img src="${logo.file}" alt="${logo.name}" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover/img:scale-110">
+                <span class="absolute bottom-2 right-2 text-[9px] bg-black/75 px-1.5 py-0.5 rounded text-white/50 opacity-0 group-hover/img:opacity-100 transition-opacity">Powiększ 🔍</span>
+              </div>
+
+              <!-- Opis -->
+              <h4 class="font-serif-luxury text-base font-bold text-white uppercase mt-4 mb-1 tracking-wider group-hover:text-[#FACB7D] transition-colors">
+                ${logo.name}
+              </h4>
+              <div class="text-[10px] text-[#FACB7D] font-semibold mb-2">
+                Kolor: <span class="text-white/80">${logo.color}</span>
+              </div>
+              <p class="text-[11px] text-white/60 leading-relaxed mb-3">
+                ${logo.desc}
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-white/5 flex items-center justify-between text-[10px] text-white/40">
+              <span class="truncate max-w-[180px] font-mono text-[9.5px]">${logo.file.split('/').pop()}</span>
+              <a href="${logo.file}" download class="text-[#FACB7D] hover:underline font-bold">Pobierz ↓</a>
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    // Przełączanie trybu tła
+    const btnDark = document.getElementById('btn-bg-dark');
+    const btnCheckered = document.getElementById('btn-bg-checkered');
+    const btnLight = document.getElementById('btn-bg-light');
+
+    function setBgMode(mode) {
+      document.querySelectorAll('.logo-container').forEach(el => {
+        el.classList.remove('bg-mode-dark', 'bg-mode-checkered', 'bg-mode-light');
+        el.classList.add('bg-mode-' + mode);
+      });
+      [btnDark, btnCheckered, btnLight].forEach(b => {
+        b.classList.remove('bg-[#FACB7D]', 'text-black');
+        b.classList.add('bg-white/10', 'text-white');
+      });
+      if (mode === 'dark') {
+        btnDark.classList.add('bg-[#FACB7D]', 'text-black');
+        btnDark.classList.remove('bg-white/10', 'text-white');
+      } else if (mode === 'checkered') {
+        btnCheckered.classList.add('bg-[#FACB7D]', 'text-black');
+        btnCheckered.classList.remove('bg-white/10', 'text-white');
+      } else if (mode === 'light') {
+        btnLight.classList.add('bg-[#FACB7D]', 'text-black');
+        btnLight.classList.remove('bg-white/10', 'text-white');
+      }
+    }
+
+    btnDark.addEventListener('click', () => setBgMode('dark'));
+    btnCheckered.addEventListener('click', () => setBgMode('checkered'));
+    btnLight.addEventListener('click', () => setBgMode('light'));
+
+    // Regulacja prędkości paska
+    const speedSlider = document.getElementById('speed-slider');
+    const speedVal = document.getElementById('speed-val');
+    speedSlider.addEventListener('input', (e) => {
+      const v = e.target.value;
+      speedVal.textContent = v + 's';
+      document.documentElement.style.setProperty('--marquee-duration', v + 's');
+    });
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalClose = document.getElementById('modal-close');
+
+    function openModal(id) {
+      const logo = LOGOS.find(l => l.id === id);
+      if (!logo) return;
+      modalImg.src = logo.file;
+      modalTitle.textContent = logo.name;
+      modalDesc.innerHTML = `<strong>Oryginalny plik:</strong> ${logo.original}<br><br>${logo.desc}`;
+      modal.classList.remove('hidden');
+    }
+
+    modalClose.addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.add('hidden');
+    });
+
+    populateTicker();
+    populateGrid();
+  </script>
+</body>
+</html>

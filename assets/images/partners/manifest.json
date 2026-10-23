@@ -1,0 +1,104 @@
+[
+  {
+    "id": "festiwal-whisky",
+    "name": "Festiwal Whisky",
+    "file": "festiwal-whisky.png",
+    "notes": "Gotowe, przezroczyste tło, zachowany kolor złoty/whisky."
+  },
+  {
+    "id": "przyjazn",
+    "name": "Przyjaźń",
+    "file": "przyjazn.png",
+    "notes": "Gotowe, przezroczyste tło, soczysty kolor pomarańczowy."
+  },
+  {
+    "id": "live-nation",
+    "name": "Live Nation",
+    "file": "live-nation.png",
+    "notes": "Oryginalny czerwony badge z białym napisem na przezroczystości."
+  },
+  {
+    "id": "ing-silesia-beats",
+    "name": "ING Silesia Beats",
+    "file": "ing-silesia-beats.png",
+    "notes": "Wycięte czarne tło, pomarańczowy lew ING i biały napis w kolorze."
+  },
+  {
+    "id": "barber-night",
+    "name": "Barber Night",
+    "file": "barber-night.png",
+    "notes": "Wycięte czarne tło, biały piktogram i typografia na przezroczystości."
+  },
+  {
+    "id": "mlynowa",
+    "name": "Młynowa",
+    "file": "mlynowa.png",
+    "notes": "Wycięte ciemnoszare tło, biały sygnet na przezroczystości."
+  },
+  {
+    "id": "planteray",
+    "name": "Planteray",
+    "file": "planteray.png",
+    "notes": "Wycięte białe tło, zwiększona rozdzielczość 2x, pełny kolor palmy i logo."
+  },
+  {
+    "id": "targi-event-expo",
+    "name": "Targi Event Expo Poland",
+    "file": "targi-event-expo.png",
+    "notes": "Wycięte białe tło, purpurowo-fioletowy logotyp w pełnym kolorze."
+  },
+  {
+    "id": "rap-poludnie",
+    "name": "Rap Południe",
+    "file": "rap-poludnie.png",
+    "notes": "Wycięte białe tło, turkusowy znak w kolorze, czarny napis rozjaśniony na biały."
+  },
+  {
+    "id": "targi-fbe",
+    "name": "Targi FBE",
+    "file": "targi-fbe.png",
+    "notes": "Wycięte białe tło, czarne logo odwrócone na czystą biel dla ciemnego tła."
+  },
+  {
+    "id": "united-beverages",
+    "name": "United Beverages",
+    "file": "united-beverages.png",
+    "notes": "Wycięte białe tło, bordowy kieliszek w kolorze, litery wyraziste białe."
+  },
+  {
+    "id": "winiary-bookings",
+    "name": "Winiary Bookings",
+    "file": "winiary-bookings.png",
+    "notes": "Wycięte czarne tło, rozdzielczość 3x, czerwono-żółte kolory zachowane."
+  },
+  {
+    "id": "be-about",
+    "name": "Be About",
+    "file": "be-about.png",
+    "notes": "Wycięty biały znak BE ABOUT z fioletowego kafelka, powiększony 3x."
+  },
+  {
+    "id": "better-bar-show",
+    "name": "Better Bar Show",
+    "file": "better-bar-show.png",
+    "notes": "Wycięty logotyp z ciemnego kafelka, zachowany miętowo-zielony kolor."
+  },
+  {
+    "id": "before-festival",
+    "name": "Before Festival",
+    "file": "before-festival.png",
+    "notes": "Wycięty logotyp Before Festival z plakatu, na przezroczystym tle."
+  },
+  {
+    "id": "salt-wave",
+    "name": "Salt Wave",
+    "file": "salt-wave.svg",
+    "notes": "Wektor SVG zamieniony z czerni na czystą biel (bezstratny wektor)."
+  },
+  {
+    "id": "sikelia-di-terrazzino",
+    "name": "Sikelia di Terrazzino",
+    "file": "sikelia-di-terrazzino.png",
+    "notes": "Czarne logo zamienione na biel (oraz wersja w luksusowym złocie ArtBar -gold.png/svg)."
+  }
+]
