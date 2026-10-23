@@ -411,6 +411,10 @@
     .marquee-track {
       display: flex;
       width: max-content;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
       animation: marqueeScroll 55s linear infinite;
     }
 
@@ -1540,48 +1544,53 @@
   <!-- ══════════════════════════════════════════════
        ZAUFALI NAM — MARQUEE LOGO KLIENTÓW & FESTIWALI (OBNIŻONY POD MENU RADIALNYM)
   ══════════════════════════════════════════════ -->
-  <section id="zaufali-nam" class="w-full relative z-10 py-7 sm:py-9 border-y border-[#FACB7D]/15 overflow-hidden bg-[#030303] backdrop-blur-md">
+    <section id="zaufali-nam" class="w-full relative z-10 py-7 sm:py-9 border-y border-[#FACB7D]/15 overflow-hidden bg-[#030303] backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 mb-4 text-center">
       <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D]/60 font-semibold">Zaufali nam najlepsi organizatorzy festiwali i eventów</span>
     </div>
-    <div class="relative w-full overflow-hidden">
-            <div class="marquee-track flex items-center gap-14 sm:gap-20 opacity-90 hover:opacity-100 transition-opacity duration-300">
-        <!-- Zestaw 1 -->
-        <img src="assets/images/partners/festiwal-whisky.png" alt="Festiwal Whisky" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/przyjazn.png" alt="Przyjaźń" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/live-nation.png" alt="Live Nation" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/ing-silesia-beats.png" alt="ING Silesia Beats" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/barber-night.png" alt="Barber Night" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/mlynowa.png" alt="Młynowa" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/planteray.png" alt="Planteray Rum" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/targi-event-expo.png" alt="Targi Event Expo Poland" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/rap-poludnie.png" alt="Rap Południe" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/targi-fbe.png" alt="Targi FBE" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/united-beverages.png" alt="United Beverages" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/winiary-bookings.png" alt="Winiary Bookings" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/be-about.png" alt="Be About" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/better-bar-show.png" alt="Better Bar Show" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/before-festival.png" alt="Before Festival" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/salt-wave.svg" alt="Salt Wave" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/sikelia-di-terrazzino.png" alt="Sikelia di Terrazzino" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <!-- Zestaw 2 (dla nieskończonej pętli) -->
-        <img src="assets/images/partners/festiwal-whisky.png" alt="Festiwal Whisky" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/przyjazn.png" alt="Przyjaźń" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/live-nation.png" alt="Live Nation" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/ing-silesia-beats.png" alt="ING Silesia Beats" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/barber-night.png" alt="Barber Night" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/mlynowa.png" alt="Młynowa" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/planteray.png" alt="Planteray Rum" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/targi-event-expo.png" alt="Targi Event Expo Poland" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/rap-poludnie.png" alt="Rap Południe" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/targi-fbe.png" alt="Targi FBE" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/united-beverages.png" alt="United Beverages" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/winiary-bookings.png" alt="Winiary Bookings" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/be-about.png" alt="Be About" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/better-bar-show.png" alt="Better Bar Show" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/before-festival.png" alt="Before Festival" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/salt-wave.svg" alt="Salt Wave" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105">
-        <img src="assets/images/partners/sikelia-di-terrazzino.png" alt="Sikelia di Terrazzino" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105">
+    <!-- Interaktywny karuzelowy pasek z obsługą przeciągania myszką i dotykiem -->
+    <div id="partner-marquee-container" class="relative w-full overflow-hidden select-none cursor-grab active:cursor-grabbing" title="Przeciągnij myszką, aby przewijać">
+      <div id="partner-marquee-track" class="marquee-track flex items-center opacity-90 hover:opacity-100 transition-opacity duration-300 will-change-transform">
+        <!-- Grupa 1 -->
+        <div class="marquee-group flex items-center gap-14 sm:gap-20 pr-14 sm:pr-20 flex-shrink-0" id="partner-group-1">
+          <img src="assets/images/partners/festiwal-whisky.png" alt="Festiwal Whisky" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/przyjazn.png" alt="Przyjaźń" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/live-nation.png" alt="Live Nation" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/ing-silesia-beats.png" alt="ING Silesia Beats" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/barber-night.png" alt="Barber Night" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/mlynowa.png" alt="Młynowa" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/planteray.png" alt="Planteray Rum" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/targi-event-expo.png" alt="Targi Event Expo Poland" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/rap-poludnie.png" alt="Rap Południe" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/targi-fbe.png" alt="Targi FBE" draggable="false" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/united-beverages.png" alt="United Beverages" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/winiary-bookings.png" alt="Winiary Bookings" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/be-about.png" alt="Be About" draggable="false" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/better-bar-show.png" alt="Better Bar Show" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/before-festival.png" alt="Before Festival" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/salt-wave.svg" alt="Salt Wave" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/sikelia-di-terrazzino.png" alt="Sikelia di Terrazzino" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+        </div>
+        <!-- Grupa 2 (kopia dla nieskończonego płynnego zapętlenia) -->
+        <div class="marquee-group flex items-center gap-14 sm:gap-20 pr-14 sm:pr-20 flex-shrink-0" id="partner-group-2" aria-hidden="true">
+          <img src="assets/images/partners/festiwal-whisky.png" alt="Festiwal Whisky" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/przyjazn.png" alt="Przyjaźń" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/live-nation.png" alt="Live Nation" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/ing-silesia-beats.png" alt="ING Silesia Beats" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/barber-night.png" alt="Barber Night" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/mlynowa.png" alt="Młynowa" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/planteray.png" alt="Planteray Rum" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/targi-event-expo.png" alt="Targi Event Expo Poland" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/rap-poludnie.png" alt="Rap Południe" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/targi-fbe.png" alt="Targi FBE" draggable="false" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/united-beverages.png" alt="United Beverages" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/winiary-bookings.png" alt="Winiary Bookings" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/be-about.png" alt="Be About" draggable="false" class="h-9 sm:h-11 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/better-bar-show.png" alt="Better Bar Show" draggable="false" class="h-9 sm:h-11 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/before-festival.png" alt="Before Festival" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/salt-wave.svg" alt="Salt Wave" draggable="false" class="h-8 sm:h-10 max-w-[150px] sm:max-w-[180px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+          <img src="assets/images/partners/sikelia-di-terrazzino.png" alt="Sikelia di Terrazzino" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none">
+        </div>
       </div>
     </div>
   </section>
@@ -4155,6 +4164,126 @@
 
     // Zabezpieczenie awaryjne (fallback max 2.5s na wypadek opóźnień sieciowych)
     setTimeout(dismissPreloader, 2500);
+
+    // ═════════════════════════════════════════════════════════════════════
+    // INTERAKTYWNY SILNIK PRZECIĄGANIA I BEZWŁADNOŚCI PASKU LOGO (CAROUSEL)
+    // ═════════════════════════════════════════════════════════════════════
+    (function initInteractivePartnerMarquee() {
+      const container = document.getElementById('partner-marquee-container');
+      const track = document.getElementById('partner-marquee-track');
+      const group1 = document.getElementById('partner-group-1');
+      if (!container || !track || !group1) return;
+
+      // Wyłącz domyślną animację CSS i przejmij kontrolę płynnym silnikiem 60/120fps
+      track.style.animation = 'none';
+
+      let currentX = 0;
+      const autoSpeed = 0.9; // prędkość spokojnego płynięcia
+      let isDragging = false;
+      let startPointerX = 0;
+      let dragStartX = 0;
+      let velocity = 0;
+      let lastPointerX = 0;
+      let lastPointerTime = 0;
+      let isHovered = false;
+      let wrapWidth = 0;
+
+      function updateWrapWidth() {
+        if (group1 && group1.offsetWidth > 0) {
+          wrapWidth = group1.offsetWidth;
+        }
+      }
+
+      window.addEventListener('resize', updateWrapWidth);
+
+      // Obsługa Pointer Events (Mysz, Dotyk, Piórko)
+      container.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        isDragging = true;
+        startPointerX = e.clientX;
+        dragStartX = currentX;
+        velocity = 0;
+        lastPointerX = e.clientX;
+        lastPointerTime = performance.now();
+        container.classList.add('cursor-grabbing');
+        container.classList.remove('cursor-grab');
+        try { container.setPointerCapture(e.pointerId); } catch(err){}
+      });
+
+      container.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startPointerX;
+        currentX = dragStartX + dx;
+
+        const now = performance.now();
+        const dt = now - lastPointerTime;
+        if (dt > 8) {
+          velocity = ((e.clientX - lastPointerX) / dt) * 16.67;
+          lastPointerX = e.clientX;
+          lastPointerTime = now;
+        }
+      });
+
+      function endDrag(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('cursor-grabbing');
+        container.classList.add('cursor-grab');
+        try { container.releasePointerCapture(e.pointerId); } catch(err){}
+      }
+
+      container.addEventListener('pointerup', endDrag);
+      container.addEventListener('pointercancel', endDrag);
+
+      container.addEventListener('mouseenter', () => { isHovered = true; });
+      container.addEventListener('mouseleave', () => { isHovered = false; });
+
+      // Opcjonalne przewijanie kółkiem myszy / gestem dwóch palców w poziomie
+      container.addEventListener('wheel', (e) => {
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (Math.abs(delta) > 1) {
+          velocity -= delta * 0.15;
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      function marqueeLoop() {
+        if (!isDragging) {
+          if (Math.abs(velocity) > 0.05) {
+            currentX += velocity;
+            velocity *= 0.94; // realistyczna amortyzacja bezwładności
+          } else {
+            velocity = 0;
+            if (!isHovered) {
+              currentX -= autoSpeed;
+            }
+          }
+        }
+
+        // Bezszwowe zapętlenie w obu kierunkach (lewo i prawo)
+        if (wrapWidth > 0) {
+          while (currentX <= -wrapWidth) currentX += wrapWidth;
+          while (currentX > 0) currentX -= wrapWidth;
+        }
+
+        track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        requestAnimationFrame(marqueeLoop);
+      }
+
+      setTimeout(() => {
+        updateWrapWidth();
+        requestAnimationFrame(marqueeLoop);
+      }, 50);
+
+      track.querySelectorAll('img').forEach(img => {
+        if (img.complete) {
+          updateWrapWidth();
+        } else {
+          img.addEventListener('load', updateWrapWidth);
+        }
+      });
+    })();
+
   </script>
 
 </body>

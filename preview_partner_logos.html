@@ -25,7 +25,7 @@
     .marquee-track {
       display: flex;
       width: max-content;
-      animation: marqueeScroll var(--marquee-duration, 55s) linear infinite;
+      /* Sterowane przez interaktywny silnik JS z fizyką przeciągania */
     }
     .marquee-track:hover {
       animation-play-state: paused;
@@ -104,15 +104,15 @@
         </div>
       </div>
 
-      <!-- PASEK RUNNING TICKER -->
-      <div id="marquee-wrapper" class="w-full relative overflow-hidden py-8 border-y border-[#FACB7D]/20 logo-container bg-mode-dark rounded-2xl">
-        <div id="ticker" class="marquee-track flex items-center gap-16 sm:gap-24 opacity-95 hover:opacity-100 transition-opacity">
+      <!-- PASEK RUNNING TICKER (INTERAKTYWNY / DRAGGABLE CAROUSEL) -->
+      <div id="marquee-wrapper" class="w-full relative overflow-hidden py-8 border-y border-[#FACB7D]/20 logo-container bg-mode-dark rounded-2xl select-none cursor-grab active:cursor-grabbing">
+        <div id="ticker" class="marquee-track flex items-center opacity-95 hover:opacity-100 transition-opacity will-change-transform">
           <!-- Zestaw 1 -->
-          <div class="flex items-center gap-16 sm:gap-24" id="ticker-set-1">
+          <div class="marquee-group flex items-center gap-14 sm:gap-20 pr-14 sm:pr-20 flex-shrink-0" id="ticker-set-1">
             <!-- Wstrzykiwane przez JS -->
           </div>
-          <!-- Zestaw 2 (nieskończona pętla) -->
-          <div class="flex items-center gap-16 sm:gap-24" id="ticker-set-2">
+          <!-- Zestaw 2 (dla nieskończonej pętli) -->
+          <div class="marquee-group flex items-center gap-14 sm:gap-20 pr-14 sm:pr-20 flex-shrink-0" id="ticker-set-2" aria-hidden="true">
             <!-- Wstrzykiwane przez JS -->
           </div>
         </div>
@@ -314,15 +314,15 @@
       }
     ];
 
-    // Renderowanie kafelków w marquee
+    // Renderowanie kafelków w marquee z obsługą przeciągania
     function populateTicker() {
       const set1 = document.getElementById('ticker-set-1');
       const set2 = document.getElementById('ticker-set-2');
       let html = '';
       LOGOS.forEach(logo => {
         html += `
-          <div class="flex-shrink-0 flex items-center justify-center group cursor-pointer" onclick="openModal('${logo.id}')" title="${logo.name} (kliknij aby powiększyć)">
-            <img src="${logo.file}" alt="${logo.name}" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+          <div class="flex-shrink-0 flex items-center justify-center group cursor-pointer" onclick="if(!hasMovedSignificantly) openModal('${logo.id}')" title="${logo.name} (kliknij aby powiększyć / przeciągnij)">
+            <img src="${logo.file}" alt="${logo.name}" draggable="false" class="h-10 sm:h-12 max-w-[140px] sm:max-w-[170px] w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] pointer-events-none">
           </div>
         `;
       });
@@ -434,6 +434,125 @@
     });
 
     populateTicker();
+
+    // ══════════════════════════════════════════════════════════════
+    // INTERAKTYWNY SILNIK PRZECIĄGANIA PASKU (DRAGGABLE CAROUSEL)
+    // ══════════════════════════════════════════════════════════════
+    const marqueeContainer = document.getElementById('marquee-wrapper');
+    const marqueeTrack = document.getElementById('ticker');
+    const group1 = document.getElementById('ticker-set-1');
+
+    let currentX = 0;
+    let autoSpeed = 0.9;
+    let isDragging = false;
+    let startPointerX = 0;
+    let dragStartX = 0;
+    let velocity = 0;
+    let lastPointerX = 0;
+    let lastPointerTime = 0;
+    let isHovered = false;
+    let hasMovedSignificantly = false;
+    let wrapWidth = 0;
+
+    function measureWrapWidth() {
+      if (group1 && group1.offsetWidth > 0) {
+        wrapWidth = group1.offsetWidth;
+      }
+    }
+
+    window.addEventListener('resize', measureWrapWidth);
+
+    if (marqueeContainer && marqueeTrack) {
+      marqueeContainer.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        isDragging = true;
+        hasMovedSignificantly = false;
+        startPointerX = e.clientX;
+        dragStartX = currentX;
+        velocity = 0;
+        lastPointerX = e.clientX;
+        lastPointerTime = performance.now();
+        marqueeContainer.classList.add('cursor-grabbing');
+        marqueeContainer.classList.remove('cursor-grab');
+        try { marqueeContainer.setPointerCapture(e.pointerId); } catch(err){}
+      });
+
+      marqueeContainer.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startPointerX;
+        if (Math.abs(dx) > 5) hasMovedSignificantly = true;
+        currentX = dragStartX + dx;
+        
+        const now = performance.now();
+        const dt = now - lastPointerTime;
+        if (dt > 8) {
+          velocity = ((e.clientX - lastPointerX) / dt) * 16.67;
+          lastPointerX = e.clientX;
+          lastPointerTime = now;
+        }
+      });
+
+      function stopDragging(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        marqueeContainer.classList.remove('cursor-grabbing');
+        marqueeContainer.classList.add('cursor-grab');
+        try { marqueeContainer.releasePointerCapture(e.pointerId); } catch(err){}
+      }
+
+      marqueeContainer.addEventListener('pointerup', stopDragging);
+      marqueeContainer.addEventListener('pointercancel', stopDragging);
+
+      marqueeContainer.addEventListener('mouseenter', () => { isHovered = true; });
+      marqueeContainer.addEventListener('mouseleave', () => { isHovered = false; });
+
+      // Kółko myszy / gest dwoma palcami
+      marqueeContainer.addEventListener('wheel', (e) => {
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (Math.abs(delta) > 1) {
+          velocity -= delta * 0.15;
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      function tickMarquee() {
+        if (!isDragging) {
+          if (Math.abs(velocity) > 0.05) {
+            currentX += velocity;
+            velocity *= 0.94; // płynna bezwładność
+          } else {
+            velocity = 0;
+            if (!isHovered) {
+              currentX -= autoSpeed;
+            }
+          }
+        }
+
+        if (wrapWidth > 0) {
+          while (currentX <= -wrapWidth) currentX += wrapWidth;
+          while (currentX > 0) currentX -= wrapWidth;
+        }
+
+        marqueeTrack.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        requestAnimationFrame(tickMarquee);
+      }
+
+      setTimeout(() => {
+        measureWrapWidth();
+        requestAnimationFrame(tickMarquee);
+      }, 50);
+
+      const allImgs = marqueeTrack.querySelectorAll('img');
+      allImgs.forEach(img => {
+        img.setAttribute('draggable', 'false');
+        if (img.complete) {
+          measureWrapWidth();
+        } else {
+          img.addEventListener('load', measureWrapWidth);
+        }
+      });
+    }
+
     populateGrid();
   </script>
 </body>
