@@ -3304,9 +3304,15 @@
       responsiveScale = Math.min(1, Math.max(0.42, availableWidth / baselineSpan));
       document.documentElement.style.setProperty('--responsive-scale', responsiveScale.toFixed(4));
 
-      // Skalowanie logotypu i podpisu: nie zmniejszamy przy szerokości 1200px (pozostaje pełne 100%)
-      // Dopiero poniżej 1050px (mniejsze laptopy i tablety) zaczyna się subtelne, płynne dopasowanie skali
-      const logoScaleFactor = w < 1050 ? Math.min(1, Math.max(0.68, w / 1050)) : 1.0;
+      // Skalowanie logotypu i podpisu:
+      // Przy 1200px pełne 100%. Przy około 780px logo i podpisy są powiększone o 50%, idealnie mieszcząc się w centrum orbity
+      let logoScaleFactor = 1.0;
+      if (w < 1050) {
+        const prevFactor = Math.min(1, Math.max(0.68, w / 1050));
+        const t = Math.min(1, Math.max(0, (1050 - w) / (1050 - 780)));
+        const mult = 1.0 + 0.5 * t;
+        logoScaleFactor = prevFactor * mult;
+      }
       const baseLogoScale = (sLogoScale ? parseFloat(sLogoScale.value) : 1.70);
       const baseTitleSize = (sLogoTitleSize ? parseFloat(sLogoTitleSize.value) : 37.5);
       const baseSloganSize = (sLogoSloganSize ? parseFloat(sLogoSloganSize.value) : 20.25);
@@ -3327,19 +3333,21 @@
       }
 
       // Płynne unoszenie logotypu w górę poniżej 1320px:
-      // Utrzymuje napisy pod logotypem idealnie w geometrycznym centrum orbity na wszystkich szerokościach ekranu
-      // (zarówno przy 1200px, jak i przy 780px napisy pozostają dokładnie pośrodku podkowy)
+      // Utrzymuje powiększone napisy pod logotypem idealnie w geometrycznym centrum orbity na wszystkich szerokościach ekranu
       let responsiveLift = 0;
       if (w < 1320) {
         if (w >= 1200) {
           const t = (1320 - w) / (1320 - 1200);
-          responsiveLift = -34 * t;
+          responsiveLift = -32 * t;
         } else if (w >= 1050) {
           const t = (1200 - w) / (1200 - 1050);
-          responsiveLift = -34 - 8 * t;
+          responsiveLift = -32 - 14 * t;
+        } else if (w >= 780) {
+          const t = (1050 - w) / (1050 - 780);
+          responsiveLift = -46 - 40 * t;
         } else {
-          const t = Math.min(1, Math.max(0, (1050 - w) / (1050 - 768)));
-          responsiveLift = -42 + 6 * t;
+          const t = (780 - w) / (780 - 768);
+          responsiveLift = -86 + 2 * t;
         }
       }
       document.documentElement.style.setProperty('--responsive-lift', `${responsiveLift.toFixed(1)}px`);
