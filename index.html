@@ -3327,12 +3327,20 @@
       }
 
       // Płynne unoszenie logotypu w górę poniżej 1320px:
-      // Zamiast przedwczesnego zmniejszania przy 1200px, logotyp i podpis unoszą się ku górze,
-      // tak aby na mniejszych ekranach napisy pod logiem znalazły się dokładnie w przestronnym centrum orbity
+      // Utrzymuje napisy pod logotypem idealnie w geometrycznym centrum orbity na wszystkich szerokościach ekranu
+      // (zarówno przy 1200px, jak i przy 780px napisy pozostają dokładnie pośrodku podkowy)
       let responsiveLift = 0;
       if (w < 1320) {
-        const t = Math.min(1, Math.max(0, (1320 - w) / (1320 - 850)));
-        responsiveLift = -155 * t;
+        if (w >= 1200) {
+          const t = (1320 - w) / (1320 - 1200);
+          responsiveLift = -34 * t;
+        } else if (w >= 1050) {
+          const t = (1200 - w) / (1200 - 1050);
+          responsiveLift = -34 - 8 * t;
+        } else {
+          const t = Math.min(1, Math.max(0, (1050 - w) / (1050 - 768)));
+          responsiveLift = -42 + 6 * t;
+        }
       }
       document.documentElement.style.setProperty('--responsive-lift', `${responsiveLift.toFixed(1)}px`);
 
