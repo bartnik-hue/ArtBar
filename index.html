@@ -1736,10 +1736,7 @@
         
         <!-- Lewa kolumna: Opis i Misja (7 kolumn) -->
         <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-5">
-            <span class="w-1.5 h-1.5 bg-[#FACB7D] inline-block"></span>
-            <span>O nas · Filozofia ArtBar Solutions</span>
-          </div>
+
 
           <h2 class="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-[1.15]">
             Sztuka Kreacji, <br>
@@ -1826,82 +1823,75 @@
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       
       <!-- NAGŁÓWEK SEKCJI -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#FACB7D]/30 bg-[#FACB7D]/5 text-[#FACB7D] text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 shadow-[0_0_15px_rgba(250,203,125,0.1)]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-pulse"></span>
-          Nowości & Projekty
-        </div>
+      <div class="text-center max-w-3xl mx-auto mb-14">
         <h2 class="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-          Z Życia <span class="gold-gradient-text">ArtBar Solutions</span>
+          <span class="gold-gradient-text">Aktualności</span>
         </h2>
-        <p class="text-sm text-[#f5efe6]/70 leading-relaxed font-light">
-          Poznaj nasze bieżące realizacje plenerowe, autorskie metamorfozy lokali i unikalne strefy festiwalowe. Prawie 2 lata doświadczeń i pasji w tworzeniu przestrzeni barowych.
+        <p class="text-sm sm:text-base text-[#f5efe6]/70 leading-relaxed font-light">
+          Poznaj nasze bieżące realizacje plenerowe, autorskie metamorfozy lokali i unikalne strefy festiwalowe.<br>
+          Prawie 2 lata doświadczeń i pasji w tworzeniu przestrzeni barowych.
         </p>
       </div>
 
-      <!-- GŁÓWNA SIATKA (LEWA: 2 RAMKI WPISÓW | PRAWA: PRZEWIJANA LISTA PRZYCISKÓW) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- GÓRNY OBSZAR: EKSKLUZYWNA KARUZELA OSTATNICH WYDARZEŃ (3 KAFELKI NA DESKTOPIE, PEŁNA SZEROKOŚĆ) -->
+      <div class="w-full flex flex-col justify-between overflow-hidden mb-12 sm:mb-16">
         
-        <!-- LEWA / GŁÓWNA STREFA: EKSKLUZYWNA KARUZELA REALIZACJI (8 KOLUMN) -->
-        <div class="lg:col-span-8 flex flex-col justify-between overflow-hidden">
-          
-          <!-- Górny pasek nawigacji karuzeli: wskaźnik i złote przyciski prev/next -->
-          <div class="flex items-center justify-between mb-4 px-1">
-            <div class="flex items-center gap-3">
-              <span class="text-xs font-mono font-bold text-[#FACB7D] tracking-wider uppercase flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-ping"></span>
-                <span>Najnowsze realizacje</span>
-              </span>
-              <span id="news-carousel-counter" class="text-xs font-mono text-[#f5efe6]/70 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
-                1 - 2 / 39
-              </span>
-            </div>
-
-            <!-- Złote przyciski przewijania karuzeli -->
-            <div class="flex items-center gap-2">
-              <button id="news-carousel-prev" type="button" aria-label="Poprzednie realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
-                <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-              </button>
-              <button id="news-carousel-next" type="button" aria-label="Następne realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
-                <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </button>
-            </div>
+        <!-- Górny pasek nawigacji karuzeli: wskaźnik i złote przyciski prev/next -->
+        <div class="flex items-center justify-between mb-4 px-1">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono font-bold text-[#FACB7D] tracking-wider uppercase flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-ping"></span>
+              <span>Ostatnie wydarzenia</span>
+            </span>
+            <span id="news-carousel-counter" class="text-xs font-mono text-[#f5efe6]/70 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
+              1 - 3 / 39
+            </span>
           </div>
 
-          <!-- Okno widoku karuzeli (viewport) z obsługą przeciągania i dotyku -->
-          <div id="news-carousel-viewport" class="overflow-hidden relative w-full rounded-2xl select-none" style="touch-action: pan-y;">
-            <!-- Pływające przyciski przewijania lewo/prawo na krawędziach kafelka -->
-            <button id="news-viewport-prev" type="button" aria-label="Poprzednie wydarzenie" class="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/50 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.95)] active:scale-90 group">
-              <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+          <!-- Złote przyciski przewijania karuzeli -->
+          <div class="flex items-center gap-2">
+            <button id="news-carousel-prev" type="button" aria-label="Poprzednie realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
+              <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
             </button>
-            <button id="news-viewport-next" type="button" aria-label="Następne wydarzenie" class="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/50 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.95)] active:scale-90 group">
-              <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            <button id="news-carousel-next" type="button" aria-label="Następne realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
+              <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
-
-            <!-- Tor ze slajdami -->
-            <div id="news-carousel-track" class="flex transition-transform duration-500 ease-out gap-6 items-stretch" style="touch-action: pan-y;">
-              <!-- Slajdy generowane dynamicznie w JS -->
-            </div>
           </div>
-
-
-
         </div>
 
-        <!-- PRAWA STREFA: PRZEWIJANA LISTA PRZYCISKÓW (HISTORIA WPISÓW - 4 KOLUMNY) -->
-        <div class="lg:col-span-4 obsidian-card rounded-2xl p-5 border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl shadow-2xl flex flex-col">
-          
-          <!-- Nagłówek panelu bocznego (okrojony do minimum) -->
-          <div class="pb-3.5 mb-3 border-b border-[#FACB7D]/20 flex items-center justify-between">
-            <h4 class="font-serif-luxury text-sm font-bold text-white uppercase tracking-wider">Historia Wpisów</h4>
-            <span class="text-xs font-mono text-[#FACB7D] font-bold">39 realizacji</span>
-          </div>
+        <!-- Okno widoku karuzeli (viewport) z obsługą przeciągania i dotyku -->
+        <div id="news-carousel-viewport" class="overflow-hidden relative w-full rounded-2xl select-none" style="touch-action: pan-y;">
+          <!-- Pływające przyciski przewijania lewo/prawo na krawędziach kafelka -->
+          <button id="news-viewport-prev" type="button" aria-label="Poprzednie wydarzenie" class="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/50 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.95)] active:scale-90 group">
+            <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="news-viewport-next" type="button" aria-label="Następne wydarzenie" class="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/50 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.95)] active:scale-90 group">
+            <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
 
-          <!-- Przewijana pionowo lista przycisków wpisów (wysokość idealnie dopasowana do lewej karuzeli) -->
-          <div id="news-buttons-list" class="overflow-y-auto scrollbar-thin space-y-2 pr-1.5">
-            <!-- Przyciski otwierające modal wpisu -->
+          <!-- Tor ze slajdami -->
+          <div id="news-carousel-track" class="flex transition-transform duration-500 ease-out gap-6 items-stretch" style="touch-action: pan-y;">
+            <!-- Slajdy generowane dynamicznie w JS -->
           </div>
+        </div>
 
+      </div>
+
+      <!-- DOLNY OBSZAR: HISTORIA WPISÓW NA CAŁĄ SZEROKOŚĆ W FORMIE ELEGANCKIEGO GRIDU -->
+      <div class="w-full obsidian-card rounded-2xl p-5 sm:p-7 border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl shadow-2xl flex flex-col">
+        
+        <!-- Nagłówek panelu historii -->
+        <div class="pb-3.5 mb-4 border-b border-[#FACB7D]/20 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <h4 class="font-serif-luxury text-base sm:text-lg font-bold text-white uppercase tracking-wider">Historia Wpisów</h4>
+            <span class="text-xs font-mono text-[#FACB7D] font-bold bg-[#FACB7D]/10 px-2.5 py-0.5 rounded-full border border-[#FACB7D]/30">39 wydarzeń</span>
+          </div>
+          <span class="text-xs text-[#f5efe6]/50 font-light hidden sm:inline">Wybierz wydarzenie, aby zobaczyć galerię i szczegóły</span>
+        </div>
+
+        <!-- Przewijana pionowo siatka (grid) wydarzeń na całą szerokość, niezbyt wysoka -->
+        <div id="news-buttons-list" class="max-h-[300px] overflow-y-auto scrollbar-thin grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pr-2">
+          <!-- Kafelki generowane dynamicznie w JS -->
         </div>
 
       </div>
@@ -5337,8 +5327,10 @@
     let newsCarouselIndex = 0;
 
     function getCarouselVisibleCount() {
-      // Dokładnie 1 kafelek na telefonach i tabletach (< 1024px), 2 kafelki wyłącznie na Desktopie (>= 1024px)
-      return window.innerWidth >= 1024 ? 2 : 1;
+      // 1 kafelek na telefonach (< 768px), 2 kafelki na tabletach (768px - 1023px), 3 kafelki na Desktopie (>= 1024px)
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
     }
 
     function getMaxCarouselIndex() {
@@ -5360,7 +5352,7 @@
 
       artbarNewsDatabase.forEach((item, idx) => {
         const slide = document.createElement('article');
-        slide.className = 'news-carousel-slide flex-shrink-0 w-full lg:w-[calc(50%-12px)] obsidian-card rounded-2xl overflow-hidden border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl flex flex-col justify-between shadow-[0_15px_45px_rgba(0,0,0,0.85)] hover:border-[#FACB7D] transition-all duration-300 group cursor-pointer';
+        slide.className = 'news-carousel-slide flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc((100%-48px)/3)] obsidian-card rounded-2xl overflow-hidden border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl flex flex-col justify-between shadow-[0_15px_45px_rgba(0,0,0,0.85)] hover:border-[#FACB7D] transition-all duration-300 group cursor-pointer';
         slide.setAttribute('data-news-id', item.id);
         slide.setAttribute('data-news-idx', String(idx));
         
@@ -5692,58 +5684,41 @@
       if (nTitle) nTitle.textContent = nextItem.title;
     }
 
-    // Generowanie listy przycisków po prawej stronie (Historia wpisów bez numeracji, z większą czcionką i równą wysokością kafelków)
+    // Generowanie siatki kafelków (Historia wpisów w formie eleganckiego gridu z miniaturami i datami)
     function renderNewsButtonsList() {
       const listEl = document.getElementById('news-buttons-list');
       if (!listEl) return;
       listEl.innerHTML = '';
 
       artbarNewsDatabase.forEach((item, idx) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        // Równa wysokość (min-h-[76px]) z pionowym wycentrowaniem i większą czytelną typografią
-        btn.className = 'w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-[#FACB7D]/10 hover:border-[#FACB7D]/50 transition-all duration-200 group flex flex-col justify-center h-[86px] shrink-0 cursor-pointer';
+        const card = document.createElement('div');
+        card.className = 'w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-[#FACB7D]/10 hover:border-[#FACB7D]/50 transition-all duration-200 group flex items-center gap-3 cursor-pointer select-none';
 
-        btn.innerHTML = `
-          <div class="flex items-center gap-2 mb-1 shrink-0">
-            <span class="text-xs font-mono font-bold text-[#FACB7D] uppercase tracking-wider">${item.date}</span>
+        card.innerHTML = `
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden border border-white/10 group-hover:border-[#FACB7D]/50 shrink-0 bg-black/60 relative">
+            <img src="${item.coverImg}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" style="object-position: ${getImageObjectPosition(item.coverImg)};">
           </div>
-          <div class="text-sm font-serif-luxury font-bold text-white/95 group-hover:text-[#FACB7D] transition-colors line-clamp-2 leading-snug h-10 flex items-center">
-            ${item.title}
+          <div class="flex-1 min-w-0">
+            <div class="text-[10px] font-mono font-bold text-[#FACB7D] uppercase tracking-wider mb-0.5 truncate">
+              ${item.date}
+            </div>
+            <div class="text-xs font-serif-luxury font-bold text-white/95 group-hover:text-[#FACB7D] transition-colors line-clamp-2 leading-snug">
+              ${item.title}
+            </div>
           </div>
         `;
 
-        // Bezpośrednie otwarcie okna modala oraz przesunięcie karuzeli
-        btn.addEventListener('click', () => {
+        card.addEventListener('click', () => {
           slideNewsCarouselToItem(item.id);
           openNewsModalById(item.id, 0);
         });
 
-        listEl.appendChild(btn);
+        listEl.appendChild(card);
       });
-
-      syncNewsColumnsHeight();
     }
 
-    // Dynamiczne dopasowanie wysokości panelu historii wpisów do wysokości lewej karuzeli
     function syncNewsColumnsHeight() {
-      const leftCol = document.querySelector('.lg\\:col-span-8');
-      const rightCol = document.querySelector('.lg\\:col-span-4');
-      const list = document.getElementById('news-buttons-list');
-      if (!leftCol || !rightCol || !list) return;
-
-      if (window.innerWidth >= 1024) {
-        list.style.height = 'auto';
-        list.style.maxHeight = 'none';
-        const leftH = leftCol.offsetHeight;
-        const overhead = rightCol.offsetHeight - list.offsetHeight;
-        const targetListH = Math.max(280, leftH - overhead);
-        list.style.height = `${targetListH}px`;
-        list.style.maxHeight = `${targetListH}px`;
-      } else {
-        list.style.height = 'auto';
-        list.style.maxHeight = '440px';
-      }
+      // W układzie pełnej szerokości grid posiada stałą, zoptymalizowaną wysokość (max-h-[300px]) ze scrollowaniem
     }
 
     // Dynamiczna podmiana Ramki 2 po kliknięciu wpisu z listy
