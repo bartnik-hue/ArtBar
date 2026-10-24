@@ -3298,20 +3298,38 @@
       const cx = w / 2;
       const cy = h / 2;
 
-      // Responsywny współczynnik proporcji (baseline: ekran o szerokości >= 1320px)
-      // Jeśli ekran jest mniejszy, cała orbita, logo i przyciski płynnie skalują się w dół, zachowując 100% proporcji
+      // Responsywny współczynnik proporcji orbity (baseline: ekran o szerokości >= 1320px)
       const availableWidth = w - 80;
       const baselineSpan = (customRadiusX || 555) * 2 + 160; // szerokość orbity wraz z przyciskami
       responsiveScale = Math.min(1, Math.max(0.42, availableWidth / baselineSpan));
       document.documentElement.style.setProperty('--responsive-scale', responsiveScale.toFixed(4));
 
-      // Zabezpieczenie przed nakładaniem się hasła pod logo na dolny przycisk (Kubki ECO) poniżej szerokości ~850px:
-      // Gdy szerokość ekranu spada poniżej 860px, unosimy logotyp lekko w górę i korygujemy odstęp
+      // Od szerokości okna 1260px logotyp oraz cały podpis pod nim proporcjonalnie zmniejszają się w dół
+      const logoScaleFactor = w < 1260 ? Math.min(1, Math.max(0.42, w / 1260)) : 1.0;
+      const baseLogoScale = (sLogoScale ? parseFloat(sLogoScale.value) : 1.70);
+      const baseTitleSize = (sLogoTitleSize ? parseFloat(sLogoTitleSize.value) : 37.5);
+      const baseSloganSize = (sLogoSloganSize ? parseFloat(sLogoSloganSize.value) : 20.25);
+
+      document.documentElement.style.setProperty('--logo-scale', (baseLogoScale * logoScaleFactor).toFixed(3));
+      document.documentElement.style.setProperty('--logo-title-size', (baseTitleSize * logoScaleFactor).toFixed(2) + 'px');
+      document.documentElement.style.setProperty('--logo-slogan-size', (baseSloganSize * logoScaleFactor).toFixed(2) + 'px');
+
+      // Fizyczne dopasowanie wysokości logotypu i marginesu bloku podpisu (zapobiega wypychaniu tekstu w dół)
+      const centerLogoImg = document.querySelector('.center-logo-enlarged');
+      if (centerLogoImg) {
+        centerLogoImg.style.height = `${(256 * logoScaleFactor).toFixed(1)}px`;
+        centerLogoImg.style.maxHeight = `${(256 * logoScaleFactor).toFixed(1)}px`;
+        const textWrap = centerLogoImg.nextElementSibling;
+        if (textWrap) {
+          textWrap.style.marginTop = `${(14 * logoScaleFactor).toFixed(1)}px`;
+        }
+      }
+
+      // Precyzyjne, subtelne unoszenie środka poniżej 1260px, aby utrzymać idealny margines nad dolnymi przyciskami
       let responsiveLift = 0;
-      if (w < 860) {
-        // Płynne podniesienie od 0px przy 860px do -35px przy 500px i poniżej
-        const tNarrow = Math.min(1, Math.max(0, (860 - w) / 360));
-        responsiveLift = -35 * tNarrow;
+      if (w < 1260) {
+        const t = Math.min(1, Math.max(0, (1260 - w) / (1260 - 500)));
+        responsiveLift = -22 * t;
       }
       document.documentElement.style.setProperty('--responsive-lift', `${responsiveLift.toFixed(1)}px`);
 
