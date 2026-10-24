@@ -2073,16 +2073,12 @@
   <section id="konfigurator-section" class="py-24 relative bg-gradient-to-b from-[#030303] via-[#090704] to-[#030303] overflow-hidden">
     
     <!-- Nagłówek sekcji konfiguratora -->
-    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14 px-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#FACB7D]/20 text-[#FACB7D] text-[10px] font-semibold tracking-[0.2em] uppercase mb-4">
-        <span class="w-1.5 h-1.5 bg-[#FACB7D] rotate-45 inline-block"></span>
-        <span>Rewolucja w planowaniu eventów</span>
-      </div>
-      <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-center leading-tight">
+    <div class="text-center max-w-5xl mx-auto mb-14 sm:mb-16 px-6">
+      <h2 class="font-serif-luxury text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-center leading-[1.08]">
         <span class="block">Własny Bar</span>
         <span class="block text-white">w <span class="gold-gradient-text">Przestrzeni 3D</span></span>
       </h2>
-      <p class="text-sm sm:text-base text-[#f5efe6]/70 font-light leading-relaxed">
+      <p class="text-lg sm:text-2xl lg:text-3xl text-[#f5efe6]/85 font-light leading-relaxed max-w-4xl mx-auto">
         Nasz autorski konfigurator pozwala klientom i partnerom w kilka minut stworzyć dowolny układ baru, dobrać oświetlenie LED, nałożyć grafikę AI i natychmiast wygenerować specyfikację techniczną.
       </p>
     </div>
@@ -2200,12 +2196,11 @@
       
       <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
         <div>
-          <span class="text-[#FACB7D] text-xs font-semibold tracking-[0.3em] uppercase block mb-3">Portfolio w obiektywie</span>
           <h2 class="font-serif-luxury text-3xl sm:text-5xl font-bold tracking-tight">
             Galeria <span class="gold-gradient-text">Realizacji</span>
           </h2>
           <p class="text-xs sm:text-sm text-[#f5efe6]/60 max-w-xl font-light mt-3">
-            Odkryj ponad 120 fotografii z największych wydarzeń: festiwali muzycznych, nocy sylwestrowych, imprez Halloween i scenografii artystycznych.
+            Odkryj ponad 220 fotografii z największych wydarzeń: festiwali muzycznych, nocy sylwestrowych, imprez Halloween, scenografii oraz realizacji z Aktualności.
           </p>
         </div>
 
@@ -2804,7 +2799,7 @@
       if (typeof categoryOrIndex === 'number') {
         setGalleryCategory('all', categoryOrIndex);
       } else if (typeof categoryOrIndex === 'string') {
-        if (['Sylwester', 'Halloween', 'Klubowe', 'Scenografia', 'all'].includes(categoryOrIndex)) {
+        if (['Sylwester', 'Halloween', 'Klubowe', 'Scenografia', 'Aktualności', 'Aktualnosci', 'all'].includes(categoryOrIndex)) {
           setGalleryCategory(categoryOrIndex, targetIndexOrImage);
         } else {
           const parsed = parseInt(categoryOrIndex, 10);
@@ -5319,6 +5314,65 @@
     let currentModalPhotoIndex = 0; // Aktualny indeks zdjęcia wybranego w modalu
 
     // ══════════════════════════════════════════════
+    // Wzbogacenie pełnej galerii realizacji o unikalne zdjęcia ze wszystkich wydarzeń w Aktualnościach
+    (function injectNewsPhotosIntoGallery() {
+      if (typeof allGalleryItems === 'undefined' || !Array.isArray(allGalleryItems)) return;
+      if (typeof artbarNewsDatabase === 'undefined' || !Array.isArray(artbarNewsDatabase)) return;
+
+      const existingUrls = new Set(allGalleryItems.map(item => item.url));
+      let nextId = allGalleryItems.length + 1;
+      let newsAdded = 0;
+
+      artbarNewsDatabase.forEach(item => {
+        const itemPhotos = [];
+        if (item.coverImg) itemPhotos.push(item.coverImg);
+        if (Array.isArray(item.images)) {
+          item.images.forEach(img => {
+            if (img && !itemPhotos.includes(img)) itemPhotos.push(img);
+          });
+        }
+
+        itemPhotos.forEach(pUrl => {
+          if (!existingUrls.has(pUrl)) {
+            existingUrls.add(pUrl);
+            allGalleryItems.push({
+              id: nextId++,
+              url: pUrl,
+              title: `${item.title} (${item.date})`,
+              category: 'Aktualności'
+            });
+            newsAdded++;
+          }
+        });
+      });
+
+      // Zaktualizuj licznik na przycisku i filtrze
+      const openBtn = document.getElementById('btn-open-full-gallery');
+      if (openBtn) {
+        openBtn.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span>Zobacz Galerię (${allGalleryItems.length} zdjęć)</span>
+        `;
+      }
+      const allFilterBtn = document.querySelector('button[data-filter="all"]');
+      if (allFilterBtn) allFilterBtn.textContent = `Wszystkie (${allGalleryItems.length})`;
+      const lbAllBtn = document.querySelector('.lb-cat-btn[data-cat="all"]');
+      if (lbAllBtn) lbAllBtn.textContent = `Wszystkie (${allGalleryItems.length})`;
+      const lbCatBar = document.getElementById('lb-categories-bar');
+      if (lbCatBar && !lbCatBar.querySelector('[data-cat="Aktualności"]')) {
+        const newsCatBtn = document.createElement('button');
+        newsCatBtn.type = 'button';
+        newsCatBtn.setAttribute('data-cat', 'Aktualności');
+        newsCatBtn.className = 'lb-cat-btn px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white';
+        newsCatBtn.textContent = `Aktualności (${newsAdded})`;
+        newsCatBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setGalleryCategory('Aktualności', 0);
+        });
+        lbCatBar.appendChild(newsCatBtn);
+      }
+    })();
+
     // INTERAKTYWNA KARUZELA REALIZACJI (ARTBAR LUXURY CAROUSEL)
     // ══════════════════════════════════════════════
     let newsCarouselIndex = 0;
