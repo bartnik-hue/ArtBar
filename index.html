@@ -497,8 +497,8 @@
       --logo-scale: 1.70;
       --logo-shift-y: -52px;
       --label-offset-y: 17px;
-      --logo-title-size: 25px;
-      --logo-slogan-size: 13.5px;
+      --logo-title-size: 37.5px;
+      --logo-slogan-size: 20.25px;
       --video-opacity: 0.60;
       /* DEDYKOWANE PARAMETRY PASKA PARTNERÓW (SKALIBROWANE 4K 16:9) */
       --partner-logo-h-wide: 58px;
@@ -1238,14 +1238,14 @@
       <div id="center-hub" class="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none" style="z-index: 20000;">
         <div id="center-hub-inner" class="flex flex-col items-center justify-center">
           <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="center-logo-enlarged h-64 w-auto filter drop-shadow-[0_0_35px_rgba(250,203,125,0.65)] drop-shadow-[0_0_65px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none transition-transform duration-500">
-          <div class="mt-2.5 text-center flex flex-col items-center">
-            <div id="center-logo-title" class="font-serif-luxury font-bold tracking-[0.02em] text-[#FACB7D] leading-[1.15] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]" style="font-size: calc(var(--logo-title-size, 32px) * var(--responsive-scale, 1));">
+          <div class="mt-3.5 text-center flex flex-col items-center">
+            <div id="center-logo-title" class="font-serif-luxury font-bold tracking-[0.02em] text-[#FACB7D] leading-[1.15] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]" style="font-size: calc(var(--logo-title-size, 37.5px) * var(--responsive-scale, 1));">
               Kompleksowa<br>Organizacja Eventów
             </div>
-            <div id="center-logo-subtitle" class="font-serif-luxury font-bold tracking-[0.04em] text-[#FACB7D] mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-size: calc(var(--logo-slogan-size, 16px) * var(--responsive-scale, 1));">
+            <div id="center-logo-subtitle" class="font-serif-luxury font-bold tracking-[0.04em] text-[#FACB7D] mt-2.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-size: calc(var(--logo-slogan-size, 20.25px) * var(--responsive-scale, 1));">
               Specjalizacja: Produkcja i obsługa stref barowych
             </div>
-            <p id="center-logo-slogan" class="font-bold tracking-[0.18em] text-white/95 uppercase mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-family: 'Montserrat', sans-serif; font-size: calc(var(--logo-slogan-size, 16px) * var(--responsive-scale, 1));">
+            <p id="center-logo-slogan" class="font-bold tracking-[0.18em] text-white/95 uppercase mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-family: 'Montserrat', sans-serif; font-size: calc(var(--logo-slogan-size, 20.25px) * var(--responsive-scale, 1));">
               JEDEN PARTNER = CAŁY EVENT
             </p>
           </div>
@@ -1498,20 +1498,20 @@
             <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Wielkość napisu: KOMPLEKSOWA REALIZACJA...</span>
-                <span id="val-logo-title-size" class="font-mono text-[#FACB7D] font-bold">25 px</span>
+                <span id="val-logo-title-size" class="font-mono text-[#FACB7D] font-bold">37.5 px</span>
               </div>
-              <input type="range" id="slider-logo-title-size" min="10" max="36" value="25" step="1" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>10 px</span><span>Domyślnie: 25 px</span><span>36 px</span></div>
+              <input type="range" id="slider-logo-title-size" min="15" max="55" value="37.5" step="0.5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>15 px</span><span>Domyślnie: 37.5 px</span><span>55 px</span></div>
             </div>
 
             <!-- 15. Wielkość hasła/manifestu pod logo -->
             <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Wielkość hasła: JEDEN PARTNER...</span>
-                <span id="val-logo-slogan-size" class="font-mono text-[#FACB7D] font-bold">13.5 px</span>
+                <span id="val-logo-slogan-size" class="font-mono text-[#FACB7D] font-bold">20.25 px</span>
               </div>
-              <input type="range" id="slider-logo-slogan-size" min="7" max="24" value="13.5" step="0.5" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>7 px</span><span>Domyślnie: 13.5 px</span><span>24 px</span></div>
+              <input type="range" id="slider-logo-slogan-size" min="10" max="36" value="20.25" step="0.25" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>10 px</span><span>Domyślnie: 20.25 px</span><span>36 px</span></div>
             </div>
 
             <!-- 16. Siła zbliżenia (Zoom) przy kliknięciu przycisku -->
@@ -4333,8 +4333,8 @@
         if (sBottomPinch) sBottomPinch.value = -40;
         if (sTopSpread) sTopSpread.value = 10;
         if (sArcExtension) sArcExtension.value = 22;
-        if (sLogoTitleSize) sLogoTitleSize.value = 25;
-        if (sLogoSloganSize) sLogoSloganSize.value = 13.5;
+        if (sLogoTitleSize) sLogoTitleSize.value = 37.5;
+        if (sLogoSloganSize) sLogoSloganSize.value = 20.25;
         if (sCameraZoom) sCameraZoom.value = 3.5;
         if (sVideoOpacity) sVideoOpacity.value = 60;
         if (sOrbitThickness) sOrbitThickness.value = 2.5;
@@ -4357,8 +4357,8 @@
         if (vBottomPinch) vBottomPinch.textContent = '-40%';
         if (vTopSpread) vTopSpread.textContent = '+10%';
         if (vArcExtension) vArcExtension.textContent = '22°';
-        if (vLogoTitleSize) vLogoTitleSize.textContent = '25 px';
-        if (vLogoSloganSize) vLogoSloganSize.textContent = '13.5 px';
+        if (vLogoTitleSize) vLogoTitleSize.textContent = '37.5 px';
+        if (vLogoSloganSize) vLogoSloganSize.textContent = '20.25 px';
         if (vCameraZoom) vCameraZoom.textContent = '3.50x';
         if (vVideoOpacity) vVideoOpacity.textContent = '60%';
         if (vOrbitOpacity) vOrbitOpacity.textContent = '100%';
@@ -4374,8 +4374,8 @@
         document.documentElement.style.setProperty('--logo-scale', '1.70');
         document.documentElement.style.setProperty('--logo-shift-y', '-52px');
         document.documentElement.style.setProperty('--label-offset-y', '17px');
-        document.documentElement.style.setProperty('--logo-title-size', '25px');
-        document.documentElement.style.setProperty('--logo-slogan-size', '13.5px');
+        document.documentElement.style.setProperty('--logo-title-size', '37.5px');
+        document.documentElement.style.setProperty('--logo-slogan-size', '20.25px');
         document.documentElement.style.setProperty('--video-opacity', '0.60');
 
         customRadiusX = 555;
