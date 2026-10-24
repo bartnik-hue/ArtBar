@@ -1823,20 +1823,20 @@
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       
       <!-- NAGŁÓWEK SEKCJI -->
-      <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="text-center max-w-4xl mx-auto mb-14">
         <h2 class="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
           <span class="gold-gradient-text">Aktualności</span>
         </h2>
-        <p class="text-sm sm:text-base text-[#f5efe6]/70 leading-relaxed font-light">
+        <p class="text-xs sm:text-sm lg:text-base text-[#f5efe6]/70 leading-relaxed font-light">
           Poznaj nasze bieżące realizacje plenerowe, autorskie metamorfozy lokali i unikalne strefy festiwalowe.<br>
           Prawie 2 lata doświadczeń i pasji w tworzeniu przestrzeni barowych.
         </p>
       </div>
 
-      <!-- GÓRNY OBSZAR: EKSKLUZYWNA KARUZELA OSTATNICH WYDARZEŃ (3 KAFELKI NA DESKTOPIE, PEŁNA SZEROKOŚĆ) -->
-      <div class="w-full flex flex-col justify-between overflow-hidden mb-12 sm:mb-16">
+      <!-- GÓRNY OBSZAR: EKSKLUZYWNA KARUZELA OSTATNICH WYDARZEŃ (3 KAFELKI NA DESKTOPIE, BOCZNE STRZAŁKI POZA OBRĘBEM KAFLI) -->
+      <div class="relative w-full mb-12 sm:mb-16">
         
-        <!-- Górny pasek nawigacji karuzeli: wskaźnik i złote przyciski prev/next -->
+        <!-- Górny pasek: wskaźnik i licznik (bez zduplikowanych strzałek) -->
         <div class="flex items-center justify-between mb-4 px-1">
           <div class="flex items-center gap-3">
             <span class="text-xs font-mono font-bold text-[#FACB7D] tracking-wider uppercase flex items-center gap-2">
@@ -1847,32 +1847,29 @@
               1 - 3 / 39
             </span>
           </div>
-
-          <!-- Złote przyciski przewijania karuzeli -->
-          <div class="flex items-center gap-2">
-            <button id="news-carousel-prev" type="button" aria-label="Poprzednie realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
-              <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-            <button id="news-carousel-next" type="button" aria-label="Następne realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
-              <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-          </div>
         </div>
 
-        <!-- Okno widoku karuzeli (viewport) z obsługą przeciągania i dotyku -->
-        <div id="news-carousel-viewport" class="overflow-hidden relative w-full rounded-2xl select-none" style="touch-action: pan-y;">
-          <!-- Pływające przyciski przewijania lewo/prawo na krawędziach kafelka -->
-          <button id="news-viewport-prev" type="button" aria-label="Poprzednie wydarzenie" class="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/50 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.95)] active:scale-90 group">
-            <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button id="news-viewport-next" type="button" aria-label="Następne wydarzenie" class="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/50 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.95)] active:scale-90 group">
-            <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        <!-- Scena karuzeli ze strzałkami poza obrębem kafli (styl smukłych eleganckich kapsułek z modala) -->
+        <div class="relative w-full px-8 sm:px-12 md:px-14 lg:px-16 flex items-center">
+
+          <!-- Duży lewy przycisk przewijania poza obrębem kafli -->
+          <button id="news-viewport-prev" type="button" aria-label="Poprzednie wydarzenie" class="absolute left-0 sm:left-1 top-1/2 -translate-y-1/2 z-30 w-7 sm:w-9 md:w-11 h-24 sm:h-32 md:h-44 rounded-xl sm:rounded-2xl bg-black/90 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_8px_30px_rgba(0,0,0,0.95)] hover:shadow-[0_0_30px_rgba(250,203,125,0.4)] active:scale-95 group" title="Poprzednie wydarzenia">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
           </button>
 
-          <!-- Tor ze slajdami -->
-          <div id="news-carousel-track" class="flex transition-transform duration-500 ease-out gap-6 items-stretch" style="touch-action: pan-y;">
-            <!-- Slajdy generowane dynamicznie w JS -->
+          <!-- Okno widoku karuzeli (viewport) -->
+          <div id="news-carousel-viewport" class="overflow-hidden relative w-full rounded-2xl select-none" style="touch-action: pan-y;">
+            <!-- Tor ze slajdami -->
+            <div id="news-carousel-track" class="flex transition-transform duration-500 ease-out gap-6 items-stretch" style="touch-action: pan-y;">
+              <!-- Slajdy generowane dynamicznie w JS -->
+            </div>
           </div>
+
+          <!-- Duży prawy przycisk przewijania poza obrębem kafli -->
+          <button id="news-viewport-next" type="button" aria-label="Następne wydarzenie" class="absolute right-0 sm:right-1 top-1/2 -translate-y-1/2 z-30 w-7 sm:w-9 md:w-11 h-24 sm:h-32 md:h-44 rounded-xl sm:rounded-2xl bg-black/90 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_8px_30px_rgba(0,0,0,0.95)] hover:shadow-[0_0_30px_rgba(250,203,125,0.4)] active:scale-95 group" title="Następne wydarzenia">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
+
         </div>
 
       </div>
