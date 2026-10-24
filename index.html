@@ -483,9 +483,7 @@
       }
     }
 
-    .marquee-track:hover {
-      animation-play-state: paused;
-    }
+    /* Marquee plynie bez zatrzymywania na hover */
 
     /* ══════════════════════════════════════════════════════════
        RADIALNE MENU 3D V3 (CINEMATIC ZOOM PORTAL & U-SHAPE ORBIT)
@@ -494,13 +492,13 @@
       --responsive-scale: 1;
       --responsive-lift: 0px;
       --node-size: 134px;
-      --icon-max-size: 136px;
+      --icon-max-size: 145px;
       --icon-stroke-width: 1.5px;
       --logo-scale: 1.70;
       --logo-shift-y: -52px;
-      --label-offset-y: 11px;
-      --logo-title-size: 28px;
-      --logo-slogan-size: 20.5px;
+      --label-offset-y: 17px;
+      --logo-title-size: 25px;
+      --logo-slogan-size: 13.5px;
       --video-opacity: 0.60;
       /* DEDYKOWANE PARAMETRY PASKA PARTNERÓW (SKALIBROWANE 4K 16:9) */
       --partner-logo-h-wide: 58px;
@@ -1048,9 +1046,9 @@
       <div class="hidden lg:flex items-center gap-4 xl:gap-5">
         
         <!-- PRZEŁĄCZNIK JĘZYKA (PL / EN) DESKTOP -->
-        <div class="flex items-center rounded-full bg-white/5 border border-[#FACB7D]/30 p-0.5 text-[11px] font-mono tracking-wider">
-          <span class="px-2.5 py-1 rounded-full bg-[#FACB7D] text-black font-bold shadow-sm" title="Aktualny język: Polski">PL</span>
-          <a href="en.html" class="px-2.5 py-1 rounded-full text-[#f5efe6]/70 hover:text-[#FACB7D] transition-colors" title="Switch to English">EN</a>
+        <div class="flex items-center rounded-full bg-white/5 border border-[#FACB7D]/30 p-0.5 text-[11px] font-mono tracking-wider select-none">
+          <span class="px-2.5 py-1 rounded-full bg-[#FACB7D] text-black font-bold shadow-sm" title="Język: Polski">PL</span>
+          <span class="px-2.5 py-1 rounded-full text-[#f5efe6]/35 cursor-not-allowed select-none" title="Wersja angielska w przygotowaniu">EN</span>
         </div>
 
         <!-- BLOK: SOCIAL MEDIA (PO LEWEJ) + TELEFONY JEDEN POD DRUGIM (PO PRAWEJ) -->
@@ -1088,7 +1086,10 @@
       <!-- PRAWA STRONA MOBILE: SOCIALE + JĘZYK + HAMBURGER -->
       <div class="flex lg:hidden items-center gap-2 sm:gap-3">
         <!-- Przełącznik języka na pasku mobilnym -->
-        <a href="en.html" class="px-2.5 py-1 rounded-full bg-white/5 border border-[#FACB7D]/40 text-[#FACB7D] text-[10px] font-mono font-bold hover:bg-[#FACB7D] hover:text-black transition-all" title="Switch to English">EN</a>
+        <div class="flex items-center rounded-full bg-white/5 border border-[#FACB7D]/30 p-0.5 text-[10px] font-mono tracking-wider select-none">
+          <span class="px-2 py-0.5 rounded-full bg-[#FACB7D] text-black font-bold shadow-sm">PL</span>
+          <span class="px-2 py-0.5 rounded-full text-[#f5efe6]/35 cursor-not-allowed" title="Wersja angielska w przygotowaniu">EN</span>
+        </div>
 
         <!-- Ikony social media na pasku mobilnym -->
         <div class="flex items-center gap-1.5 sm:gap-2">
@@ -1118,9 +1119,9 @@
       <a href="#kontakt" class="block text-sm tracking-widest uppercase hover:text-[#FACB7D]">Kontakt</a>
       <div class="pt-4 border-t border-white/10 space-y-3">
         <!-- Przełącznik języka w drawerze -->
-        <div class="flex items-center justify-center gap-2 pt-1 pb-2">
+        <div class="flex items-center justify-center gap-2 pt-1 pb-2 select-none">
           <span class="px-4 py-1.5 rounded-full bg-[#FACB7D] text-black font-bold text-xs font-mono shadow-sm">PL</span>
-          <a href="en.html" class="px-4 py-1.5 rounded-full bg-white/5 border border-[#FACB7D]/30 text-[#f5efe6]/70 hover:text-[#FACB7D] text-xs font-mono">EN</a>
+          <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#f5efe6]/35 text-xs font-mono cursor-not-allowed" title="Wersja angielska w przygotowaniu">EN</span>
         </div>
         <div class="flex flex-col gap-1 text-sm font-mono text-[#FACB7D] mb-2">
           <a href="tel:+48880626783" class="hover:underline">+48 880 626 783</a>
@@ -1254,7 +1255,7 @@
       <!-- ══════════════════════════════════════════════
            STUDIO KALIBRACJI WYGLĄDU 3D (SUWAKI NA ŻYWO)
            ══════════════════════════════════════════════ -->
-      <div id="tuning-dock" class="hidden fixed bottom-4 left-4 z-[25000] flex flex-col items-start font-sans" style="display: none;">
+      <div id="tuning-dock" class="fixed bottom-4 left-4 z-[25000] hidden flex flex-col items-start font-sans" style="display: none;">
         <!-- Przycisk rozwijania / zwijania -->
         <button id="tune-toggle-btn" type="button" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-[#FACB7D]/45 text-[#FACB7D] hover:text-white hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 shadow-[0_4px_25px_rgba(0,0,0,0.85)] hover:shadow-[0_0_20px_rgba(250,203,125,0.35)] transition-all cursor-pointer group">
           <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-90 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
@@ -1262,7 +1263,7 @@
           <span id="tune-toggle-badge" class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
         </button>
 
-        <!-- Panel suwaków (domyślnie ukryty) -->
+        <!-- Panel suwaków (zwinięty domyślnie, klawisz T przywraca) -->
         <div id="tune-panel" class="hidden mt-3 w-80 sm:w-96 max-h-[82vh] overflow-y-auto p-5 rounded-2xl bg-[#0a0a0a]/95 backdrop-blur-2xl border border-[#FACB7D]/40 shadow-[0_15px_50px_rgba(0,0,0,0.95),0_0_35px_rgba(250,203,125,0.2)] scrollbar-thin">
           <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#FACB7D]/20">
             <div>
@@ -1287,10 +1288,10 @@
             <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Wielkość ikon w przyciskach</span>
-                <span id="val-icon-size" class="font-mono text-[#FACB7D] font-bold">136 px</span>
+                <span id="val-icon-size" class="font-mono text-[#FACB7D] font-bold">145 px</span>
               </div>
-              <input type="range" id="slider-icon-size" min="45" max="160" value="136" step="1" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>45 px</span><span>Domyślnie: 136</span><span>160 px</span></div>
+              <input type="range" id="slider-icon-size" min="45" max="160" value="145" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>45 px</span><span>Domyślnie: 145</span><span>160 px</span></div>
             </div>
 
             <!-- 2b. Grubość piktogramów w ikonach -->
@@ -1379,30 +1380,47 @@
             <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Odstęp etykiety tekstowej</span>
-                <span id="val-label-y" class="font-mono text-[#FACB7D] font-bold">11 px</span>
+                <span id="val-label-y" class="font-mono text-[#FACB7D] font-bold">17 px</span>
               </div>
-              <input type="range" id="slider-label-y" min="2" max="30" value="11" step="1" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>2 px</span><span>Domyślnie: 11</span><span>30 px</span></div>
+              <input type="range" id="slider-label-y" min="2" max="30" value="17" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>2 px</span><span>Domyślnie: 17</span><span>30 px</span></div>
             </div>
 
-            <!-- 9. Kąt startowy podkowy (lewa strona przy logo) -->
-            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+            <!-- 8b. GŁÓWNA REGULACJA: ODLEGŁOŚĆ OD LOGO (ART & FABRYKA LODU) -->
+            <div class="bg-[#FACB7D]/10 p-3.5 rounded-xl border border-[#FACB7D]/50 shadow-[0_0_20px_rgba(250,203,125,0.12)] col-span-full">
               <div class="flex justify-between items-center mb-1.5">
-                <span class="font-semibold text-white/90">Początek łuku (Kąt lewy góra)</span>
-                <span id="val-arc-start" class="font-mono text-[#FACB7D] font-bold">236°</span>
+                <span class="font-bold text-[#FACB7D] flex items-center gap-1.5 text-xs sm:text-sm">
+                  <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
+                  Odległość od logo (ART & FABRYKA LODU)
+                </span>
+                <span id="val-logo-distance" class="font-mono text-[#FACB7D] font-bold text-sm bg-black/60 px-2.5 py-0.5 rounded border border-[#FACB7D]/40 shadow-inner">376 px</span>
               </div>
-              <input type="range" id="slider-arc-start" min="180" max="270" value="236" step="2" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>180° (Poziomo)</span><span>236°</span><span>270° (Pionowo)</span></div>
+              <input type="range" id="slider-logo-distance" min="150" max="480" value="376" step="2" class="tune-slider w-full">
+              <div class="flex justify-between text-[10px] text-white/50 mt-1.5">
+                <span>150 px (Blisko logo)</span>
+                <span class="text-[#FACB7D]/80 font-semibold">Domyślnie: 376 px</span>
+                <span>480 px (Szeroko rozstawione)</span>
+              </div>
             </div>
 
-            <!-- 10. Kąt końcowy podkowy (prawa strona przy logo) -->
+            <!-- 9. Kąt startowy podkowy (lewa strona: FABRYKA LODU) -->
             <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
               <div class="flex justify-between items-center mb-1.5">
-                <span class="font-semibold text-white/90">Koniec łuku (Kąt prawy góra)</span>
-                <span id="val-arc-end" class="font-mono text-[#FACB7D] font-bold">-56°</span>
+                <span class="font-semibold text-white/90">Kąt lewy (FABRYKA LODU)</span>
+                <span id="val-arc-start" class="font-mono text-[#FACB7D] font-bold">228°</span>
               </div>
-              <input type="range" id="slider-arc-end" min="-90" max="0" value="-56" step="2" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-90° (Pionowo)</span><span>-56°</span><span>0° (Poziomo)</span></div>
+              <input type="range" id="slider-arc-start" min="180" max="270" value="228" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>180° (Poziomo)</span><span>228°</span><span>270° (Pionowo)</span></div>
+            </div>
+
+            <!-- 10. Kąt końcowy podkowy (prawa strona: ART) -->
+            <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="font-semibold text-white/90">Kąt prawy (ART)</span>
+                <span id="val-arc-end" class="font-mono text-[#FACB7D] font-bold">-47°</span>
+              </div>
+              <input type="range" id="slider-arc-end" min="-90" max="0" value="-47" step="1" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-90° (Pionowo)</span><span>-47°</span><span>0° (Poziomo)</span></div>
             </div>
 
             <!-- 11. Przesunięcie pionowe całej orbity podkowy -->
@@ -1430,40 +1448,40 @@
                   <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]"></span>
                   Rozstaw boczny (Flanki L/P)
                 </span>
-                <span id="val-flank-spread" class="font-mono text-[#FACB7D] font-bold">+30%</span>
+                <span id="val-flank-spread" class="font-mono text-[#FACB7D] font-bold">+20%</span>
               </div>
-              <input type="range" id="slider-flank-spread" min="-40" max="80" value="30" step="2" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-40% (Zwarte)</span><span>Domyślnie: +30% (Szerokie)</span><span>+80% (Maksimum)</span></div>
+              <input type="range" id="slider-flank-spread" min="-40" max="80" value="20" step="2" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-40% (Zwarte)</span><span>Domyślnie: +20% (Szerokie)</span><span>+80% (Maksimum)</span></div>
             </div>
 
             <!-- 12b. Wyrównanie łukowe (Równe fizyczne odstępy na elipsie w px) -->
             <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/25">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Wyrównanie łukowe (Równe odstępy)</span>
-                <span id="val-arc-distribution" class="font-mono text-[#FACB7D] font-bold">85%</span>
+                <span id="val-arc-distribution" class="font-mono text-[#FACB7D] font-bold">95%</span>
               </div>
-              <input type="range" id="slider-arc-distribution" min="0" max="100" value="85" step="5" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Kątowy)</span><span>85% (Zalecane)</span><span>100% (Równe w px)</span></div>
+              <input type="range" id="slider-arc-distribution" min="0" max="100" value="95" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>0% (Kątowy)</span><span>95% (Zalecane)</span><span>100% (Równe w px)</span></div>
             </div>
 
             <!-- 12c. Odstęp / Zbliżenie dolne (Środek: Technika - Logistyka) -->
             <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Zbliżenie dolne (Środek)</span>
-                <span id="val-bottom-pinch" class="font-mono text-[#FACB7D] font-bold">15%</span>
+                <span id="val-bottom-pinch" class="font-mono text-[#FACB7D] font-bold">-40%</span>
               </div>
-              <input type="range" id="slider-bottom-pinch" min="-40" max="60" value="15" step="5" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-40% (Rozszerz dół)</span><span>15% (Optymalne)</span><span>60% (Bliżej)</span></div>
+              <input type="range" id="slider-bottom-pinch" min="-40" max="60" value="-40" step="5" class="tune-slider">
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-40% (Rozszerz dół)</span><span>-40% (Optymalne)</span><span>60% (Bliżej)</span></div>
             </div>
 
-            <!-- 12d. Rozstaw górny (Góra L/P ku logo: ART i PRODUKCJA) -->
+            <!-- 12d. Rozstaw boczny (BAR & NAMIOTY) -->
             <div class="bg-white/[0.03] p-3 rounded-xl border border-white/5">
               <div class="flex justify-between items-center mb-1.5">
-                <span class="font-semibold text-white/90">Rozstaw górny (ART & PRODUKCJA)</span>
+                <span class="font-semibold text-white/90">Rozstaw boczny (BAR & NAMIOTY)</span>
                 <span id="val-top-spread" class="font-mono text-[#FACB7D] font-bold">+10%</span>
               </div>
               <input type="range" id="slider-top-spread" min="-30" max="60" value="10" step="2" class="tune-slider">
-              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-30% (Bliżej)</span><span>+10% (Optymalne)</span><span>+60% (Odsunięte)</span></div>
+              <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>-30% (Bliżej góry)</span><span>+10% (Optymalne)</span><span>+60% (Dalej)</span></div>
             </div>
 
             <!-- 13. Długość domknięcia z fade'em ku logo -->
@@ -1824,91 +1842,41 @@
       <!-- GŁÓWNA SIATKA (LEWA: 2 RAMKI WPISÓW | PRAWA: PRZEWIJANA LISTA PRZYCISKÓW) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- LEWA / GŁÓWNA STREFA: 2 RAMKI NAJNOWSZYCH WPISÓW OBOK SIEBIE (8 KOLUMN) -->
-        <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- LEWA / GŁÓWNA STREFA: EKSKLUZYWNA KARUZELA REALIZACJI (8 KOLUMN) -->
+        <div class="lg:col-span-8 flex flex-col justify-between overflow-hidden">
           
-          <!-- RAMKA 1: NAJNOWSZA REALIZACJA (MŁYNOWA BIAŁYSTOK) -->
-          <article id="news-card-featured-1" class="obsidian-card rounded-2xl overflow-hidden border border-[#FACB7D]/35 bg-[#0a0a0a]/90 backdrop-blur-xl flex flex-col justify-between shadow-[0_15px_45px_rgba(0,0,0,0.85)] hover:border-[#FACB7D] transition-all duration-300 group">
-            <div>
-              <!-- Zdjęcie okładkowe z tagami -->
-              <div class="relative w-full h-56 overflow-hidden bg-black/80">
-                <img id="news-f1-img" src="assets/images/aktualnosci/mlynowa/mlynowa-1.jpg" alt="Młynowa Białystok - odświeżenie lokalu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/40"></div>
-                <div class="absolute top-3.5 left-3.5 flex items-center gap-2">
-                  <span class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#FACB7D]/50 text-[#FACB7D] text-[10px] font-mono font-bold tracking-wider uppercase">Kwiecień 2025</span>
-                  <span class="px-2.5 py-1 rounded-full bg-[#FACB7D] text-black text-[9px] font-bold tracking-wider uppercase">Najnowszy</span>
-                </div>
-              </div>
-
-              <!-- Treść wpisu -->
-              <div class="p-6">
-                
-                <h3 id="news-f1-title" class="font-serif-luxury text-lg font-bold text-white group-hover:text-[#FACB7D] transition-colors leading-snug mb-3">
-                  Młynowa w nowej odsłonie. Odświeżenie lokalu sezonowego w Białymstoku
-                </h3>
-                <p id="news-f1-excerpt" class="text-xs text-[#f5efe6]/70 leading-relaxed font-light line-clamp-3 mb-4">
-                  Zespół Art Bar Solutions zakończył kompleksowe odświeżenie artystyczne przestrzeni Młynowej. Nowa aranżacja kontenerów, brama z neonem, ręcznie wykonane akcenty i dopracowane oświetlenie.
-                </p>
-
-                <!-- Pasek miniatur zdjęć (3 dodatkowe fotki z galerii) -->
-                <div id="news-f1-gallery-previews" class="grid grid-cols-3 gap-2 pt-3 border-t border-white/5 mb-2">
-                  <img src="assets/images/aktualnosci/mlynowa/mlynowa-2.jpg" alt="Młynowa detale" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" onclick="openNewsModalById('mlynowa', 1)">
-                  <img src="assets/images/aktualnosci/mlynowa/mlynowa-3.jpg" alt="Młynowa neon" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" onclick="openNewsModalById('mlynowa', 2)">
-                  <img src="assets/images/aktualnosci/mlynowa/mlynowa-4.jpg" alt="Młynowa strefa barowa" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" onclick="openNewsModalById('mlynowa', 3)">
-                </div>
-              </div>
+          <!-- Górny pasek nawigacji karuzeli: wskaźnik i złote przyciski prev/next -->
+          <div class="flex items-center justify-between mb-4 px-1">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono font-bold text-[#FACB7D] tracking-wider uppercase flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-ping"></span>
+                <span>Najnowsze realizacje</span>
+              </span>
+              <span id="news-carousel-counter" class="text-xs font-mono text-[#f5efe6]/70 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
+                1 - 2 / 39
+              </span>
             </div>
 
-            <!-- Przycisk CTA na dole karty -->
-            <div class="px-6 pb-6 pt-2">
-              <button type="button" onclick="openNewsModalById('mlynowa', 0)" class="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/40 font-bold text-[11px] uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-                <span>Zobacz pełny opis</span>
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <!-- Złote przyciski przewijania karuzeli -->
+            <div class="flex items-center gap-2">
+              <button id="news-carousel-prev" type="button" aria-label="Poprzednie realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button id="news-carousel-next" type="button" aria-label="Następne realizacje" class="w-9 h-9 rounded-full border border-[#FACB7D]/40 bg-black/70 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 group">
+                <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
               </button>
             </div>
-          </article>
+          </div>
 
-          <!-- RAMKA 2: DRUGI WPIS (INTERAKTYWNY – ZMIENIA SIĘ PO KLIKNIĘCIU NA LIŚCIE Z PRAWEJ) -->
-                    <!-- RAMKA 2: DRUGA AKTUALNOŚĆ (FLAMINGO PARTY) -->
-          <article id="news-card-featured-2" class="obsidian-card rounded-2xl overflow-hidden border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl flex flex-col justify-between shadow-[0_15px_45px_rgba(0,0,0,0.85)] hover:border-[#FACB7D] transition-all duration-300 group">
-            <div>
-              <!-- Zdjęcie okładkowe z tagami -->
-              <div class="relative w-full h-56 overflow-hidden bg-black/80">
-                <img id="news-f2-img" src="assets/images/aktualnosci/flamingo/flamingo-1.jpg" alt="Flamingo Party w klubie Kaskada w Warszawie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/40"></div>
-                <div class="absolute top-3.5 left-3.5 flex items-center gap-2">
-                  <span id="news-f2-date" class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#FACB7D]/50 text-[#FACB7D] text-[10px] font-mono font-bold tracking-wider uppercase">23 Maja 2025</span>
-                  <span id="news-f2-badge" class="px-2.5 py-1 rounded-full bg-[#FACB7D] text-black text-[9px] font-bold tracking-wider uppercase">Barka Kaskada</span>
-                </div>
-              </div>
-
-              <!-- Treść wpisu -->
-              <div class="p-6">
-                
-                <h3 id="news-f2-title" class="font-serif-luxury text-lg font-bold text-white group-hover:text-[#FACB7D] transition-colors leading-snug mb-3">
-                  Flamingo Party | Startujemy z cyklem tematycznych imprez Art Bar Solutions
-                </h3>
-                <p id="news-f2-excerpt" class="text-xs text-[#f5efe6]/70 leading-relaxed font-light line-clamp-3 mb-4">
-                  Letnie noce nad Wisłą zyskują nowy wymiar. Wspólnie z Barką Kaskada rozpoczęliśmy autorski cykl imprez tematycznych. Tropikalny klimat Miami Vice, neony, flamingi oraz dedykowana oprawa wizualna i muzyczna.
-                </p>
-
-                <!-- Pasek miniatur zdjęć -->
-                <div id="news-f2-gallery-previews" class="grid grid-cols-3 gap-2 pt-3 border-t border-white/5 mb-2">
-                  <img id="news-f2-thumb-1" src="assets/images/aktualnosci/flamingo/flamingo-2.jpg" alt="Flamingo Party detal 1" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" onclick="openNewsModalById('flamingo-party', 1)">
-                  <img id="news-f2-thumb-2" src="assets/images/aktualnosci/flamingo/flamingo-3.jpg" alt="Flamingo Party detal 2" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" onclick="openNewsModalById('flamingo-party', 2)">
-                  <img id="news-f2-thumb-3" src="assets/images/aktualnosci/flamingo/flamingo-4.jpg" alt="Flamingo Party detal 3" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" onclick="openNewsModalById('flamingo-party', 3)">
-                </div>
-              </div>
+          <!-- Okno widoku karuzeli (viewport) z obsługą przeciągania i dotyku -->
+          <div id="news-carousel-viewport" class="overflow-hidden relative w-full rounded-2xl select-none">
+            <!-- Tor ze slajdami -->
+            <div id="news-carousel-track" class="flex transition-transform duration-500 ease-out gap-6 items-stretch">
+              <!-- Slajdy generowane dynamicznie w JS -->
             </div>
+          </div>
 
-            <!-- Przycisk CTA na dole karty -->
-            <div class="px-6 pb-6 pt-2">
-              <button id="news-f2-btn" type="button" onclick="openNewsModalById('flamingo-party', 0)" class="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/40 font-bold text-[11px] uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-                <span>Zobacz pełny opis</span>
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </button>
-            </div>
-          </article>
+
 
         </div>
 
@@ -1916,12 +1884,13 @@
         <div class="lg:col-span-4 obsidian-card rounded-2xl p-5 border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl shadow-2xl flex flex-col">
           
           <!-- Nagłówek panelu bocznego (okrojony do minimum) -->
-          <div class="pb-3.5 mb-3 border-b border-[#FACB7D]/20">
+          <div class="pb-3.5 mb-3 border-b border-[#FACB7D]/20 flex items-center justify-between">
             <h4 class="font-serif-luxury text-sm font-bold text-white uppercase tracking-wider">Historia Wpisów</h4>
+            <span class="text-xs font-mono text-[#FACB7D] font-bold">39 realizacji</span>
           </div>
 
-          <!-- Przewijana pionowo lista przycisków wpisów -->
-          <div id="news-buttons-list" class="max-h-[560px] overflow-y-auto scrollbar-thin space-y-2 pr-1.5">
+          <!-- Przewijana pionowo lista przycisków wpisów (wysokość idealnie dopasowana do lewej karuzeli) -->
+          <div id="news-buttons-list" class="overflow-y-auto scrollbar-thin space-y-2 pr-1.5">
             <!-- Przyciski otwierające modal wpisu -->
           </div>
 
@@ -1932,11 +1901,92 @@
     </div>
   </section>
 
+  
   <!-- ══════════════════════════════════════════════
+       PEŁNOEKRANOWY LIGHTBOX ZDJĘĆ AKTUALNOŚCI (BEZ UCIĘĆ, PEŁNY FORMAT)
+       ══════════════════════════════════════════════ -->
+  <div id="news-lightbox" class="hidden fixed inset-0 z-[70000] flex flex-col justify-between bg-black/98 backdrop-blur-2xl select-none transition-all duration-300">
+    
+    <!-- Górny pasek kontrolny Lightboxa -->
+    <div class="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-black/70 z-20">
+      <div class="flex items-center gap-3 min-w-0">
+        <span id="nlb-counter" class="px-2.5 py-1 rounded bg-[#FACB7D]/10 border border-[#FACB7D]/40 text-[#FACB7D] text-xs font-mono font-bold shrink-0">1 / 1</span>
+        <h3 id="nlb-title" class="font-serif-luxury text-sm sm:text-base font-bold text-white truncate max-w-md sm:max-w-xl">Tytuł wpisu</h3>
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="closeNewsLightbox()" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 hover:border-[#FACB7D] flex items-center justify-center text-white/80 hover:text-[#FACB7D] transition-all cursor-pointer text-base" title="Zamknij (Esc)">
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Główny obszar wyświetlania zdjęcia (100% pełny format pion i poziom) -->
+    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-6 overflow-hidden" onclick="onNewsLightboxBackdropClick(event)">
+      <!-- Przycisk Poprzednie zdjęcie -->
+      <button type="button" onclick="navNewsLightbox(-1)" id="nlb-prev-btn" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-[#FACB7D] text-white hover:text-black border border-white/20 hover:border-[#FACB7D] flex items-center justify-center transition-all cursor-pointer z-30 shadow-2xl" title="Poprzednie zdjęcie (←)">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+
+      <!-- Główne zdjęcie bez żadnego przycinania (object-contain, max 95vh) -->
+      <img id="nlb-main-img" src="" alt="Pełny podgląd zdjęcia aktualności" class="max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl transition-all duration-200">
+
+      <!-- Przycisk Następne zdjęcie -->
+      <button type="button" onclick="navNewsLightbox(1)" id="nlb-next-btn" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-[#FACB7D] text-white hover:text-black border border-white/20 hover:border-[#FACB7D] flex items-center justify-center transition-all cursor-pointer z-30 shadow-2xl" title="Następne zdjęcie (→)">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Dolny pasek miniatur w Lightboxie -->
+    <div class="p-3 sm:p-4 bg-black/80 border-t border-white/10 z-20">
+      <div id="nlb-thumbs-bar" class="flex items-center justify-center gap-2.5 overflow-x-auto py-1 scrollbar-thin max-w-4xl mx-auto">
+        <!-- Miniatury wstawiane dynamicznie -->
+      </div>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════
        MODAL PEŁNEGO WPISU AKTUALNOŚCI Z GALERIĄ LIGHTBOX
        ══════════════════════════════════════════════ -->
-  <div id="news-modal-backdrop" class="hidden fixed inset-0 z-[60000] flex items-center justify-center p-4 sm:p-6 bg-black/95 backdrop-blur-2xl overflow-y-auto">
-    <div id="news-modal-card" class="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto scrollbar-thin rounded-2xl bg-[#0b0b0b] border border-[#FACB7D]/40 p-6 sm:p-10 shadow-[0_25px_70px_rgba(0,0,0,0.98),0_0_50px_rgba(250,203,125,0.15)]">
+  <div id="news-modal-backdrop" class="hidden fixed inset-0 z-[60000] flex items-center justify-center p-2 sm:p-4 bg-black/95 backdrop-blur-2xl overflow-hidden select-none">
+
+    <!-- PŁYWAJĄCA STRZAŁKA W LEWO: ELEGANCKA SMUKŁA PIONOWA KAPSULKA NAWIGACYJNA -->
+    <button id="news-modal-arrow-prev" type="button" onclick="navigateNewsModal(-1)" aria-label="Poprzednie wydarzenie" class="fixed left-2 sm:left-3 md:left-5 xl:left-6 top-1/2 -translate-y-1/2 z-50 w-7 sm:w-8 md:w-11 xl:w-14 2xl:w-16 h-36 sm:h-44 md:h-56 xl:h-72 2xl:h-80 rounded-2xl md:rounded-3xl bg-black/85 hover:bg-[#FACB7D] border border-[#FACB7D]/60 hover:border-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.9)] hover:shadow-[0_0_35px_rgba(250,203,125,0.45)] backdrop-blur-md active:scale-95 group" title="Poprzednie wydarzenie (lub przesuń palcem w prawo)">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 xl:w-8 2xl:w-9 xl:h-8 2xl:h-9 transform group-hover:-translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+
+    <!-- PŁYWAJĄCA STRZAŁKA W PRAWO: ELEGANCKA SMUKŁA PIONOWA KAPSULKA NAWIGACYJNA -->
+    <button id="news-modal-arrow-next" type="button" onclick="navigateNewsModal(1)" aria-label="Następne wydarzenie" class="fixed right-2 sm:right-3 md:right-5 xl:right-6 top-1/2 -translate-y-1/2 z-50 w-7 sm:w-8 md:w-11 xl:w-14 2xl:w-16 h-36 sm:h-44 md:h-56 xl:h-72 2xl:h-80 rounded-2xl md:rounded-3xl bg-black/85 hover:bg-[#FACB7D] border border-[#FACB7D]/60 hover:border-[#FACB7D] text-[#FACB7D] hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.9)] hover:shadow-[0_0_35px_rgba(250,203,125,0.45)] backdrop-blur-md active:scale-95 group" title="Następne wydarzenie (lub przesuń palcem w lewo)">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 xl:w-8 2xl:w-9 xl:h-8 2xl:h-9 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+    </button>
+    
+    <!-- PRZESTRZENNY STAGE 3D ZE STRZAŁKAMI I KARTAMI NASTĘPNYCH WYDARZEŃ -->
+    <div id="news-modal-spatial-stage" class="relative w-full max-w-7xl mx-auto flex items-center justify-center min-h-[90vh] py-2 sm:py-4 px-8 sm:px-10 md:px-14 xl:px-16" style="perspective: 1400px;">
+
+
+
+      <!-- LEWA KARTA PRZESTRZENNA 3D (POWIĘKSZONA, Z DATĄ I TYTUŁEM W DOLNEJ CZĘŚCI) -->
+      <button id="news-modal-peek-prev" type="button" onclick="navigateNewsModal(-1)" class="hidden 2xl:flex flex-col justify-between absolute -left-12 2xl:-left-20 w-80 2xl:w-88 h-[580px] rounded-3xl p-5 bg-gradient-to-r from-black/95 via-[#12100d]/90 to-black/85 border border-[#FACB7D]/40 shadow-[0_25px_70px_rgba(0,0,0,0.98),0_0_35px_rgba(250,203,125,0.1)] opacity-60 hover:opacity-100 transition-all duration-500 cursor-pointer text-left z-10 group" style="transform: rotateY(24deg) scale(0.9); transform-origin: right center;">
+        <!-- Góra: etykieta nawigacyjna -->
+        <div class="flex items-center gap-2.5 text-[#FACB7D] text-xs font-mono font-bold uppercase tracking-wider">
+          <span class="w-7 h-7 rounded-full bg-[#FACB7D]/15 border border-[#FACB7D]/50 flex items-center justify-center group-hover:-translate-x-1 transition-transform">←</span>
+          <span>Poprzednie wydarzenie</span>
+        </div>
+
+        <!-- Środek: powiększone zdjęcie okładkowe -->
+        <div class="w-full flex-1 my-4 rounded-2xl overflow-hidden border border-white/10 bg-black relative">
+          <img id="news-modal-peek-prev-img" src="" alt="Poprzednie wydarzenie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Dół karty: Data oraz Tytuł wydarzenia -->
+        <div class="pt-2 border-t border-white/10">
+          <div id="news-modal-peek-prev-date" class="text-xs font-mono text-[#FACB7D] font-bold mb-1.5 uppercase tracking-wider"></div>
+          <div id="news-modal-peek-prev-title" class="font-serif-luxury text-sm sm:text-base font-bold text-white line-clamp-3 leading-snug group-hover:text-[#FACB7D] transition-colors"></div>
+        </div>
+      </button>
+
+      <!-- GŁÓWNA KARTA MODALA PEŁNEGO WPISU -->
+      <div id="news-modal-card" class="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto scrollbar-thin rounded-2xl bg-[#0b0b0b] border border-[#FACB7D]/40 p-6 sm:p-10 shadow-[0_25px_70px_rgba(0,0,0,0.98),0_0_50px_rgba(250,203,125,0.15)] z-20 transition-all duration-300">
       
       <!-- Przycisk zamknięcia -->
       <button type="button" onclick="closeNewsModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/5 border border-white/10 hover:border-[#FACB7D] flex items-center justify-center text-white/70 hover:text-[#FACB7D] text-sm transition-all cursor-pointer z-20">
@@ -1956,12 +2006,19 @@
 
       <!-- Główny obszar wizualny (Wideo lub Zdjęcie) z galerią miniatur pod spodem -->
       <div id="news-modal-media-section" class="mb-8">
-        <div class="relative w-full h-72 sm:h-96 rounded-xl overflow-hidden bg-black/90 border border-white/10 mb-3 shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
-          <!-- Zdjęcie powiększone -->
-          <img id="news-modal-hero-img" src="" alt="Zdjęcie realizacji" class="w-full h-full object-contain sm:object-cover">
+        <div class="relative w-full h-80 sm:h-[440px] rounded-xl overflow-hidden bg-black/95 border border-white/15 mb-3 shadow-[0_10px_35px_rgba(0,0,0,0.85)] group/hero">
+          <!-- Zdjęcie podglądu (object-contain z tłem, aby całe pionowe/poziome zdjęcie było widoczne) -->
+          <img id="news-modal-hero-img" src="" alt="Zdjęcie realizacji" class="w-full h-full object-contain cursor-zoom-in transition-transform duration-300 group-hover/hero:scale-[1.01]" onclick="openNewsLightboxCurrent()">
+          
+          <!-- Przycisk powiększenia / pełnego ekranu Lightbox w prawym górnym rogu -->
+          <button type="button" onclick="openNewsLightboxCurrent()" id="news-modal-zoom-btn" class="absolute top-3.5 right-3.5 px-3 py-1.5 rounded-lg bg-black/75 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/40 text-xs font-mono font-bold tracking-wider flex items-center gap-1.5 backdrop-blur-md transition-all shadow-lg cursor-pointer z-10" title="Otwórz pełny format w Lightboxie">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+            <span>Pełny format</span>
+          </button>
+
           <!-- Okienko z filmem wideo (jako pierwsza grafika realizacji do obejrzenia w ramce) -->
           <div id="news-modal-video-box" class="hidden absolute inset-0 w-full h-full bg-black z-10">
-            <iframe id="news-modal-video-iframe" class="w-full h-full" src="" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe id="news-modal-video-iframe" class="w-full h-full" src="" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
         <!-- Pasek miniatur (Wideo jako pierwsza pozycja + zdjęcia) -->
@@ -1985,6 +2042,31 @@
           Skontaktuj się z nami →
         </a>
       </div>
+
+    </div>
+
+      <!-- PRAWA KARTA PRZESTRZENNA 3D (POWIĘKSZONA, Z DATĄ I TYTUŁEM W DOLNEJ CZĘŚCI) -->
+      <button id="news-modal-peek-next" type="button" onclick="navigateNewsModal(1)" class="hidden 2xl:flex flex-col justify-between absolute -right-12 2xl:-right-20 w-80 2xl:w-88 h-[580px] rounded-3xl p-5 bg-gradient-to-l from-black/95 via-[#12100d]/90 to-black/85 border border-[#FACB7D]/40 shadow-[0_25px_70px_rgba(0,0,0,0.98),0_0_35px_rgba(250,203,125,0.1)] opacity-60 hover:opacity-100 transition-all duration-500 cursor-pointer text-right z-10 group" style="transform: rotateY(-24deg) scale(0.9); transform-origin: left center;">
+        <!-- Góra: etykieta nawigacyjna -->
+        <div class="flex items-center gap-2.5 text-[#FACB7D] text-xs font-mono font-bold uppercase tracking-wider justify-end">
+          <span>Następne wydarzenie</span>
+          <span class="w-7 h-7 rounded-full bg-[#FACB7D]/15 border border-[#FACB7D]/50 flex items-center justify-center group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+
+        <!-- Środek: powiększone zdjęcie okładkowe -->
+        <div class="w-full flex-1 my-4 rounded-2xl overflow-hidden border border-white/10 bg-black relative">
+          <img id="news-modal-peek-next-img" src="" alt="Następne wydarzenie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Dół karty: Data oraz Tytuł wydarzenia -->
+        <div class="pt-2 border-t border-white/10">
+          <div id="news-modal-peek-next-date" class="text-xs font-mono text-[#FACB7D] font-bold mb-1.5 uppercase tracking-wider"></div>
+          <div id="news-modal-peek-next-title" class="font-serif-luxury text-sm sm:text-base font-bold text-white line-clamp-3 leading-snug group-hover:text-[#FACB7D] transition-colors"></div>
+        </div>
+      </button>
+
+
 
     </div>
   </div>
@@ -2986,11 +3068,18 @@
         lead: 'Własny park maszynowy i pracownia rzemieślnicza: stolarstwo, ślusarstwo oraz obróbka stali i aluminium. Projektujemy i produkujemy autorskie moduły barowe, customowe meble eventowe oraz dedykowane instalacje scenograficzne od podstaw.',
         iconSvg: `
           <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" class="w-10 h-10 text-[#FACB7D]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 42L22 50M18 46L36 28M42 22L36 28M42 22L46 18C48 16 51 16 53 18L54 19C56 21 56 24 54 26L50 30L44 24" />
-            <path d="M18 18L24 14L28 18L22 22Z" />
-            <path d="M22 22L12 32C10 34 10 38 12 40L14 42" />
-            <circle cx="34" cy="46" r="6" />
-            <path d="M34 43V49M31 46H37" stroke-width="1.5" />
+            <!-- Duże koło zębate (precyzyjna produkcja i park maszynowy) -->
+            <circle cx="26" cy="38" r="9" stroke-width="2" />
+            <circle cx="26" cy="38" r="3.5" fill="#FACB7D" />
+            <path d="M26 25V29M26 47V51M13 38H17M35 38H39" stroke-width="2.5" />
+            <path d="M17 29L20 32M32 44L35 47M35 29L32 32M20 44L17 47" stroke-width="2.2" />
+            <!-- Mniejsze koło zębate (zazębienie technologiczne) -->
+            <circle cx="43" cy="22" r="6" stroke-width="2" />
+            <circle cx="43" cy="22" r="2" fill="#FACB7D" />
+            <path d="M43 13V16M43 28V31M34 22H37M49 22H52" stroke-width="2.2" />
+            <path d="M37 16L39 18M47 26L49 28M49 16L47 18M39 26L37 28" stroke-width="2" />
+            <!-- Złota iskra precyzji rzemieślniczej w punkcie styku -->
+            <circle cx="35" cy="30" r="1.5" fill="#FACB7D" />
           </svg>
         `,
         services: [
@@ -3120,12 +3209,13 @@
     let customRadiusX = 555;
     let customRadiusY = 245;
     let customRadiusZ = 0;
-    let customArcStartDeg = -56; // Prawa strona (góra od godz. 12:00 w prawo)
-    let customArcEndDeg = 236;  // Lewa strona (domknięcie z lewej góry)
+    let customArcStartDeg = -47; // Prawa strona (góra od godz. 12:00 w prawo) - ART
+    let customArcEndDeg = 228;  // Lewa strona (domknięcie z lewej góry) - FABRYKA LODU
+    let customLogoDistance = 376; // Dystans X od środka logo dla węzłów ART i FABRYKA LODU (px)
     let customOrbitOffsetY = 40;  // Wycentrowanie względem środka logo
-    let customArcDistribution = 85; // Wyrównanie fizyczne odstępów na elipsie (0-100%, 85% zalecane)
-    let customFlankSpread = 30;   // Rozstaw boczny węzłów (Flanki L/P w %)
-    let customBottomPinch = 15;   // Zbliżenie dolne węzłów (w %)
+    let customArcDistribution = 95; // Wyrównanie fizyczne odstępów na elipsie (0-100%, 95% zalecane)
+    let customFlankSpread = 20;   // Rozstaw boczny węzłów (Flanki L/P w %)
+    let customBottomPinch = -40;  // Zbliżenie dolne węzłów (w %)
     let customTopSpread = 10;     // Rozstaw węzłów górnych ku koronie logo (w %)
     let customArcExtension = 22; // Kąt przedłużenia ramion ku górze logo z fadem (stopnie)
     let customCameraZoom = 3.5;  // Siła kinowego zoomu po kliknięciu kafelka (3.5x)
@@ -3742,6 +3832,8 @@
     const sRadiusY = document.getElementById('slider-radius-y');
     const sRadiusZ = document.getElementById('slider-radius-z');
     const sLabelY = document.getElementById('slider-label-y');
+    const sLogoDistance = document.getElementById('slider-logo-distance');
+    const vLogoDistance = document.getElementById('val-logo-distance');
     const sArcStart = document.getElementById('slider-arc-start');
     const sArcEnd = document.getElementById('slider-arc-end');
     const sOrbitOffsetY = document.getElementById('slider-orbit-offset-y');
@@ -3908,6 +4000,7 @@
         const val = parseInt(e.target.value, 10);
         vRadiusX.textContent = val + ' px';
         customRadiusX = val;
+        syncDistanceAfterAngleChange();
         updateDimensions();
       });
     }
@@ -3941,22 +4034,64 @@
       });
     }
 
-    // 9. Kąt startowy podkowy (lewa strona)
+    function updateFromLogoDistance(dist) {
+      customLogoDistance = dist;
+      if (vLogoDistance) vLogoDistance.textContent = dist + ' px';
+      const rX = customRadiusX || 555;
+      const ratio = Math.max(0.15, Math.min(0.95, dist / rX));
+      const alphaDeg = (Math.asin(ratio) * 180) / Math.PI;
+      
+      // ART (prawa strona): -90 + alphaDeg
+      customArcStartDeg = Math.round(-90 + alphaDeg);
+      // FABRYKA LODU (lewa strona): 270 - alphaDeg
+      customArcEndDeg = Math.round(270 - alphaDeg);
+
+      if (sArcEnd && vArcEnd) {
+        sArcEnd.value = customArcStartDeg;
+        vArcEnd.textContent = customArcStartDeg + '°';
+      }
+      if (sArcStart && vArcStart) {
+        sArcStart.value = customArcEndDeg;
+        vArcStart.textContent = customArcEndDeg + '°';
+      }
+      updateDimensions();
+    }
+
+    function syncDistanceAfterAngleChange() {
+      const rX = customRadiusX || 555;
+      const xRight = Math.abs(Math.cos((customArcStartDeg * Math.PI) / 180) * rX);
+      const xLeft = Math.abs(Math.cos((customArcEndDeg * Math.PI) / 180) * rX);
+      const avgDist = Math.round((xRight + xLeft) / 2);
+      if (sLogoDistance) sLogoDistance.value = avgDist;
+      if (vLogoDistance) vLogoDistance.textContent = avgDist + ' px';
+      customLogoDistance = avgDist;
+    }
+
+    // 8b. Główny suwak: Odległość od logo (ART & FABRYKA LODU)
+    if (sLogoDistance) {
+      sLogoDistance.addEventListener('input', (e) => {
+        updateFromLogoDistance(parseInt(e.target.value, 10));
+      });
+    }
+
+    // 9. Kąt lewy podkowy (FABRYKA LODU)
     if (sArcStart && vArcStart) {
       sArcStart.addEventListener('input', (e) => {
         const val = parseInt(e.target.value, 10);
         vArcStart.textContent = val + '°';
-        customArcStartDeg = val;
+        customArcEndDeg = val; // Lewa strona to endDeg!
+        syncDistanceAfterAngleChange();
         updateDimensions();
       });
     }
 
-    // 10. Kąt końcowy podkowy (prawa strona)
+    // 10. Kąt prawy podkowy (ART)
     if (sArcEnd && vArcEnd) {
       sArcEnd.addEventListener('input', (e) => {
         const val = parseInt(e.target.value, 10);
         vArcEnd.textContent = val + '°';
-        customArcEndDeg = val;
+        customArcStartDeg = val; // Prawa strona to startDeg!
+        syncDistanceAfterAngleChange();
         updateDimensions();
       });
     }
@@ -4134,8 +4269,9 @@
           `Promień podkowy Y: ${sRadiusY.value}px`,
           `Głębia Z: ${sRadiusZ.value}px`,
           `Odstęp etykiet: ${sLabelY.value}px`,
-          `Kąt lewy (początek): ${sArcStart.value}°`,
-          `Kąt prawy (koniec): ${sArcEnd.value}°`,
+          `Odległość od logo (ART & FABRYKA LODU): ${sLogoDistance ? sLogoDistance.value : 310}px`,
+          `Kąt lewy (FABRYKA LODU): ${sArcStart.value}°`,
+          `Kąt prawy (ART): ${sArcEnd.value}°`,
           `Wysokość orbity (Offset Y): ${sOrbitOffsetY.value}px`,
           `Rozstaw boczny (Flanki L/P): ${sFlankSpread ? sFlankSpread.value : '+30'}%`,
           `Wyrównanie łukowe (Równe odstępy): ${sArcDistribution ? sArcDistribution.value : '85'}%`,
@@ -4166,7 +4302,7 @@
     if (tuneResetBtn) {
       tuneResetBtn.addEventListener('click', () => {
         sNodeSize.value = 134;
-        sIconSize.value = 136;
+        sIconSize.value = 145;
         if (sIconStroke) sIconStroke.value = 1.5;
         if (inputIconStroke) inputIconStroke.value = 1.5;
         if (sTentStroke) sTentStroke.value = 0.55;
@@ -4177,17 +4313,20 @@
         sRadiusX.value = 555;
         sRadiusY.value = 245;
         sRadiusZ.value = 0;
-        sLabelY.value = 11;
-        sArcStart.value = 236;
-        sArcEnd.value = -56;
+        sLabelY.value = 17;
+        if (sLogoDistance) sLogoDistance.value = 376;
+        if (vLogoDistance) vLogoDistance.textContent = '376 px';
+        customLogoDistance = 376;
+        sArcStart.value = 228;
+        sArcEnd.value = -47;
         sOrbitOffsetY.value = 40;
-        if (sFlankSpread) sFlankSpread.value = 30;
-        if (sArcDistribution) sArcDistribution.value = 85;
-        if (sBottomPinch) sBottomPinch.value = 15;
+        if (sFlankSpread) sFlankSpread.value = 20;
+        if (sArcDistribution) sArcDistribution.value = 95;
+        if (sBottomPinch) sBottomPinch.value = -40;
         if (sTopSpread) sTopSpread.value = 10;
         if (sArcExtension) sArcExtension.value = 22;
-        if (sLogoTitleSize) sLogoTitleSize.value = 28;
-        if (sLogoSloganSize) sLogoSloganSize.value = 20.5;
+        if (sLogoTitleSize) sLogoTitleSize.value = 25;
+        if (sLogoSloganSize) sLogoSloganSize.value = 13.5;
         if (sCameraZoom) sCameraZoom.value = 3.5;
         if (sVideoOpacity) sVideoOpacity.value = 60;
         if (sOrbitThickness) sOrbitThickness.value = 2.5;
@@ -4195,23 +4334,23 @@
         if (sOrbitOpacity) sOrbitOpacity.value = 100;
 
         vNodeSize.textContent = '134 px';
-        vIconSize.textContent = '136 px';
+        vIconSize.textContent = '145 px';
         vLogoScale.textContent = '1.70x';
         vLogoY.textContent = '-52 px';
         vRadiusX.textContent = '555 px';
         vRadiusY.textContent = '245 px';
         vRadiusZ.textContent = '0 px';
-        vLabelY.textContent = '11 px';
-        vArcStart.textContent = '236°';
-        vArcEnd.textContent = '-56°';
+        vLabelY.textContent = '17 px';
+        vArcStart.textContent = '228°';
+        vArcEnd.textContent = '-47°';
         vOrbitOffsetY.textContent = '40 px';
-        if (vFlankSpread) vFlankSpread.textContent = '+30%';
-        if (vArcDistribution) vArcDistribution.textContent = '85%';
-        if (vBottomPinch) vBottomPinch.textContent = '15%';
+        if (vFlankSpread) vFlankSpread.textContent = '+20%';
+        if (vArcDistribution) vArcDistribution.textContent = '95%';
+        if (vBottomPinch) vBottomPinch.textContent = '-40%';
         if (vTopSpread) vTopSpread.textContent = '+10%';
         if (vArcExtension) vArcExtension.textContent = '22°';
-        if (vLogoTitleSize) vLogoTitleSize.textContent = '28 px';
-        if (vLogoSloganSize) vLogoSloganSize.textContent = '20.5 px';
+        if (vLogoTitleSize) vLogoTitleSize.textContent = '25 px';
+        if (vLogoSloganSize) vLogoSloganSize.textContent = '13.5 px';
         if (vCameraZoom) vCameraZoom.textContent = '3.50x';
         if (vVideoOpacity) vVideoOpacity.textContent = '60%';
         if (vOrbitOpacity) vOrbitOpacity.textContent = '100%';
@@ -4222,24 +4361,24 @@
         applyOrbitAppearance();
 
         document.documentElement.style.setProperty('--node-size', '134px');
-        document.documentElement.style.setProperty('--icon-max-size', '136px');
+        document.documentElement.style.setProperty('--icon-max-size', '145px');
         document.documentElement.style.setProperty('--icon-stroke-width', '1.5px');
         document.documentElement.style.setProperty('--logo-scale', '1.70');
         document.documentElement.style.setProperty('--logo-shift-y', '-52px');
-        document.documentElement.style.setProperty('--label-offset-y', '11px');
-        document.documentElement.style.setProperty('--logo-title-size', '28px');
-        document.documentElement.style.setProperty('--logo-slogan-size', '20.5px');
+        document.documentElement.style.setProperty('--label-offset-y', '17px');
+        document.documentElement.style.setProperty('--logo-title-size', '25px');
+        document.documentElement.style.setProperty('--logo-slogan-size', '13.5px');
         document.documentElement.style.setProperty('--video-opacity', '0.60');
 
         customRadiusX = 555;
         customRadiusY = 245;
         customRadiusZ = 0;
-        customArcStartDeg = 236;
-        customArcEndDeg = -56;
+        customArcStartDeg = -47;
+        customArcEndDeg = 228;
         customOrbitOffsetY = 40;
-        customFlankSpread = 30;
-        customArcDistribution = 85;
-        customBottomPinch = 15;
+        customFlankSpread = 20;
+        customArcDistribution = 95;
+        customBottomPinch = -40;
         customTopSpread = 10;
         customArcExtension = 22;
         customCameraZoom = 3.5;
@@ -4463,17 +4602,10 @@
       container.addEventListener('pointerup', endDrag);
       container.addEventListener('pointercancel', endDrag);
 
-      container.addEventListener('mouseenter', () => { isHovered = true; });
-      container.addEventListener('mouseleave', () => { isHovered = false; });
+      // container.addEventListener('mouseenter', () => { isHovered = true; });
+      // container.addEventListener('mouseleave', () => { isHovered = false; });
 
-      // Przewijanie kółkiem myszy / gestem dwóch palców w poziomie
-      container.addEventListener('wheel', (e) => {
-        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        if (Math.abs(delta) > 1) {
-          velocity -= delta * 0.15;
-          e.preventDefault();
-        }
-      }, { passive: false });
+      // Przewijanie scrollem wyłączone (strona przewija się naturalnie pionowo)
 
       function marqueeLoop() {
         if (!isDragging) {
@@ -4482,9 +4614,7 @@
             velocity *= 0.94; // gładkie tłumienie bezwładności
           } else {
             velocity = 0;
-            if (!isHovered) {
-              currentX -= autoSpeed;
-            }
+            currentX -= autoSpeed;
           }
         }
 
@@ -4517,282 +4647,930 @@
     // ═════════════════════════════════════════════════════════════════════
     // SYSTEM ZARZĄDZANIA AKTUALNOŚCIAMI I HISTORIĄ WPISÓW ARTBAR
     // ═════════════════════════════════════════════════════════════════════
+    // =========================================================================
+    // WSPÓŁRZĘDNE KADROWANIA MINIATUR (FOCAL POINTS)
+    // =========================================================================
+    const ARTBAR_IMAGE_FOCAL_POINTS = {
+      "mlynowa-1": { x: 50, y: 0 },
+      "mlynowa-2": { x: 50, y: 20 },
+      "mlynowa-3": { x: 49, y: 49 },
+      "mlynowa-4": { x: 50, y: 16 },
+      "flamingo-1": { x: 50, y: 0 },
+      "flamingo-2": { x: 50, y: 45 },
+      "flamingo-3": { x: 50, y: 29 },
+      "flamingo-4": { x: 50, y: 24 },
+      "flamingo-5": { x: 50, y: 68 },
+      "riverlights-1": { x: 50, y: 51 },
+      "riverlights-2": { x: 50, y: 21 },
+      "riverlights-3": { x: 50, y: 62 },
+      "riverlights-4": { x: 50, y: 76 },
+      "riverlights-5": { x: 50, y: 56 },
+      "riverlights-6": { x: 50, y: 29 },
+      "przyjazn-1": { x: 50, y: 45 },
+      "przyjazn-2": { x: 50, y: 3 },
+      "przyjazn-3": { x: 50, y: 42 },
+      "przyjazn-4": { x: 50, y: 10 },
+      "przyjazn-5": { x: 50, y: 31 },
+      "jungle-1": { x: 50, y: 45 },
+      "jungle-2": { x: 50, y: 40 },
+      "jungle-3": { x: 50, y: 23 },
+      "jungle-4": { x: 50, y: 77 },
+      "silesia-1": { x: 50, y: 59 },
+      "silesia-2": { x: 50, y: 37 },
+      "silesia-3": { x: 50, y: 29 },
+      "live-nation-1": { x: 50, y: 61 },
+      "live-nation-2": { x: 50, y: 43 },
+      "planteray-1": { x: 50, y: 60 },
+      "planteray-2": { x: 50, y: 37 },
+      "planteray-3": { x: 50, y: 34 }
+    };
+
+    function getImageObjectPosition(url) {
+      if (!url) return '50% 50%';
+      for (const [key, pt] of Object.entries(ARTBAR_IMAGE_FOCAL_POINTS)) {
+        if (url.includes(key)) {
+          return `${pt.x}% ${pt.y}%`;
+        }
+      }
+      return '50% 50%';
+    }
+
     const artbarNewsDatabase = [
       {
         id: 'mlynowa',
         num: '01',
         date: '04.2025',
-        fullDate: 'Kwiecień 2025 · Białystok',
-        category: 'Lokal sezonowy · Scenografia',
-        title: 'Młynowa w nowej odsłonie. Odświeżenie lokalu sezonowego w Białymstoku',
-        excerpt: 'Zespół Art Bar Solutions zakończył kompleksowe odświeżenie artystyczne przestrzeni Młynowej w Białymstoku. Nowa aranżacja kontenerów, brama z neonem, ręcznie wykonane akcenty i dopracowane oświetlenie.',
-        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
-        images: [
-          'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
-          'assets/images/aktualnosci/mlynowa/mlynowa-2.jpg',
-          'assets/images/aktualnosci/mlynowa/mlynowa-3.jpg',
-          'assets/images/aktualnosci/mlynowa/mlynowa-4.jpg'
-        ],
+        fullDate: '04.2025 · Polska',
+        title: 'Młynowa projekt lokalu sezonowego w Białymstoku',
+        excerpt: 'Zespół Art Bar Solutions zakończył kompleksowe odświeżenie artystyczne przestrzeni Młynowej w Białymstoku. Naszym zadaniem było nadanie miejscu nowej energii, charakteru i spójnej ...',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184559.jpg',
+        images: ["assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184559.jpg", "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184726.jpg", "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250520211049.jpg", "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250520212835.jpg"],
         hasMaterials: true,
+        videoUrl: null,
         intro: 'Zespół Art Bar Solutions zakończył kompleksowe odświeżenie artystyczne przestrzeni Młynowej w Białymstoku. Naszym zadaniem było nadanie miejscu nowej energii, charakteru i spójnej tożsamości wizualnej, która podkreśla atmosferę lokalu i staje się wyjątkowym tłem dla gości.',
-        bulletsTitle: 'Co zrobiliśmy? Pełna metamorfoza dekoracyjno-scenograficzna:',
-        bullets: [
-          'Nowa kolorystyka i artystyczna aranżacja kontenerów',
-          'Brama wejściowa z dużym, klimatycznym neonem „Młynowa”',
-          'Nowe elementy dekoracyjne, w tym ręcznie wykonane akcenty artystyczne',
-          'Zielone kompozycje roślinne i detale dodające przestrzeni świeżości',
-          'Dopracowane oświetlenie strefowe budujące niepowtarzalny nastrój po zmroku'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Nowoczesna, dopracowana i instagramowa przestrzeń, która od pierwszego kroku przez bramę buduje klimat miejsca. Działa jak naturalna scenografia dla wieczorów, wydarzeń i weekendowych imprez.',
-        footerNote: 'Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni lokali i stref barowych.'
+        bullets: [],
+        effect: 'nowa kolorystyka i aranżacja kontenerów,',
       },
       {
         id: 'flamingo-party',
         num: '02',
         date: '23.05.2025',
-        fullDate: '23 Maja 2025 · Barka Kaskada, Warszawa',
-        category: 'Cykl tematyczny · Scenografia & Muzyka',
-        title: 'Flamingo Party | Startujemy z cyklem tematycznych imprez Art Bar Solutions',
-        excerpt: 'Letnie noce nad Wisłą zyskują nowy wymiar. Wspólnie z Barką Kaskada rozpoczęliśmy autorski cykl imprez tematycznych. Tropikalny klimat Miami Vice, neony, flamingi oraz dedykowana oprawa wizualna i muzyczna.',
-        coverImg: 'assets/images/aktualnosci/flamingo/flamingo-1.jpg',
-        images: [
-          'assets/images/aktualnosci/flamingo/flamingo-1.jpg',
-          'assets/images/aktualnosci/flamingo/flamingo-2.jpg',
-          'assets/images/aktualnosci/flamingo/flamingo-3.jpg',
-          'assets/images/aktualnosci/flamingo/flamingo-4.jpg',
-          'assets/images/aktualnosci/flamingo/flamingo-5.jpg'
-        ],
+        fullDate: '23.05.2025 · Polska',
+        title: 'Flamingo Party w klubie Kaskada w Warszawie',
+        excerpt: 'Letnie noce nad Wisłą zyskują nowy wymiar. Wspólnie z Barką Kaskada rozpoczęliśmy cykl imprez tematycznych Art Bar Solutions, w których muzyka, scenografia, światło i działania art...',
+        coverImg: 'assets/images/aktualnosci/flamingo-party/flamingo-party-515278312_24568059902801661_2577079048995295614_n (1).jpg',
+        images: ["assets/images/aktualnosci/flamingo-party/flamingo-party-515278312_24568059902801661_2577079048995295614_n (1).jpg", "assets/images/aktualnosci/flamingo-party/flamingo-party-515681618_24568059849468333_4792959048973108754_n.jpg", "assets/images/aktualnosci/flamingo-party/flamingo-party-515711795_24568059779468340_1561083272275841699_n.jpg", "assets/images/aktualnosci/flamingo-party/flamingo-party-515921715_24568059852801666_6829113257485881721_n.jpg", "assets/images/aktualnosci/flamingo-party/flamingo-party-516415748_24568059602801691_2099291939786563619_n.jpg"],
         hasMaterials: true,
-        intro: 'Letnie noce nad Wisłą zyskują nowy wymiar. Wspólnie z Barką Kaskada rozpoczęliśmy cykl imprez tematycznych Art Bar Solutions, w których muzyka, scenografia, światło i działania artystyczne tworzą spójną, dopracowaną oprawę wydarzenia. Pierwsza odsłona to Flamingo Party – tropikalny klimat, neonowe kolory, flamingi i energia inspirowana Miami Vice.',
-        bulletsTitle: 'Zakres realizacji i oprawa artystyczna:',
-        bullets: [
-          'Dwie niezależne sceny muzyczne z dedykowanymi brzmieniami (House/Tech House oraz Melodic/Progressive)',
-          'Autorska scenografia, instalacje świetlne i tropikalne akcenty transformujące przestrzeń barki',
-          'Występy czołowych artystów: BlueKey, Weikum, Meskalino, Krizzy, Pacio Melodija, Florian Bernz, Sincz, Mazi',
-          'Kompleksowa produkcja wizualna i koordynacja działań na żywo nad brzegiem Wisły'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Autorska scenografia, świetlne instalacje i tropikalne akcenty zamieniły przestrzeń barki w wyjątkowy, letni świat. Flamingo Party otworzyło cykl, w którym każda kolejna edycja to nowy motyw, nowa scenografia i kolejna odsłona letniego życia nad Wisłą.',
-        footerNote: 'Planujesz wydarzenie, które ma wyróżniać się nie tylko programem, ale też wyjątkową oprawą? Porozmawiajmy o Twoim pomyśle.'
+        videoUrl: null,
+        intro: 'Letnie noce nad Wisłą zyskują nowy wymiar. Wspólnie z Barką Kaskada rozpoczęliśmy cykl imprez tematycznych Art Bar Solutions, w których muzyka, scenografia, światło i działania artystyczne tworzą spójną, dopracowaną oprawę wydarzenia.',
+        bullets: [],
+        effect: 'Pierwsza odsłona to 23 maja Flamingo Party – tropikalny klimat, neonowe kolory, flamingi i energia inspirowana Miami Vice. Dwie sceny wypełniła muzyka house, tech house, melodic i progressive. Na scenie house / tech house zagrali BlueKey, Weikum, Meskalino i Krizzy, a za brzmienia melodic / progressive odpowiadali Pacio Melodija, Florian Bernz, Sincz i Mazi.',
       },
       {
         id: 'riverlights',
         num: '03',
         date: '24.05.2025',
-        fullDate: '24 Maja 2025 · Wisła, Warszawa',
-        category: 'Iluminacja rzeczna · Performance',
-        title: 'Riverlights 2025. Oświetlenie parady statków na Wiśle',
-        excerpt: 'W Warszawie odbyła się jedna z najbardziej widowiskowych imprez wodnych: Riverlights. Art Bar Solutions odpowiadał za oświetlenie 22 jednostek pływających, dekoracje świetlne oraz występy taneczne i performance.',
-        coverImg: 'assets/images/aktualnosci/riverlights/riverlights-1.jpg',
-        images: [
-          'assets/images/aktualnosci/riverlights/riverlights-1.jpg',
-          'assets/images/aktualnosci/riverlights/riverlights-2.jpg',
-          'assets/images/aktualnosci/riverlights/riverlights-3.jpg',
-          'assets/images/aktualnosci/riverlights/riverlights-4.jpg',
-          'assets/images/aktualnosci/riverlights/riverlights-5.jpg',
-          'assets/images/aktualnosci/riverlights/riverlights-6.jpg'
-        ],
+        fullDate: '24.05.2025 · Polska',
+        title: 'Parada Statków Riverlights w Warszawie',
+        excerpt: 'Riverlights 2025. Oświetlenie parady statków na Wiśle',
+        coverImg: 'assets/images/aktualnosci/riverlights/riverlights-496769482_680660558157247_8894439264282079227_n.jpg',
+        images: ["assets/images/aktualnosci/riverlights/riverlights-496769482_680660558157247_8894439264282079227_n.jpg", "assets/images/aktualnosci/riverlights/riverlights-499803643_689521353937834_979966908159767657_n.jpg", "assets/images/aktualnosci/riverlights/riverlights-500179978_693806093509360_5156418878319912761_n.jpg", "assets/images/aktualnosci/riverlights/riverlights-500232268_693385763551393_4051380601989981536_n.jpg", "assets/images/aktualnosci/riverlights/riverlights-500392545_693385796884723_3908969088866288602_n.jpg", "assets/images/aktualnosci/riverlights/riverlights-710755834_992571253632841_6923766683771610933_n.jpg"],
         hasMaterials: true,
-        intro: 'W Warszawie odbyła się jedna z najbardziej widowiskowych imprez wodnych: Riverlights, parada rozświetlonych łodzi, w której muzyka, światło i woda tworzą nocne widowisko. Wydarzenie od 2020 roku organizuje Fundacja Do Dzieła!, przy wsparciu miasta Warszawa i Dzielnicy Wisła. Art Bar Solutions odpowiadał za oświetlenie jednostek pływających i występy taneczne performance.',
-        bulletsTitle: 'Nasza rola w projekcie:',
-        bullets: [
-          'Autorski projekt oświetlenia 22 jednostek pływających',
-          'Dekoracje świetlne zsynchronizowane z linią barek i statków',
-          'Występy taneczne i koordynacja artystycznego performance na pokładach',
-          'Montaż, zasilanie i pełna obsługa techniczna podczas nocnej parady z Dworca Wodnego do Cypla Czerniakowskiego'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Światło, które podkreśliło sylwetki statków i odbijając się w powierzchni wody, zbudowało niepowtarzalną atmosferę i klimat parady od pierwszej do ostatniej łodzi dla tysięcy widzów na bulwarach.',
-        footerNote: 'Art Bar Solutions tworzy unikalne koncepty eventowe: od stref barowych, przez scenografię, po oświetlenie dużych wydarzeń plenerowych.'
+        videoUrl: null,
+        intro: 'Riverlights 2025. Oświetlenie parady statków na Wiśle',
+        bullets: [],
+        effect: 'W Warszawie 24 maja odbyła się jedna z najbardziej widowiskowych imprez wodnych: Riverlights, parada rozświetlonych łodzi, w której muzyka, światło i woda tworzą nocne widowisko. Wydarzenie od 2020 roku organizuje Fundacja Do Dzieła!, przy wsparciu miasta Warszawa i Dzielnicy Wisła. Art Bar Solutions odpowiadał za oświetlenie jednostek pływających i występy taneczne performance.',
       },
       {
         id: 'przyjazn',
         num: '04',
         date: '01.06.2025',
-        fullDate: '1 Czerwca 2025 · Klub Przyjaźń, Warszawa',
-        category: 'Scenografia · Konstrukcje artystyczne',
-        title: 'Brama „Przyjaźń”. Projekt scenograficzny wejścia do lokalu',
-        excerpt: 'Dla lokalu Przyjaźń zaprojektowaliśmy i wykonaliśmy scenograficzną bramę wejściową. Wysoki łuk o geometrycznej ornamentyce, ażurowe filary oraz podświetlane promieniste słońce z retro szyldem.',
+        fullDate: '01.06.2025 · Polska',
+        title: 'Projekt i realizacja bramy wejściowej w klubie Przyjaźń',
+        excerpt: 'Realizacja Art Bar Solutions: Projekt i realizacja bramy wejściowej w klubie Przyjaźń. Kompleksowa obsługa barowa i scenografia eventowa.',
         coverImg: 'assets/images/aktualnosci/przyjazn/przyjazn-1.jpg',
-        images: [
-          'assets/images/aktualnosci/przyjazn/przyjazn-1.jpg',
-          'assets/images/aktualnosci/przyjazn/przyjazn-2.jpg',
-          'assets/images/aktualnosci/przyjazn/przyjazn-3.jpg',
-          'assets/images/aktualnosci/przyjazn/przyjazn-4.jpg',
-          'assets/images/aktualnosci/przyjazn/przyjazn-5.jpg'
-        ],
+        images: ["assets/images/aktualnosci/przyjazn/przyjazn-1.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-2.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-3.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-4.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-5.jpg"],
         hasMaterials: true,
-        intro: 'Dla lokalu Przyjaźń zaprojektowaliśmy i wykonaliśmy scenograficzną bramę wejściową. To pierwszy element, który widzą goście, więc od progu buduje charakter całego miejsca. Brama ma formę wysokiego łuku o geometrycznej, ludowej w duchu ornamentyce z ażurowymi filarami.',
-        bulletsTitle: 'Co zrobiliśmy?',
-        bullets: [
-          'Projekt graficzny i konstrukcyjny bramy w formie wysokiego łuku',
-          'Wykonanie ażurowych elementów ciętych precyzyjnie laserem',
-          'Wykonanie podświetlanego logo i szyldu ze słonecznym motywem oraz nazwą lokalu',
-          'Dedykowane oświetlenie strefy wejścia',
-          'Transport, montaż i wkomponowanie bramy w istniejącą architekturę i zieleń'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Ciepła, rozpoznawalna brama, w której kolor słońca kontrastuje z szarością okolicznej architektury. Zaprasza do środka, zapowiada klimat lokalu i działa jak znak firmowy, który goście chętnie fotografują.',
-        footerNote: 'Art Bar Solutions projektuje i wykonuje scenografię dla lokali i wydarzeń, od bram wejściowych i dekoracji po całe strefy eventowe.'
+        videoUrl: null,
+        intro: 'Realizacja Art Bar Solutions: Projekt i realizacja bramy wejściowej w klubie Przyjaźń. Kompleksowa obsługa barowa i scenografia eventowa.',
+        bullets: [],
+        effect: '',
       },
       {
         id: 'bary-mds',
         num: '05',
         date: '10.06.2025',
-        fullDate: '10 Czerwca 2025 · Warsztat & Produkcja Własna',
-        category: 'Innowacje · Produkcja barów MDS',
+        fullDate: '10.06.2025 · Polska',
         title: 'Produkcja mobilnych barów MDS',
-        excerpt: 'Stworzyliśmy MDS (Modular Design System) – własną infrastrukturę barową, którą projektujemy, produkujemy i obsługujemy w 100% samodzielnie. Od pierwszego szkicu w warsztacie po montaż na evencie.',
+        excerpt: 'Stworzyliśmy MDS (Modular Design System) – własną infrastrukturę barową, którą projektujemy, produkujemy i obsługujemy w 100% samodzielnie. Od pierwszego szkicu w warsztacie po fin...',
         coverImg: 'assets/images/2024.12.31-Art-Bar-26-768x512.jpg',
-        images: [
-          'assets/images/2024.12.31-Art-Bar-26-768x512.jpg',
-          'assets/images/2024.12.31-Art-Bar-73-2.jpg',
-          'assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg'
-        ],
+        images: ["assets/images/2024.12.31-Art-Bar-26-768x512.jpg", "assets/images/2024.12.31-Art-Bar-73-2.jpg", "assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg"],
         hasMaterials: true,
         videoUrl: 'https://youtu.be/O92yrjo45Og',
-        intro: 'Stworzyliśmy MDS (Modular Design System) – własną infrastrukturę barową, którą projektujemy, produkujemy i obsługujemy w 100% samodzielnie. Od pierwszego szkicu w warsztacie po finalny montaż na evencie, odpowiadamy za każdy etap realizacji. System opiera się na uniwersalnych modułach łączonych w dowolne układy.',
-        bulletsTitle: 'Co zyskujesz jako organizator?',
-        bullets: [
-          'Elastyczność: Bar o dowolnej długości i kształcie, precyzyjnie dopasowany do przestrzeni i skali wydarzenia',
-          'Szybkość: Zoptymalizowana logistyka oraz błyskawiczny montaż i demontaż, oszczędzające czas produkcji',
-          'Personalizacja: Spójny, nowoczesny wygląd z opcją łatwego brandingu pod motyw przewodni eventu',
-          'Funkcjonalność: W pełni wyposażone stanowiska ze stali nierdzewnej gwarantujące maksymalną wydajność serwisu'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Bary MDS sprawdzają się bez zarzutu zarówno na prestiżowych bankietach VIP, jak i na gigantycznych festiwalach dla dziesiątek tysięcy uczestników, gwarantując niezawodność i najwyższą estetykę.',
-        footerNote: 'Obejrzyj oficjalną animację 3D prezentującą konstrukcję i montaż systemu MDS.'
+        intro: 'Stworzyliśmy MDS (Modular Design System) – własną infrastrukturę barową, którą projektujemy, produkujemy i obsługujemy w 100% samodzielnie. Od pierwszego szkicu w warsztacie po finalny montaż na evencie, odpowiadamy za każdy etap realizacji.',
+        bullets: [],
+        effect: 'System opiera się na uniwersalnych modułach łączonych w dowolne układy. Ta sama konstrukcja doskonale sprawdza się zarówno na kameralnych bankietach, jak i masowych festiwalach dla tysięcy gości, zapewniając powtarzalną jakość, stabilność i pełną swobodę aranżacji.',
       },
       {
         id: 'jungle',
         num: '06',
         date: '18.06.2025',
-        fullDate: '18 Czerwca 2025 · Barka Kaskada, Warszawa',
-        category: 'Cykl tematyczny · Scenografia Dżungli',
-        title: 'Welcome to the Jungle | Kolejna odsłona cyklu imprez tematycznych Art Bar Solutions',
-        excerpt: 'Po tropikalnym otwarciu nad Wisłę wkroczyła dzika dżungla! Bujna zieleń, motywy safari, świetlne akcenty i dwie niezależne sceny muzyczne zamieniły nadwiślańską barkę w sam środek egzotycznej przygody.',
-        coverImg: 'assets/images/aktualnosci/jungle/jungle-1.jpg',
-        images: [
-          'assets/images/aktualnosci/jungle/jungle-1.jpg',
-          'assets/images/aktualnosci/jungle/jungle-2.jpg',
-          'assets/images/aktualnosci/jungle/jungle-3.jpg',
-          'assets/images/aktualnosci/jungle/jungle-4.jpg'
-        ],
+        fullDate: '18.06.2025 · Polska',
+        title: 'Welcome to the jungle w klubie Kaskada w Warszawie',
+        excerpt: 'Po tropikalnym otwarciu cyklu Art Bar Solutions nad Wisłę wkracza dzika dżungla! Welcome to the Jungle impreza, która odbyła się 18 czerwca 2025 roku, to kolejna odsłona imprez tem...',
+        coverImg: 'assets/images/aktualnosci/jungle/jungle-525213039_24773908858883430_3113468267632495437_n.jpg',
+        images: ["assets/images/aktualnosci/jungle/jungle-525213039_24773908858883430_3113468267632495437_n.jpg", "assets/images/aktualnosci/jungle/jungle-525356319_24773954338878882_6665937040343293896_n.jpg", "assets/images/aktualnosci/jungle/jungle-525566707_24773960738878242_5539207150023711635_n.jpg", "assets/images/aktualnosci/jungle/jungle-525708708_24773913912216258_7839237749100248436_n.jpg"],
         hasMaterials: true,
         videoUrl: null,
-        intro: 'Po tropikalnym otwarciu cyklu Art Bar Solutions nad Wisłę wkracza dzika dżungla! Welcome to the Jungle to kolejna odsłona imprez tematycznych realizowanych wspólnie z Barką Kaskada. Industrialną i nadwiślańską przestrzeń wypełniły tropikalna scenografia, bujna zieleń, motywy safari i świetlne akcenty, które przeniosły uczestników w sam środek egzotycznej przygody.',
-        bulletsTitle: 'Sceny i oprawa artystyczna:',
-        bullets: [
-          'Górna scena w rytmach groove: Shinethrough, Kaj Garage, Francesca i Saint Peter',
-          'Dolna scena w klimacie house i tech house: Mi_os, SkullFellaz, Coccolino i Zuzka',
-          'Autorska scenografia dżungli z bujną zielenią, totemami, maskami i akcentami UV',
-          'Kompleksowa koordynacja produkcji i kreacji wizualnej przez zespół Art Bar Solutions'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Welcome to the Jungle to kolejny przykład tego, jak łączymy muzykę, design i produkcję eventową, tworząc tematyczne imprezy, które zmieniają dobrze znaną przestrzeń w zupełnie nowy świat.',
-        footerNote: 'Art Bar Solutions tworzy wydarzenia i strefy. Skontaktuj się z nami i porozmawiajmy o Twoim projekcie.'
+        intro: 'Po tropikalnym otwarciu cyklu Art Bar Solutions nad Wisłę wkracza dzika dżungla! Welcome to the Jungle impreza, która odbyła się 18 czerwca 2025 roku, to kolejna odsłona imprez tematycznych realizowanych wspólnie z Barką Kaskada. Tym razem industrialną i nadwiślańską przestrzeń wypełniły tropikalna scenografia, bujna zieleń, motywy safari i świetlne akcenty, które przeniosły uczestników w sam środek egzotycznej przygody.',
+        bullets: [],
+        effect: 'Dwie sceny, różne muzyczne klimaty i autorska oprawa wizualna stworzyły spójną atmosferę wydarzenia. Na górnej scenie, w rytmach groove, wystąpili: Shinethrough, Kaj Garage, Francesca i Saint Peter. Dolna scena od północy należała do brzmień house i tech house, za które odpowiadali Mi_os, SkullFellaz, Coccolino i Zuzka.',
       },
       {
         id: 'silesia-beats',
         num: '07',
         date: '17.06.2025',
-        fullDate: '19–21 Czerwca 2025 · Park Śląski, Chorzów',
-        category: 'Festiwale masowe · Produkcja barów & POS',
-        title: 'ING Silesia Beats 2025: Kompleksowa obsługa stref barowych',
-        excerpt: 'Obsługa stref barowych podczas 3-dniowego festiwalu muzyki elektronicznej dla ponad 36 000 uczestników. Bary w identyfikacji ING, system ArtPOS, logistyka magazynowa i lód Hoshizaki bez kolejek.',
-        coverImg: 'assets/images/aktualnosci/silesia/silesia-1.jpg',
-        images: [
-          'assets/images/aktualnosci/silesia/silesia-1.jpg',
-          'assets/images/aktualnosci/silesia/silesia-2.jpg',
-          'assets/images/aktualnosci/silesia/silesia-3.jpg'
-        ],
+        fullDate: '17.06.2025 · Polska',
+        title: 'Festiwal ING Silesia Beats',
+        excerpt: 'Od 19 do 21 czerwca 2025 roku Park Śląski w Chorzowie należał do fanów muzyki elektronicznej. Na ING Silesia Beats wystąpili m.in. Hardwell, Lost Frequencies i Sean Paul, a festiwa...',
+        coverImg: 'assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214634.jpg',
+        images: ["assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214634.jpg", "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214734.jpg", "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618222003.jpg"],
         hasMaterials: true,
-        intro: 'Od 19 do 21 czerwca 2025 roku Park Śląski w Chorzowie należał do fanów muzyki elektronicznej. Na ING Silesia Beats wystąpili m.in. Hardwell, Lost Frequencies i Sean Paul, a festiwal odwiedziło w sumie ponad 36 tysięcy osób. Trzydniowa impreza na świeżym powietrzu to scenariusz, w którym bar musi działać jak szwajcarski zegarek.',
-        bulletsTitle: 'Co dostarczyliśmy na festiwal?',
-        bullets: [
-          'Kompletne bary w oficjalnej identyfikacji wizualnej ING',
-          'Wdrożenie autorskiego systemu kasowo-rozliczeniowego ArtPOS',
-          'Profesjonalną kadrę barmańską i kadrę menedżerską stref',
-          'Magazyn centralny, zaplecze logistyczne i ciągłe dostawy lodu Hoshizaki',
-          'Pełną kontrolę nad łańcuchem zaopatrzenia i stanami magazynowymi w czasie rzeczywistym'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Przez trzy dni bary stały się głównymi punktami festiwalowej mapy. Zagwarantowaliśmy sprawną obsługę bez uciążliwych kolejek nawet w szczytach ruchu, budując doskonałe doświadczenia uczestników.',
-        footerNote: 'Jeden partner, cały bar – infrastruktura, technologia, ludzie, lód i logistyka od jednego wykonawcy.'
+        videoUrl: null,
+        intro: 'Od 19 do 21 czerwca 2025 roku Park Śląski w Chorzowie należał do fanów muzyki elektronicznej. Na ING Silesia Beats wystąpili m.in. Hardwell, Lost Frequencies i Sean Paul, a festiwal odwiedziło w sumie ponad 36 tysięcy osób.',
+        bullets: [],
+        effect: 'Duży festiwal, duże wyzwanieTrzydniowa impreza na świeżym powietrzu, kilkadziesiąt tysięcy uczestników i szczyty ruchu pod scenami: to scenariusz, w którym bar musi działać jak dobrze nastrojony mechanizm. Zadbaliśmy o każdy jego element, od konstrukcji po ostatni kostkę lodu.',
       },
       {
         id: 'live-nation',
         num: '08',
         date: '12.07.2025',
-        fullDate: '12 Lipca 2025 · PGE Narodowy, Warszawa',
-        category: 'Strefy VIP · Koncerty stadionowe',
-        title: 'Guns N’ Roses na PGE Narodowym – Obsługa strefy barowej VIP',
-        excerpt: 'Dla agencji Live Nation odpowiadaliśmy za kompleksową obsługę strefy barowej VIP podczas koncertu Guns N’ Roses na PGE Narodowym w Warszawie. Najwyższy standard serwisu dopasowany do dynamiki koncertu.',
-        coverImg: 'assets/images/aktualnosci/live-nation/live-nation-1.jpg',
-        images: [
-          'assets/images/aktualnosci/live-nation/live-nation-1.jpg',
-          'assets/images/aktualnosci/live-nation/live-nation-2.jpg'
-        ],
+        fullDate: '12.07.2025 · Polska',
+        title: 'Live Nation na Stadionie Narodowym w Warszawie',
+        excerpt: '12 lipca 2025 roku odpowiadaliśmy za obsługę strefy barowej VIP podczas koncertu organizowanego przez agencję Live Nation na PGE Narodowym w Warszawie. Realizacja obejmowała bieżąc...',
+        coverImg: 'assets/images/aktualnosci/live-nation/live-nation-IMG20250717212559.jpg',
+        images: ["assets/images/aktualnosci/live-nation/live-nation-IMG20250717212559.jpg", "assets/images/aktualnosci/live-nation/live-nation-IMG20251020173413.jpg"],
         hasMaterials: true,
+        videoUrl: null,
         intro: '12 lipca 2025 roku odpowiadaliśmy za obsługę strefy barowej VIP podczas koncertu organizowanego przez agencję Live Nation na PGE Narodowym w Warszawie. Realizacja obejmowała bieżącą obsługę baru oraz zapewnienie sprawnej organizacji serwisu w przestrzeni przeznaczonej dla gości VIP.',
-        bulletsTitle: 'Kluczowe aspekty realizacji VIP:',
-        bullets: [
-          'Prestiżowa organizacja pracy zespołu barmańskiego dopasowana do harmonogramu koncertu',
-          'Płynna koordynacja serwisu koktajlowego podczas fal wejść gości VIP',
-          'Utrzymanie najwyższego standardu kultury obsługi i estetyki baru',
-          'Ścisła współpraca z agencją Live Nation i dyrekcją PGE Narodowego'
-        ],
-        effectTitle: 'Efekt',
-        effect: 'Dzięki perfekcyjnej koordynacji uczestnicy strefy VIP mogli skupić się na muzycznych emocjach, korzystając z komfortowej, eleganckiej przestrzeni barowej bez żadnych opóźnień.',
-        footerNote: 'W Art Bar Solutions zapewniamy obsługę barową podczas koncertów, festiwali i wydarzeń specjalnych najwyższej rangi.'
+        bullets: [],
+        effect: 'Strefy VIP są ważną częścią wydarzeń koncertowych, łącząc komfort gości z wysokim standardem obsługi. Podczas realizacji na PGE Narodowym kluczowe znaczenie miała sprawna organizacja pracy zespołu, płynna koordynacja serwisu i efektywne funkcjonowanie baru, dopasowane do dynamiki koncertu i natężenia ruchu gości. Dzięki temu uczestnicy mogli skupić się na muzycznych emocjach, korzystając z komfortowej przestrzeni VIP.',
       },
       {
         id: 'planteray',
         num: '09',
         date: '15.07.2025',
-        fullDate: '15 Lipca 2025 · Aktywacja marek alkoholowych',
-        category: 'Bary dedykowane · Scenografia egzotyczna',
-        title: 'Karaibski bar dla Planteray Rum. Strefa barowa od United Beverages',
-        excerpt: 'Dla United Beverages i marki Planteray Rum zaprojektowaliśmy i zbudowaliśmy karaibski bar z modułową konstrukcją MDS BAR, bambusową zabudową, dachem ze strzechy i podświetlanym frezowanym logo.',
-        coverImg: 'assets/images/aktualnosci/planteray/planteray-1.jpg',
-        images: [
-          'assets/images/aktualnosci/planteray/planteray-1.jpg',
-          'assets/images/aktualnosci/planteray/planteray-2.jpg',
-          'assets/images/aktualnosci/planteray/planteray-3.jpg'
-        ],
+        fullDate: '15.07.2025 · Polska',
+        title: 'Produkcja strefy Planteray',
+        excerpt: 'Dla United Beverages i marki Planteray Rum zaprojektowaliśmy i wykonaliśmy strefę barową w klimacie karaibskiego baru. Powstała przestrzeń, która od pierwszego spojrzenia przenosi ...',
+        coverImg: 'assets/images/aktualnosci/planteray/planteray-IMG-20250724-WA0003.jpg',
+        images: ["assets/images/aktualnosci/planteray/planteray-IMG-20250724-WA0003.jpg", "assets/images/aktualnosci/planteray/planteray-IMG20250724101719.jpg", "assets/images/aktualnosci/planteray/planteray-IMG20250729131812.jpg"],
         hasMaterials: true,
-        intro: 'Dla United Beverages i marki Planteray Rum zaprojektowaliśmy i wykonaliśmy strefę barową w klimacie karaibskiego baru. Powstała przestrzeń, która od pierwszego spojrzenia przenosi gości w tropiki, łącząc inżynierię modułową ze spektakularną scenografią.',
-        bulletsTitle: 'Konstrukcja i design:',
-        bullets: [
-          'Fundament oparty na sprawdzonej modułowej konstrukcji MDS BAR',
-          'Nadbudówka z frontem uzupełniona naturalnymi materiałami: bambusem i dachem ze strzechy',
-          'Ogromne logo Planteray Rum wyfrezowane w drewnie z wewnętrznym podświetleniem LED',
-          'Litery zamocowane na transparentnej plexi dające efekt świetlistej poświaty po zmroku'
-        ],
-        effectTitle: 'Karaibska atmosfera',
-        effect: 'Ta realizacja pokazuje, jak modułowa konstrukcja, naturalne materiały i kreatywne detale tworzą strefę, która nie tylko świetnie działa operacyjnie, ale przede wszystkim opowiada historię marki i oddaje klimat jej miejsca pochodzenia.',
-        footerNote: 'Chcesz, by Twoja marka miała własny bar z unikalnym charakterem? Skontaktuj się z Art Bar Solutions.'
+        videoUrl: null,
+        intro: 'Dla United Beverages i marki Planteray Rum zaprojektowaliśmy i wykonaliśmy strefę barową w klimacie karaibskiego baru. Powstała przestrzeń, która od pierwszego spojrzenia przenosi gości w tropiki.',
+        bullets: [],
+        effect: 'Konstrukcja i design Fundamentem instalacji była modułowa konstrukcja MDS BAR. Na niej zbudowaliśmy nadbudówkę z frontem, a całość uzupełniliśmy naturalnymi materiałami: bambusową zabudową i dachem ze strzechy. To one nadały przestrzeni autentyczny, tropikalny charakter.',
       },
       {
         id: 'spirit-of-tribe',
         num: '10',
         date: '18.07.2025',
-        fullDate: '18 Lipca 2025 · Barka Kaskada, Warszawa',
-        category: 'Cykl tematyczny · W przygotowaniu',
-        title: 'Spirit of the Tribe w klubie Kaskada w Warszawie',
-        excerpt: 'Trzecia odsłona letniego cyklu wydarzeń tematycznych Art Bar Solutions na Barce Kaskada. Kolejny autorski motyw przewodni, unikalna scenografia i oprawa wizualno-muzyczna.',
-        coverImg: 'assets/images/aktualnosci/jungle/jungle-1.jpg',
+        fullDate: '18.07.2025 · Polska',
+        title: 'Spirit of the tribe w klubie Kaskada w Warszawie',
+        excerpt: 'Muzyka elektroniczna, etniczne inspiracje i scenografia, która przenosi w inny wymiar. 18 lipca 2025 roku wspólnie z Barką Kaskada zrealizowaliśmy kolejną odsłonę cyklu imprez tema...',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
         images: [],
         hasMaterials: false,
-        statusNote: 'Wpis w trakcie przygotowania. Pełna fotorelacja i szczegóły zostaną uzupełnione wkrótce po wydarzeniu.'
+        videoUrl: null,
+        intro: 'Muzyka elektroniczna, etniczne inspiracje i scenografia, która przenosi w inny wymiar. 18 lipca 2025 roku wspólnie z Barką Kaskada zrealizowaliśmy kolejną odsłonę cyklu imprez tematycznych Art Bar Solutions. Tym razem nadwiślańska przestrzeń zamieniła się w świat inspirowany plemiennymi rytuałami, żywiołem natury i festiwalową energią.',
+        bullets: [],
+        effect: 'Spirit of the Tribe połączyło etniczne dekoracje, atmosferę ognia i autorską oprawę wizualną z elektronicznymi brzmieniami na dwóch scenach. Na Scenie szamańskiej wystąpili RAIDHO, LIVVY, BlueKey i Deaf Can Dance, a scena melodic należała do Johna Waitera, Gigi, Afterossi i Mazi. Każda z nich oferowała inną muzyczną podróż, a wspólnym mianownikiem była energia, która łączy ludzi i wciąga w rytm wydarzenia.',
+      },
+      {
+        id: 'strefa-barowa-planteray-na',
+        num: '11',
+        date: '30.07.2025',
+        fullDate: '30.07.2025 · Polska',
+        title: 'Strefa barowa Planteray na Salt Wave Festival w Jastarni',
+        excerpt: 'Dla United Beverages i marki Planteray Rum zrealizowaliśmy produkcję strefy barowej inspirowanej karaibskimi barami. Pierwszym przystankiem festiwalowej trasy Planteray był wyjątko...',
+        coverImg: 'assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-IMG20250731175416.jpg',
+        images: ["assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-IMG20250731175416.jpg", "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Messenger_creation_FF3F5F84-68AA-43D7-9E30-38A743556145.jpeg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: 'Dla United Beverages i marki Planteray Rum zrealizowaliśmy produkcję strefy barowej inspirowanej karaibskimi barami. Pierwszym przystankiem festiwalowej trasy Planteray był wyjątkowy Salt Wave Festival w Jastarni, który odbył się w dniach 31 lipca – 1 sierpnia 2026 roku na Półwyspie Helskim się na malowniczym terenie nadmorskiego lotniska.',
+        bullets: [],
+        effect: 'Salt Wave to jeden z najbardziej klimatycznych festiwali w Polsce. Połączenie wyjątkowej lokalizacji przy Zatoce Puckiej z line-upem prezentującym muzykę alternatywną, indie i elektroniczną tworzy niepowtarzalną atmosferę. To wydarzenie, które przyciąga nie tylko fanów muzyki, ale też miłośników nadmorskich wakacji i unikalnego festiwalowego stylu życia.',
+      },
+      {
+        id: 'better-bar-show-w',
+        num: '12',
+        date: '04.08.2025',
+        fullDate: '04.08.2025 · Polska',
+        title: 'Better Bar Show w Krakowie',
+        excerpt: 'Po intensywnym weekendzie na Salt Wave Festival w Jastarni ruszyliśmy prosto do Krakowa. Prawie 12 godzin w trasie, a już 4 sierpnia 2025 roku rozpoczęliśmy montaż strefy barowej P...',
+        coverImg: 'assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804202938 (1).jpg',
+        images: ["assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804202938 (1).jpg", "assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804203015 (1).jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: 'Po intensywnym weekendzie na Salt Wave Festival w Jastarni ruszyliśmy prosto do Krakowa. Prawie 12 godzin w trasie, a już 4 sierpnia 2025 roku rozpoczęliśmy montaż strefy barowej Planteray Rum na Better Bar – branżowym konwencie skupiającym profesjonalistów z całej Polski. To kolejna realizacja, która wymagała sprawnej logistyki, szybkiego działania i dobrej koordynacji zespołu.',
+        bullets: [],
+        effect: 'Better Bar, organizowany w krakowskich Fortach Kleparz, gromadzi barmanów, marki alkoholowe i dostawców rozwiązań dla gastronomii. To przestrzeń wymiany doświadczeń, prezentacji produktów oraz poznawania trendów w miksologii i kulturze koktajlowej.',
+      },
+      {
+        id: 'neptun-calling-w-klubie',
+        num: '13',
+        date: '16.08.2025',
+        fullDate: '16.08.2025 · Polska',
+        title: 'Neptun Calling w klubie Przyjaźń w Warszawie',
+        excerpt: 'Muzyka elektroniczna, hipnotyzujące światło i scenografia inspirowana tajemnicami oceanu. 15 sierpnia 2025 roku w klubie Przyjaźń zrealizowaliśmy kolejną odsłonę imprez tematycznyc...',
+        coverImg: 'assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815200440.jpg',
+        images: ["assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815200440.jpg", "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815201330.jpg", "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250816003357.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: 'Muzyka elektroniczna, hipnotyzujące światło i scenografia inspirowana tajemnicami oceanu. 15 sierpnia 2025 roku w klubie Przyjaźń zrealizowaliśmy kolejną odsłonę imprez tematycznych. Tym razem uczestnicy wkroczyli do świata Neptuna, gdzie podwodna estetyka spotkała się z energią klubowej nocy.',
+        bullets: [],
+        effect: 'Neptun Calling to wydarzenie, w którym morska mitologia, autorskie dekoracje i performance taneczny stworzyły niepowtarzalny klimat. Podwodne inspiracje, świetlne meduzy i elektroniczne brzmienia połączyły się w spójną oprawę, zmieniając przestrzeń klubu Przyjaźń w tajemniczą, oceaniczną krainę.',
+      },
+      {
+        id: 'strefa-planteray-na-festiwalu',
+        num: '14',
+        date: '22-23.08.2025',
+        fullDate: '22-23.08.2025 · Polska',
+        title: 'Strefa Planteray na Festiwalu Whisky w Sopocie',
+        excerpt: '20 sierpnia 2025 roku rozpoczęliśmy montaż ostatniego przystanku letniej trasy Planteray Rum. Tym razem nasza realizacja przeniosła się do Sopotu, na teren Hipodromu, gdzie odbyła ...',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
+        images: [],
+        hasMaterials: false,
+        videoUrl: null,
+        intro: '20 sierpnia 2025 roku rozpoczęliśmy montaż ostatniego przystanku letniej trasy Planteray Rum. Tym razem nasza realizacja przeniosła się do Sopotu, na teren Hipodromu, gdzie odbyła się kolejna edycja Festiwalu Whisky organizowanego przez United Beverages. Po realizacjach na Salt Wave Festival w Jastarni i konwencie Better Bar w Krakowie był to finał intensywnego sezonu wydarzeń z marką Planteray Rum.',
+        bullets: [],
+        effect: 'Finał w Sopocie zamknął serię realizacji, w których odpowiadaliśmy za produkcję strefy barowej Planteray Rum na różnych wydarzeniach. Od nadmorskiego festiwalu, przez branżowy konwent, po Festiwal Whisky każda z realizacji wymagała dopracowanej logistyki i zespołu, który musiał zmierzyć się z unikalnymi wyzwaniami w zupełnie różnych lokalizacjach i warunkach.',
+      },
+      {
+        id: 'festiwal-wisloujscie-w-gdansku',
+        num: '15',
+        date: '22-24.08.2025',
+        fullDate: '22-24.08.2025 · Polska',
+        title: 'Festiwal Wisłoujście w Gdańsku',
+        excerpt: 'W dniach 22–24 sierpnia 2025 r. ponownie odpowiadaliśmy za produkcję wszystkich stref barowych na Wisłoujście Festival w Gdańsku, jednym z najbardziej charakterystycznych festiwali...',
+        coverImg: 'assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG-20250825-WA0017.jpg',
+        images: ["assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG-20250825-WA0017.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250820182912.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250821155647.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: 'W dniach 22–24 sierpnia 2025 r. ponownie odpowiadaliśmy za produkcję wszystkich stref barowych na Wisłoujście Festival w Gdańsku, jednym z najbardziej charakterystycznych festiwali muzyki elektronicznej w Polsce.',
+        bullets: [],
+        effect: 'Festiwal odbywa się w zabytkowej Twierdzy Wisłoujście i łączy muzykę elektroniczną z artystyczną scenografią oraz rozbudowanymi projektami świetlnymi. W takiej przestrzeni bar musi być nie tylko sprawnym punktem obsługi gości, ale też częścią scenografii.',
+      },
+      {
+        id: 'strefa-barowa-mocti',
+        num: '16',
+        date: '21.10.2025',
+        fullDate: '21.10.2025 · Polska',
+        title: 'Strefa barowa Mocti',
+        excerpt: '21 października 2025 r. w Nowym Teatrze w Warszawie odbyła się gala plebiscytu Kobieta Roku Glamour 2025. Na tę okazję przygotowaliśmy bary dla marki napojów Mocti.',
+        coverImg: 'assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-IMG_0145.JPG',
+        images: ["assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-IMG_0145.JPG", "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-Kopia IMG_0154.JPG", "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-Kopia MOCTI_PREV_LUDZIE_3.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '21 października 2025 r. w Nowym Teatrze w Warszawie odbyła się gala plebiscytu Kobieta Roku Glamour 2025. Na tę okazję przygotowaliśmy bary dla marki napojów Mocti.',
+        bullets: [],
+        effect: 'Na gali tej rangi bar to nie tylko punkt serwowania napojów, ale też miejsce, w którym goście bezpośrednio spotykają się z marką. Dlatego zadbaliśmy, by zabudowa była funkcjonalna, estetyczna i spójnie wpisywała się zarówno w charakter wydarzenia, jak i w identyfikację Mocti.',
+      },
+      {
+        id: '30-lecie-impel-zig',
+        num: '17',
+        date: '20.11.2025',
+        fullDate: '20.11.2025 · Polska',
+        title: '30-lecie Impel ZIG Wrocław',
+        excerpt: '20 listopada 2025 r. na terenie Portu Lotniczego Wrocław odbył się jubileusz 30-lecia Zachodniej Izby Gospodarczej. Odpowiadaliśmy za strefę barową wydarzenia, od zabudowy po serwi...',
+        coverImg: 'assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0000.jpg',
+        images: ["assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0000.jpg", "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0004.jpg", "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-Kopia IMG-20251120-WA0002.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '20 listopada 2025 r. na terenie Portu Lotniczego Wrocław odbył się jubileusz 30-lecia Zachodniej Izby Gospodarczej. Odpowiadaliśmy za strefę barową wydarzenia, od zabudowy po serwis.',
+        bullets: [],
+        effect: 'Na uroczystość przygotowaliśmy bar z indywidualną identyfikacją wizualną, zaprojektowaną z myślą o jubileuszowym charakterze wieczoru. Tym razem nie skończyło się na produkcji: zapewniliśmy też profesjonalną obsługę barową, więc goście mieli do dyspozycji kompletną strefę, przygotowaną i prowadzoną przez jeden zespół.',
+      },
+      {
+        id: 'secretos-daniela-majewskiego-w',
+        num: '18',
+        date: '27.11.2025',
+        fullDate: '27.11.2025 · Polska',
+        title: 'Secretos Daniela Majewskiego w PKiN w Warszawie',
+        excerpt: '13 listopada 2025 r. odpowiadaliśmy za obsługę strefy barowej podczas Secretos Rave w Pałacu Kultury i Nauki w Warszawie. Organizatorem wydarzenia był Daniel Majewski.',
+        coverImg: 'assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg',
+        images: ["assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589752194_829103290046157_1348093356004804902_n.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-591408729_829103306712822_2508272238526593308_n.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3040.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3106.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '13 listopada 2025 r. odpowiadaliśmy za obsługę strefy barowej podczas Secretos Rave w Pałacu Kultury i Nauki w Warszawie. Organizatorem wydarzenia był Daniel Majewski.',
+        bullets: [],
+        effect: 'Secretos Rave przeniósł muzykę elektroniczną i klubową atmosferę do jednego z najbardziej rozpoznawalnych budynków w Polsce. Wieczorny format i nietypowa lokalizacja stworzyły przestrzeń, w której zabawa i spotkania przy muzyce trwały do późnych godzin.',
+      },
+      {
+        id: 'koncert-coma-vip-na',
+        num: '19',
+        date: '07.12.2025',
+        fullDate: '07.12.2025 · Polska',
+        title: 'Koncert Coma VIP na Tauron Arena Kraków',
+        excerpt: '7 grudnia 2025 r. w TAURON Arenie Kraków zespół Coma zagrał finałowy koncert trasy „COMA RE-START: Gra o Wszystko”. Odpowiadaliśmy za strefę barową VIP, od zabudowy po serwis.',
+        coverImg: 'assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg',
+        images: ["assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg", "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163519.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '7 grudnia 2025 r. w TAURON Arenie Kraków zespół Coma zagrał finałowy koncert trasy „COMA RE-START: Gra o Wszystko”. Odpowiadaliśmy za strefę barową VIP, od zabudowy po serwis.',
+        bullets: [],
+        effect: 'Do strefy VIP dostarczyliśmy nasze bary z indywidualną identyfikacją wizualną, przygotowane specjalnie na tę realizację. Zadbaliśmy, by zabudowa była funkcjonalna i spójna z estetyką przestrzeni, a profesjonalna obsługa barowa zapewniła gościom VIP sprawny serwis przez cały wieczór finału trasy.',
+      },
+      {
+        id: 'ark-the-blaze-w',
+        num: '20',
+        date: '19.12.2025',
+        fullDate: '19.12.2025 · Polska',
+        title: 'ARK The Blaze w hali EXPO w Warszawie',
+        excerpt: '19 grudnia 2025 roku zrealizowaliśmy produkcję stref barowych podczas wydarzenia ARK: The Blaze w hali EXPO XXI, organizowanego przez agencję Winiary Bookings, które zgromadziło 5 ...',
+        coverImg: 'assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG',
+        images: ["assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG", "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0805.JPG", "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0811.JPG"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '19 grudnia 2025 roku zrealizowaliśmy produkcję stref barowych podczas wydarzenia ARK: The Blaze w hali EXPO XXI, organizowanego przez agencję Winiary Bookings, które zgromadziło 5 tysięcy uczestników! Realizacja na taką skalę wymagała odpowiedniego przygotowania infrastruktury barowej, przemyślanego rozmieszczenia punktów i dopasowania ich do organizacji przestrzeni eventowej.',
+        bullets: [],
+        effect: 'W ramach wydarzenia przygotowaliśmy strefy barowe obsługujące imprezę masową, w tym punkty przeznaczone do sprzedaży napojów o zawartości alkoholu do 3,5%, a także bar w wydzielonej strefie z mocnymi alkoholami. Rozdzielenie punktów pozwoliło dostosować ich funkcję do układu wydarzenia i potrzeb uczestników.',
+      },
+      {
+        id: 'koncert-zabson-hollywood-smile',
+        num: '21',
+        date: '21.12.2025',
+        fullDate: '21.12.2025 · Polska',
+        title: 'Koncert Żabson - Hollywood Smile w hali EXPO w Warszawie',
+        excerpt: '21 grudnia 2025 roku, zaledwie dwa dni po realizacji ARK: The Blaze, ponownie współpracowaliśmy z Winiary Bookings, tym razem podczas hip-hopowego wydarzenia Żabson – Hollywood Smi...',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
+        images: [],
+        hasMaterials: false,
+        videoUrl: null,
+        intro: '21 grudnia 2025 roku, zaledwie dwa dni po realizacji ARK: The Blaze, ponownie współpracowaliśmy z Winiary Bookings, tym razem podczas hip-hopowego wydarzenia Żabson – Hollywood Smile X-Perience – Daj To Jeszcze Raz w halach EXPO XXI w Warszawie. Koncert zgromadził 5 tysięcy uczestników i był wielkim finałem 10-lecia kariery artysty.',
+        bullets: [],
+        effect: 'Wydarzenie obejmowało trzy sety muzyczne prezentujące różne etapy twórczości Żabsona oraz występy gości specjalnych, w tym reaktywację chillwagonu. Przy realizacji wykorzystaliśmy infrastrukturę barową przygotowaną dwa dni wcześniej na potrzeby ARK: The Blaze, ponownie dostosowując ją do charakteru imprezy i potrzeb uczestników.',
+      },
+      {
+        id: 'impreza-sylwestrowa-festivaland-w',
+        num: '22',
+        date: '31.12.2025',
+        fullDate: '31.12.2025 · Polska',
+        title: 'Impreza sylwestrowa Festivaland w hali EXPO',
+        excerpt: '31 grudnia 2025 roku zrealizowaliśmy kolejną sylwestrową współpracę z Danielem Majewskim, tym razem podczas wydarzenia Festivaland w hali EXPO XXI w Warszawie. Przy imprezie dla ok...',
+        coverImg: 'assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9202-2.jpg',
+        images: ["assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9202-2.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9255-2.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9380.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9422.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9532.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9627.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9753.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-IMG_8793.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '31 grudnia 2025 roku zrealizowaliśmy kolejną sylwestrową współpracę z Danielem Majewskim, tym razem podczas wydarzenia Festivaland w hali EXPO XXI w Warszawie. Przy imprezie dla około 5000 uczestników Art Bar Solutions odpowiadało za kompleksową produkcję i obsługę stref barowych, a także przygotowanie i sprawne funkcjonowanie szatni.',
+        bullets: [],
+        effect: '65 metrów baru, 40 barmanów i blisko 100 osób przy produkcji',
+      },
+      {
+        id: 'udzial-w-targach-fbe',
+        num: '23',
+        date: '14.01.2026',
+        fullDate: '14.01.2026 · Polska',
+        title: 'Udział w Targach FBE w EXPO XXI w Warszawie',
+        excerpt: '14 stycznia 2026 roku spotkaliśmy się z branżą eventową podczas Forum Branży Eventowej (FBE) w EXPO XXI w Warszawie. To był intensywny dzień pełen gości, rozmów biznesowych, inspir...',
+        coverImg: 'assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0108.jpg',
+        images: ["assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0108.jpg", "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0127.jpg", "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0644.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '14 stycznia 2026 roku spotkaliśmy się z branżą eventową podczas Forum Branży Eventowej (FBE) w EXPO XXI w Warszawie. To był intensywny dzień pełen gości, rozmów biznesowych, inspiracji i wymiany pomysłów.',
+        bullets: [],
+        effect: 'Na FBE 2026 zaprezentowaliśmy naszą ofertę barową połączoną ze strefą coworkingową. Wysokie stoły, krzesła i uzupełniająca aranżację zieleń stworzyły przestrzeń sprzyjającą spotkaniom, swobodnym rozmowom i nawiązywaniu nowych relacji. O komfort gości zadbali nasi barmani, serwujący kawę i napoje przez cały targowy dzień.',
+      },
+      {
+        id: 'ark-korolova-w-hali',
+        num: '24',
+        date: '13.02.2026',
+        fullDate: '13.02.2026 · Polska',
+        title: 'ARK Korolova w hali EXPO w Warszawie',
+        excerpt: '13 lutego 2026 roku po raz kolejny współpracowaliśmy z Winiary Bookings przy realizacji wydarzenia z cyklu ARK. Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów...',
+        coverImg: 'assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg',
+        images: ["assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg", "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205200.jpg", "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213214233.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '13 lutego 2026 roku po raz kolejny współpracowaliśmy z Winiary Bookings przy realizacji wydarzenia z cyklu ARK. Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów z pogranicza melodic house i techno.',
+        bullets: [],
+        effect: 'Podczas wydarzenia wzięliśmy na siebie obsługę stref barowych, dbając o sprawną organizację serwisu i płynne funkcjonowanie barów w trakcie imprezy.',
+      },
+      {
+        id: 'sikelia-di-terrazzino-w',
+        num: '25',
+        date: '28.02.2026',
+        fullDate: '28.02.2026 · Polska',
+        title: 'Sikelia di Terrazzino w PKiN w Warszawie',
+        excerpt: '28 lutego 2026 roku w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026 – międzynarodowy turniej tańca w formule Pro-Am, organizowany ...',
+        coverImg: 'assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105405.jpg',
+        images: ["assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105405.jpg", "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105415.jpg", "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228121314.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '28 lutego 2026 roku w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026 – międzynarodowy turniej tańca w formule Pro-Am, organizowany przez studio tańca Stefano Terrazzino Mała Sicilia. Wydarzenie połączyło profesjonalny taniec z pasją amatorów, tworząc przestrzeń do sportowej rywalizacji i artystycznych występów.',
+        bullets: [],
+        effect: 'Podczas realizacji Art Bar Solutions odpowiadało za produkcję i obsługę stref barowych. Zadbaliśmy o przygotowanie funkcjonalnej infrastruktury oraz sprawny serwis, dopasowany do harmonogramu i charakteru wydarzenia.',
+      },
+      {
+        id: 'xii-festiwal-whisky-sopot',
+        num: '27',
+        date: '03.2026',
+        fullDate: '03.2026 · Polska',
+        title: 'XII Festiwal Whisky Sopot 2026',
+        excerpt: 'Marzec 2026 roku przyniósł nam ważny sukces biznesowy. Art Bar Solutions wygrało przetarg na kompleksową produkcję festiwalu dla marki United Beverages. To istotny krok w rozwoju n...',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
+        images: [],
+        hasMaterials: false,
+        videoUrl: null,
+        intro: 'Marzec 2026 roku przyniósł nam ważny sukces biznesowy. Art Bar Solutions wygrało przetarg na kompleksową produkcję festiwalu dla marki United Beverages. To istotny krok w rozwoju naszej firmy i początek kolejnego rozdziału w realizacji dużych projektów eventowych.',
+        bullets: [],
+        effect: 'Kolejny krok w rozwoju Art Bar Solutions',
+      },
+      {
+        id: 'circoloco-warsaw-w-muzeum',
+        num: '28',
+        date: '09.05.2026',
+        fullDate: '09.05.2026 · Polska',
+        title: 'Circoloco Warsaw w Muzeum Pałacu Króla Jana III w Wilanowie',
+        excerpt: '9 maja 2026 roku w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw – wydarzenie wywodzące się z kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej...',
+        coverImg: 'assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0213.jpg',
+        images: ["assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0213.jpg", "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0240.jpg", "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0427.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '9 maja 2026 roku w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw – wydarzenie wywodzące się z kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej, wyjątkowej atmosfery i charakterystycznej oprawy wizualnej.',
+        bullets: [],
+        effect: 'Produkcja eventowa dopasowana do charakteru wydarzenia',
+      },
+      {
+        id: 'strefa-barowa-dla-firmy',
+        num: '29',
+        date: '23.05.2026',
+        fullDate: '23.05.2026 · Polska',
+        title: 'Strefa barowa dla firmy Frontax Lotnisko Bemowo',
+        excerpt: '23 maja 2026 roku zrealizowaliśmy strefę barową podczas eventu firmowego Frontex na Lotnisku Bemowo w Warszawie. Zakres prac Art Bar Solutions obejmował przygotowanie infrastruktur...',
+        coverImg: 'assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523193344.jpg',
+        images: ["assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523193344.jpg", "assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523204219.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '23 maja 2026 roku zrealizowaliśmy strefę barową podczas eventu firmowego Frontex na Lotnisku Bemowo w Warszawie. Zakres prac Art Bar Solutions obejmował przygotowanie infrastruktury barowej oraz kompleksową obsługę serwisu w trakcie wydarzenia.',
+        bullets: [],
+        effect: 'Zadbaliśmy o przygotowanie baru i sprawną organizację obsługi uczestników, dopasowując realizację do charakteru wydarzenia i specyfiki lokalizacji.',
+      },
+      {
+        id: 'rooftop-be-about',
+        num: '30',
+        date: '18.06.2026',
+        fullDate: '18.06.2026 · Polska',
+        title: 'Rooftop Be About',
+        excerpt: '18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku. Otwarta przestrzeń i l...',
+        coverImg: 'assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg',
+        images: ["assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618172838.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618224022.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku. Otwarta przestrzeń i letnia atmosfera stworzyły wyjątkową oprawę spotkania.',
+        bullets: [],
+        effect: 'Naszym zadaniem była profesjonalna obsługa baru i sprawna organizacja serwisu dla uczestników wydarzenia. Zadbaliśmy o płynne funkcjonowanie strefy, dopasowując pracę zespołu do przebiegu eventu.',
+      },
+      {
+        id: 'mclinic',
+        num: '31',
+        date: '19.06.2026',
+        fullDate: '19.06.2026 · Polska',
+        title: 'Mclinic',
+        excerpt: 'Realizacja Art Bar Solutions: Mclinic. Kompleksowa obsługa barowa i scenografia eventowa.',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
+        images: [],
+        hasMaterials: false,
+        videoUrl: null,
+        intro: 'Realizacja Art Bar Solutions: Mclinic. Kompleksowa obsługa barowa i scenografia eventowa.',
+        bullets: [],
+        effect: '',
+      },
+      {
+        id: 'barber-night-s6-w',
+        num: '32',
+        date: '20.06.2026',
+        fullDate: '20.06.2026 · Polska',
+        title: 'Barber Night S6 w Butelkowni w Warszawie',
+        excerpt: '20 czerwca 2026 roku w warszawskiej Butelkowni odbyło się Barber Night S6 – największe wydarzenie fryzjerstwa męskiego w Polsce. Art Bar Solutions odpowiadało za obsługę strefy bar...',
+        coverImg: 'assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg',
+        images: ["assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '20 czerwca 2026 roku w warszawskiej Butelkowni odbyło się Barber Night S6 – największe wydarzenie fryzjerstwa męskiego w Polsce. Art Bar Solutions odpowiadało za obsługę strefy barowej, wykorzystując własne bary z identyfikacją wizualną dopasowaną do wydarzenia.',
+        bullets: [],
+        effect: 'Nasze bary stanowiły integralną część przestrzeni eventowej, łącząc funkcjonalność z dopracowaną oprawą wizualną. Zadbaliśmy również o profesjonalną obsługę i sprawny serwis, dopasowany do charakteru wydarzenia oraz potrzeb uczestników.',
+      },
+      {
+        id: 'before-festival-w-siedlcach',
+        num: '33',
+        date: '20-21.06.2026',
+        fullDate: '20-21.06.2026 · Polska',
+        title: 'Before Festival w Siedlcach',
+        excerpt: '20–21 czerwca 2026 roku Art Bar Solutions odpowiadało za produkcję barów eventowych z identyfikacją wizualną na Before Festival w Siedlcach. To coroczny festiwal hip-hopowy, który ...',
+        coverImg: 'assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg',
+        images: ["assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg", "assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160802.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '20–21 czerwca 2026 roku Art Bar Solutions odpowiadało za produkcję barów eventowych z identyfikacją wizualną na Before Festival w Siedlcach. To coroczny festiwal hip-hopowy, który otwiera letni sezon koncertowy w Polsce.',
+        bullets: [],
+        effect: 'Podczas realizacji wykorzystaliśmy modułową konstrukcję naszych barów, łącząc (tu można napisać ile modułów) w jeden kilkunastometrowy bar. Takie rozwiązanie pozwoliło stworzyć rozbudowaną strefę barową, dopasowaną do skali wydarzenia i potrzeb festiwalowej publiczności. Całość uzupełniała identyfikacja wizualna, która nadawała barowi spójny wygląd i wpisywała go w przestrzeń festiwalu.',
+      },
+      {
+        id: 'sikelia-di-tarrazzino-w',
+        num: '34',
+        date: '21.06.2026',
+        fullDate: '21.06.2026 · Polska',
+        title: 'Sikelia di Tarrazzino w warszawskim Koneserze',
+        excerpt: '21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze. Tym razem przygotowaliśmy dwa...',
+        coverImg: 'assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg',
+        images: ["assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze. Tym razem przygotowaliśmy dwa bary w stylu włoskim, dopasowane do charakteru spotkania i jego oprawy.',
+        bullets: [],
+        effect: 'To była dla nas intensywna końcówka weekendu – dzień wcześniej realizowaliśmy strefę barową na Befor Festival w Siedlcach, oraz Barber Night w Koneserze. Dwie realizacje w tej samej lokalizacji, ale o zupełnie innym charakterze, pokazują, jak elastycznie dopasowujemy nasze rozwiązania do różnych wydarzeń.',
+      },
+      {
+        id: 'zakup-namiotow-i-szkolenie',
+        num: '35',
+        date: '27.07.2026',
+        fullDate: '27.07.2026 · Polska',
+        title: 'Zakup namiotów i szkolenie w Poznaniu',
+        excerpt: '27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m². Ich elastyczna konstrukcja i charakterystyczna forma po...',
+        coverImg: 'assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg',
+        images: ["assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg", "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m². Ich elastyczna konstrukcja i charakterystyczna forma pozwalają tworzyć zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia.',
+        bullets: [],
+        effect: 'Jakie wydarzenia możemy obsłużyć z wykorzystaniem namiotów stretch?',
+      },
+      {
+        id: 'rap-poludnie-w-bielsko',
+        num: '36',
+        date: '01-02.08.2026',
+        fullDate: '01-02.08.2026 · Polska',
+        title: 'Rap Południe w Bielsko-Białej',
+        excerpt: '31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się premierowa edycja Rap Południe – festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy u...',
+        coverImg: 'assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_120318.jpg',
+        images: ["assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_120318.jpg", "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_171804.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się premierowa edycja Rap Południe – festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy uczestników. Art Bar Solutions odpowiadało za kompleksową realizację całej strefy barowej – od przygotowania infrastruktury po gotową przestrzeń do obsługi festiwalowej publiczności.',
+        bullets: [],
+        effect: 'Art Bar Solutions – kompleksowa infrastruktura festiwalowa',
+      },
+      {
+        id: 'festiwal-wisloujscie-w-gdansku',
+        num: '37',
+        date: '21-23.08.2026',
+        fullDate: '21-23.08.2026 · Polska',
+        title: 'Festiwal Wisłoujście w Gdańsku',
+        excerpt: 'W dniach 21–23 sierpnia 2026 roku po raz kolejny realizowaliśmy strefy barowe na Wisłoujście Festival w Gdańsku. Art Bar Solutions odpowiadało za produkcję zabudowy oraz obsługę ba...',
+        coverImg: 'assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174035.jpg',
+        images: ["assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174035.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174742.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260820213841.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_862.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_944.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: 'W dniach 21–23 sierpnia 2026 roku po raz kolejny realizowaliśmy strefy barowe na Wisłoujście Festival w Gdańsku. Art Bar Solutions odpowiadało za produkcję zabudowy oraz obsługę barów, dopasowując rozwiązania do specyfiki festiwalu i potrzeb organizatora.',
+        bullets: [],
+        effect: 'Indywidualna zabudowa i kolorowe podświetlenie',
+      },
+      {
+        id: 'xii-festiwal-whisky-na',
+        num: '38',
+        date: '28-29.08.2026',
+        fullDate: '28-29.08.2026 · Polska',
+        title: 'XII Festiwal Whisky na Hipodromie w Sopocie',
+        excerpt: 'Za nami nasza największa produkcja tego roku: 28–29 sierpnia 2026 roku na terenie Hipodromu Sopot odbyła się XII edycja Festiwalu Whisky Sopot. Przez dwa dni ponad 5 tysięcy uczest...',
+        coverImg: 'assets/images/aktualnosci/mlynowa/mlynowa-1.jpg',
+        images: [],
+        hasMaterials: false,
+        videoUrl: null,
+        intro: 'Za nami nasza największa produkcja tego roku: 28–29 sierpnia 2026 roku na terenie Hipodromu Sopot odbyła się XII edycja Festiwalu Whisky Sopot. Przez dwa dni ponad 5 tysięcy uczestników odkrywało świat whisky i alkoholi premium, korzystając z degustacji, warsztatów, koncertów oraz rozbudowanych stref tematycznych. Wydarzenie zajęło ponad 12 000 m² terenu, a to właśnie my odpowiadaliśmy za jego kompleksową realizację.',
+        bullets: [],
+        effect: 'Projekt na papierze, realizacja w rzeczywistości',
+      },
+      {
+        id: 'event-w-stylu-boho',
+        num: '39',
+        date: '04.09.2026',
+        fullDate: '04.09.2026 · Polska',
+        title: 'Event w stylu boho dla firmy Be About na Torze Służewiec',
+        excerpt: '4 września 2026 roku Art Bar Solutions odpowiadało za obsługę stref barowych podczas eventu firmowego dla Be About, zorganizowanego na warszawskim Torze Służewiec. Wydarzenie utrzy...',
+        coverImg: 'assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg',
+        images: ["assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: '4 września 2026 roku Art Bar Solutions odpowiadało za obsługę stref barowych podczas eventu firmowego dla Be About, zorganizowanego na warszawskim Torze Służewiec. Wydarzenie utrzymane w stylistyce boho łączyło swobodną atmosferę z dopracowaną oprawą przestrzeni.',
+        bullets: [],
+        effect: 'Naszym zadaniem była profesjonalna obsługa barów i zapewnienie sprawnego serwisu dla uczestników w formie open-bar. Przy wydarzeniach plenerowych istotne jest odpowiednie przygotowanie zespołu oraz organizacja pracy, które pozwalają utrzymać płynność obsługi przez cały event.',
+      },
+      {
+        id: 'targi-event-expo-poland',
+        num: '40',
+        date: '2026.09.30-10.01',
+        fullDate: '2026.09.30-10.01 · Polska',
+        title: 'Targi Event Expo Poland w Nadarzynie',
+        excerpt: 'W dniach 29 września – 1 października 2026 roku Art Bar Solutions uczestniczyło w targach Event Expo Poland w Nadarzynie. Była to świetna okazja, by zaprezentować naszą ofertę baro...',
+        coverImg: 'assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829738134_29214744774799794_1353027114779338448_n.jpg',
+        images: ["assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829738134_29214744774799794_1353027114779338448_n.jpg", "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829968750_29214744761466462_744772577248014698_n.jpg", "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831240202_29214744764799795_5896056766345836499_n.jpg", "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831327300_29214744768133128_6996826654849923360_n.jpg"],
+        hasMaterials: true,
+        videoUrl: null,
+        intro: 'W dniach 29 września – 1 października 2026 roku Art Bar Solutions uczestniczyło w targach Event Expo Poland w Nadarzynie. Była to świetna okazja, by zaprezentować naszą ofertę barową, pokazać możliwości aranżacji przestrzeni eventowych i spotkać się z ludźmi, którzy tak jak my lubią tworzyć ciekawe rzeczy.',
+        bullets: [],
+        effect: 'Na targach przygotowaliśmy przestrzeń łączącą charakterystyczny złoty kolor Art Bar Solutions z przytulną strefą wypoczynkową w stylu boho. Stworzyliśmy miejsce, w którym można było na chwilę zwolnić, napić się dobrej kawy, porozmawiać o biznesie i wymienić pomysłami. Nie zabrakło również naszego baru z pełną ofertą, który umilał targowy czas odwiedzającym.',
       }
     ];
 
-    let currentFeatured2Item = artbarNewsDatabase.find(n => n.id === 'flamingo-party') || artbarNewsDatabase[1]; // Domyślnie drugi wpis wyróżniony (Bary MDS)
     let currentModalNewsItem = artbarNewsDatabase[0]; // Domyślnie Młynowa
+    let currentModalPhotoIndex = 0; // Aktualny indeks zdjęcia wybranego w modalu
 
-    // Generowanie listy przycisków po prawej stronie
+    // ══════════════════════════════════════════════
+    // INTERAKTYWNA KARUZELA REALIZACJI (ARTBAR LUXURY CAROUSEL)
+    // ══════════════════════════════════════════════
+    let newsCarouselIndex = 0;
+
+    function getCarouselVisibleCount() {
+      return window.innerWidth >= 768 ? 2 : 1;
+    }
+
+    function getMaxCarouselIndex() {
+      const visible = getCarouselVisibleCount();
+      return Math.max(0, artbarNewsDatabase.length - visible);
+    }
+
+    // Zmienne obsługi przeciągania myszką
+    let carouselHasDragged = false;
+    let isCarouselDragging = false;
+    let carouselDragStartX = 0;
+    let carouselDragDiffX = 0;
+    let carouselStartOffset = 0;
+
+    function renderNewsCarousel() {
+      const track = document.getElementById('news-carousel-track');
+      if (!track) return;
+      track.innerHTML = '';
+
+      artbarNewsDatabase.forEach((item, idx) => {
+        const slide = document.createElement('article');
+        slide.className = 'news-carousel-slide flex-shrink-0 w-full md:w-[calc(50%-12px)] obsidian-card rounded-2xl overflow-hidden border border-[#FACB7D]/25 bg-[#0a0a0a]/90 backdrop-blur-xl flex flex-col justify-between shadow-[0_15px_45px_rgba(0,0,0,0.85)] hover:border-[#FACB7D] transition-all duration-300 group cursor-pointer';
+        slide.setAttribute('data-news-id', item.id);
+        slide.setAttribute('data-news-idx', String(idx));
+        
+        // Kliknięcie w kafelek otwiera modal (jeśli nie był to gest przeciągania myszką)
+        slide.addEventListener('click', () => {
+          if (carouselHasDragged) return;
+          openNewsModalById(item.id, 0);
+        });
+
+        // Podglądy miniatur (1 do 3 dodatkowych fotek)
+        let previewsHtml = '';
+        const extraImgs = (item.images && item.images.length > 1) ? item.images.slice(1, 4) : [];
+        if (extraImgs.length > 0) {
+          previewsHtml = `
+            <div class="grid grid-cols-${extraImgs.length} gap-2 pt-3 border-t border-white/5 mb-2">
+              ${extraImgs.map((imgUrl, i) => `
+                <img src="${imgUrl}" alt="${item.title} detal ${i + 1}" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" style="object-position: ${getImageObjectPosition(imgUrl)};" onclick="if (carouselHasDragged) return; event.stopPropagation(); openNewsModalById('${item.id}', ${i + 1})">
+              `).join('')}
+            </div>
+          `;
+        }
+
+        slide.innerHTML = `
+          <div>
+            <!-- Okładka z powiększoną czytelną datą -->
+            <div class="relative w-full h-56 overflow-hidden bg-black/80">
+              <img src="${item.coverImg}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" style="object-position: ${getImageObjectPosition(item.coverImg)};">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/40 pointer-events-none"></div>
+              <div class="absolute top-3.5 left-3.5 flex items-center gap-2 pointer-events-none">
+                <span class="px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-[#FACB7D]/60 text-[#FACB7D] text-xs font-mono font-bold tracking-wider uppercase">${item.date}</span>
+              </div>
+            </div>
+
+            <!-- Treść kafelka: powiększony tytuł i czytelniejszy opis -->
+            <div class="p-6">
+              <h3 class="font-serif-luxury text-xl font-bold text-white group-hover:text-[#FACB7D] transition-colors leading-snug mb-3">
+                ${item.title}
+              </h3>
+              <p class="text-xs text-[#f5efe6]/75 leading-relaxed font-light line-clamp-3 mb-4">
+                ${item.excerpt}
+              </p>
+              ${previewsHtml}
+            </div>
+          </div>
+
+          <!-- Przycisk CTA -->
+          <div class="px-6 pb-6 pt-2">
+            <button type="button" class="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/40 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+              <span>Zobacz pełny opis</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+        `;
+        track.appendChild(slide);
+      });
+
+      updateNewsCarouselPosition();
+      syncNewsColumnsHeight();
+    }
+
+    function updateNewsCarouselPosition() {
+      const track = document.getElementById('news-carousel-track');
+      const counter = document.getElementById('news-carousel-counter');
+      const progress = document.getElementById('news-carousel-progress');
+      if (!track) return;
+
+      const visible = getCarouselVisibleCount();
+      const maxIdx = getMaxCarouselIndex();
+      newsCarouselIndex = Math.max(0, Math.min(newsCarouselIndex, maxIdx));
+
+      const firstSlide = track.querySelector('.news-carousel-slide');
+      if (firstSlide) {
+        const slideWidth = firstSlide.offsetWidth;
+        const gap = 24; // gap-6
+        const offset = newsCarouselIndex * (slideWidth + gap);
+        track.style.transform = `translateX(-${offset}px)`;
+      }
+
+      if (counter) {
+        const start = newsCarouselIndex + 1;
+        const end = Math.min(newsCarouselIndex + visible, artbarNewsDatabase.length);
+        counter.textContent = `${start}${visible > 1 ? ' - ' + end : ''} / ${artbarNewsDatabase.length}`;
+      }
+
+      if (progress) {
+        const pct = ((newsCarouselIndex + visible) / artbarNewsDatabase.length) * 100;
+        progress.style.width = `${Math.min(100, Math.max(6, pct))}%`;
+      }
+    }
+
+    function navNewsCarousel(direction) {
+      const maxIdx = getMaxCarouselIndex();
+      newsCarouselIndex += direction;
+      if (newsCarouselIndex > maxIdx) {
+        newsCarouselIndex = 0;
+      } else if (newsCarouselIndex < 0) {
+        newsCarouselIndex = maxIdx;
+      }
+      updateNewsCarouselPosition();
+    }
+
+    function slideNewsCarouselToItem(newsId) {
+      const idx = artbarNewsDatabase.findIndex(n => n.id === newsId);
+      if (idx !== -1) {
+        newsCarouselIndex = Math.min(idx, getMaxCarouselIndex());
+        updateNewsCarouselPosition();
+      }
+    }
+
+    // Obsługa strzałek karuzeli
+    const cPrevBtn = document.getElementById('news-carousel-prev');
+    const cNextBtn = document.getElementById('news-carousel-next');
+    if (cPrevBtn) cPrevBtn.addEventListener('click', () => navNewsCarousel(-1));
+    if (cNextBtn) cNextBtn.addEventListener('click', () => navNewsCarousel(1));
+
+    // Obsługa przeciągania myszką (Mouse Drag) oraz swipe na karuzeli
+    const cViewport = document.getElementById('news-carousel-viewport');
+    const cTrack = document.getElementById('news-carousel-track');
+
+    function getCarouselCurrentOffset() {
+      const firstSlide = cTrack ? cTrack.querySelector('.news-carousel-slide') : null;
+      if (!firstSlide) return 0;
+      const slideWidth = firstSlide.offsetWidth;
+      const gap = 24;
+      return newsCarouselIndex * (slideWidth + gap);
+    }
+
+    if (cViewport && cTrack) {
+      cViewport.style.cursor = 'grab';
+
+      // Start przeciągania myszką
+      cViewport.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        isCarouselDragging = true;
+        carouselHasDragged = false;
+        carouselDragDiffX = 0;
+        carouselDragStartX = e.clientX;
+        carouselStartOffset = getCarouselCurrentOffset();
+        cTrack.style.transition = 'none';
+        cViewport.style.cursor = 'grabbing';
+      });
+
+      // Ruch myszką z kafelkami w czasie rzeczywistym
+      window.addEventListener('mousemove', (e) => {
+        if (!isCarouselDragging) return;
+        carouselDragDiffX = e.clientX - carouselDragStartX;
+        if (Math.abs(carouselDragDiffX) > 6) {
+          carouselHasDragged = true;
+        }
+        const currentOffset = carouselStartOffset - carouselDragDiffX;
+        cTrack.style.transform = `translateX(-${currentOffset}px)`;
+      });
+
+      // Puszczenie myszki i płynne dociągnięcie do slajdu
+      window.addEventListener('mouseup', () => {
+        if (!isCarouselDragging) return;
+        isCarouselDragging = false;
+        cViewport.style.cursor = 'grab';
+        cTrack.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+
+        if (carouselHasDragged && Math.abs(carouselDragDiffX) > 40) {
+          if (carouselDragDiffX > 0) {
+            navNewsCarousel(-1);
+          } else {
+            navNewsCarousel(1);
+          }
+        } else {
+          updateNewsCarouselPosition();
+        }
+
+        setTimeout(() => {
+          carouselHasDragged = false;
+        }, 80);
+      });
+
+      // Obsługa gestu swipe palcem na telefonach/tabletach
+      let touchStartX = 0;
+      let touchEndX = 0;
+      cViewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      cViewport.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) navNewsCarousel(-1);
+          else navNewsCarousel(1);
+        }
+      }, { passive: true });
+    }
+
+    window.addEventListener('resize', () => {
+      updateNewsCarouselPosition();
+      syncNewsColumnsHeight();
+    });
+
+    // ══════════════════════════════════════════════
+    // PRZESTRZENNA NAWIGACJA 3D W OKNIE MODALA
+    // ══════════════════════════════════════════════
+    function navigateNewsModal(direction) {
+      if (!currentModalNewsItem) return;
+      const currentIdx = artbarNewsDatabase.findIndex(n => n.id === currentModalNewsItem.id);
+      if (currentIdx === -1) return;
+
+      const total = artbarNewsDatabase.length;
+      const nextIdx = (currentIdx + direction + total) % total;
+      const nextItem = artbarNewsDatabase[nextIdx];
+
+      const card = document.getElementById('news-modal-card');
+      if (card) {
+        card.style.opacity = '0.35';
+        card.style.transform = `scale(0.97) translateX(${direction * -20}px)`;
+        setTimeout(() => {
+          openNewsModalById(nextItem.id, 0);
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1) translateX(0)';
+          card.scrollTop = 0;
+        }, 150);
+      } else {
+        openNewsModalById(nextItem.id, 0);
+      }
+    }
+
+    function updateModalAdjacentPeeks(currentIdx) {
+      if (typeof currentIdx !== 'number' || currentIdx < 0) return;
+      const total = artbarNewsDatabase.length;
+      const prevIdx = (currentIdx - 1 + total) % total;
+      const nextIdx = (currentIdx + 1) % total;
+
+      const prevItem = artbarNewsDatabase[prevIdx];
+      const nextItem = artbarNewsDatabase[nextIdx];
+
+      // Lewy podgląd 3D
+      const pImg = document.getElementById('news-modal-peek-prev-img');
+      const pDate = document.getElementById('news-modal-peek-prev-date');
+      const pTitle = document.getElementById('news-modal-peek-prev-title');
+      if (pImg) {
+        pImg.src = prevItem.coverImg;
+        pImg.style.objectPosition = getImageObjectPosition(prevItem.coverImg);
+      }
+      if (pDate) pDate.textContent = prevItem.date;
+      if (pTitle) pTitle.textContent = prevItem.title;
+
+      // Prawy podgląd 3D
+      const nImg = document.getElementById('news-modal-peek-next-img');
+      const nDate = document.getElementById('news-modal-peek-next-date');
+      const nTitle = document.getElementById('news-modal-peek-next-title');
+      if (nImg) {
+        nImg.src = nextItem.coverImg;
+        nImg.style.objectPosition = getImageObjectPosition(nextItem.coverImg);
+      }
+      if (nDate) nDate.textContent = nextItem.date;
+      if (nTitle) nTitle.textContent = nextItem.title;
+    }
+
+    // Generowanie listy przycisków po prawej stronie (Historia wpisów bez numeracji, z większą czcionką i równą wysokością kafelków)
     function renderNewsButtonsList() {
       const listEl = document.getElementById('news-buttons-list');
       if (!listEl) return;
@@ -4801,83 +5579,60 @@
       artbarNewsDatabase.forEach((item, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-[#FACB7D]/10 hover:border-[#FACB7D]/50 transition-all duration-200 group flex items-start gap-3 cursor-pointer';
+        // Równa wysokość (min-h-[76px]) z pionowym wycentrowaniem i większą czytelną typografią
+        btn.className = 'w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-[#FACB7D]/10 hover:border-[#FACB7D]/50 transition-all duration-200 group flex flex-col justify-center h-[86px] shrink-0 cursor-pointer';
 
         btn.innerHTML = `
-          <div class="w-7 h-7 rounded-lg bg-black/60 border border-white/10 group-hover:border-[#FACB7D] flex items-center justify-center shrink-0 text-[10px] font-mono text-[#FACB7D] font-bold">
-            ${item.num || String(idx + 1).padStart(2, '0')}
+          <div class="flex items-center gap-2 mb-1 shrink-0">
+            <span class="text-xs font-mono font-bold text-[#FACB7D] uppercase tracking-wider">${item.date}</span>
           </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-0.5">
-              <span class="text-[9px] font-mono font-bold text-[#FACB7D] uppercase">${item.date}</span>
-              ${item.hasMaterials ? '<span class="text-[8px] px-1.5 py-0.2 rounded bg-[#FACB7D] text-black font-bold uppercase">Gotowe</span>' : '<span class="text-[8px] px-1.5 py-0.2 rounded bg-white/10 text-white/60 font-mono uppercase">Wkrótce</span>'}
-            </div>
-            <div class="text-[11px] font-medium text-white/90 group-hover:text-[#FACB7D] transition-colors truncate">
-              ${item.title}
-            </div>
+          <div class="text-sm font-serif-luxury font-bold text-white/95 group-hover:text-[#FACB7D] transition-colors line-clamp-2 leading-snug h-10 flex items-center">
+            ${item.title}
           </div>
         `;
 
-        // Bezpośrednie otwarcie okna modala dla klikniętego wpisu
+        // Bezpośrednie otwarcie okna modala oraz przesunięcie karuzeli
         btn.addEventListener('click', () => {
+          slideNewsCarouselToItem(item.id);
           openNewsModalById(item.id, 0);
         });
 
         listEl.appendChild(btn);
       });
+
+      syncNewsColumnsHeight();
+    }
+
+    // Dynamiczne dopasowanie wysokości panelu historii wpisów do wysokości lewej karuzeli
+    function syncNewsColumnsHeight() {
+      const leftCol = document.querySelector('.lg\\:col-span-8');
+      const rightCol = document.querySelector('.lg\\:col-span-4');
+      const list = document.getElementById('news-buttons-list');
+      if (!leftCol || !rightCol || !list) return;
+
+      if (window.innerWidth >= 1024) {
+        list.style.height = 'auto';
+        list.style.maxHeight = 'none';
+        const leftH = leftCol.offsetHeight;
+        const overhead = rightCol.offsetHeight - list.offsetHeight;
+        const targetListH = Math.max(280, leftH - overhead);
+        list.style.height = `${targetListH}px`;
+        list.style.maxHeight = `${targetListH}px`;
+      } else {
+        list.style.height = 'auto';
+        list.style.maxHeight = '440px';
+      }
     }
 
     // Dynamiczna podmiana Ramki 2 po kliknięciu wpisu z listy
-    function setFeatured2NewsItem(newsId) {
-      const item = artbarNewsDatabase.find(n => n.id === newsId);
-      if (!item) return;
-      currentFeatured2Item = item;
-
-      const f2Img = document.getElementById('news-f2-img');
-      const f2Date = document.getElementById('news-f2-date');
-      const f2Badge = document.getElementById('news-f2-badge');
-      const f2Cat = document.getElementById('news-f2-category');
-      const f2Title = document.getElementById('news-f2-title');
-      const f2Excerpt = document.getElementById('news-f2-excerpt');
-
-      const card = document.getElementById('news-card-featured-2');
-      if (card) {
-        card.classList.add('scale-[0.98]', 'opacity-80');
-        setTimeout(() => {
-          if (f2Img) f2Img.src = item.coverImg;
-          if (f2Date) f2Date.textContent = item.date;
-          if (f2Badge) f2Badge.textContent = 'Wybrany z listy';
-          if (f2Cat) f2Cat.textContent = item.category;
-          if (f2Title) f2Title.textContent = item.title;
-          if (f2Excerpt) f2Excerpt.textContent = item.excerpt;
-
-          // Aktualizacja miniatur pod spodem ramki 2
-          const thumb1 = document.getElementById('news-f2-thumb-1');
-          const thumb2 = document.getElementById('news-f2-thumb-2');
-          const thumb3 = document.getElementById('news-f2-thumb-3');
-          if (thumb1 && item.images[1]) thumb1.src = item.images[1];
-          if (thumb2 && item.images[2]) thumb2.src = item.images[2];
-          if (thumb3 && item.images[3]) thumb3.src = item.images[3];
-
-          card.classList.remove('scale-[0.98]', 'opacity-80');
-        }, 150);
-      }
-
-      renderNewsButtonsList();
-    }
-
-    function openCurrentFeatured2Modal(imgIndex = 0) {
-      if (currentFeatured2Item) {
-        openNewsModalById(currentFeatured2Item.id, imgIndex);
-      }
-    }
+        
 
     // Otwieranie pełnego modala z treścią i galerią
         function getYouTubeEmbedUrl(url) {
       if (!url) return null;
       const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
       if (match) {
-        return `https://www.youtube.com/embed/${match[1]}?rel=0&modestbranding=1`;
+        return `https://www.youtube-nocookie.com/embed/${match[1]}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
       }
       return null;
     }
@@ -4906,7 +5661,8 @@
 
       const embedUrl = getYouTubeEmbedUrl(item.videoUrl);
       const hasVideo = !!embedUrl;
-      const hasImages = item.images && item.images.length > 0;
+      const allImages = (item.images && item.images.length > 0) ? item.images : (item.coverImg ? [item.coverImg] : []);
+      const hasImages = allImages.length > 0;
 
       // Zarządzanie widocznością sekcji mediów
       if (mediaSection) {
@@ -4920,6 +5676,8 @@
       // Funkcja przełączania na wideo w ramce
       function showVideoInModal() {
         if (heroImg) heroImg.classList.add('hidden');
+        const zoomBtn = document.getElementById('news-modal-zoom-btn');
+        if (zoomBtn) zoomBtn.classList.add('hidden');
         if (videoBox && videoIframe && embedUrl) {
           videoIframe.src = embedUrl;
           videoBox.classList.remove('hidden');
@@ -4929,6 +5687,7 @@
 
       // Funkcja przełączania na zdjęcie w ramce
       function showPhotoInModal(imgUrl, imgIndex) {
+        currentModalPhotoIndex = (typeof imgIndex === 'number') ? imgIndex : 0;
         if (videoBox && videoIframe) {
           videoBox.classList.add('hidden');
           videoIframe.src = ''; // zatrzymanie odtwarzania wideo
@@ -4937,6 +5696,8 @@
           heroImg.src = imgUrl;
           heroImg.classList.remove('hidden');
         }
+        const zoomBtn = document.getElementById('news-modal-zoom-btn');
+        if (zoomBtn) zoomBtn.classList.remove('hidden');
         updateActiveThumb(imgIndex);
       }
 
@@ -4974,19 +5735,19 @@
         }
 
         if (hasImages) {
-          item.images.forEach((imgUrl, idx) => {
+          allImages.forEach((imgUrl, idx) => {
             const pThumb = document.createElement('div');
             pThumb.setAttribute('data-thumb-type', String(idx));
             pThumb.className = 'relative w-24 h-16 rounded-lg overflow-hidden border-2 border-white/10 opacity-70 hover:opacity-100 hover:border-white/40 cursor-pointer shrink-0 transition-all';
             pThumb.innerHTML = `
-              <img src="${imgUrl}" alt="${item.title} foto ${idx + 1}" class="w-full h-full object-cover">
+              <img src="${imgUrl}" alt="${item.title} foto ${idx + 1}" class="w-full h-full object-cover" style="object-position: ${getImageObjectPosition(imgUrl)};">
             `;
             pThumb.addEventListener('click', () => showPhotoInModal(imgUrl, idx));
             thumbsWrap.appendChild(pThumb);
           });
         }
 
-        const totalThumbs = (hasVideo ? 1 : 0) + (hasImages ? item.images.length : 0);
+        const totalThumbs = (hasVideo ? 1 : 0) + (hasImages ? allImages.length : 0);
         if (totalThumbs > 1) {
           thumbsWrap.classList.remove('hidden');
         } else {
@@ -4996,10 +5757,12 @@
 
       // Ustalenie początkowego widoku:
       // Jeśli wpis posiada wideo, to wideo jest pierwszą grafiką/multimedium wyświetlanym w ramce!
-      if (hasVideo) {
+      if (typeof selectedImgIndex === 'number' && selectedImgIndex > 0 && allImages[selectedImgIndex]) {
+        showPhotoInModal(allImages[selectedImgIndex], selectedImgIndex);
+      } else if (hasVideo) {
         showVideoInModal();
       } else if (hasImages) {
-        showPhotoInModal(item.images[selectedImgIndex] || item.coverImg, selectedImgIndex);
+        showPhotoInModal(allImages[selectedImgIndex || 0] || item.coverImg, selectedImgIndex || 0);
       } else {
         if (videoBox) videoBox.classList.add('hidden');
         if (heroImg) heroImg.classList.add('hidden');
@@ -5050,18 +5813,6 @@
           `;
         }
 
-        let statusHtml = '';
-        if (item.statusNote) {
-          statusHtml = `
-            <div class="p-6 rounded-xl bg-[#FACB7D]/5 border border-[#FACB7D]/25 text-center my-6">
-              <span class="inline-block px-3 py-1 rounded-full bg-[#FACB7D]/15 text-[#FACB7D] text-[10px] font-mono font-bold uppercase tracking-wider mb-2">Status: W trakcie przygotowania</span>
-              <p class="text-xs sm:text-sm text-white/80 font-light">
-                ${item.statusNote}
-              </p>
-            </div>
-          `;
-        }
-
         contentEl.innerHTML = `
           <p class="text-sm sm:text-base text-white/90 leading-relaxed font-normal mb-6">
             ${item.intro || item.excerpt}
@@ -5069,15 +5820,186 @@
           ${bulletsHtml}
           ${effectHtml}
           ${noteHtml}
-          ${statusHtml}
+          
         `;
       }
+
+      const curIdx = artbarNewsDatabase.findIndex(n => n.id === item.id);
+      updateModalAdjacentPeeks(curIdx);
 
       backdrop.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
 
-        function closeNewsModal() {
+        // ══════════════════════════════════════════════
+    // LOGIKA PEŁNOEKRANOWEGO LIGHTBOXA DLA AKTUALNOŚCI
+    // ══════════════════════════════════════════════
+    let currentLightboxImages = [];
+    let currentLightboxIndex = 0;
+    let currentLightboxTitle = '';
+
+    function openNewsLightbox(images, startIndex = 0, title = '') {
+      if (!images || images.length === 0) return;
+      currentLightboxImages = images;
+      currentLightboxIndex = Math.max(0, Math.min(startIndex, images.length - 1));
+      currentLightboxTitle = title || (currentModalNewsItem ? currentModalNewsItem.title : '');
+
+      const nlb = document.getElementById('news-lightbox');
+      if (!nlb) return;
+
+      renderNewsLightboxSlide();
+      renderNewsLightboxThumbs();
+
+      nlb.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openNewsLightboxCurrent() {
+      if (!currentModalNewsItem) return;
+      // Jeśli wpis posiada listę zdjęć, użyj jej, w przeciwnym razie okładkę
+      const imgs = (currentModalNewsItem.images && currentModalNewsItem.images.length > 0)
+        ? currentModalNewsItem.images
+        : (currentModalNewsItem.coverImg ? [currentModalNewsItem.coverImg] : []);
+      
+      openNewsLightbox(imgs, currentModalPhotoIndex || 0, currentModalNewsItem.title);
+    }
+
+    function renderNewsLightboxSlide() {
+      const mainImg = document.getElementById('nlb-main-img');
+      const counter = document.getElementById('nlb-counter');
+      const titleEl = document.getElementById('nlb-title');
+      const prevBtn = document.getElementById('nlb-prev-btn');
+      const nextBtn = document.getElementById('nlb-next-btn');
+
+      if (!currentLightboxImages || currentLightboxImages.length === 0) return;
+
+      const total = currentLightboxImages.length;
+      if (mainImg) {
+        mainImg.src = currentLightboxImages[currentLightboxIndex];
+      }
+      if (counter) {
+        counter.textContent = `${currentLightboxIndex + 1} / ${total}`;
+      }
+      if (titleEl) {
+        titleEl.textContent = currentLightboxTitle;
+      }
+
+      // Widoczność strzałek
+      if (prevBtn) prevBtn.style.display = total > 1 ? 'flex' : 'none';
+      if (nextBtn) nextBtn.style.display = total > 1 ? 'flex' : 'none';
+
+      // Aktualizacja aktywnych miniatur w pasku Lightboxa
+      updateNewsLightboxActiveThumb();
+    }
+
+    function renderNewsLightboxThumbs() {
+      const thumbsBar = document.getElementById('nlb-thumbs-bar');
+      if (!thumbsBar) return;
+      thumbsBar.innerHTML = '';
+
+      if (currentLightboxImages.length <= 1) {
+        thumbsBar.parentElement.style.display = 'none';
+        return;
+      }
+      thumbsBar.parentElement.style.display = 'block';
+
+      currentLightboxImages.forEach((imgUrl, idx) => {
+        const thumb = document.createElement('div');
+        thumb.setAttribute('data-nlb-idx', String(idx));
+        thumb.className = `relative w-16 h-12 sm:w-20 sm:h-14 rounded-lg overflow-hidden border-2 cursor-pointer shrink-0 transition-all ${
+          idx === currentLightboxIndex
+            ? 'border-[#FACB7D] scale-105 shadow-[0_0_12px_rgba(250,203,125,0.5)]'
+            : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/40'
+        }`;
+        thumb.innerHTML = `<img src="${imgUrl}" alt="Miniatura ${idx + 1}" class="w-full h-full object-cover" style="object-position: ${getImageObjectPosition(imgUrl)};">`;
+        thumb.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentLightboxIndex = idx;
+          renderNewsLightboxSlide();
+        });
+        thumbsBar.appendChild(thumb);
+      });
+    }
+
+    function updateNewsLightboxActiveThumb() {
+      const thumbsBar = document.getElementById('nlb-thumbs-bar');
+      if (!thumbsBar) return;
+      thumbsBar.querySelectorAll('[data-nlb-idx]').forEach(th => {
+        const idx = parseInt(th.getAttribute('data-nlb-idx'), 10);
+        if (idx === currentLightboxIndex) {
+          th.className = 'relative w-16 h-12 sm:w-20 sm:h-14 rounded-lg overflow-hidden border-2 border-[#FACB7D] scale-105 shadow-[0_0_12px_rgba(250,203,125,0.5)] cursor-pointer shrink-0 transition-all';
+          th.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          th.className = 'relative w-16 h-12 sm:w-20 sm:h-14 rounded-lg overflow-hidden border-2 border-white/10 opacity-60 hover:opacity-100 hover:border-white/40 cursor-pointer shrink-0 transition-all';
+        }
+      });
+    }
+
+    function navNewsLightbox(direction) {
+      if (!currentLightboxImages || currentLightboxImages.length <= 1) return;
+      currentLightboxIndex = (currentLightboxIndex + direction + currentLightboxImages.length) % currentLightboxImages.length;
+      renderNewsLightboxSlide();
+    }
+
+    function closeNewsLightbox() {
+      const nlb = document.getElementById('news-lightbox');
+      if (nlb) nlb.classList.add('hidden');
+      // Jeśli modal wpisu jest wciąż otwarty, nie odblokowuj scrolla całego okna
+      const newsModal = document.getElementById('news-modal-backdrop');
+      if (newsModal && !newsModal.classList.contains('hidden')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function onNewsLightboxBackdropClick(event) {
+      // Zamknięcie po kliknięciu w tło wokół zdjęcia
+      if (event.target.id === 'nlb-main-img' || event.target.closest('button')) return;
+      closeNewsLightbox();
+    }
+
+    // Klawiatura dla Lightboxa i modala aktualności (Left/Right nawiguje między wydarzeniami!)
+    window.addEventListener('keydown', (e) => {
+      const nlb = document.getElementById('news-lightbox');
+      const isLbOpen = nlb && !nlb.classList.contains('hidden');
+      const modal = document.getElementById('news-modal-backdrop');
+      const isModalOpen = modal && !modal.classList.contains('hidden');
+
+      if (e.key === 'Escape') {
+        if (isLbOpen) {
+          closeNewsLightbox();
+        } else if (isModalOpen) {
+          closeNewsModal();
+        }
+      } else if (isLbOpen) {
+        if (e.key === 'ArrowLeft') navNewsLightbox(-1);
+        else if (e.key === 'ArrowRight') navNewsLightbox(1);
+      } else if (isModalOpen) {
+        if (e.key === 'ArrowLeft') navigateNewsModal(-1);
+        else if (e.key === 'ArrowRight') navigateNewsModal(1);
+      }
+    });
+
+    // Obsługa gestów swipe na telefonie
+    let nlbTouchStartX = 0;
+    const nlbElement = document.getElementById('news-lightbox');
+    if (nlbElement) {
+      nlbElement.addEventListener('touchstart', (e) => {
+        nlbTouchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      nlbElement.addEventListener('touchend', (e) => {
+        const nlbTouchEndX = e.changedTouches[0].screenX;
+        const diff = nlbTouchEndX - nlbTouchStartX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) navNewsLightbox(-1); // Swipe w prawo -> poprzednie
+          else navNewsLightbox(1);          // Swipe w lewo -> następne
+        }
+      }, { passive: true });
+    }
+
+    function closeNewsModal() {
       const backdrop = document.getElementById('news-modal-backdrop');
       if (backdrop) backdrop.classList.add('hidden');
       document.body.style.overflow = '';
@@ -5087,22 +6009,72 @@
       if (videoBox) videoBox.classList.add('hidden');
     }
 
-    // Zamknięcie modala klawiszem Escape lub kliknięciem w tło
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeNewsModal();
-    });
+    
     const newsModalBackdrop = document.getElementById('news-modal-backdrop');
     if (newsModalBackdrop) {
       newsModalBackdrop.addEventListener('click', (e) => {
-        if (e.target === newsModalBackdrop) closeNewsModal();
+        if (e.target === newsModalBackdrop || e.target.id === 'news-modal-spatial-stage') {
+          closeNewsModal();
+        }
       });
     }
 
-    // Inicjalizacja listy przy starcie
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderNewsButtonsList);
-    } else {
+    // Obsługa gestu Swipe w oknie modala (płynne przełączanie wydarzeń gestem palca na telefonie)
+    let modalTouchStartX = 0;
+    let modalTouchStartY = 0;
+    function getTouchPos(e) {
+      if (!e.changedTouches || e.changedTouches.length === 0) return null;
+      const t = e.changedTouches[0];
+      const x = (typeof t.clientX === 'number' && t.clientX !== 0) ? t.clientX : (typeof t.screenX === 'number' && t.screenX !== 0 ? t.screenX : (t.clientX || t.screenX || 0));
+      const y = (typeof t.clientY === 'number' && t.clientY !== 0) ? t.clientY : (typeof t.screenY === 'number' && t.screenY !== 0 ? t.screenY : (t.clientY || t.screenY || 0));
+      return { x, y };
+    }
+
+    window.addEventListener('touchstart', (e) => {
+      const nmb = document.getElementById('news-modal-backdrop');
+      if (!nmb || nmb.classList.contains('hidden')) return;
+      const nlb = document.getElementById('news-lightbox');
+      if (nlb && !nlb.classList.contains('hidden')) return;
+      const pos = getTouchPos(e);
+      if (!pos) return;
+      modalTouchStartX = pos.x;
+      modalTouchStartY = pos.y;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const nmb = document.getElementById('news-modal-backdrop');
+      if (!nmb || nmb.classList.contains('hidden')) return;
+      const nlb = document.getElementById('news-lightbox');
+      if (nlb && !nlb.classList.contains('hidden')) return;
+      const pos = getTouchPos(e);
+      if (!pos) return;
+      const diffX = pos.x - modalTouchStartX;
+      const diffY = pos.y - modalTouchStartY;
+      // Reaguj tylko na wyraźny gest horyzontalny (nie zaburzając pionowego scrollowania artykułu)
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          navigateNewsModal(-1);
+        } else {
+          navigateNewsModal(1);
+        }
+      }
+    }, { passive: true });
+
+    // Inicjalizacja listy i karuzeli przy starcie
+    function initNewsSection() {
+      renderNewsCarousel();
       renderNewsButtonsList();
+      syncNewsColumnsHeight();
+      setTimeout(syncNewsColumnsHeight, 150);
+      setTimeout(syncNewsColumnsHeight, 500);
+    }
+
+    window.addEventListener('load', syncNewsColumnsHeight);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNewsSection);
+    } else {
+      initNewsSection();
     }
 
   </script>
