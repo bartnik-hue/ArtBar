@@ -2186,14 +2186,7 @@
         </div>
       </div>
 
-      <!-- PASEK WYBORU IMPREZY NAD SIATKĄ -->
-      <div id="realizacje-filter-bar" class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-3 mb-8 scrollbar-none">
-        <button type="button" data-filter="all" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20">Wszystkie (123)</button>
-        <button type="button" data-filter="Sylwester" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Sylwester (36)</button>
-        <button type="button" data-filter="Halloween" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Halloween Oczki (36)</button>
-        <button type="button" data-filter="Klubowe" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Klubowe & Barmani (27)</button>
-        <button type="button" data-filter="Scenografia" class="realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white">Scenografia Pandora (24)</button>
-      </div>
+
 
       <!-- SIATKA WYRÓŻNIONYCH ZDJĘĆ -->
       <div id="featured-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -2813,47 +2806,8 @@
       });
     });
 
-    // Filtry na stronie głównej w sekcji Realizacje
-    const pageFilterButtons = document.querySelectorAll('.realizacje-filter-btn');
+    // Karty w sekcji portfolio
     const photoCards = document.querySelectorAll('.featured-photo-card');
-
-    pageFilterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter') || 'all';
-
-        // Aktualizacja stylu przycisków na stronie
-        pageFilterButtons.forEach(b => {
-          if (b === btn) {
-            b.className = 'realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-[#FACB7D] text-black font-bold shadow-md shadow-[#FACB7D]/20';
-          } else {
-            b.className = 'realizacje-filter-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white/70 hover:border-[#FACB7D]/50 hover:text-white';
-          }
-        });
-
-        // Filtrowanie kart na stronie głównej
-        photoCards.forEach(card => {
-          const cardCat = card.getAttribute('data-category');
-          if (card.id === 'card-open-more') {
-            card.style.display = '';
-            const titleSpan = card.querySelector('.gold-gradient-text');
-            if (titleSpan) {
-              if (filter === 'all') titleSpan.textContent = '123 zdjęcia';
-              else if (filter === 'Sylwester') titleSpan.textContent = '36 zdjęć';
-              else if (filter === 'Halloween') titleSpan.textContent = '36 zdjęć';
-              else if (filter === 'Klubowe') titleSpan.textContent = '27 zdjęć';
-              else if (filter === 'Scenografia') titleSpan.textContent = '24 zdjęcia';
-            }
-            card.setAttribute('data-category', filter);
-          } else {
-            if (filter === 'all' || cardCat === filter) {
-              card.style.display = '';
-            } else {
-              card.style.display = 'none';
-            }
-          }
-        });
-      });
-    });
 
     // Event listenery dla przycisków w galerii
     document.getElementById('lb-close-btn').addEventListener('click', closeGallery);
