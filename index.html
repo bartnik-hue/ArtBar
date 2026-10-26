@@ -1997,10 +1997,17 @@
 
     <!-- GŁÓWNA ROZKŁADÓWKA GAZETOWA (WYPEŁNIAJĄCA CAŁY PION STRONY) -->
     <main id="news-modal-card" class="relative z-10 w-full flex-1 min-h-0 overflow-y-auto lg:overflow-hidden px-3 sm:px-6 lg:px-24 py-3 sm:py-4">
-      <div class="obsidian-card bg-[#0b0a09]/92 backdrop-blur-2xl border border-[#FACB7D]/35 rounded-2xl sm:rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.98)] w-full lg:h-full flex flex-col overflow-hidden">
+      <div class="obsidian-card relative bg-[#0b0a09]/85 backdrop-blur-2xl border border-[#FACB7D]/35 rounded-2xl sm:rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.98)] w-full lg:h-full flex flex-col overflow-hidden">
+
+        <!-- SUBTELNE GŁÓWNE ZDJĘCIE W TLE DANEGO WYDARZENIA (LEKKO WIDOCZNE) -->
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+          <img id="news-modal-card-bg-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-700 ease-in-out filter blur-[1px] brightness-110" style="opacity: 0.28;">
+          <div class="absolute inset-0 bg-gradient-to-r from-[#0b0a09]/90 via-[#0b0a09]/65 to-[#0b0a09]/75"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0b0a09]/95 via-transparent to-[#0b0a09]/70"></div>
+        </div>
 
         <!-- Treść: kolumna tekstu (auto-skalowana do ekranu) + galeria zdjęć w oryginalnych proporcjach -->
-        <div id="news-modal-body" class="flex-1 min-h-0 grid grid-cols-1 lg:grid-rows-[minmax(0,1fr)] gap-6 lg:gap-10 p-5 sm:p-7 lg:p-9">
+        <div id="news-modal-body" class="relative z-10 flex-1 min-h-0 grid grid-cols-1 lg:grid-rows-[minmax(0,1fr)] gap-6 lg:gap-10 p-5 sm:p-7 lg:p-9">
 
           <div id="news-modal-textcol" class="min-h-0 overflow-hidden">
             <div id="news-modal-textinner" class="text-[#f5efe6]" style="font-size:16px;">
@@ -2015,7 +2022,7 @@
         </div>
 
         <!-- Dolny pasek kontaktowy CTA -->
-        <div class="px-5 sm:px-9 py-3 border-t border-[#FACB7D]/20 bg-[#090807]/95 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="relative z-10 px-5 sm:px-9 py-3 border-t border-[#FACB7D]/20 bg-[#090807]/95 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
             <div id="news-modal-cta-title" class="font-serif-luxury text-sm sm:text-base font-bold text-white leading-snug">Planujesz festiwal, event lub bankiet?</div>
             <div id="news-modal-cta-desc" class="text-xs text-[#f5efe6]/70 mt-0.5">Zaprojektujmy Twój bar. Skontaktuj się z nami.</div>
@@ -6267,6 +6274,11 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       if (bgImg) {
         bgImg.src = item.coverImg;
         bgImg.style.objectPosition = getImageObjectPosition(item.coverImg);
+      }
+      const cardBgImg = document.getElementById('news-modal-card-bg-img');
+      if (cardBgImg) {
+        cardBgImg.src = item.coverImg;
+        cardBgImg.style.objectPosition = getImageObjectPosition(item.coverImg);
       }
       if (editionEl) editionEl.textContent = `№ ${item.date}`;
       if (catEl) catEl.textContent = item.category || '';
