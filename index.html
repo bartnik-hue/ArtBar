@@ -2493,6 +2493,17 @@
        WIDOK PEŁNOEKRANOWY DZIAŁU: CINEMATIC ZOOM PORTAL (V3)
        ══════════════════════════════════════════════ -->
   <div id="dept-modal-backdrop" class="is-hidden fixed inset-0 z-50 flex flex-col bg-black/92 backdrop-blur-2xl overflow-y-auto select-text">
+    
+    <!-- PŁYWAJĄCA STRZAŁKA W LEWO (POPRZEDNI DZIAŁ) -->
+    <button id="dept-modal-arrow-prev" type="button" aria-label="Poprzedni dział" class="fixed left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-50 w-7 sm:w-9 md:w-11 xl:w-12 h-28 sm:h-36 md:h-48 xl:h-56 rounded-xl sm:rounded-2xl md:rounded-3xl bg-black/90 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_8px_30px_rgba(0,0,0,0.95)] hover:shadow-[0_0_30px_rgba(250,203,125,0.4)] active:scale-95 group" title="Poprzedni dział (←)">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transform group-hover:-translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+
+    <!-- PŁYWAJĄCA STRZAŁKA W PRAWO (NASTĘPNY DZIAŁ) -->
+    <button id="dept-modal-arrow-next" type="button" aria-label="Następny dział" class="fixed right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 w-7 sm:w-9 md:w-11 xl:w-12 h-28 sm:h-36 md:h-48 xl:h-56 rounded-xl sm:rounded-2xl md:rounded-3xl bg-black/90 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-[0_8px_30px_rgba(0,0,0,0.95)] hover:shadow-[0_0_30px_rgba(250,203,125,0.4)] active:scale-95 group" title="Następny dział (→)">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+    </button>
+
     <div id="dept-modal-card" class="relative w-full min-h-screen flex flex-col justify-between">
       
       <!-- GÓRNY PASEK NAWIGACJI PEŁNEGO EKRANU -->
@@ -2561,20 +2572,15 @@
 
       </main>
 
-      <!-- DOLNY PASEK NAWIGACJI MIĘDZY DZIAŁAMI ORAZ KONFIGURATOR -->
+      <!-- DOLNY PASEK KONFIGURATORA I KONTAKTU -->
       <footer class="portal-anim-item w-full border-t border-white/10 bg-black/80 backdrop-blur-xl py-6 px-6 sm:px-10 lg:px-16">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div class="flex items-center gap-4 text-xs">
-            <span class="text-white/50">Nawigacja po działach:</span>
-            <button id="modal-prev-dept" type="button" class="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-[#FACB7D]/20 text-[#FACB7D] font-bold transition-all flex items-center gap-1.5 cursor-pointer">
-              ← Poprzedni
-            </button>
-            <button id="modal-next-dept" type="button" class="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-[#FACB7D]/20 text-[#FACB7D] font-bold transition-all flex items-center gap-1.5 cursor-pointer">
-              Następny →
-            </button>
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-pulse"></span>
+            <span class="text-xs font-mono font-bold text-[#FACB7D] uppercase tracking-wider">ArtBar Solutions · Ekosystem Eventowy</span>
           </div>
 
-          <div class="flex items-center gap-4 w-full sm:w-auto">
+          <div class="flex items-center gap-4 w-full sm:w-auto justify-center sm:justify-end">
             <a href="#konfigurator-section" onclick="closeDeptModal()" class="w-full sm:w-auto px-7 py-3 rounded-full bg-white/5 border border-[#FACB7D]/40 text-[#FACB7D] hover:bg-[#FACB7D]/20 text-xs font-bold uppercase tracking-wider text-center transition-all">
               Konfigurator 3D
             </a>
@@ -3680,8 +3686,8 @@
     const modalLead = document.getElementById('modal-lead');
     const modalServicesList = document.getElementById('modal-services-list');
     const modalGallery = document.getElementById('modal-gallery');
-    const modalPrevDeptBtn = document.getElementById('modal-prev-dept');
-    const modalNextDeptBtn = document.getElementById('modal-next-dept');
+    const modalPrevDeptBtn = document.getElementById('dept-modal-arrow-prev');
+    const modalNextDeptBtn = document.getElementById('dept-modal-arrow-next');
 
     let currentOpenDeptIdx = 0;
 
