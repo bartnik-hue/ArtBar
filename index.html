@@ -5734,23 +5734,10 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
           openNewsModalById(item.id, 0);
         });
 
-        // Podglądy miniatur (1 do 3 dodatkowych fotek)
-        let previewsHtml = '';
-        const extraImgs = (item.images && item.images.length > 1) ? item.images.slice(1, 4) : [];
-        if (extraImgs.length > 0) {
-          previewsHtml = `
-            <div class="grid grid-cols-${extraImgs.length} gap-2 pt-3 border-t border-white/5 mb-2">
-              ${extraImgs.map((imgUrl, i) => `
-                <img src="${imgUrl}" alt="${item.title} detal ${i + 1}" class="w-full h-14 object-cover rounded-lg border border-white/10 hover:border-[#FACB7D] transition-all cursor-pointer" style="object-position: ${getImageObjectPosition(imgUrl)};" onclick="if (carouselHasDragged) return; event.stopPropagation(); openNewsModalById('${item.id}', ${i + 1})">
-              `).join('')}
-            </div>
-          `;
-        }
-
         slide.innerHTML = `
           <div>
             <!-- Okładka z powiększoną czytelną datą -->
-            <div class="relative w-full h-56 overflow-hidden bg-black/80">
+            <div class="relative w-full h-56 sm:h-60 overflow-hidden bg-black/80">
               <img src="${item.coverImg}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" style="object-position: ${getImageObjectPosition(item.coverImg)};">
               <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/40 pointer-events-none"></div>
               <div class="absolute top-3.5 left-3.5 flex items-center gap-2 pointer-events-none">
@@ -5759,24 +5746,23 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
             </div>
 
             <!-- Treść kafelka: powiększony tytuł i czytelniejszy opis -->
-            <div class="p-6">
+            <div class="p-6 pb-2">
               <h3 class="font-serif-luxury text-xl font-bold text-white group-hover:text-[#FACB7D] transition-colors leading-snug mb-3">
                 ${item.title}
               </h3>
-              <div class="text-xs text-[#f5efe6]/80 leading-relaxed font-light space-y-1.5 mb-4">
+              <div class="text-xs text-[#f5efe6]/80 leading-relaxed font-light space-y-1.5">
                 <p class="text-white/90 leading-snug font-normal">${item.s1 || item.excerpt}</p>
                 ${item.s2 ? `<p class="text-[#f5efe6]/65 leading-snug">${item.s2}</p>` : ''}
               </div>
-              ${previewsHtml}
             </div>
           </div>
 
-          <!-- Przycisk CTA -->
-          <div class="px-6 pb-6 pt-2">
-            <button type="button" class="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/40 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-              <span>Zobacz pełny opis</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </button>
+          <!-- Złoty link tekstowy w prawym dolnym rogu (Zobacz pełen opis) -->
+          <div class="px-6 pb-6 pt-3 flex justify-end">
+            <span class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-serif-luxury font-semibold text-[#FACB7D] group-hover:text-white transition-colors tracking-wide">
+              <span>Zobacz pełen opis</span>
+              <svg class="w-3.5 h-3.5 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
           </div>
         `;
         track.appendChild(slide);
