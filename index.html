@@ -1765,7 +1765,7 @@
 
           <!-- Cytat / Wyróżnik -->
           <div class="p-4 rounded-xl bg-[#0a0a0a] border-l-2 border-[#FACB7D] text-xs sm:text-sm text-[#FACB7D]/90 font-light italic mb-8">
-            "Bary na eventach to nie tylko miejsce serwowania drinków – to kluczowa strefa doświadczeń gości oraz główne źródło rentowności wydarzenia."
+            "Bary na eventach to nie tylko miejsce serwowania drinków <br>– to kluczowa strefa doświadczeń gości oraz główne źródło rentowności wydarzenia."
           </div>
 
           <!-- Przyciski CTA -->
@@ -2009,11 +2009,11 @@
         <!-- Treść: kolumna tekstu (auto-skalowana do ekranu) + galeria zdjęć w oryginalnych proporcjach -->
         <div id="news-modal-body" class="relative z-10 flex-1 min-h-0 grid grid-cols-1 lg:grid-rows-[minmax(0,1fr)] gap-6 lg:gap-10 p-5 sm:p-7 lg:p-9">
 
-          <div id="news-modal-textcol" class="min-h-0 overflow-hidden">
-            <div id="news-modal-textinner" class="text-[#f5efe6]" style="font-size:16px;">
+          <div id="news-modal-textcol" class="min-h-0 overflow-y-auto scrollbar-thin pr-1 sm:pr-2.5">
+            <div id="news-modal-textinner" class="text-[#f5efe6]" style="font-size:15.5px;">
               <h1 id="news-modal-title" class="font-serif-luxury font-bold tracking-tight text-white drop-shadow-xl" style="font-size:2.1em;line-height:1.08;margin-bottom:0.45em;">Tytuł wpisu</h1>
-              <div id="news-modal-lead" class="border-l-4 border-[#FACB7D] italic font-light text-[#f5efe6] bg-white/[0.02] rounded-r-xl" style="font-size:1.1em;line-height:1.45;padding:0.4em 0 0.4em 0.9em;margin-bottom:0.8em;"></div>
-              <div id="news-modal-content" class="font-light" style="line-height:1.5;"></div>
+              <div id="news-modal-lead" class="border-l-4 border-[#FACB7D] italic font-light text-[#f5efe6] bg-gradient-to-r from-[#FACB7D]/10 via-[#FACB7D]/[0.03] to-transparent rounded-r-xl" style="font-size:1.12em;line-height:1.55;padding:0.6em 0 0.6em 1.1em;margin-bottom:1.3em;"></div>
+              <div id="news-modal-content" class="font-light" style="line-height:1.68;"></div>
             </div>
           </div>
 
@@ -2117,12 +2117,9 @@
               <h3 class="font-serif-luxury text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#f5efe6] mb-4 sm:mb-6 text-center leading-[1.12]">
                 <span class="block">Zaprojektuj Swój Bar</span>
                 <span class="block gold-gradient-text">w Czasie Rzeczywistym</span>
-              </h3>
+              </h3></br></br>
 
-              <p class="text-base sm:text-xl text-[#f5efe6]/85 leading-relaxed font-light mb-8 sm:mb-10 max-w-2xl sm:max-w-3xl">
-                <span class="block mb-1">Kliknij poniżej, aby załadować interaktywny silnik 3D bezpośrednio w&nbsp;oknie strony.</span>
-                <span class="block text-[#f5efe6]/65 text-sm sm:text-base">Możesz także przejść do dedykowanego widoku pełnoekranowego w&nbsp;nowej karcie.</span>
-              </p>
+       
 
               <!-- Dwa przyciski zgodnie z wytycznymi -->
               <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
@@ -4794,11 +4791,12 @@ Art Bar Solutions tworzy unikalne kocepty eventowe: od stref barowych, przez sce
         images: ["assets/images/2024.12.31-Art-Bar-26-768x512.jpg", "assets/images/2024.12.31-Art-Bar-73-2.jpg", "assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg"],
         hasMaterials: true,
         videoUrl: 'https://www.youtube-nocookie.com/embed/O92yrjo45Og?si=dtE8TwV1kLROWbu-&controls=0',
+        videoAspect: 16 / 9,
         intro: `Stworzyliśmy MDS (Modular Design System) – własną infrastrukturę barową, którą projektujemy, produkujemy i obsługujemy w 100% samodzielnie. Od pierwszego szkicu w warsztacie po finalny montaż na evencie, odpowiadamy za każdy etap realizacji.
 
 System opiera się na uniwersalnych modułach łączonych w dowolne układy. Ta sama konstrukcja doskonale sprawdza się zarówno na kameralnych bankietach, jak i masowych festiwalach dla tysięcy gości, zapewniając powtarzalną jakość, stabilność i pełną swobodę aranżacji.`,
         bulletsTitle: 'Co zyskujesz jako organizator?',
-        bullets: ["Elastyczność: Bar o dowolnej długości i kształcie, precyzyjnie dopasowany do przestrzeni i skali wydarzenia.", "Szybkość: Zoptymalizowana logistyka oraz błyskawiczny montaż i demontaż, oszczędzające czas podczas prób i produkcji.", "Personalizacja: Spójny, nowoczesny wygląd z opcją łatwego brandingu pod identyfikację wizualną marki lub motyw przewodni eventu.", "Funkcjonalność: W pełni wyposażone stanowiska ze zintegrowanym oświetleniem LED RGB, profesjonalnymi speedrackami i kompletną instalacją elektryczną.", "Jeden partner: Projekt, konstrukcja, technika i obsługa barmańska spoczywają w jednych rękach."],
+        bullets: ["Elastyczność: Bar o dowolnej długości i kształcie,</br>precyzyjnie dopasowany do przestrzeni i skali wydarzenia.", "Szybkość: Zoptymalizowana logistyka oraz błyskawiczny montaż i demontaż,</br>oszczędzające czas podczas prób i produkcji.", "Personalizacja: Spójny, nowoczesny wygląd z opcją łatwego brandingu</br>pod identyfikację wizualną marki lub motyw przewodni eventu.", "Funkcjonalność: W pełni wyposażone stanowiska ze zintegrowanym oświetleniem LED RGB, profesjonalnymi speedrackami i kompletną instalacją elektryczną.", "Jeden partner: Projekt, konstrukcja, technika i obsługa barmańska</br>spoczywają w jednych rękach."],
         effect: `MDS to fundament naszej oferty i dowód na to, jak w praktyce rozumiemy całościową realizację stref barowych.`,
         footerNote: `Planujesz festiwal, event lub bankiet? Zaprojektujmy Twój bar →`,
       },
@@ -5013,7 +5011,7 @@ Neptun Calling to kolejny przykład naszego podejścia do produkcji eventów –
 
 Festiwal odbywa się w zabytkowej Twierdzy Wisłoujście i łączy muzykę elektroniczną z artystyczną scenografią oraz rozbudowanymi projektami świetlnymi. W takiej przestrzeni bar musi być nie tylko sprawnym punktem obsługi gości, ale też częścią scenografii.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["produkcja i montaż zabudowy wszystkich stref barowych,", "identyfikacja wizualna barów, spójna z charakterem wydarzenia i wyróżniająca poszczególne strefy,", "podświetlenie LED, które podkreślało formę zabudowy i eksponowało branding,", "dopracowanie wyglądu i detali na każdym etapie.", "Po zmroku bary współgrały ze świetlną oprawą festiwalu i stawały się jednym z jej elementów."],
+        bullets: ["produkcja i montaż zabudowy wszystkich stref barowych,", "identyfikacja wizualna barów, spójna z charakterem wydarzenia</br>i wyróżniająca poszczególne strefy,", "podświetlenie LED, które podkreślało formę zabudowy</br>i eksponowało branding,", "dopracowanie wyglądu i detali na każdym etapie.", "Po zmroku bary współgrały ze świetlną oprawą festiwalu</br>i stawały się jednym z jej elementów."],
         effect: `Kolejna wspólna edycja potwierdza, że przy wydarzeniach tej skali liczy się jednocześnie sprawna produkcja i spójny efekt wizualny. Dziękujemy organizatorom za zaufanie.`,
         footerNote: `Planujesz festiwal lub wydarzenie plenerowe? Skontaktuj się z nami, a zaprojektujemy i wyprodukujemy strefy barowe dopasowane do Twojego wydarzenia.`,
       },
@@ -5034,7 +5032,8 @@ Festiwal odbywa się w zabytkowej Twierdzy Wisłoujście i łączy muzykę elekt
 
 Na gali tej rangi bar to nie tylko punkt serwowania napojów, ale też miejsce, w którym goście bezpośrednio spotykają się z marką. Dlatego zadbaliśmy, by zabudowa była funkcjonalna, estetyczna i spójnie wpisywała się zarówno w charakter wydarzenia, jak i w identyfikację Mocti.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["produkcja i montaż barów dla marki Mocti,", "dopasowanie zabudowy do przestrzeni Nowego Teatru i charakteru gali,", "ekspozycja identyfikacji wizualnej marki,", "dopracowanie estetyki i detali.", "Bary na gale i eventy marek"],
+        bullets: ["produkcja i montaż barów dla marki Mocti,", "dopasowanie zabudowy do przestrzeni Nowego Teatru i charakteru gali,", "ekspozycja identyfikacji wizualnej marki,", "dopracowanie estetyki i detali."],
+        effectTitle: 'Bary na gale i eventy marek',
         effect: `Produkujemy strefy barowe na gale, eventy firmowe, premiery produktów i akcje promocyjne. Łączymy funkcjonalną zabudowę z identyfikacją wizualną marki, a każdy bar dopasowujemy do przestrzeni, formatu wydarzenia i potrzeb klienta.`,
         footerNote: `Planujesz event i szukasz barów, które podkreślą charakter Twojej marki? Skontaktuj się z nami, a przygotujemy rozwiązanie dopasowane do Twojego wydarzenia.`,
       },
@@ -5053,7 +5052,8 @@ Na gali tej rangi bar to nie tylko punkt serwowania napojów, ale też miejsce, 
         videoUrl: null,
         intro: `20 listopada 2025 r. na terenie Portu Lotniczego Wrocław odbył się jubileusz 30-lecia Zachodniej Izby Gospodarczej. Odpowiadaliśmy za strefę barową wydarzenia, od zabudowy po serwis.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["produkcja i montaż baru ze spersonalizowaną zabudową,", "indywidualna identyfikacja wizualna dopasowana do jubileuszu,", "obsługa serwisu barowego podczas wydarzenia.", "Bary na eventy firmowe i jubileusze"],
+        bullets: ["produkcja i montaż baru</br>ze spersonalizowaną zabudową,", "indywidualna identyfikacja wizualna dopasowana do jubileuszu,", "obsługa serwisu barowego</br>podczas wydarzenia."],
+        effectTitle: 'Bary na eventy firmowe i jubileusze',
         effect: `Na uroczystość przygotowaliśmy bar z indywidualną identyfikacją wizualną, zaprojektowaną z myślą o jubileuszowym charakterze wieczoru. Tym razem nie skończyło się na produkcji: zapewniliśmy też profesjonalną obsługę barową, więc goście mieli do dyspozycji kompletną strefę, przygotowaną i prowadzoną przez jeden zespół.
 
 Produkujemy bary i zapewniamy obsługę barową na eventy firmowe, gale i jubileusze. Każdą realizację dopasowujemy do przestrzeni, formatu wydarzenia i identyfikacji wizualnej klienta.`,
@@ -5076,7 +5076,8 @@ Produkujemy bary i zapewniamy obsługę barową na eventy firmowe, gale i jubile
 
 Secretos Rave przeniósł muzykę elektroniczną i klubową atmosferę do jednego z najbardziej rozpoznawalnych budynków w Polsce. Wieczorny format i nietypowa lokalizacja stworzyły przestrzeń, w której zabawa i spotkania przy muzyce trwały do późnych godzin.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["obsługa strefy barowej podczas całego wydarzenia,", "serwis dopasowany do klubowego formatu i natężenia ruchu.", "Obsługa barowa na koncerty i imprezy klubowe"],
+        bullets: ["obsługa strefy barowej</br>podczas całego wydarzenia,", "serwis dopasowany do klubowego formatu</br>i natężenia ruchu."],
+        effectTitle: 'Obsługa barowa na koncerty i imprezy klubowe',
         effect: `Na takim evencie bar musi działać bez przestojów, zwłaszcza w momentach największego ruchu. Naszym zadaniem było zapewnienie płynnego serwisu przez cały wieczór, tak by goście mogli skupić się na muzyce.
 
 Wspieramy organizatorów koncertów, imprez klubowych i eventów specjalnych. Zapewniamy profesjonalną obsługę barową, a jeśli trzeba, także produkcję barów dopasowanych do charakteru wydarzenia.`,
@@ -5099,7 +5100,8 @@ Wspieramy organizatorów koncertów, imprez klubowych i eventów specjalnych. Za
 
 Do strefy VIP dostarczyliśmy nasze bary z indywidualną identyfikacją wizualną, przygotowane specjalnie na tę realizację. Zadbaliśmy, by zabudowa była funkcjonalna i spójna z estetyką przestrzeni, a profesjonalna obsługa barowa zapewniła gościom VIP sprawny serwis przez cały wieczór finału trasy.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["bary z indywidualną identyfikacją wizualną,", "dopasowanie zabudowy do estetyki strefy VIP,", "profesjonalna obsługa barowa podczas koncertu.", "Bary eventowe i obsługa stref VIP"],
+        bullets: ["bary z indywidualną identyfikacją wizualną,", "dopasowanie zabudowy do estetyki strefy VIP,", "profesjonalna obsługa barowa podczas koncertu."],
+        effectTitle: 'Bary eventowe i obsługa stref VIP',
         effect: `Realizujemy strefy barowe na koncertach, festiwalach i eventach specjalnych. Zapewniamy bary z brandingiem, produkcję zabudowy i profesjonalną obsługę, a zakres usług dopasowujemy do skali wydarzenia i potrzeb organizatora.`,
         footerNote: `Planujesz koncert lub event ze strefą VIP? Skontaktuj się z nami, a przygotujemy rozwiązanie, które połączy funkcjonalność z identyfikacją wizualną Twojej marki.`,
       },
@@ -5330,6 +5332,7 @@ Produkujemy i obsługujemy bary eventowe podczas imprez firmowych, festiwali i w
         images: ["assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618172838.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618224022.jpg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/rooftop-be-about/rooftop-video.mp4',
+        videoAspect: 608 / 1080,
         intro: `18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku. Otwarta przestrzeń i letnia atmosfera stworzyły wyjątkową oprawę spotkania.
 
 Naszym zadaniem była profesjonalna obsługa baru i sprawna organizacja serwisu dla uczestników wydarzenia. Zadbaliśmy o płynne funkcjonowanie strefy, dopasowując pracę zespołu do przebiegu eventu.`,
@@ -5369,6 +5372,7 @@ Zapewniamy profesjonalną obsługę barów podczas imprez firmowych, wydarzeń p
         images: ["assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/barber-night-s6-w/barber-night-video.mp4',
+        videoAspect: 608 / 1080,
         intro: `20 czerwca 2026 roku w warszawskiej Butelkowni odbyło się Barber Night S6 – największe wydarzenie fryzjerstwa męskiego w Polsce. Art Bar Solutions odpowiadało za obsługę strefy barowej, wykorzystując własne bary z identyfikacją wizualną dopasowaną do wydarzenia.
 
 Nasze bary stanowiły integralną część przestrzeni eventowej, łącząc funkcjonalność z dopracowaną oprawą wizualną. Zadbaliśmy również o profesjonalną obsługę i sprawny serwis, dopasowany do charakteru wydarzenia oraz potrzeb uczestników.`,
@@ -5413,6 +5417,7 @@ Projektujemy i produkujemy strefy barowe na festiwale, koncerty oraz wydarzenia 
         images: ["assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-video.mp4',
+        videoAspect: 608 / 1080,
         intro: `21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze. Tym razem przygotowaliśmy dwa bary w stylu włoskim, dopasowane do charakteru spotkania i jego oprawy.
 
 Art Bar Solutions – obsługa barowa eventów`,
@@ -5435,6 +5440,7 @@ Zapewniamy profesjonalną obsługę stref barowych oraz rozwiązania dopasowane 
         images: ["assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg", "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-video.mp4',
+        videoAspect: 608 / 1080,
         intro: `27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m². Ich elastyczna konstrukcja i charakterystyczna forma pozwalają tworzyć zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia.
 
 Tego samego dnia nasz zespół w Poznaniu odbył szkolenie techniczno-montażowe z zakresu infrastruktury eventowej. Dzięki zdobytym umiejętnościom możemy realizować kolejne projekty z wykorzystaniem własnego sprzętu i przeszkolonych pracowników, rozszerzając zakres usług oferowanych klientom.`,
@@ -5528,6 +5534,7 @@ Festiwal Whisky Sopot był dla nas realizacją, w której połączyliśmy wiele 
         images: ["assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/event-w-stylu-boho/event-boho-video.mp4',
+        videoAspect: 608 / 1080,
         intro: `4 września 2026 roku Art Bar Solutions odpowiadało za obsługę stref barowych podczas eventu firmowego dla Be About, zorganizowanego na warszawskim Torze Służewiec. Wydarzenie utrzymane w stylistyce boho łączyło swobodną atmosferę z dopracowaną oprawą przestrzeni.
 
 Naszym zadaniem była profesjonalna obsługa barów i zapewnienie sprawnego serwisu dla uczestników w formie open-bar. Przy wydarzeniach plenerowych istotne jest odpowiednie przygotowanie zespołu oraz organizacja pracy, które pozwalają utrzymać płynność obsługi przez cały event.`,
@@ -6075,6 +6082,44 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       });
     }
 
+    // Rzeczywiste proporcje wideo (obsługa wideo pionowych 9:16 oraz poziomych 16:9)
+    const _nmVideoAspectCache = {};
+    function getVideoAspect(url, isYt, definedAspect) {
+      if (typeof definedAspect === 'number' && definedAspect > 0) {
+        return Promise.resolve(definedAspect);
+      }
+      if (!url) return Promise.resolve(16 / 9);
+      if (isYt) return Promise.resolve(16 / 9);
+      if (_nmVideoAspectCache[url]) return Promise.resolve(_nmVideoAspectCache[url]);
+      return new Promise(resolve => {
+        const v = document.createElement('video');
+        v.preload = 'metadata';
+        let done = false;
+        const finish = (asp) => {
+          if (done) return;
+          done = true;
+          _nmVideoAspectCache[url] = asp;
+          resolve(asp);
+        };
+        const timer = setTimeout(() => {
+          finish(url.includes('rooftop') || url.includes('barber') || url.includes('sikelia') || url.includes('namiot') || url.includes('boho') ? (608 / 1080) : (16 / 9));
+        }, 500);
+        v.onloadedmetadata = () => {
+          clearTimeout(timer);
+          if (v.videoWidth && v.videoHeight) {
+            finish(v.videoWidth / v.videoHeight);
+          } else {
+            finish(608 / 1080);
+          }
+        };
+        v.onerror = () => {
+          clearTimeout(timer);
+          finish(608 / 1080);
+        };
+        v.src = url;
+      });
+    }
+
     // Układ galerii: rzędy o równej wysokości, każde zdjęcie w swoich proporcjach, bez nakładania i bez przycinania
     function layoutNewsGallery() {
       const box = document.getElementById('news-modal-gallery');
@@ -6130,10 +6175,16 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
             if (it.isYt) {
               cell.innerHTML = '<iframe id="news-modal-video-iframe" class="w-full h-full" src="' + it.src + '" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
             } else {
-              cell.innerHTML = '<video id="news-modal-video-player" class="w-full h-full object-cover bg-black" controls playsinline preload="metadata" poster="' + (it.poster || '') + '">' +
-                '<source src="' + it.src + '" type="video/mp4">' +
-                'Twoja przeglądarka nie obsługuje odtwarzania wideo.' +
-              '</video>';
+              cell.innerHTML = '<div class="relative w-full h-full bg-black flex items-center justify-center group/vid">' +
+                '<video id="news-modal-video-player" class="w-full h-full object-cover bg-black rounded-xl" controls playsinline preload="metadata" poster="' + (it.poster || '') + '">' +
+                  '<source src="' + it.src + '" type="video/mp4">' +
+                  'Twoja przeglądarka nie obsługuje odtwarzania wideo.' +
+                '</video>' +
+                '<div class="absolute top-2.5 left-2.5 z-10 pointer-events-none flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-[#FACB7D]/60 text-[#FACB7D] text-[10px] font-mono font-bold uppercase tracking-wider shadow-lg">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-pulse"></span>' +
+                  '<span>Wideo</span>' +
+                '</div>' +
+              '</div>';
             }
           } else {
             cell.classList.add('group', 'cursor-zoom-in');
@@ -6150,42 +6201,28 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       box.appendChild(inner);
     }
 
-    // Dopasowanie wielkości czcionki tak, by cała treść mieściła się w kolumnie bez przewijania
+    // Ujednolicona wielkość czcionki oraz stabilna, pełnoekranowa struktura kolumn we wszystkich kartach
     function fitNewsText() {
       const col = document.getElementById('news-modal-textcol');
       const inner = document.getElementById('news-modal-textinner');
       const body = document.getElementById('news-modal-body');
       const gallery = document.getElementById('news-modal-gallery');
       if (!col || !inner) return;
-      if (window.innerWidth < 1024) {
-        inner.style.fontSize = '16px';
-        if (body) body.style.gridTemplateColumns = '';
-        return;
-      }
-      const fitOnce = () => {
-        let lo = 10, hi = 24, best = 10;
-        while (hi - lo > 0.25) {
-          const mid = (lo + hi) / 2;
-          inner.style.fontSize = mid + 'px';
-          if (inner.offsetHeight <= col.clientHeight) { best = mid; lo = mid; } else { hi = mid; }
-        }
-        inner.style.fontSize = best + 'px';
-        return best;
-      };
-      const hasGallery = gallery && !gallery.classList.contains('hidden');
-      if (!body || !hasGallery) { if (body) body.style.gridTemplateColumns = ''; fitOnce(); return; }
 
-      // Dłuższe teksty dostają szerszą kolumnę, aby czcionka pozostała czytelna
-      const ratios = ['5fr 6fr', '6fr 5fr', '7fr 5fr', '8fr 5fr'];
-      let bestRatio = ratios[0], bestFs = 0;
-      for (const r of ratios) {
-        body.style.gridTemplateColumns = 'minmax(0,' + r.split(' ')[0] + ') minmax(0,' + r.split(' ')[1] + ')';
-        const fs = fitOnce();
-        if (fs > bestFs + 0.01) { bestFs = fs; bestRatio = r; }
-        if (fs >= 15) break;
+      const isDesktop = window.innerWidth >= 1024;
+      // Stała, ujednolicona wielkość czcionki we wszystkich kartach wydarzeń
+      inner.style.fontSize = isDesktop ? '15.5px' : '15px';
+
+      const hasGallery = gallery && !gallery.classList.contains('hidden');
+      if (body) {
+        if (!isDesktop) {
+          body.style.gridTemplateColumns = '';
+        } else if (hasGallery) {
+          body.style.gridTemplateColumns = 'minmax(0, 5fr) minmax(0, 6fr)';
+        } else {
+          body.style.gridTemplateColumns = 'minmax(0, 1fr)';
+        }
       }
-      body.style.gridTemplateColumns = 'minmax(0,' + bestRatio.split(' ')[0] + ') minmax(0,' + bestRatio.split(' ')[1] + ')';
-      fitOnce();
     }
 
     function refreshNewsModalLayout() {
@@ -6217,6 +6254,8 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       if (!backdrop) return;
 
       if (mainEl) mainEl.scrollTop = 0;
+      const textColEl = document.getElementById('news-modal-textcol');
+      if (textColEl) textColEl.scrollTop = 0;
       if (bgImg) {
         bgImg.src = item.coverImg;
         bgImg.style.objectPosition = getImageObjectPosition(item.coverImg);
@@ -6247,15 +6286,54 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
           if (rest) paragraphs[0] = rest; else paragraphs.shift();
         }
       }
-      const parasHtml = paragraphs.map(p => `<p style="margin-bottom:0.6em;" class="text-white/90">${p}</p>`).join('');
+      const hasBullets = !!(item.bullets && item.bullets.length);
+      const parasHtml = paragraphs.map((p, pIdx) => {
+        const isLastPara = pIdx === paragraphs.length - 1;
+        const mb = (isLastPara && hasBullets) ? '1.5em' : '1.18em';
+        return `<p class="text-[#f5efe6]/90 leading-[1.68] tracking-normal" style="margin-bottom:${mb};">${p}</p>`;
+      }).join('');
 
       let bulletsHtml = '';
-      if (item.bullets && item.bullets.length) {
+      if (hasBullets) {
+        const titleText = item.bulletsTitle ? item.bulletsTitle.replace(/:\s*$/, '') : 'Zakres realizacji';
+        const isShortBullets = item.bullets.every(b => b.length < 55);
+        const gridColsClass = isShortBullets ? 'grid grid-cols-1 sm:grid-cols-2' : 'grid grid-cols-1';
+
+        const bulletsItemsHtml = item.bullets.map((b) => {
+          let cleanB = b.trim().replace(/[,;]\s*$/, '');
+          cleanB = cleanB.replace(/\((https?:\/\/[^\s)]+)\)/g, (m, url) => {
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[#FACB7D] underline decoration-[#FACB7D]/50 hover:decoration-[#FACB7D] hover:text-white transition-colors ml-1.5 font-semibold text-[0.88em]"><span>odwiedź stronę</span><svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>`;
+          });
+
+          let contentInner = '';
+          if (cleanB.includes(':') && !cleanB.startsWith('http')) {
+            const colonIdx = cleanB.indexOf(':');
+            const label = cleanB.slice(0, colonIdx).trim();
+            const rest = cleanB.slice(colonIdx + 1).trim();
+            contentInner = `
+              <div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[1.02em] mb-1">${label}</div>
+              <div class="text-[#f5efe6]/95 font-normal text-[0.94em] leading-relaxed max-w-xl mx-auto">${rest}</div>`;
+          } else {
+            const capitalized = cleanB.charAt(0).toUpperCase() + cleanB.slice(1);
+            contentInner = `<div class="text-white font-medium text-[0.98em] leading-relaxed tracking-wide max-w-xl mx-auto">${capitalized}</div>`;
+          }
+
+          return `
+            <li class="group/bullet relative rounded-xl border border-[#FACB7D]/40 bg-gradient-to-b from-[#FACB7D]/18 via-[#FACB7D]/[0.07] to-black/40 hover:from-[#FACB7D]/28 hover:via-[#FACB7D]/14 hover:to-[#FACB7D]/[0.05] hover:border-[#FACB7D] hover:shadow-[0_4px_25px_rgba(250,203,125,0.25),inset_0_1px_1px_rgba(250,203,125,0.45)] transition-all duration-300 flex flex-col items-center justify-center text-center backdrop-blur-md" style="padding:0.85em 1.2em;">
+              <span class="w-8 h-[2px] bg-gradient-to-r from-transparent via-[#FACB7D]/80 to-transparent mb-2 rounded-full group-hover/bullet:w-16 group-hover/bullet:via-[#FACB7D] transition-all duration-300"></span>
+              <div class="w-full">${contentInner}</div>
+            </li>`;
+        }).join('');
+
         bulletsHtml = `
-          <div class="rounded-xl bg-white/[0.02] border border-[#FACB7D]/25" style="padding:0.7em 0.9em;margin:0.5em 0 0.7em;">
-            <div class="font-bold text-[#FACB7D] uppercase tracking-widest" style="font-size:0.78em;margin-bottom:0.45em;">${item.bulletsTitle || 'Kluczowe etapy wdrożenia:'}</div>
-            <ul class="grid grid-cols-1 xl:grid-cols-2" style="gap:0.35em 1.4em;">
-              ${item.bullets.map((b, i) => `<li class="flex items-start gap-2" style="font-size:0.92em;line-height:1.38;"><span class="text-[#FACB7D] font-mono font-bold shrink-0">${String(i + 1).padStart(2, '0')}.</span><span>${b}</span></li>`).join('')}
+          <div class="news-modal-plan-section" style="margin: 1.6em 0 1.8em;">
+            <div class="flex items-center gap-2.5" style="margin-bottom: 0.9em;">
+              <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_10px_rgba(250,203,125,0.7)] shrink-0"></span>
+              <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-[0.18em]" style="font-size:0.88em;">${titleText}</span>
+              <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/40 via-[#FACB7D]/15 to-transparent"></div>
+            </div>
+            <ul class="${gridColsClass}" style="gap:0.55em 0.7em;">
+              ${bulletsItemsHtml}
             </ul>
           </div>`;
       }
@@ -6264,9 +6342,13 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       if (item.effect) {
         const eff = item.effect.split(/\n\s*\n/).filter(p => p.trim()).map(norm);
         effectHtml = `
-          <div class="border-t border-white/10" style="padding-top:0.6em;">
-            ${item.effectTitle ? `<div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider" style="font-size:0.95em;margin-bottom:0.3em;">${item.effectTitle}</div>` : ''}
-            ${eff.map(p => `<p style="margin-bottom:0.5em;" class="text-[#f5efe6]/90">${p}</p>`).join('')}
+          <div class="border-t border-[#FACB7D]/25" style="padding-top:1.4em;margin-top:1.4em;">
+            ${item.effectTitle ? `
+              <div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2" style="font-size:0.98em;margin-bottom:0.75em;">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]/80"></span>
+                <span>${item.effectTitle}</span>
+              </div>` : ''}
+            ${eff.map(p => `<p class="text-[#f5efe6]/90 leading-[1.68] tracking-normal" style="margin-bottom:1.15em;">${p}</p>`).join('')}
           </div>`;
       }
       if (contentEl) contentEl.innerHTML = parasHtml + bulletsHtml + effectHtml;
@@ -6320,11 +6402,21 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       document.body.style.overflow = 'hidden';
       fitNewsText();
 
-      Promise.all(allImages.map(getImageAspect)).then(aspects => {
+      const videoAspectPromise = (hasVideo && videoSrc)
+        ? getVideoAspect(videoSrc, isYt, item.videoAspect)
+        : Promise.resolve(16 / 9);
+
+      Promise.all([Promise.all(allImages.map(getImageAspect)), videoAspectPromise]).then(([aspects, vidAspect]) => {
         if (token !== nmOpenToken) return;
         const items = [];
         if (hasVideo && videoSrc) {
-          items.push({ type: 'video', isYt, src: videoSrc, aspect: 16 / 9, poster: item.coverImg });
+          items.push({
+            type: 'video',
+            isYt,
+            src: videoSrc,
+            aspect: vidAspect || (item.videoAspect || (isYt ? 16 / 9 : (608 / 1080))),
+            poster: item.coverImg
+          });
         }
         allImages.forEach((url, i) => items.push({ type: 'img', url, idx: i, aspect: aspects[i] }));
         nmGalleryItems = items;
