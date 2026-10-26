@@ -5376,7 +5376,7 @@ Produkujemy i obsługujemy bary eventowe podczas imprez firmowych, festiwali i w
         coverImg: 'assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg',
         images: ["assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618172838.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618224022.jpg"],
         hasMaterials: true,
-        videoUrl: null,
+        videoUrl: 'assets/images/aktualnosci/rooftop-be-about/rooftop-video.mp4',
         intro: `18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku. Otwarta przestrzeń i letnia atmosfera stworzyły wyjątkową oprawę spotkania.
 
 Naszym zadaniem była profesjonalna obsługa baru i sprawna organizacja serwisu dla uczestników wydarzenia. Zadbaliśmy o płynne funkcjonowanie strefy, dopasowując pracę zespołu do przebiegu eventu.`,
@@ -5415,7 +5415,7 @@ Zapewniamy profesjonalną obsługę barów podczas imprez firmowych, wydarzeń p
         coverImg: 'assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg',
         images: ["assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg"],
         hasMaterials: true,
-        videoUrl: null,
+        videoUrl: 'assets/images/aktualnosci/barber-night-s6-w/barber-night-video.mp4',
         intro: `20 czerwca 2026 roku w warszawskiej Butelkowni odbyło się Barber Night S6 – największe wydarzenie fryzjerstwa męskiego w Polsce. Art Bar Solutions odpowiadało za obsługę strefy barowej, wykorzystując własne bary z identyfikacją wizualną dopasowaną do wydarzenia.
 
 Nasze bary stanowiły integralną część przestrzeni eventowej, łącząc funkcjonalność z dopracowaną oprawą wizualną. Zadbaliśmy również o profesjonalną obsługę i sprawny serwis, dopasowany do charakteru wydarzenia oraz potrzeb uczestników.`,
@@ -5459,7 +5459,7 @@ Projektujemy i produkujemy strefy barowe na festiwale, koncerty oraz wydarzenia 
         coverImg: 'assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg',
         images: ["assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg"],
         hasMaterials: true,
-        videoUrl: null,
+        videoUrl: 'assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-video.mp4',
         intro: `21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze. Tym razem przygotowaliśmy dwa bary w stylu włoskim, dopasowane do charakteru spotkania i jego oprawy.
 
 Art Bar Solutions – obsługa barowa eventów`,
@@ -5481,7 +5481,7 @@ Zapewniamy profesjonalną obsługę stref barowych oraz rozwiązania dopasowane 
         coverImg: 'assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg',
         images: ["assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg", "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg"],
         hasMaterials: true,
-        videoUrl: null,
+        videoUrl: 'assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-video.mp4',
         intro: `27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m². Ich elastyczna konstrukcja i charakterystyczna forma pozwalają tworzyć zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia.
 
 Tego samego dnia nasz zespół w Poznaniu odbył szkolenie techniczno-montażowe z zakresu infrastruktury eventowej. Dzięki zdobytym umiejętnościom możemy realizować kolejne projekty z wykorzystaniem własnego sprzętu i przeszkolonych pracowników, rozszerzając zakres usług oferowanych klientom.`,
@@ -5574,7 +5574,7 @@ Festiwal Whisky Sopot był dla nas realizacją, w której połączyliśmy wiele 
         coverImg: 'assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg',
         images: ["assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg"],
         hasMaterials: true,
-        videoUrl: null,
+        videoUrl: 'assets/images/aktualnosci/event-w-stylu-boho/event-boho-video.mp4',
         intro: `4 września 2026 roku Art Bar Solutions odpowiadało za obsługę stref barowych podczas eventu firmowego dla Be About, zorganizowanego na warszawskim Torze Służewiec. Wydarzenie utrzymane w stylistyce boho łączyło swobodną atmosferę z dopracowaną oprawą przestrzeni.
 
 Naszym zadaniem była profesjonalna obsługa barów i zapewnienie sprawnego serwisu dla uczestników w formie open-bar. Przy wydarzeniach plenerowych istotne jest odpowiednie przygotowanie zespołu oraz organizacja pracy, które pozwalają utrzymać płynność obsługi przez cały event.`,
@@ -6188,7 +6188,14 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
           cell.style.width = Math.floor(h * it.aspect) + 'px';
           cell.style.height = h + 'px';
           if (it.type === 'video') {
-            cell.innerHTML = '<iframe id="news-modal-video-iframe" class="w-full h-full" src="' + it.src + '" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+            if (it.isYt) {
+              cell.innerHTML = '<iframe id="news-modal-video-iframe" class="w-full h-full" src="' + it.src + '" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+            } else {
+              cell.innerHTML = '<video id="news-modal-video-player" class="w-full h-full object-cover bg-black" controls playsinline preload="metadata" poster="' + (it.poster || '') + '">' +
+                '<source src="' + it.src + '" type="video/mp4">' +
+                'Twoja przeglądarka nie obsługuje odtwarzania wideo.' +
+              '</video>';
+            }
           } else {
             cell.classList.add('group', 'cursor-zoom-in');
             cell.innerHTML = '<img src="' + it.url + '" alt="" class="w-full h-full object-cover">' +
@@ -6347,8 +6354,20 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
 
       // Zdjęcia (+ wideo jako pierwszy element galerii)
       const allImages = (item.images && item.images.length) ? item.images : (item.coverImg ? [item.coverImg] : []);
-      const embedUrl = getYouTubeEmbedUrl(item.videoUrl);
-      const hasGallery = allImages.length > 0 || !!embedUrl;
+      const oldPlayer = document.getElementById('news-modal-video-player');
+      if (oldPlayer) {
+        try { oldPlayer.pause(); oldPlayer.src = ''; } catch(e) {}
+      }
+
+      const hasVideo = !!item.videoUrl;
+      let videoSrc = item.videoUrl;
+      let isYt = false;
+      if (hasVideo) {
+        isYt = item.videoUrl.includes('youtube') || item.videoUrl.includes('youtu.be');
+        if (isYt) videoSrc = getYouTubeEmbedUrl(item.videoUrl);
+      }
+
+      const hasGallery = allImages.length > 0 || hasVideo;
       if (bodyEl) {
         bodyEl.classList.toggle('lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]', hasGallery);
       }
@@ -6365,7 +6384,9 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       Promise.all(allImages.map(getImageAspect)).then(aspects => {
         if (token !== nmOpenToken) return;
         const items = [];
-        if (embedUrl) items.push({ type: 'video', src: embedUrl, aspect: 16 / 9 });
+        if (hasVideo && videoSrc) {
+          items.push({ type: 'video', isYt, src: videoSrc, aspect: 16 / 9, poster: item.coverImg });
+        }
         allImages.forEach((url, i) => items.push({ type: 'img', url, idx: i, aspect: aspects[i] }));
         nmGalleryItems = items;
         requestAnimationFrame(() => { fitNewsText(); layoutNewsGallery(); });
@@ -6546,6 +6567,10 @@ Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmaw
       document.body.style.overflow = '';
       const videoIframe = document.getElementById('news-modal-video-iframe');
       if (videoIframe) videoIframe.src = '';
+      const videoPlayer = document.getElementById('news-modal-video-player');
+      if (videoPlayer) {
+        try { videoPlayer.pause(); videoPlayer.src = ''; } catch(e) {}
+      }
       const galleryClr = document.getElementById('news-modal-gallery');
       if (galleryClr) galleryClr.innerHTML = '';
       nmGalleryItems = [];
