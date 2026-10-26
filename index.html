@@ -898,6 +898,7 @@
       transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s cubic-bezier(0.16, 1, 0.3, 1);
       scrollbar-width: none;
       -ms-overflow-style: none;
+      overscroll-behavior: contain;
     }
     #dept-modal-backdrop::-webkit-scrollbar {
       display: none;
@@ -2574,10 +2575,10 @@
           </div>
 
           <div class="flex items-center gap-4 w-full sm:w-auto">
-            <a href="#konfigurator-section" class="w-full sm:w-auto px-7 py-3 rounded-full bg-white/5 border border-[#FACB7D]/40 text-[#FACB7D] hover:bg-[#FACB7D]/20 text-xs font-bold uppercase tracking-wider text-center transition-all">
+            <a href="#konfigurator-section" onclick="closeDeptModal()" class="w-full sm:w-auto px-7 py-3 rounded-full bg-white/5 border border-[#FACB7D]/40 text-[#FACB7D] hover:bg-[#FACB7D]/20 text-xs font-bold uppercase tracking-wider text-center transition-all">
               Konfigurator 3D
             </a>
-            <a href="#kontakt" class="w-full sm:w-auto px-8 py-3 rounded-full bg-[#FACB7D] text-[#030303] hover:bg-[#fdd596] text-xs font-bold uppercase tracking-wider text-center shadow-[0_0_25px_rgba(250,203,125,0.4)] transition-all">
+            <a href="#kontakt" onclick="closeDeptModal()" class="w-full sm:w-auto px-8 py-3 rounded-full bg-[#FACB7D] text-[#030303] hover:bg-[#fdd596] text-xs font-bold uppercase tracking-wider text-center shadow-[0_0_25px_rgba(250,203,125,0.4)] transition-all">
               Zapytaj o Ofertę
             </a>
           </div>
@@ -3688,6 +3689,10 @@
       currentOpenDeptIdx = idx;
       const dept = DEPARTMENTS[idx];
 
+      // Blokada przewijania strony w tle, dopóki otwarty jest podgląd działu
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+
       modalIconWrap.innerHTML = dept.iconSvg;
       if (dept.id === 'namioty') {
         const p = modalIconWrap.querySelector('path');
@@ -3745,8 +3750,10 @@
       nodeElements.forEach(el => el.classList.remove('is-active'));
       if (nodesContainer) nodesContainer.style.pointerEvents = 'none';
 
-      // 2. Schowanie widoku pełnoekranowego do środka
+      // 2. Schowanie widoku pełnoekranowego do środka i przywrócenie przewijania strony
       modalBackdrop.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
 
       // 3. Natychmiastowe uruchomienie płynnego powrotu (odzoomowanie kamery i wygaszenie nakładki)
       targetCameraZoom = 1;
@@ -3754,6 +3761,7 @@
       if (stageDimOverlay) stageDimOverlay.classList.remove('is-active');
       if (centerHub) centerHub.classList.remove('hub-vanished');
     }
+    window.closeDeptModal = closeDeptModal;
 
     modalCloseBtn.addEventListener('click', closeDeptModal);
     modalBackdrop.addEventListener('click', (e) => {
