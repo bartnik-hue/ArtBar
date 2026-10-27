@@ -1659,7 +1659,7 @@
       <!-- KONTENER 2 KOLUMN Z SIATKĄ DZIAŁÓW I PIONOWĄ ORBITĄ SVG -->
       <div id="mobile-grid-container" class="relative w-full max-w-sm sm:max-w-md mx-auto grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-6 sm:gap-y-8 py-2">
         <!-- SVG ORBITA (WIDOK MOBILNY - PIONOWY KSZTAŁT PRZEBIEGAJĄCY POD PRZYCISKAMI W 2 KOLUMNACH) -->
-        <svg id="mobile-orbit-svg" class="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0" fill="none">
+        <svg id="mobile-orbit-svg" class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style="z-index: 2;" fill="none">
           <defs>
             <linearGradient id="mobileOrbitGoldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#FACB7D" stop-opacity="0.95" />
@@ -4729,7 +4729,7 @@
       if (!grid || !svgBase || !svgDash) return;
 
       const cards = grid.querySelectorAll('.mobile-node-card-btn');
-      if (cards.length < 8) return;
+      if (cards.length < 2) return;
 
       const gridRect = grid.getBoundingClientRect();
       if (gridRect.width === 0 || gridRect.height === 0) return;
@@ -4745,30 +4745,51 @@
         });
       });
 
+      // Podział na lewą kolumnę (indeksy parzyste: 0, 2, 4) i prawą kolumnę (indeksy nieparzyste: 1, 3, 5)
+      const leftIndices = [];
+      const rightIndices = [];
+      for (let i = 0; i < pts.length; i++) {
+        if (i % 2 === 0) leftIndices.push(i);
+        else rightIndices.push(i);
+      }
+
+      if (leftIndices.length === 0 || rightIndices.length === 0) return;
+
       // Uśrednienie osi X dla lewej i prawej kolumny (zapewnia perfekcyjną symetrię i idealne wyśrodkowanie pod przyciskami)
-      const xLeft = (pts[0].x + pts[2].x + pts[4].x + pts[6].x) / 4;
-      const xRight = (pts[1].x + pts[3].x + pts[5].x + pts[7].x) / 4;
+      const xLeft = leftIndices.reduce((sum, idx) => sum + pts[idx].x, 0) / leftIndices.length;
+      const xRight = rightIndices.reduce((sum, idx) => sum + pts[idx].x, 0) / rightIndices.length;
       const colDist = Math.abs(xRight - xLeft);
       const arcRadius = colDist * 0.55;
 
-      // Ścieżka pionowej orbity (racetrack / closed vertical orbit):
-      // - Lewa kolumna w dół pod przyciskami: 0 (ART) -> 2 (OBSŁUGA) -> 4 (LOGISTYKA) -> 6 (FABRYKA LODU)
-      // - Dolny łuk U pod przyciskami od lewej do prawej kolumny (6 -> 7)
-      // - Prawa kolumna w górę pod przyciskami: 7 (PRODUKCJA) -> 5 (NAMIOTY) -> 3 (TECHNIKA) -> 1 (BAR)
-      // - Górny łuk U nad przyciskami od prawej do lewej kolumny (1 -> 0)
-      const d = [
-        `M ${xLeft.toFixed(1)},${pts[0].y.toFixed(1)}`,
-        `L ${xLeft.toFixed(1)},${pts[2].y.toFixed(1)}`,
-        `L ${xLeft.toFixed(1)},${pts[4].y.toFixed(1)}`,
-        `L ${xLeft.toFixed(1)},${pts[6].y.toFixed(1)}`,
-        `C ${xLeft.toFixed(1)},${(pts[6].y + arcRadius).toFixed(1)} ${xRight.toFixed(1)},${(pts[7].y + arcRadius).toFixed(1)} ${xRight.toFixed(1)},${pts[7].y.toFixed(1)}`,
-        `L ${xRight.toFixed(1)},${pts[5].y.toFixed(1)}`,
-        `L ${xRight.toFixed(1)},${pts[3].y.toFixed(1)}`,
-        `L ${xRight.toFixed(1)},${pts[1].y.toFixed(1)}`,
-        `C ${xRight.toFixed(1)},${(pts[1].y - arcRadius).toFixed(1)} ${xLeft.toFixed(1)},${(pts[0].y - arcRadius).toFixed(1)} ${xLeft.toFixed(1)},${pts[0].y.toFixed(1)}`,
-        'Z'
-      ].join(' ');
+      const firstLeft = pts[leftIndices[0]];
+      const lastLeft = pts[leftIndices[leftIndices.length - 1]];
+      const firstRight = pts[rightIndices[0]];
+      const lastRight = pts[rightIndices[rightIndices.length - 1]];
 
+      // Ścieżka pionowej orbity (racetrack / closed vertical orbit):
+      // 1. Zjazd w dół lewą kolumną przez środki przycisków
+      // 2. Płynny dolny łuk U pod przyciskami od lewej do prawej kolumny
+      // 3. Wjazd w górę prawą kolumną przez środki przycisków
+      // 4. Płynny górny łuk U nad przyciskami od prawej do lewej kolumny
+      const pathSegments = [];
+      pathSegments.push(`M ${xLeft.toFixed(1)},${firstLeft.y.toFixed(1)}`);
+
+      for (let k = 1; k < leftIndices.length; k++) {
+        const p = pts[leftIndices[k]];
+        pathSegments.push(`L ${xLeft.toFixed(1)},${p.y.toFixed(1)}`);
+      }
+
+      pathSegments.push(`C ${xLeft.toFixed(1)},${(lastLeft.y + arcRadius).toFixed(1)} ${xRight.toFixed(1)},${(lastRight.y + arcRadius).toFixed(1)} ${xRight.toFixed(1)},${lastRight.y.toFixed(1)}`);
+
+      for (let k = rightIndices.length - 2; k >= 0; k--) {
+        const p = pts[rightIndices[k]];
+        pathSegments.push(`L ${xRight.toFixed(1)},${p.y.toFixed(1)}`);
+      }
+
+      pathSegments.push(`C ${xRight.toFixed(1)},${(firstRight.y - arcRadius).toFixed(1)} ${xLeft.toFixed(1)},${(firstLeft.y - arcRadius).toFixed(1)} ${xLeft.toFixed(1)},${firstLeft.y.toFixed(1)}`);
+      pathSegments.push('Z');
+
+      const d = pathSegments.join(' ');
       svgBase.setAttribute('d', d);
       svgDash.setAttribute('d', d);
       applyOrbitAppearance();
