@@ -1678,7 +1678,7 @@
   ══════════════════════════════════════════════ -->
       <section id="zaufali-nam" class="w-full relative z-10 border-y border-[#FACB7D]/15 overflow-hidden bg-[#030303] backdrop-blur-md">
     <div id="partner-title-wrap" class="max-w-7xl mx-auto px-6 text-center">
-      <span class="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl uppercase tracking-[0.22em] sm:tracking-[0.28em] md:tracking-[0.32em] text-[#FACB7D]/85 font-semibold">Zaufali nam najlepsi organizatorzy festiwali i eventów</span>
+      <span class="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl uppercase tracking-[0.22em] sm:tracking-[0.28em] md:tracking-[0.32em] text-[#FACB7D]/85 font-semibold">Nasi partnerzy i klienci:</span>
     </div>
     <!-- Interaktywny karuzelowy pasek z obsługą przeciągania myszką i dotykiem -->
     <div id="partner-marquee-container" class="relative w-full overflow-hidden select-none cursor-grab active:cursor-grabbing" title="Przeciągnij myszką, aby przewijać">
@@ -2976,7 +2976,7 @@
       {
         id: 'art',
         title: 'ART',
-        subtitle: 'KREATYWNE KONCEPTY DLA MAREK I FESTIWALI',
+        subtitle: 'KREATYWNE KONCEPTY<br>DLA MAREK I FESTIWALI',
         badge: 'Kreacja Wizualna i Scenografia',
         lead: 'Tworzymy unikalne, spersonalizowane aranżacje scenograficzne, dekoracje świetlne i oprawę artystyczną, które nadają strefom barowym niepowtarzalny charakter i zapadają w pamięć uczestników festiwali oraz prestiżowych gal.',
         heroGraphic: {
@@ -3712,7 +3712,7 @@
       }
       modalBadge.textContent = dept.badge;
       modalTitle.textContent = dept.title;
-      modalSubtitle.textContent = dept.subtitle;
+      modalSubtitle.innerHTML = dept.subtitle;
       modalLead.innerHTML = fixPolishOrphans(dept.lead);
 
       // Obsługa grafiki 3D Hero bez ramki (Monumentalna, po lewej stronie, wtapiająca się w tło - Obraz lub Loop Wideo)
