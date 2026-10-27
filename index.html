@@ -497,8 +497,9 @@
       --logo-scale: 1.70;
       --logo-shift-y: -52px;
       --label-offset-y: 17px;
-      --logo-title-size: 37.5px;
-      --logo-slogan-size: 20.25px;
+      --logo-title-size: 37px;
+      --logo-subtitle-size: 26px;
+      --logo-slogan-size: 15px;
       --video-opacity: 0.60;
       /* DEDYKOWANE PARAMETRY PASKA PARTNERÓW (SKALIBROWANE 4K 16:9) */
       --partner-logo-h-wide: 58px;
@@ -1240,13 +1241,13 @@
         <div id="center-hub-inner" class="flex flex-col items-center justify-center">
           <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="center-logo-enlarged h-64 w-auto filter drop-shadow-[0_0_35px_rgba(250,203,125,0.65)] drop-shadow-[0_0_65px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none transition-transform duration-500">
           <div class="mt-3.5 text-center flex flex-col items-center">
-            <div id="center-logo-title" class="font-serif-luxury font-bold tracking-[0.02em] text-[#FACB7D] leading-[1.15] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]" style="font-size: calc(var(--logo-title-size, 37.5px) * var(--responsive-scale, 1));">
-              Kompleksowa<br>Organizacja Eventów
+            <div id="center-logo-title" class="font-serif-luxury font-bold tracking-[0.02em] text-white leading-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap" style="font-size: calc(var(--logo-title-size, 37px) * var(--responsive-scale, 1));">
+              Kompleksowa Organizacja Eventów
             </div>
-            <div id="center-logo-subtitle" class="font-serif-luxury font-bold tracking-[0.04em] text-[#FACB7D] mt-2.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-size: calc(var(--logo-slogan-size, 20.25px) * var(--responsive-scale, 1));">
-              Specjalizacja: Produkcja i obsługa stref barowych
+            <div id="center-logo-subtitle" class="font-serif-luxury font-semibold tracking-[0.03em] text-[#FACB7D] mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] whitespace-nowrap" style="font-size: calc(var(--logo-subtitle-size, 26px) * var(--responsive-scale, 1));">
+              Specjalizacja, Produkcja i&nbsp;Obsługa Stref Barowych
             </div>
-            <p id="center-logo-slogan" class="font-bold tracking-[0.18em] text-white/95 uppercase mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-family: 'Montserrat', sans-serif; font-size: calc(var(--logo-slogan-size, 20.25px) * var(--responsive-scale, 1));">
+            <p id="center-logo-slogan" class="font-bold tracking-[0.18em] text-[#FACB7D] uppercase mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] whitespace-nowrap" style="font-family: 'Montserrat', sans-serif; font-size: calc(var(--logo-slogan-size, 15px) * var(--responsive-scale, 1));">
               JEDEN PARTNER = CAŁY EVENT
             </p>
           </div>
@@ -1499,9 +1500,9 @@
             <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Wielkość napisu: KOMPLEKSOWA REALIZACJA...</span>
-                <span id="val-logo-title-size" class="font-mono text-[#FACB7D] font-bold">37.5 px</span>
+                <span id="val-logo-title-size" class="font-mono text-[#FACB7D] font-bold">37 px</span>
               </div>
-              <input type="range" id="slider-logo-title-size" min="15" max="55" value="37.5" step="0.5" class="tune-slider">
+              <input type="range" id="slider-logo-title-size" min="15" max="55" value="37" step="0.5" class="tune-slider">
               <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>15 px</span><span>Domyślnie: 37.5 px</span><span>55 px</span></div>
             </div>
 
@@ -1509,9 +1510,9 @@
             <div class="bg-white/[0.03] p-3 rounded-xl border border-[#FACB7D]/20">
               <div class="flex justify-between items-center mb-1.5">
                 <span class="font-semibold text-white/90">Wielkość hasła: JEDEN PARTNER...</span>
-                <span id="val-logo-slogan-size" class="font-mono text-[#FACB7D] font-bold">20.25 px</span>
+                <span id="val-logo-slogan-size" class="font-mono text-[#FACB7D] font-bold">15.0 px</span>
               </div>
-              <input type="range" id="slider-logo-slogan-size" min="10" max="36" value="20.25" step="0.25" class="tune-slider">
+              <input type="range" id="slider-logo-slogan-size" min="4" max="36" value="15" step="0.25" class="tune-slider">
               <div class="flex justify-between text-[10px] text-white/40 mt-1"><span>10 px</span><span>Domyślnie: 20.25 px</span><span>36 px</span></div>
             </div>
 
@@ -1605,13 +1606,13 @@
       <div class="flex flex-col items-center justify-center text-center mb-8 select-none">
         <img src="assets/logos/ArtBar-Solutions_svg_6.svg" alt="ArtBar Solutions" class="h-28 sm:h-36 w-auto filter drop-shadow-[0_0_25px_rgba(250,203,125,0.65)] drop-shadow-[0_0_45px_rgba(0,0,0,0.9)] brightness-110 pointer-events-none select-none">
         <div class="mt-3 text-center flex flex-col items-center">
-          <div class="font-serif-luxury font-bold tracking-[0.02em] text-[#FACB7D] leading-[1.2] text-xl sm:text-2xl drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
-            Kompleksowa<br>Organizacja Eventów
+          <div id="mobile-logo-title" class="font-serif-luxury font-bold tracking-[0.02em] text-white leading-tight text-lg sm:text-xl md:text-2xl drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap">
+            Kompleksowa Organizacja Eventów
           </div>
-          <div class="font-serif-luxury font-bold tracking-[0.04em] text-[#FACB7D] text-xs sm:text-sm mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-            Specjalizacja: Produkcja i obsługa stref barowych
+          <div id="mobile-logo-subtitle" class="font-serif-luxury font-semibold tracking-[0.03em] text-[#FACB7D] text-[13.5px] sm:text-[15.5px] mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] whitespace-nowrap">
+            Specjalizacja, Produkcja i&nbsp;Obsługa Stref Barowych
           </div>
-          <p class="font-bold tracking-[0.18em] text-white/95 uppercase mt-1.5 text-xs sm:text-sm drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-family: 'Montserrat', sans-serif;">
+          <p class="font-bold tracking-[0.18em] text-[#FACB7D] uppercase mt-1.5 text-[12px] sm:text-[15px] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" style="font-family: 'Montserrat', sans-serif;">
             JEDEN PARTNER = CAŁY EVENT
           </p>
         </div>
@@ -1639,7 +1640,7 @@
   ══════════════════════════════════════════════ -->
       <section id="zaufali-nam" class="w-full relative z-10 border-y border-[#FACB7D]/15 overflow-hidden bg-[#030303] backdrop-blur-md">
     <div id="partner-title-wrap" class="max-w-7xl mx-auto px-6 text-center">
-      <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D]/60 font-semibold">Zaufali nam najlepsi organizatorzy festiwali i eventów</span>
+      <span class="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl uppercase tracking-[0.22em] sm:tracking-[0.28em] md:tracking-[0.32em] text-[#FACB7D]/85 font-semibold">Zaufali nam najlepsi organizatorzy festiwali i eventów</span>
     </div>
     <!-- Interaktywny karuzelowy pasek z obsługą przeciągania myszką i dotykiem -->
     <div id="partner-marquee-container" class="relative w-full overflow-hidden select-none cursor-grab active:cursor-grabbing" title="Przeciągnij myszką, aby przewijać">
@@ -2114,12 +2115,9 @@
                 <span>Studio Konfiguracji Modułów 3D</span>
               </div>
 
-              <h3 class="font-serif-luxury text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#f5efe6] mb-4 sm:mb-6 text-center leading-[1.12]">
-                <span class="block">Zaprojektuj Swój Bar</span>
-                <span class="block gold-gradient-text">w Czasie Rzeczywistym</span>
-              </h3></br></br>
-
-       
+              <h3 class="font-serif-luxury text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#f5efe6] mb-8 sm:mb-10 text-center leading-[1.12]">
+                <span class="block">Zaprojektuj <span class="gold-gradient-text">Swój Bar</span></span>
+              </h3>
 
               <!-- Dwa przyciski zgodnie z wytycznymi -->
               <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
@@ -2515,7 +2513,7 @@
             <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
             Kluczowe Usługi i Standardy Realizacji
           </div>
-          <div id="modal-services-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div id="modal-services-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             <!-- Generowane przez JS -->
           </div>
         </section>
@@ -2933,13 +2931,13 @@
           </svg>
         `,
         services: [
-          'Kompleksowy projekt koncepcyjny strefy barowej',
-          'Identyfikacja wizualna i spójny branding wydarzenia',
-          'Unikalne scenografie festiwalowe i eventowe',
-          'Personalizowane dekoracje, neony i logotypy 3D',
-          'Artystyczne oświetlenie architektoniczne i LED',
-          'Interaktywny performance i oprawa artystyczna',
-          'Współpraca z dedykowanym studiem graficznym'
+          'Kompleksowy projekt koncepcyjny<br>strefy barowej',
+          'Identyfikacja wizualna<br>i&nbsp;spójny branding wydarzenia',
+          'Unikalne scenografie<br>festiwalowe i&nbsp;eventowe',
+          'Personalizowane dekoracje,<br>neony i&nbsp;logotypy 3D',
+          'Artystyczne oświetlenie<br>architektoniczne i&nbsp;LED',
+          'Interaktywny performance<br>i&nbsp;oprawa artystyczna',
+          'Współpraca z&nbsp;dedykowanym<br>studiem graficznym'
         ],
         photos: [
           'assets/images/2024.12.31-Art-Bar-28-1.jpg',
@@ -2965,13 +2963,13 @@
           </svg>
         `,
         services: [
-          'Wynajem modułowych barów prostych i narożnych',
-          'Ergonomiczne zaplecza z podświetlanymi regałami LED',
-          'Przeszklone lodówki gastronomiczne i zamrażarki',
-          'Kompletny sprzęt i stacje barmańskie',
-          'Precyzyjna obsługa zaopatrzenia i zamówień',
-          'Koncesja na alkohol ABC i pełna legalizacja',
-          'Błyskawiczny montaż i demontaż modułów'
+          'Wynajem modułowych barów<br>prostych i&nbsp;narożnych',
+          'Ergonomiczne zaplecza<br>z&nbsp;podświetlanymi regałami LED',
+          'Przeszklone lodówki<br>gastronomiczne i&nbsp;zamrażarki',
+          'Kompletny sprzęt<br>i&nbsp;stacje barmańskie',
+          'Precyzyjna obsługa<br>zaopatrzenia i&nbsp;zamówień',
+          'Koncesja na&nbsp;alkohol ABC<br>i&nbsp;pełna legalizacja',
+          'Błyskawiczny montaż<br>i&nbsp;demontaż modułów'
         ],
         photos: [
           'assets/images/2024.12.31-Art-Bar-73-2.jpg',
@@ -2982,7 +2980,7 @@
       {
         id: 'produkcja',
         title: 'PRODUKCJA',
-        subtitle: 'CAŁOŚCIOWA REALIZACJA WYDARZEŃ',
+        subtitle: 'REALIZACJA WYDARZEŃ',
         badge: 'Własny Zakład Produkcyjny',
         lead: 'Własny park maszynowy i pracownia rzemieślnicza: stolarstwo, ślusarstwo oraz obróbka stali i aluminium. Projektujemy i produkujemy autorskie moduły barowe, customowe meble eventowe oraz dedykowane instalacje scenograficzne od podstaw.',
         iconSvg: `
@@ -3002,13 +3000,13 @@
           </svg>
         `,
         services: [
-          'Projektowanie i produkcja autorskich barów modułowych',
-          'Zaawansowane prace stolarskie i ślusarskie na zamówienie',
-          'Cięcie laserowe, gięcie profili i obróbka stali nierdzewnej',
-          'Personalizowany branding i lakierowanie proszkowe',
-          'Produkcja mebli tapicerowanych i stref lounge VIP',
-          'Modernizacja i serwis techniczny wyposażenia barowego',
-          'Indywidualne realizacje architektoniczne'
+          'Projektowanie i&nbsp;produkcja<br>autorskich barów modułowych',
+          'Zaawansowane prace stolarskie<br>i&nbsp;ślusarskie na&nbsp;zamówienie',
+          'Cięcie laserowe, gięcie profili<br>i&nbsp;obróbka stali nierdzewnej',
+          'Personalizowany branding<br>i&nbsp;lakierowanie proszkowe',
+          'Produkcja mebli tapicerowanych<br>i&nbsp;stref lounge VIP',
+          'Modernizacja i&nbsp;serwis techniczny<br>wyposażenia barowego',
+          'Indywidualne realizacje<br>architektoniczne'
         ],
         photos: [
           'assets/images/gallery/2024.12.31-Art-Bar-73-1-1536x1024.jpg',
@@ -3036,13 +3034,13 @@
           </svg>
         `,
         services: [
-          'Własna flota transportowa: ciężarówki, busy i chłodnie',
-          'Centra magazynowe z kontrolowaną temperaturą',
-          'Dostawy w procedurze Just-In-Time bezpośrednio pod bar',
-          'Szybki rozładunek i precyzyjne lokowanie wyposażenia',
-          'Ciągły monitoring GPS i kontrola stanów magazynowych',
-          'Pełna inwentaryzacja i sprawny odbiór powydarzeniowy',
-          'Zasięg ogólnopolski oraz trasy zagraniczne'
+          'Własna flota transportowa:<br>ciężarówki, busy i&nbsp;chłodnie',
+          'Centra magazynowe<br>z&nbsp;kontrolowaną temperaturą',
+          'Dostawy w&nbsp;procedurze Just-In-Time<br>bezpośrednio pod&nbsp;bar',
+          'Szybki rozładunek<br>i&nbsp;precyzyjne lokowanie wyposażenia',
+          'Ciągły monitoring GPS<br>i&nbsp;kontrola stanów magazynowych',
+          'Pełna inwentaryzacja<br>i&nbsp;sprawny odbiór powydarzeniowy',
+          'Zasięg ogólnopolski<br>oraz trasy zagraniczne'
         ],
         photos: [
           'assets/images/gallery/2024.12.31-Art-Bar-81-1-1536x1024.jpg',
@@ -3062,13 +3060,13 @@
           </svg>
         `,
         services: [
-          'Wynajem hal namiotowych i zadaszeń membranowych',
-          'Nowoczesne namioty stretch i konstrukcje sferyczne',
-          'Atestowane podłogi drewniane i modułowe kładki',
-          'Ochrona strefy barowej przed deszczem, wiatrem i słońcem',
-          'Integracja oświetlenia scenicznego i nagłośnienia pod zadaszeniem',
-          'Certyfikaty przeciwpożarowe i atesty obciążenia wiatrem',
-          'Montaż przez doświadczone ekipy techniczne'
+          'Wynajem hal namiotowych<br>i&nbsp;zadaszeń membranowych',
+          'Nowoczesne namioty stretch<br>i&nbsp;konstrukcje sferyczne',
+          'Atestowane podłogi drewniane<br>i&nbsp;modułowe kładki',
+          'Ochrona strefy barowej<br>przed deszczem, wiatrem i&nbsp;słońcem',
+          'Integracja oświetlenia scenicznego<br>i&nbsp;nagłośnienia pod&nbsp;zadaszeniem',
+          'Certyfikaty przeciwpożarowe<br>i&nbsp;atesty obciążenia wiatrem',
+          'Montaż przez doświadczone<br>ekipy techniczne'
         ],
         photos: [
           'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-116-1-1536x1024.jpg',
@@ -3094,13 +3092,13 @@
           </svg>
         `,
         services: [
-          'Krystaliczny lód w kostkach (technologia Hoshizaki)',
-          'Lód kruszony do koktajli i ekspozycji butelek',
-          'Suchy lód do efektów dymnych i chłodzenia barów',
-          'Artystyczne rzeźby lodowe i bloki z brandingiem',
-          'Specjalistyczne skrzynie termoizolacyjne',
-          'Dedykowana flota samochodów mroźni (-18°C)',
-          'Gwarancja ciągłości dostaw do kilkudziesięciu ton'
+          'Krystaliczny lód w&nbsp;kostkach<br>(technologia Hoshizaki)',
+          'Lód kruszony do&nbsp;koktajli<br>i&nbsp;ekspozycji butelek',
+          'Suchy lód do&nbsp;efektów dymnych<br>i&nbsp;chłodzenia barów',
+          'Artystyczne rzeźby lodowe<br>i&nbsp;bloki z&nbsp;brandingiem',
+          'Specjalistyczne skrzynie<br>termoizolacyjne',
+          'Dedykowana flota<br>samochodów mroźni (-18°C)',
+          'Gwarancja ciągłości dostaw<br>do&nbsp;kilkudziesięciu ton'
         ],
         photos: [
           'assets/images/gallery/2024.12.31-Art-Bar-133-2.jpg',
@@ -3203,6 +3201,7 @@
     }
 
     // Wyznaczenie wymiarów adaptacyjnych podkowy i aktualizacja SVG szyny z fadem ku logo
+
     function updateDimensions() {
       const w = wrapper.clientWidth || window.innerWidth;
       const h = wrapper.clientHeight || window.innerHeight;
@@ -3216,21 +3215,26 @@
       document.documentElement.style.setProperty('--responsive-scale', responsiveScale.toFixed(4));
 
       // Skalowanie logotypu i podpisu:
-      // Przy 1200px pełne 100%. Przy około 780px logo i podpisy są powiększone o 50%, idealnie mieszcząc się w centrum orbity
+      // Przy w >= 1050px zachowujemy 100% bazowych wielkości.
+      // Wraz ze zbliżaniem się do minimalnej szerokości podkowy (~768px, zanim menu przełączy się w układ mobilny),
+      // napisy pod logiem są płynnie redukowane o 15%, by idealnie mieścić się w centrum i podchodzić blisko opisu przycisków.
       let logoScaleFactor = 1.0;
+      let textScaleFactor = 1.0;
       if (w < 1050) {
         const prevFactor = Math.min(1, Math.max(0.68, w / 1050));
-        const t = Math.min(1, Math.max(0, (1050 - w) / (1050 - 780)));
-        const mult = 1.0 + 0.5 * t;
-        logoScaleFactor = prevFactor * mult;
+        const t = Math.min(1, Math.max(0, (1050 - w) / (1050 - 768)));
+        logoScaleFactor = prevFactor * (1.0 + 0.45 * t);
+        textScaleFactor = logoScaleFactor * (1.0 - 0.15 * t);
       }
       const baseLogoScale = (sLogoScale ? parseFloat(sLogoScale.value) : 1.70);
-      const baseTitleSize = (sLogoTitleSize ? parseFloat(sLogoTitleSize.value) : 37.5);
-      const baseSloganSize = (sLogoSloganSize ? parseFloat(sLogoSloganSize.value) : 20.25);
+      const baseTitleSize = (sLogoTitleSize ? parseFloat(sLogoTitleSize.value) : 37.0);
+      const baseSubtitleSize = 26.0;
+      const baseSloganSize = (sLogoSloganSize ? parseFloat(sLogoSloganSize.value) : 15.0);
 
       document.documentElement.style.setProperty('--logo-scale', (baseLogoScale * logoScaleFactor).toFixed(3));
-      document.documentElement.style.setProperty('--logo-title-size', (baseTitleSize * logoScaleFactor).toFixed(2) + 'px');
-      document.documentElement.style.setProperty('--logo-slogan-size', (baseSloganSize * logoScaleFactor).toFixed(2) + 'px');
+      document.documentElement.style.setProperty('--logo-title-size', (baseTitleSize * textScaleFactor).toFixed(2) + 'px');
+      document.documentElement.style.setProperty('--logo-subtitle-size', (baseSubtitleSize * textScaleFactor).toFixed(2) + 'px');
+      document.documentElement.style.setProperty('--logo-slogan-size', (baseSloganSize * textScaleFactor).toFixed(2) + 'px');
 
       // Fizyczne dopasowanie wysokości logotypu i marginesu bloku podpisu
       const centerLogoImg = document.querySelector('.center-logo-enlarged');
@@ -3613,6 +3617,12 @@
 
     let currentOpenDeptIdx = 0;
 
+    // Wiąże twardą spacją jednoliterowe spójniki i przyimki w języku polskim (ochrona przed sierotami)
+    function fixPolishOrphans(text) {
+      if (!text) return '';
+      return text.replace(/(^|[\s>(])([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\s+/g, '$1$2&nbsp;');
+    }
+
     function openDeptModal(idx) {
       currentOpenDeptIdx = idx;
       const dept = DEPARTMENTS[idx];
@@ -3632,19 +3642,26 @@
       modalBadge.textContent = dept.badge;
       modalTitle.textContent = dept.title;
       modalSubtitle.textContent = dept.subtitle;
-      modalLead.textContent = dept.lead;
+      modalLead.innerHTML = fixPolishOrphans(dept.lead);
 
-      // Usługi (czysta, nowoczesna typografia bez obramowań kasetonowych)
-      modalServicesList.innerHTML = dept.services.map((srv, sIdx) => `
-        <div class="py-2 flex items-start gap-3">
-          <span class="w-5 h-5 rounded-full bg-[#FACB7D]/15 text-[#FACB7D] text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-            ${String(sIdx + 1).padStart(2, '0')}
-          </span>
-          <span class="text-xs sm:text-sm text-[#f5efe6]/90 font-normal leading-relaxed">
-            ${srv}
-          </span>
-        </div>
-      `).join('');
+      // Usługi: efektowne, wyśrodkowane złote karty bez numeracji, z podziałem na wersy i ochroną przed sierotami
+      modalServicesList.innerHTML = dept.services.map((srv, sIdx) => {
+        const fixedSrv = fixPolishOrphans(srv);
+        const lines = fixedSrv.split(/<br\s*\/?>/i);
+        const isCenterSeventh = (sIdx === 6 && dept.services.length === 7);
+        const textInnerHtml = lines.length > 1
+          ? `<span class="gold-gradient-text block leading-snug">${lines[0]}</span><span class="gold-gradient-text block leading-snug mt-1">${lines[1]}</span>`
+          : `<span class="gold-gradient-text block leading-snug">${fixedSrv}</span>`;
+
+        return `
+          <div class="group/srv relative rounded-2xl border border-[#FACB7D]/35 bg-gradient-to-b from-[#FACB7D]/12 via-[#FACB7D]/[0.04] to-black/60 hover:from-[#FACB7D]/22 hover:via-[#FACB7D]/10 hover:border-[#FACB7D] hover:shadow-[0_8px_30px_rgba(250,203,125,0.22),inset_0_1px_1px_rgba(250,203,125,0.4)] px-5 py-4 sm:py-5 flex flex-col items-center justify-center text-center transition-all duration-300 backdrop-blur-md min-h-[96px] ${isCenterSeventh ? 'sm:col-span-2 lg:col-span-1 lg:col-start-2 sm:max-w-md sm:mx-auto w-full' : ''}">
+            <span class="w-8 h-[2px] bg-gradient-to-r from-transparent via-[#FACB7D]/75 to-transparent mb-2.5 rounded-full group-hover/srv:w-16 group-hover/srv:via-[#FACB7D] transition-all duration-300"></span>
+            <div class="font-serif-luxury text-sm sm:text-[15px] md:text-base font-bold text-[#FACB7D] tracking-wide leading-snug drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+              ${textInnerHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
 
       // Zdjęcia
       modalGallery.innerHTML = dept.photos.map(pUrl => `
@@ -4288,8 +4305,8 @@
         if (sBottomPinch) sBottomPinch.value = -40;
         if (sTopSpread) sTopSpread.value = 10;
         if (sArcExtension) sArcExtension.value = 22;
-        if (sLogoTitleSize) sLogoTitleSize.value = 37.5;
-        if (sLogoSloganSize) sLogoSloganSize.value = 20.25;
+        if (sLogoTitleSize) sLogoTitleSize.value = 37;
+        if (sLogoSloganSize) sLogoSloganSize.value = 15.0;
         if (sCameraZoom) sCameraZoom.value = 3.5;
         if (sVideoOpacity) sVideoOpacity.value = 60;
         if (sOrbitThickness) sOrbitThickness.value = 2.5;
@@ -4329,8 +4346,9 @@
         document.documentElement.style.setProperty('--logo-scale', '1.70');
         document.documentElement.style.setProperty('--logo-shift-y', '-52px');
         document.documentElement.style.setProperty('--label-offset-y', '17px');
-        document.documentElement.style.setProperty('--logo-title-size', '37.5px');
-        document.documentElement.style.setProperty('--logo-slogan-size', '20.25px');
+        document.documentElement.style.setProperty('--logo-title-size', '37px');
+        document.documentElement.style.setProperty('--logo-subtitle-size', '26px');
+        document.documentElement.style.setProperty('--logo-slogan-size', '15px');
         document.documentElement.style.setProperty('--video-opacity', '0.60');
 
         customRadiusX = 555;
