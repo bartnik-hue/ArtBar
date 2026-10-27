@@ -100,5 +100,17 @@
     "name": "Sikelia di Terrazzino",
     "file": "sikelia-di-terrazzino.png",
     "notes": "Czarne logo zamienione na biel (oraz wersja w luksusowym złocie ArtBar -gold.png/svg)."
+  },
+  {
+    "id": "kompania-piwowarska",
+    "name": "Kompania Piwowarska",
+    "file": "kompania-piwowarska.png",
+    "notes": "Oryginalny sygnet KP i typografia w czystej bieli na przezroczystym tle."
+  },
+  {
+    "id": "wisloujscie",
+    "name": "Wisłoujście",
+    "file": "wisloujscie.png",
+    "notes": "Wycięte czarne tło ze zrzutu ekranu, wyostrzony i wyskalowany logotyp Wisłoujście w czystej bieli na przezroczystości."
   }
 ]
