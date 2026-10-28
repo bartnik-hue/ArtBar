@@ -5836,6 +5836,7 @@ Jeden partner, cały barInfrastruktura, technologia, ludzie, lód i logistyka od
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/bary-mds/bary-mds-video.mp4',
         videoAspect: 16 / 9,
+        videoPoster: 'assets/images/aktualnosci/bary-mds/bary-mds-video-poster.jpg',
         videoFullWidth: true,
         intro: `Stworzyliśmy MDS (Modular Design System) – własną infrastrukturę barową, którą projektujemy, produkujemy i obsługujemy w 100% samodzielnie. Od pierwszego szkicu w warsztacie po finalny montaż na evencie, odpowiadamy za każdy etap realizacji.
 
@@ -6847,7 +6848,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
               isYt,
               src: videoSrc,
               aspect: vidAspect || (item.videoAspect || (isYt ? 16 / 9 : (608 / 1080))),
-              poster: item.coverImg
+              poster: item.videoPoster || item.coverImg || ''
             });
           }
           allImages.forEach((url, i) => items.push({ type: 'img', url, idx: i, aspect: aspects[i] }));
