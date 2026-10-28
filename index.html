@@ -259,6 +259,13 @@
       transition: opacity 0.3s ease;
     }
 
+    /* PEŁNY EKRAN DLA WIDEO (BRAK PRZYCINANIA / OBJECT-FIT CONTAIN) */
+    video:fullscreen,
+    video:-webkit-full-screen {
+      object-fit: contain !important;
+      background-color: #000 !important;
+    }
+
     /* Efekt Shimmer w tle */
     .obsidian-shimmer {
       background: linear-gradient(125deg, transparent 0%, rgba(250,203,125,0.04) 30%, transparent 60%, rgba(250,203,125,0.03) 80%, transparent 100%);
@@ -2123,7 +2130,7 @@
 
   
   <!-- ══════════════════════════════════════════════
-       PEŁNOEKRANOWY LIGHTBOX ZDJĘĆ AKTUALNOŚCI (BEZ UCIĘĆ, PEŁNY FORMAT)
+       PEŁNOEKRANOWY LIGHTBOX ZDJĘĆ I WIDEO AKTUALNOŚCI (BEZ UCIĘĆ, PEŁNY FORMAT)
        ══════════════════════════════════════════════ -->
   <div id="news-lightbox" class="hidden fixed inset-0 z-[70000] flex flex-col justify-between bg-black/98 backdrop-blur-2xl select-none transition-all duration-300">
     
@@ -2134,24 +2141,35 @@
         <h3 id="nlb-title" class="font-serif-luxury text-sm sm:text-base font-bold text-white truncate max-w-md sm:max-w-xl">Tytuł wpisu</h3>
       </div>
       <div class="flex items-center gap-2">
+        <button id="nlb-fullscreen-btn" type="button" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 hover:border-[#FACB7D] flex items-center justify-center text-white/80 hover:text-[#FACB7D] transition-all cursor-pointer text-base" title="Pełny ekran">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        </button>
         <button type="button" onclick="closeNewsLightbox()" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 hover:border-[#FACB7D] flex items-center justify-center text-white/80 hover:text-[#FACB7D] transition-all cursor-pointer text-base" title="Zamknij (Esc)">
           ✕
         </button>
       </div>
     </div>
 
-    <!-- Główny obszar wyświetlania zdjęcia (100% pełny format pion i poziom) -->
+    <!-- Główny obszar wyświetlania zdjęcia / wideo (100% pełny format pion i poziom) -->
     <div class="relative flex-1 flex items-center justify-center p-2 sm:p-6 overflow-hidden" onclick="onNewsLightboxBackdropClick(event)">
-      <!-- Przycisk Poprzednie zdjęcie -->
-      <button type="button" onclick="navNewsLightbox(-1)" id="nlb-prev-btn" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-[#FACB7D] text-white hover:text-black border border-white/20 hover:border-[#FACB7D] flex items-center justify-center transition-all cursor-pointer z-30 shadow-2xl" title="Poprzednie zdjęcie (←)">
+      <!-- Przycisk Poprzednie -->
+      <button type="button" onclick="navNewsLightbox(-1)" id="nlb-prev-btn" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-[#FACB7D] text-white hover:text-black border border-white/20 hover:border-[#FACB7D] flex items-center justify-center transition-all cursor-pointer z-30 shadow-2xl" title="Poprzednie (←)">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
       </button>
 
-      <!-- Główne zdjęcie bez żadnego przycinania (object-contain, max 95vh) -->
+      <!-- Główne zdjęcie bez żadnego przycinania (object-contain, max 82vh) -->
       <img id="nlb-main-img" src="" alt="Pełny podgląd zdjęcia aktualności" class="max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl transition-all duration-200">
 
-      <!-- Przycisk Następne zdjęcie -->
-      <button type="button" onclick="navNewsLightbox(1)" id="nlb-next-btn" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-[#FACB7D] text-white hover:text-black border border-white/20 hover:border-[#FACB7D] flex items-center justify-center transition-all cursor-pointer z-30 shadow-2xl" title="Następne zdjęcie (→)">
+      <!-- Główny odtwarzacz wideo w Lightboxie -->
+      <video id="nlb-main-video" class="hidden max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl bg-black" controls playsinline preload="metadata">
+        Twoja przeglądarka nie obsługuje odtwarzania wideo.
+      </video>
+
+      <!-- Główny odtwarzacz YouTube iframe w Lightboxie -->
+      <iframe id="nlb-main-iframe" class="hidden w-full max-w-5xl h-[70vh] rounded-lg shadow-2xl bg-black border-0" title="Wideo w pełnym formacie" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+
+      <!-- Przycisk Następne -->
+      <button type="button" onclick="navNewsLightbox(1)" id="nlb-next-btn" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-[#FACB7D] text-white hover:text-black border border-white/20 hover:border-[#FACB7D] flex items-center justify-center transition-all cursor-pointer z-30 shadow-2xl" title="Następne (→)">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </button>
     </div>
@@ -6579,7 +6597,11 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
           cell.style.height = h + 'px';
           if (it.type === 'video') {
             if (it.isYt) {
-              cell.innerHTML = '<iframe id="news-modal-video-iframe" class="w-full h-full" src="' + it.src + '" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+              cell.innerHTML = '<iframe id="news-modal-video-iframe" class="w-full h-full" src="' + it.src + '" title="Wideo realizacji" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' +
+                '<button type="button" class="nlb-video-expand-btn absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] text-[11px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer shadow-lg active:scale-95" title="Pełny podgląd wideo">' +
+                  '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>' +
+                  '<span>Pełny ekran</span>' +
+                '</button>';
             } else {
               cell.innerHTML = '<div class="relative w-full h-full bg-black flex items-center justify-center group/vid">' +
                 '<video id="news-modal-video-player" class="w-full h-full object-cover bg-black rounded-xl" controls playsinline preload="metadata" poster="' + (it.poster || '') + '">' +
@@ -6590,14 +6612,32 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
                   '<span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-pulse"></span>' +
                   '<span>Wideo</span>' +
                 '</div>' +
+                '<button type="button" class="nlb-video-expand-btn absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] text-[11px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer shadow-lg active:scale-95" title="Pełny podgląd wideo">' +
+                  '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>' +
+                  '<span>Pełny ekran</span>' +
+                '</button>' +
               '</div>';
+            }
+            const expBtn = cell.querySelector('.nlb-video-expand-btn');
+            if (expBtn) {
+              expBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openNewsLightboxCurrent(it.galleryIdx);
+              });
+            }
+            const localVid = cell.querySelector('#news-modal-video-player');
+            if (localVid) {
+              localVid.addEventListener('dblclick', (e) => {
+                e.stopPropagation();
+                openNewsLightboxCurrent(it.galleryIdx);
+              });
             }
           } else {
             cell.classList.add('group', 'cursor-zoom-in');
             cell.innerHTML = '<img src="' + it.url + '" alt="" class="w-full h-full object-cover">' +
               '<div class="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">' +
               '<span class="px-2 py-0.5 rounded-md bg-black/85 border border-[#FACB7D]/70 text-[#FACB7D] text-[10px] font-mono font-bold tracking-wider uppercase">Powiększ</span></div>';
-            cell.addEventListener('click', () => openNewsLightboxCurrent(it.idx));
+            cell.addEventListener('click', () => openNewsLightboxCurrent(it.galleryIdx));
           }
           row.appendChild(cell);
         });
@@ -6852,6 +6892,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
             });
           }
           allImages.forEach((url, i) => items.push({ type: 'img', url, idx: i, aspect: aspects[i] }));
+          items.forEach((it, gIdx) => { it.galleryIdx = gIdx; });
           nmGalleryItems = items;
           requestAnimationFrame(() => { fitNewsText(); layoutNewsGallery(); });
         });
@@ -6859,20 +6900,29 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
     }
 
     // ══════════════════════════════════════════════
-    // LOGIKA PEŁNOEKRANOWEGO LIGHTBOXA DLA AKTUALNOŚCI
+    // LOGIKA PEŁNOEKRANOWEGO LIGHTBOXA DLA AKTUALNOŚCI (ZDJĘCIA I WIDEO)
     // ══════════════════════════════════════════════
-    let currentLightboxImages = [];
+    let currentLightboxMedia = [];
     let currentLightboxIndex = 0;
     let currentLightboxTitle = '';
 
-    function openNewsLightbox(images, startIndex = 0, title = '') {
-      if (!images || images.length === 0) return;
-      currentLightboxImages = images;
-      currentLightboxIndex = Math.max(0, Math.min(startIndex, images.length - 1));
+    function openNewsLightbox(mediaList, startIndex = 0, title = '') {
+      if (!mediaList || mediaList.length === 0) return;
+      currentLightboxMedia = mediaList.map(item => {
+        if (typeof item === 'string') return { type: 'img', url: item };
+        return item;
+      });
+      currentLightboxIndex = Math.max(0, Math.min(startIndex, currentLightboxMedia.length - 1));
       currentLightboxTitle = title || (currentModalNewsItem ? currentModalNewsItem.title : '');
 
       const nlb = document.getElementById('news-lightbox');
       if (!nlb) return;
+
+      // Zatrzymaj wideo w tle w modalu aktualności, aby dźwięk się nie nakładał
+      const modalPlayer = document.getElementById('news-modal-video-player');
+      if (modalPlayer) {
+        try { modalPlayer.pause(); } catch(e) {}
+      }
 
       renderNewsLightboxSlide();
       renderNewsLightboxThumbs();
@@ -6883,27 +6933,57 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
 
     function openNewsLightboxCurrent(index) {
       if (!currentModalNewsItem) return;
-      const imgs = (currentModalNewsItem.images && currentModalNewsItem.images.length > 0)
-        ? currentModalNewsItem.images
-        : (currentModalNewsItem.coverImg ? [currentModalNewsItem.coverImg] : []);
-      
-      const startIdx = (typeof index === 'number') ? index : (currentModalPhotoIndex || 0);
-      openNewsLightbox(imgs, startIdx, currentModalNewsItem.title);
+      let mediaList = [];
+      if (nmGalleryItems && nmGalleryItems.length > 0) {
+        mediaList = nmGalleryItems.map(it => {
+          if (it.type === 'video') {
+            return {
+              type: 'video',
+              isYt: it.isYt,
+              src: it.src,
+              poster: it.poster
+            };
+          } else {
+            return {
+              type: 'img',
+              url: it.url
+            };
+          }
+        });
+      } else {
+        if (currentModalNewsItem.videoUrl) {
+          const isYt = currentModalNewsItem.videoUrl.includes('youtube') || currentModalNewsItem.videoUrl.includes('youtu.be');
+          const videoSrc = isYt ? getYouTubeEmbedUrl(currentModalNewsItem.videoUrl) : currentModalNewsItem.videoUrl;
+          mediaList.push({
+            type: 'video',
+            isYt,
+            src: videoSrc,
+            poster: currentModalNewsItem.videoPoster || currentModalNewsItem.coverImg || ''
+          });
+        }
+        const imgs = (currentModalNewsItem.images && currentModalNewsItem.images.length > 0)
+          ? currentModalNewsItem.images
+          : (currentModalNewsItem.coverImg ? [currentModalNewsItem.coverImg] : []);
+        imgs.forEach(url => mediaList.push({ type: 'img', url }));
+      }
+
+      if (mediaList.length === 0) return;
+      const startIdx = (typeof index === 'number') ? Math.max(0, Math.min(index, mediaList.length - 1)) : 0;
+      openNewsLightbox(mediaList, startIdx, currentModalNewsItem.title);
     }
 
     function renderNewsLightboxSlide() {
       const mainImg = document.getElementById('nlb-main-img');
+      const mainVideo = document.getElementById('nlb-main-video');
+      const mainIframe = document.getElementById('nlb-main-iframe');
       const counter = document.getElementById('nlb-counter');
       const titleEl = document.getElementById('nlb-title');
       const prevBtn = document.getElementById('nlb-prev-btn');
       const nextBtn = document.getElementById('nlb-next-btn');
 
-      if (!currentLightboxImages || currentLightboxImages.length === 0) return;
+      if (!currentLightboxMedia || currentLightboxMedia.length === 0) return;
 
-      const total = currentLightboxImages.length;
-      if (mainImg) {
-        mainImg.src = currentLightboxImages[currentLightboxIndex];
-      }
+      const total = currentLightboxMedia.length;
       if (counter) {
         counter.textContent = `${currentLightboxIndex + 1} / ${total}`;
       }
@@ -6911,9 +6991,56 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         titleEl.textContent = currentLightboxTitle;
       }
 
-      // Widoczność strzałek
+      // Widoczność strzałek nawigacyjnych
       if (prevBtn) prevBtn.style.display = total > 1 ? 'flex' : 'none';
       if (nextBtn) nextBtn.style.display = total > 1 ? 'flex' : 'none';
+
+      const item = currentLightboxMedia[currentLightboxIndex];
+      if (item.type === 'video') {
+        if (mainImg) {
+          mainImg.style.display = 'none';
+          mainImg.src = '';
+        }
+        if (item.isYt) {
+          if (mainVideo) {
+            try { mainVideo.pause(); } catch(e) {}
+            mainVideo.style.display = 'none';
+            mainVideo.src = '';
+          }
+          if (mainIframe) {
+            mainIframe.style.display = 'block';
+            mainIframe.src = item.src;
+          }
+        } else {
+          if (mainIframe) {
+            mainIframe.style.display = 'none';
+            mainIframe.src = '';
+          }
+          if (mainVideo) {
+            mainVideo.style.display = 'block';
+            if (mainVideo.src !== item.src && !mainVideo.src.endsWith(item.src)) {
+              mainVideo.src = item.src;
+              if (item.poster) mainVideo.poster = item.poster;
+            }
+            mainVideo.play().catch(() => {});
+          }
+        }
+      } else {
+        // Zdjęcie
+        if (mainVideo) {
+          try { mainVideo.pause(); } catch(e) {}
+          mainVideo.style.display = 'none';
+          mainVideo.src = '';
+        }
+        if (mainIframe) {
+          mainIframe.style.display = 'none';
+          mainIframe.src = '';
+        }
+        if (mainImg) {
+          mainImg.style.display = 'block';
+          mainImg.src = item.url;
+        }
+      }
 
       // Aktualizacja aktywnych miniatur w pasku Lightboxa
       updateNewsLightboxActiveThumb();
@@ -6924,13 +7051,13 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       if (!thumbsBar) return;
       thumbsBar.innerHTML = '';
 
-      if (currentLightboxImages.length <= 1) {
+      if (currentLightboxMedia.length <= 1) {
         thumbsBar.parentElement.style.display = 'none';
         return;
       }
       thumbsBar.parentElement.style.display = 'block';
 
-      currentLightboxImages.forEach((imgUrl, idx) => {
+      currentLightboxMedia.forEach((mediaItem, idx) => {
         const thumb = document.createElement('div');
         thumb.setAttribute('data-nlb-idx', String(idx));
         thumb.className = `relative w-16 h-12 sm:w-20 sm:h-14 rounded-lg overflow-hidden border-2 cursor-pointer shrink-0 transition-all ${
@@ -6938,7 +7065,25 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
             ? 'border-[#FACB7D] scale-105 shadow-[0_0_12px_rgba(250,203,125,0.5)]'
             : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/40'
         }`;
-        thumb.innerHTML = `<img src="${imgUrl}" alt="Miniatura ${idx + 1}" class="w-full h-full object-cover" style="object-position: ${getImageObjectPosition(imgUrl)};">`;
+        
+        if (mediaItem.type === 'video') {
+          const posterSrc = mediaItem.poster || (currentModalNewsItem ? currentModalNewsItem.coverImg : '') || '';
+          thumb.innerHTML = `
+            <div class="relative w-full h-full bg-black">
+              ${posterSrc ? `<img src="${posterSrc}" alt="Miniatura wideo" class="w-full h-full object-cover">` : ''}
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <div class="w-6 h-6 rounded-full bg-[#FACB7D] text-black flex items-center justify-center shadow-md">
+                  <svg class="w-3 h-3 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <span class="absolute bottom-0.5 right-1 px-1 py-0.2 rounded bg-black/85 text-[#FACB7D] text-[8px] font-mono font-bold uppercase tracking-wider">Wideo</span>
+            </div>
+          `;
+        } else {
+          const imgUrl = mediaItem.url;
+          thumb.innerHTML = `<img src="${imgUrl}" alt="Miniatura ${idx + 1}" class="w-full h-full object-cover" style="object-position: ${getImageObjectPosition(imgUrl)};">`;
+        }
+
         thumb.addEventListener('click', (e) => {
           e.stopPropagation();
           currentLightboxIndex = idx;
@@ -6963,14 +7108,29 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
     }
 
     function navNewsLightbox(direction) {
-      if (!currentLightboxImages || currentLightboxImages.length <= 1) return;
-      currentLightboxIndex = (currentLightboxIndex + direction + currentLightboxImages.length) % currentLightboxImages.length;
+      if (!currentLightboxMedia || currentLightboxMedia.length <= 1) return;
+      currentLightboxIndex = (currentLightboxIndex + direction + currentLightboxMedia.length) % currentLightboxMedia.length;
       renderNewsLightboxSlide();
     }
 
     function closeNewsLightbox() {
       const nlb = document.getElementById('news-lightbox');
       if (nlb) nlb.classList.add('hidden');
+
+      // Zatrzymanie odtwarzaczy w Lightboxie
+      const mainVideo = document.getElementById('nlb-main-video');
+      if (mainVideo) {
+        try { mainVideo.pause(); mainVideo.src = ''; } catch(e) {}
+      }
+      const mainIframe = document.getElementById('nlb-main-iframe');
+      if (mainIframe) {
+        mainIframe.src = '';
+      }
+
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+
       // Jeśli modal wpisu jest wciąż otwarty, nie odblokowuj scrolla całego okna
       const newsModal = document.getElementById('news-modal-backdrop');
       if (newsModal && !newsModal.classList.contains('hidden')) {
@@ -6981,9 +7141,34 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
     }
 
     function onNewsLightboxBackdropClick(event) {
-      // Zamknięcie po kliknięciu w tło wokół zdjęcia
-      if (event.target.id === 'nlb-main-img' || event.target.closest('button')) return;
+      // Zamknięcie po kliknięciu w tło wokół zdjęcia / wideo
+      if (event.target.id === 'nlb-main-img' || 
+          event.target.id === 'nlb-main-video' || 
+          event.target.id === 'nlb-main-iframe' || 
+          event.target.closest('button') || 
+          event.target.closest('video') || 
+          event.target.closest('iframe') || 
+          event.target.closest('#nlb-thumbs-bar')) return;
       closeNewsLightbox();
+    }
+
+    // Przycisk pełnego ekranu w Lightboxie
+    const nlbFullscreenBtn = document.getElementById('nlb-fullscreen-btn');
+    if (nlbFullscreenBtn) {
+      nlbFullscreenBtn.addEventListener('click', () => {
+        const nlb = document.getElementById('news-lightbox');
+        if (!document.fullscreenElement) {
+          if (nlb && nlb.requestFullscreen) {
+            nlb.requestFullscreen().catch(() => {});
+          } else if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          }
+        }
+      });
     }
 
     // Klawiatura dla Lightboxa i modala aktualności (Left/Right nawiguje między wydarzeniami!)
@@ -7000,9 +7185,11 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
           closeNewsModal();
         }
       } else if (isLbOpen) {
+        if (e.target && e.target.tagName === 'VIDEO') return;
         if (e.key === 'ArrowLeft') navNewsLightbox(-1);
         else if (e.key === 'ArrowRight') navNewsLightbox(1);
       } else if (isModalOpen) {
+        if (e.target && e.target.tagName === 'VIDEO') return;
         if (e.key === 'ArrowLeft') navigateNewsModal(-1);
         else if (e.key === 'ArrowRight') navigateNewsModal(1);
       }
@@ -7017,6 +7204,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       }, { passive: true });
 
       nlbElement.addEventListener('touchend', (e) => {
+        if (e.target && (e.target.closest('video') || e.target.closest('iframe') || e.target.closest('#nlb-thumbs-bar'))) return;
         const nlbTouchEndX = e.changedTouches[0].screenX;
         const diff = nlbTouchEndX - nlbTouchStartX;
         if (Math.abs(diff) > 40) {
