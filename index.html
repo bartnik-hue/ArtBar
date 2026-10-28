@@ -266,6 +266,16 @@
       background-color: #000 !important;
     }
 
+    /* UKRYCIE PRZYCISKU PEŁNEGO EKRANU ORAZ TRZECH KROPEK W NATYWNYM PASKU KONTROLEK WIDEO */
+    #news-modal-video-player::-webkit-media-controls-fullscreen-button,
+    #news-modal-video-player::-webkit-media-controls-overflow-button,
+    #news-modal-video-player::-webkit-media-controls-enclosure-overflow-button,
+    #nlb-main-video::-webkit-media-controls-fullscreen-button,
+    #nlb-main-video::-webkit-media-controls-overflow-button,
+    #nlb-main-video::-webkit-media-controls-enclosure-overflow-button {
+      display: none !important;
+    }
+
     /* Efekt Shimmer w tle */
     .obsidian-shimmer {
       background: linear-gradient(125deg, transparent 0%, rgba(250,203,125,0.04) 30%, transparent 60%, rgba(250,203,125,0.03) 80%, transparent 100%);
@@ -2161,7 +2171,7 @@
       <img id="nlb-main-img" src="" alt="Pełny podgląd zdjęcia aktualności" class="max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl transition-all duration-200">
 
       <!-- Główny odtwarzacz wideo w Lightboxie -->
-      <video id="nlb-main-video" class="hidden max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl bg-black" controls playsinline preload="metadata">
+      <video id="nlb-main-video" class="hidden max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl bg-black" controls controlsList="nofullscreen nodownload noremoteplayback" disablePictureInPicture playsinline preload="metadata">
         Twoja przeglądarka nie obsługuje odtwarzania wideo.
       </video>
 
@@ -6604,7 +6614,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
                 '</button>';
             } else {
               cell.innerHTML = '<div class="relative w-full h-full bg-black flex items-center justify-center group/vid">' +
-                '<video id="news-modal-video-player" class="w-full h-full object-cover bg-black rounded-xl" controls playsinline preload="metadata" poster="' + (it.poster || '') + '">' +
+                '<video id="news-modal-video-player" class="w-full h-full object-cover bg-black rounded-xl" controls controlsList="nofullscreen nodownload noremoteplayback" disablePictureInPicture playsinline preload="metadata" poster="' + (it.poster || '') + '">' +
                   '<source src="' + it.src + '" type="video/mp4">' +
                   'Twoja przeglądarka nie obsługuje odtwarzania wideo.' +
                 '</video>' +
