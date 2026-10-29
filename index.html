@@ -6428,6 +6428,11 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       const nextIdx = (currentIdx + direction + total) % total;
       const nextItem = artbarNewsDatabase[nextIdx];
 
+      if (currentModalNewsItem && currentModalNewsItem.id === 'bary-mds') {
+        import('./assets/3d/mds-bar-viewer.js?v=goldslider3').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
+        import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer(document.getElementById('mds-presets-3d-mount'))).catch(() => {});
+      }
+
       
 
       const card = document.getElementById('news-modal-card');
@@ -6909,7 +6914,54 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       }
 
       
-      if (contentEl) contentEl.innerHTML = parasHtml + bulletsHtml + effectHtml;
+            // Wideo: dla bary-mds umieszczane na lewej stronie przed sekcja "Co zyskujesz jako organizator?"
+      let mdsVideoHtml = '';
+      if (item.id === 'bary-mds' && hasVideo && videoSrc) {
+        mdsVideoHtml = `
+          <div class="news-modal-video-section" style="margin: 2.2em 0 2.5em;">
+            <div class="flex items-center gap-2.5" style="margin-bottom: 1.0em;">
+              <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_10px_rgba(250,203,125,0.7)] shrink-0"></span>
+              <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-[0.18em]" style="font-size:0.88em;">Prezentacja Wideo</span>
+              <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/40 via-[#FACB7D]/15 to-transparent"></div>
+            </div>
+            <div class="relative w-full max-w-[540px] rounded-2xl overflow-hidden border border-[#FACB7D]/35 bg-black/90 shadow-[0_15px_45px_rgba(0,0,0,0.85)] aspect-video group/video">
+              <video 
+                id="news-modal-video-player" 
+                class="w-full h-full object-cover bg-black" 
+                controls 
+                controlsList="nodownload noremoteplayback" 
+                playsinline 
+                preload="metadata" 
+                poster="${item.videoPoster || ''}"
+              >
+                <source src="${videoSrc}" type="video/mp4">
+                Twoja przegladarka nie obsluguje wideo.
+              </video>
+              <div class="absolute top-2.5 left-2.5 z-10 pointer-events-none flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-[#FACB7D]/60 text-[#FACB7D] text-[10px] font-mono font-bold uppercase tracking-wider shadow-lg">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-pulse"></span>
+                <span>Wideo HD</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="toggleNewsVideoFullscreen()" 
+                class="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 hover:bg-[#FACB7D] text-[#FACB7D] hover:text-black border border-[#FACB7D]/60 hover:border-[#FACB7D] text-[10px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer shadow-lg active:scale-95" 
+                title="Pelny podglad wideo na pelnym ekranie"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                <span>Pelny ekran</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      if (contentEl) {
+        if (item.id === 'bary-mds' && mdsVideoHtml) {
+          contentEl.innerHTML = parasHtml + mdsVideoHtml + bulletsHtml + effectHtml;
+        } else {
+          contentEl.innerHTML = parasHtml + bulletsHtml + effectHtml;
+        }
+      }
 
       // CTA
       const ctaTitleEl = document.getElementById('news-modal-cta-title');
@@ -6956,7 +7008,51 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       document.body.style.overflow = 'hidden';
       fitNewsText();
 
-      
+      if (item.id === 'bary-mds') {
+        const textCol = document.getElementById('news-modal-textcol');
+
+        // Ujednolicony JEDEN pasek przewijania dla calego modala (nie dzielimy na dwa osobne paski)
+        if (bodyEl) {
+          bodyEl.className = 'relative z-10 flex-1 min-h-0 overflow-y-auto scrollbar-thin grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-8 lg:gap-14 p-6 sm:p-8 lg:p-12';
+        }
+        if (textCol) {
+          textCol.className = 'min-h-0 pr-0 sm:pr-2 lg:pr-4';
+        }
+        if (galleryEl) {
+          galleryEl.classList.remove('hidden');
+          // Prawe skrzydlo: modul 3D Bar & Regal oraz pod nim modul przegladu gotowych ukladow barow 3D
+          galleryEl.className = 'relative w-full flex flex-col items-center justify-start';
+          galleryEl.style.height = '';
+          galleryEl.innerHTML = `
+            <div id="mds-3d-mount" class="w-full flex flex-col items-center"></div>
+            
+            <!-- Sekcja Prezentacji Ukladów Barów 3D pod animacją rozkładania -->
+            <div id="mds-presets-section" class="w-full flex flex-col items-center mt-12 pt-8 border-t border-[#FACB7D]/20">
+              <div id="mds-presets-3d-mount" class="w-full"></div>
+            </div>
+          `;
+
+          import('./assets/3d/mds-bar-viewer.js?v=goldslider3').then((mod) => {
+            if (token !== nmOpenToken) return;
+            mod.mountMdsBarViewer(document.getElementById('mds-3d-mount'));
+          }).catch(err => {
+            console.error('Blad montowania modulu 3D MDS:', err);
+          });
+
+          import('./assets/3d/bar-presets-viewer.js?v=clean1').then((mod) => {
+            if (token !== nmOpenToken) return;
+            mod.mountBarPresetsViewer(document.getElementById('mds-presets-3d-mount'));
+          }).catch(err => {
+            console.error('Blad montowania modulu presetow 3D:', err);
+          });
+        }
+        requestAnimationFrame(() => { fitNewsText(); });
+        return;
+      } else {
+        // Zniszcz instancje 3D w oknie news jeśli przełączono na inny artykuł
+        import('./assets/3d/mds-bar-viewer.js?v=goldslider3').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
+        import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer(document.getElementById('mds-presets-3d-mount'))).catch(() => {});
+
         // Reset klas layoutu dla standardowych kart aktualności
         const textCol = document.getElementById('news-modal-textcol');
         if (bodyEl) {
@@ -6971,7 +7067,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
           galleryEl.className = 'relative min-h-0 min-w-0';
           galleryEl.style.height = '';
         }
-      
+      }
 
       const videoAspectPromise = (hasVideo && videoSrc)
         ? getVideoAspect(videoSrc, isYt, item.videoAspect)
@@ -7363,7 +7459,9 @@ catch(e) {}
       nmGalleryItems = [];
       nmOpenToken++;
 
-      
+      // Zniszcz instancje Three.js w oknie news
+      import('./assets/3d/mds-bar-viewer.js?v=goldslider3').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
+      import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer(document.getElementById('mds-presets-3d-mount'))).catch(() => {});
 
       // Reset klas layoutu dla pewnosci po zamknieciu
       const bodyEl = document.getElementById('news-modal-body');

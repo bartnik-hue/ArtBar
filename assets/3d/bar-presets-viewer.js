@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { ModelRegistry } from '../../konfigurator/js/ModelRegistry.js?v=fixed_corners';
 
-let activeInstance = null;
+const activeInstances = new Map();
 
 // Kolejność presetów w pętli automatycznej
 const PRESET_KEYS = ['straight', 'l_shape', 'horseshoe', 'island'];
@@ -101,9 +101,9 @@ export const PRESETS_CONFIG = {
 
 export function mountBarPresetsViewer(mountEl, options = {}) {
   if (!mountEl) return;
-  if (activeInstance) {
-    activeInstance.destroy();
-    activeInstance = null;
+  if (activeInstances.has(mountEl)) {
+    try { activeInstances.get(mountEl).destroy(); } catch(e) {}
+    activeInstances.delete(mountEl);
   }
 
   const initialPreset = options.defaultPreset || 'straight';
@@ -173,14 +173,22 @@ export function mountBarPresetsViewer(mountEl, options = {}) {
     </div>
   `;
 
-  activeInstance = createPresetsApp(mountEl, initialPreset);
-  return activeInstance;
+  const inst = createPresetsApp(mountEl, initialPreset);
+  activeInstances.set(mountEl, inst);
+  return inst;
 }
 
-export function destroyBarPresetsViewer() {
-  if (activeInstance) {
-    activeInstance.destroy();
-    activeInstance = null;
+export function destroyBarPresetsViewer(mountEl) {
+  if (mountEl) {
+    if (activeInstances.has(mountEl)) {
+      try { activeInstances.get(mountEl).destroy(); } catch(e) {}
+      activeInstances.delete(mountEl);
+    }
+  } else {
+    activeInstances.forEach(inst => {
+      try { inst.destroy(); } catch(e) {}
+    });
+    activeInstances.clear();
   }
 }
 

@@ -5,13 +5,13 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 
 // Stan instancji przeglądarki 3D
-let activeInstance = null;
+const activeInstances = new Map();
 
 export function mountMdsBarViewer(mountEl) {
   if (!mountEl) return;
-  if (activeInstance) {
-    activeInstance.destroy();
-    activeInstance = null;
+  if (activeInstances.has(mountEl)) {
+    try { activeInstances.get(mountEl).destroy(); } catch(e) {}
+    activeInstances.delete(mountEl);
   }
 
   // Wymagania:
@@ -135,26 +135,34 @@ export function mountMdsBarViewer(mountEl) {
     </div>
   `;
 
-  activeInstance = createThreeApp(mountEl);
-  window._mdsApp = activeInstance;
+  const inst = createThreeApp(mountEl);
+  activeInstances.set(mountEl, inst);
+  window._mdsApp = inst;
 }
 
 export function pauseMdsBarViewer() {
-  if (activeInstance) {
-    activeInstance.pause();
-  }
+  activeInstances.forEach(inst => {
+    try { inst.pause(); } catch(e) {}
+  });
 }
 
 export function resumeMdsBarViewer() {
-  if (activeInstance) {
-    activeInstance.resume();
-  }
+  activeInstances.forEach(inst => {
+    try { inst.resume(); } catch(e) {}
+  });
 }
 
-export function destroyMdsBarViewer() {
-  if (activeInstance) {
-    activeInstance.destroy();
-    activeInstance = null;
+export function destroyMdsBarViewer(mountEl) {
+  if (mountEl) {
+    if (activeInstances.has(mountEl)) {
+      try { activeInstances.get(mountEl).destroy(); } catch(e) {}
+      activeInstances.delete(mountEl);
+    }
+  } else {
+    activeInstances.forEach(inst => {
+      try { inst.destroy(); } catch(e) {}
+    });
+    activeInstances.clear();
   }
 }
 
