@@ -221,6 +221,13 @@ function createPresetsApp(mountEl, initialPresetId) {
   // 2. Controls (automatyczny obrót 360°, ZABLOKOWANY ZOOM tak by cały obiekt zawsze idealnie mieścił się w oknie)
   const defaultCenter = new THREE.Vector3(0, 0.70, 0);
   const controls = new OrbitControls(camera, renderer.domElement);
+
+  // Blokada propagacji gestów dotykowych (zapobiega niepożądanemu swipe całego artykułu/podstrony na telefonie)
+  ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(evt => {
+    renderer.domElement.addEventListener(evt, (e) => {
+      e.stopPropagation();
+    }, { passive: false });
+  });
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.target.copy(defaultCenter);

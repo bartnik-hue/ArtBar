@@ -198,6 +198,13 @@ function createThreeApp(mountEl) {
 
   // 2. Controls (automatyczny obrót 360° wokół środka sceny między barem a regałem)
   const controls = new OrbitControls(camera, renderer.domElement);
+
+  // Blokada propagacji gestów dotykowych (zapobiega niepożądanemu swipe całego artykułu/podstrony na telefonie)
+  ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(evt => {
+    renderer.domElement.addEventListener(evt, (e) => {
+      e.stopPropagation();
+    }, { passive: false });
+  });
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.target.copy(defaultCameraTarget);

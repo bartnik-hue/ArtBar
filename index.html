@@ -7407,6 +7407,14 @@ catch(e) {}
       if (!nmb || nmb.classList.contains('hidden')) return;
       const nlb = document.getElementById('news-lightbox');
       if (nlb && !nlb.classList.contains('hidden')) return;
+
+      // Całkowite zablokowanie swipe wydarzenia przy interakcji z modelami 3D, suwakami i kontrolkami
+      if (e.target && e.target.closest('canvas, [id*="3d"], [class*="3d"], input[type="range"], button, a, #dept-bar-3d-section, #mds-canvas-wrapper, #presets-canvas-wrapper')) {
+        modalTouchStartX = null;
+        modalTouchStartY = null;
+        return;
+      }
+
       const pos = getTouchPos(e);
       if (!pos) return;
       modalTouchStartX = pos.x;
@@ -7414,14 +7422,25 @@ catch(e) {}
     }, { passive: true });
 
     window.addEventListener('touchend', (e) => {
+      if (modalTouchStartX === null || modalTouchStartY === null) return;
       const nmb = document.getElementById('news-modal-backdrop');
       if (!nmb || nmb.classList.contains('hidden')) return;
       const nlb = document.getElementById('news-lightbox');
       if (nlb && !nlb.classList.contains('hidden')) return;
+
+      if (e.target && e.target.closest('canvas, [id*="3d"], [class*="3d"], input[type="range"], button, a, #dept-bar-3d-section, #mds-canvas-wrapper, #presets-canvas-wrapper')) {
+        modalTouchStartX = null;
+        modalTouchStartY = null;
+        return;
+      }
+
       const pos = getTouchPos(e);
       if (!pos) return;
       const diffX = pos.x - modalTouchStartX;
       const diffY = pos.y - modalTouchStartY;
+      modalTouchStartX = null;
+      modalTouchStartY = null;
+
       // Reaguj tylko na wyraźny gest horyzontalny (nie zaburzając pionowego scrollowania artykułu)
       if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) {
