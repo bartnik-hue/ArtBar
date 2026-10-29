@@ -123,11 +123,15 @@ export class FridgeGenerator {
                     opacity: 0.85
                 });
                 const bottle = new THREE.Mesh(bottleGeom, bottleMat);
+                bottle.name = 'FridgeBottle';
+                bottle.userData.isBottle = true;
                 bottle.position.set(bX, shelfY + bHeight / 2 + 0.008, 0.02);
                 fridgeGroup.add(bottle);
 
                 // Drugi rząd (nieco z tyłu)
                 const bottle2 = new THREE.Mesh(bottleGeom, bottleMat);
+                bottle2.name = 'FridgeBottle';
+                bottle2.userData.isBottle = true;
                 bottle2.position.set(bX, shelfY + bHeight / 2 + 0.008, -0.09);
                 fridgeGroup.add(bottle2);
             }

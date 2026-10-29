@@ -12,3 +12,8 @@ desktop.ini
 *.zip
 _ARCHIWUM/
 assets/aktualnosci_materialy/
+
+# Dependencies and caches
+node_modules/
+__pycache__/
+*.pyc

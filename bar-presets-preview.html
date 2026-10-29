@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Układy Barów 3D | ArtBar Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030303;
+      color: #E5E5E5;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-serif-luxury {
+      font-family: 'Cinzel', serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-3 sm:p-6 bg-[#030303]">
+  <div class="w-full max-w-2xl flex flex-col items-center">
+    
+    <!-- Nagłówek prezentacyjny -->
+    <div class="text-center mb-6">
+      <div class="text-xs font-mono uppercase tracking-[0.3em] text-[#FACB7D] mb-1">Prezentacja Konfiguracji 3D</div>
+      <h1 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white tracking-wide">Układy Barów ArtBar</h1>
+    </div>
+
+    <!-- Kontener montażowy modułu 3D -->
+    <div id="presets-mount" class="w-full"></div>
+
+  </div>
+
+  <script type="module">
+    import { mountBarPresetsViewer } from './assets/3d/bar-presets-viewer.js?v=clean1';
+    mountBarPresetsViewer(document.getElementById('presets-mount'));
+  </script>
+</body>
+</html>

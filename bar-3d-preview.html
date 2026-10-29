@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prezentacja 3D Modułu Barowego MDS | ArtBar Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030303;
+      color: #E5E5E5;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-3 sm:p-6 bg-[#030303]">
+  <div class="w-full max-w-xl flex flex-col items-center">
+    <div id="mount-point" class="w-full"></div>
+  </div>
+  <script type="module">
+    import { mountMdsBarViewer } from './assets/3d/mds-bar-viewer.js?v=goldslider3';
+    mountMdsBarViewer(document.getElementById('mount-point'));
+  </script>
+</body>
+</html>

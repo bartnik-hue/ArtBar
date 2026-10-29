@@ -7,7 +7,8 @@ import { FridgeGenerator } from './FridgeGenerator.js';
  * Obsługuje centrowanie pivotu w środku mebli oraz podział na Narożnik Prawy i Narożnik Lewy (odbicie lustrzane).
  */
 export class ModelRegistry {
-    constructor() {
+    constructor(basePath = 'MODELE/') {
+        this.basePath = basePath;
         this.loader = new GLTFLoader();
         this.templates = new Map();
         
@@ -150,9 +151,9 @@ export class ModelRegistry {
 
     async loadAllModels(onProgress) {
         const modelsToLoad = [
-            { key: 'BAR_STRAIGHT', url: 'MODELE/BarModel.glb?v=6',     label: 'Moduł prosty baru' },
-            { key: 'RAW_CORNER',   url: 'MODELE/rog.glb?v=6',          label: 'Narożnik' },
-            { key: 'BACK_SHELF',   url: 'MODELE/regal.glb?v=6',        label: 'Regał zaplecza' }
+            { key: 'BAR_STRAIGHT', url: this.basePath + 'BarModel.glb?v=6',     label: 'Moduł prosty baru' },
+            { key: 'RAW_CORNER',   url: this.basePath + 'rog.glb?v=6',          label: 'Narożnik' },
+            { key: 'BACK_SHELF',   url: this.basePath + 'regal.glb?v=6',        label: 'Regał zaplecza' }
         ];
 
         let loadedCount = 0;
@@ -415,17 +416,27 @@ export class ModelRegistry {
                 if (child.material) {
                     const isFront = child.userData.isCornerFront || child.userData.isFrontPanel;
                     if (Array.isArray(child.material)) {
-                        child.material = child.material.map(m => {
-                            const cloned = m.clone();
-                            cloned.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
-                            cloned.shadowSide = isFront ? THREE.FrontSide : THREE.DoubleSide;
-                            return cloned;
-                        });
+                        child.material = child.material.map(m => m.clone());
                     } else {
                         child.material = child.material.clone();
-                        child.material.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
-                        child.material.shadowSide = isFront ? THREE.FrontSide : THREE.DoubleSide;
                     }
+                    const mats = Array.isArray(child.material) ? child.material : [child.material];
+                    mats.forEach(m => {
+                        m.side = isFront ? THREE.FrontSide : THREE.DoubleSide;
+                        m.shadowSide = isFront ? THREE.FrontSide : THREE.DoubleSide;
+
+                        // Dla materiałów DoubleSide pod ujemną skalą odwracamy faceDirection w shaderze,
+                        // aby normalne nie były odwracane do wnętrza bryły
+                        if (m.side === THREE.DoubleSide) {
+                            m.onBeforeCompile = (shader) => {
+                                shader.fragmentShader = shader.fragmentShader.replace(
+                                    'float faceDirection = gl_FrontFacing ? 1.0 : - 1.0;',
+                                    'float faceDirection = gl_FrontFacing ? - 1.0 : 1.0;'
+                                );
+                            };
+                            m.customProgramCacheKey = () => 'mirrored_double_sided';
+                        }
+                    });
                 }
                 if (this.isBrandingTarget(child)) {
                     child.userData.isBrandingFront = true;
@@ -675,7 +686,45 @@ export class ModelRegistry {
                     });
                 }
             });
+
+            // Odwróć nawinięcie odwróconych płaszczyzn w rog.glb:
+            // 1. Górny blat gościa (avgY >= 1.195), którego trójkąty w Blenderze były skierowane w dół (n.y < -0.5) -> odwracamy do góry
+            // 2. Spód górnego blatu (avgY 1.18-1.19), który w Blenderze był skierowany w górę (n.y > 0.5) -> odwracamy do dołu
+            // 3. Duży blat roboczy barmana (avgY 0.863-0.875), którego trójkąty w Blenderze były skierowane w dół (n.y < -0.5) -> odwracamy do góry
+            // 4. Spód blatu roboczego barmana (avgY 0.845-0.862), który w Blenderze był skierowany w górę (n.y > 0.5) -> odwracamy do dołu
+            // Spód podstawy mebla (Y ~ 0.148) ma już prawidłowe normalne w dół i go nie ruszamy.
+            const pA = new THREE.Vector3(), pB = new THREE.Vector3(), pC = new THREE.Vector3();
+            const cb = new THREE.Vector3(), ab = new THREE.Vector3();
+            for (let i = 0; i < bodyIndices.length; i += 3) {
+                pA.fromBufferAttribute(bodyPos, bodyIndices[i]);
+                pB.fromBufferAttribute(bodyPos, bodyIndices[i+1]);
+                pC.fromBufferAttribute(bodyPos, bodyIndices[i+2]);
+                cb.subVectors(pC, pB);
+                ab.subVectors(pA, pB);
+                const n = cb.cross(ab).normalize();
+                const avgY = (pA.y + pB.y + pC.y) / 3;
+                
+                if (avgY >= 1.195 && n.y < -0.5) {
+                    const tmp = bodyIndices[i+1];
+                    bodyIndices[i+1] = bodyIndices[i+2];
+                    bodyIndices[i+2] = tmp;
+                } else if (avgY >= 1.18 && avgY <= 1.19 && n.y > 0.5) {
+                    const tmp = bodyIndices[i+1];
+                    bodyIndices[i+1] = bodyIndices[i+2];
+                    bodyIndices[i+2] = tmp;
+                } else if (avgY >= 0.863 && avgY <= 0.875 && n.y < -0.5) {
+                    const tmp = bodyIndices[i+1];
+                    bodyIndices[i+1] = bodyIndices[i+2];
+                    bodyIndices[i+2] = tmp;
+                } else if (avgY >= 0.845 && avgY <= 0.862 && n.y > 0.5) {
+                    const tmp = bodyIndices[i+1];
+                    bodyIndices[i+1] = bodyIndices[i+2];
+                    bodyIndices[i+2] = tmp;
+                }
+            }
+
             bodyGeom.index.needsUpdate = true;
+            bodyGeom.computeVertexNormals();
             bodyNorm.needsUpdate = true;
             bodyUv.needsUpdate = true;
         }
@@ -850,9 +899,21 @@ export class ModelRegistry {
         // Klonuj materiały instancji, aby moduły mogły mieć unikalne mapowanie UV panoramy
         clone.traverse(child => {
             if (child.isMesh && child.material) {
-                child.material = Array.isArray(child.material)
-                    ? child.material.map(m => m.clone())
-                    : child.material.clone();
+                const origMat = child.material;
+                child.material = Array.isArray(origMat)
+                    ? origMat.map(m => m.clone())
+                    : origMat.clone();
+                // Zachowaj customowe funkcje onBeforeCompile i cacheKey przy klonowaniu
+                const newMats = Array.isArray(child.material) ? child.material : [child.material];
+                const oldMats = Array.isArray(origMat) ? origMat : [origMat];
+                newMats.forEach((m, idx) => {
+                    if (oldMats[idx].onBeforeCompile) {
+                        m.onBeforeCompile = oldMats[idx].onBeforeCompile;
+                    }
+                    if (oldMats[idx].customProgramCacheKey) {
+                        m.customProgramCacheKey = oldMats[idx].customProgramCacheKey;
+                    }
+                });
             }
         });
 
