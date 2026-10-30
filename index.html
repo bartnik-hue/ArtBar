@@ -2134,7 +2134,7 @@
         <div class="pb-3.5 mb-4 border-b border-[#FACB7D]/20 flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-3">
             <h4 class="font-serif-luxury text-base sm:text-lg font-bold text-white uppercase tracking-wider">Historia Wpisów</h4>
-            <span class="text-xs font-mono text-[#FACB7D] font-bold bg-[#FACB7D]/10 px-2.5 py-0.5 rounded-full border border-[#FACB7D]/30">39 wydarzeń</span>
+            <span id="news-history-counter" class="text-xs font-mono text-[#FACB7D] font-bold bg-[#FACB7D]/10 px-2.5 py-0.5 rounded-full border border-[#FACB7D]/30">39 wydarzeń</span>
           </div>
           <span class="text-xs text-[#f5efe6]/50 font-light hidden sm:inline">Wybierz wydarzenie, aby zobaczyć galerię i szczegóły</span>
         </div>
@@ -5122,20 +5122,23 @@
         fullDate: '2026.09.30-10.01 · Polska',
         title: 'Targi Event Expo Poland w Nadarzynie',
         excerpt: 'W dniach 29 września – 1 października 2026 roku Art Bar Solutions uczestniczyło w targach Event Expo Poland w Nadarzynie. Była to świetna okazja, by zaprezentować naszą ofertę barową, pokazać możliwości aranżacji przestrzeni eventowych i spotkać się z ludźmi, którzy tak jak my lubią tworzyć ciekawe rzeczy.',
-        s1: 'W dniach 29 września – 1 października 2026 roku Art Bar Solutions uczestniczyło w targach Event Expo Poland w Nadarzynie.',
-        s2: 'Była to świetna okazja, by zaprezentować naszą ofertę barową, pokazać możliwości aranżacji przestrzeni eventowych i spotkać się z ludźmi, którzy tak jak my lubią tworzyć ciekawe rzeczy.',
+        s1: 'Art Bar Solutions na Event Expo Poland 2026 – spotkania, inspiracje i przestrzeń do rozmów',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829738134_29214744774799794_1353027114779338448_n.jpg',
         images: ["assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829738134_29214744774799794_1353027114779338448_n.jpg", "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829968750_29214744761466462_744772577248014698_n.jpg", "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831240202_29214744764799795_5896056766345836499_n.jpg", "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831327300_29214744768133128_6996826654849923360_n.jpg"],
         hasMaterials: true,
         videoUrl: null,
         intro: `W dniach 29 września – 1 października 2026 roku Art Bar Solutions uczestniczyło w targach Event Expo Poland w Nadarzynie. Była to świetna okazja, by zaprezentować naszą ofertę barową, pokazać możliwości aranżacji przestrzeni eventowych i spotkać się z ludźmi, którzy tak jak my lubią tworzyć ciekawe rzeczy.
 
+Na targach przygotowaliśmy przestrzeń łączącą charakterystyczny złoty kolor Art Bar Solutions z przytulną strefą wypoczynkową w stylu boho. Stworzyliśmy miejsce, w którym można było na chwilę zwolnić, napić się dobrej kawy, porozmawiać o biznesie i wymienić pomysłami. Nie zabrakło również naszego baru z pełną ofertą, który umilał targowy czas odwiedzającym.
+
 Event Expo Poland to dla nas przede wszystkim ludzie i inspirujące rozmowy. Przez trzy dni odbyliśmy wiele spotkań biznesowych, wymienialiśmy się doświadczeniami, poznawaliśmy nowe perspektywy i nawiązaliśmy kontakty, które mamy nadzieję zaowocują wspólnymi projektami.`,
         bulletsTitle: 'Realizacja naszej strefy była możliwa dzięki współpracy z partnerami, którym serdecznie dziękujemy:',
-        bullets: ["Technika i multimedia: Contech Multimedia (https://www.facebook.com/aparaturasymultaniczna)", "Meble eventowe: Tosca Rent – wypożyczalnia mebli eventowych (https://www.instagram.com/tosca.rent/)"],
-        effect: `Na targach przygotowaliśmy przestrzeń łączącą charakterystyczny złoty kolor Art Bar Solutions z przytulną strefą wypoczynkową w stylu boho. Stworzyliśmy miejsce, w którym można było na chwilę zwolnić, napić się dobrej kawy, porozmawiać o biznesie i wymienić pomysłami. Nie zabrakło również naszego baru z pełną ofertą, który umilał targowy czas odwiedzającym.
-
-Targi po raz kolejny pokazały nam, jak ważne jest połączenie dobrego pomysłu, dopracowanej przestrzeni i sprawnej realizacji. W Art Bar Solutions łączymy kreatywne podejście z własnymi zasobami i doświadczeniem produkcyjnym, tworząc bary eventowe, strefy wypoczynkowe i kompleksowe realizacje na targi, festiwale, koncerty oraz wydarzenia marek.
+        bullets: [
+          'Technika i multimedia: Contech Multimedia (https://www.facebook.com/aparaturasymultaniczna)',
+          'Meble eventowe: Tosca Rent – wypożyczalnia mebli eventowych (https://www.instagram.com/tosca.rent/)'
+        ],
+        effect: `Targi po raz kolejny pokazały nam, jak ważne jest połączenie dobrego pomysłu, dopracowanej przestrzeni i sprawnej realizacji. W Art Bar Solutions łączymy kreatywne podejście z własnymi zasobami i doświadczeniem produkcyjnym, tworząc bary eventowe, strefy wypoczynkowe i kompleksowe realizacje na targi, festiwale, koncerty oraz wydarzenia marek.
 
 Planujesz targi, event firmowy lub wydarzenie promujące Twoją markę? Porozmawiajmy o Twoim pomyśle. Zaprojektujemy przestrzeń, zadbamy o jej charakter i przełożymy kreatywną koncepcję na gotową realizację.`,
         footerNote: `Skontaktuj się z Art Bar Solutions i stwórzmy razem coś wyjątkowego!`,
@@ -5172,9 +5175,9 @@ Zapewniamy profesjonalną obsługę stref barowych podczas eventów firmowych, i
         excerpt: 'Za nami nasza największa produkcja tego roku: 28–29 sierpnia 2026 roku na terenie Hipodromu Sopot odbyła się XII edycja Festiwalu Whisky Sopot. Przez dwa dni ponad 5 tysięcy uczestników odkrywało świat whisky i alkoholi premium, korzystając z degustacji, warsztatów, koncertów oraz rozbudowanych stref tematycznych.',
         s1: 'Za nami nasza największa produkcja tego roku: 28–29 sierpnia 2026 roku na terenie Hipodromu Sopot odbyła się XII edycja Festiwalu Whisky Sopot.',
         s2: 'Przez dwa dni ponad 5 tysięcy uczestników odkrywało świat whisky i alkoholi premium, korzystając z degustacji, warsztatów, koncertów oraz rozbudowanych stref tematycznych.',
-        coverImg: null,
-        images: [],
-        hasMaterials: false,
+        coverImg: 'assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0894_web.jpg',
+        images: ["assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0894_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0931_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0938_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0998_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1038_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1282_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1351_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1381_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1385_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1454_web.jpg", "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1542_web.jpg"],
+        hasMaterials: true,
         videoUrl: null,
         intro: `Za nami nasza największa produkcja tego roku: 28–29 sierpnia 2026 roku na terenie Hipodromu Sopot odbyła się XII edycja Festiwalu Whisky Sopot. Przez dwa dni ponad 5 tysięcy uczestników odkrywało świat whisky i alkoholi premium, korzystając z degustacji, warsztatów, koncertów oraz rozbudowanych stref tematycznych. Wydarzenie zajęło ponad 12 000 m² terenu, a to właśnie my odpowiadaliśmy za jego kompleksową realizację.
 
@@ -5193,29 +5196,29 @@ Festiwal Whisky Sopot był dla nas realizacją, w której połączyliśmy wiele 
         date: '21-23.08.2026',
         fullDate: '21-23.08.2026 · Polska',
         title: 'Festiwal Wisłoujście w Gdańsku',
-        excerpt: 'W dniach 21–23 sierpnia 2026 roku po raz kolejny realizowaliśmy strefy barowe na Wisłoujście Festival w Gdańsku. Art Bar Solutions odpowiadało za produkcję zabudowy oraz obsługę barów, dopasowując rozwiązania do specyfiki festiwalu i potrzeb organizatora.',
-        s1: 'W dniach 21–23 sierpnia 2026 roku po raz kolejny realizowaliśmy strefy barowe na Wisłoujście Festival w Gdańsku.',
-        s2: 'Art Bar Solutions odpowiadało za produkcję zabudowy oraz obsługę barów, dopasowując rozwiązania do specyfiki festiwalu i potrzeb organizatora.',
+        excerpt: 'W dniach 21–23 sierpnia 2026 roku po raz kolejny gościliśmy na Wisłoujście Festival w Gdańsku. Zespół Art Bar Solutions odpowiadał w całości produkcyjnie za wszystkie strefy barowe na terenie festiwalu, dostarczając infrastrukturę idealnie dopasowaną do unikalnego klimatu tego wydarzenia.',
+        s1: 'Wisłoujście Festival 2026 – kompleksowa produkcja stref barowych',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260820213841.jpg',
         images: [
           "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260820213841.jpg",
           "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_862.jpg",
-          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_944.jpg"
+          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_944.jpg",
+          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023020_879.jpg"
         ],
         hasMaterials: true,
         videoUrl: null,
-        intro: `W dniach 21–23 sierpnia 2026 roku po raz kolejny realizowaliśmy strefy barowe na Wisłoujście Festival w Gdańsku. Art Bar Solutions odpowiadało za produkcję zabudowy oraz obsługę barów, dopasowując rozwiązania do specyfiki festiwalu i potrzeb organizatora.
+        intro: `W dniach 21–23 sierpnia 2026 roku po raz kolejny gościliśmy na Wisłoujście Festival w Gdańsku. Zespół Art Bar Solutions odpowiadał w całości produkcyjnie za wszystkie strefy barowe na terenie festiwalu, dostarczając infrastrukturę idealnie dopasowaną do unikalnego klimatu tego wydarzenia.
 
-Indywidualna zabudowa i kolorowe podświetlenie`,
+### Kolorowe bary Wisłoujścia na naszych modułach
+
+W ramach tej realizacji stworzyliśmy wielobarwne strefy, opierając konstrukcję na naszych sprawdzonych modułach barowych. Cała zabudowa została precyzyjnie obrandowana i zintegrowana z identyfikacją wizualną festiwalu. Mocne, kolorowe podświetlenie podkreślało formę konstrukcji, budując niesamowity efekt wizualny po zmroku i stając się integralnym elementem elektronicznej scenografii wydarzenia.
+
+Dzięki przemyślanemu wykorzystaniu naszych modułów, połączyliśmy efektowny design z pełną funkcjonalnością, gwarantując organizatorom idealne zaplecze do sprawnej pracy podczas intensywnych, festiwalowych nocy.`,
         bullets: [],
-        effect: `W ramach realizacji przygotowaliśmy bary o indywidualnie dopasowanych kształtach i układzie, uwzględniających funkcjonalność oraz organizację pracy podczas festiwalu. Zabudowy zostały wyposażone w identyfikację wizualną spójną z charakterem wydarzenia, a kolorowe podświetlenie podkreślało ich formę i budowało efekt wizualny po zmroku.
-
-Połączyliśmy produkcję infrastruktury barowej z profesjonalną obsługą, dbając zarówno o estetykę stref, jak i sprawny serwis dla uczestników.
-
-Art Bar Solutions – strefy barowe na festiwale
-
-Projektujemy i produkujemy bary eventowe dostosowane do przestrzeni, identyfikacji wizualnej marki oraz wymagań organizacyjnych. Zapewniamy również obsługę barową podczas festiwali, koncertów i wydarzeń specjalnych.`,
-        footerNote: `Planujesz festiwal lub event z indywidualną zabudową barową? Skontaktuj się z Art Bar Solutions – przygotujemy rozwiązanie dopasowane do Twojego wydarzenia.`,
+        effectTitle: 'Art Bar Solutions – produkcja stref barowych na festiwale',
+        effect: `Projektujemy, dostarczamy i produkujemy infrastrukturę barową w pełni dostosowaną do przestrzeni, identyfikacji wizualnej marki oraz wysokich wymagań organizacyjnych. Mamy doświadczenie w obsłudze największych imprez masowych w Polsce.`,
+        footerNote: `Planujesz festiwal lub event plenerowy? Skontaktuj się z Art Bar Solutions – dostarczymy i wyprodukujemy strefy barowe, które zrobią wrażenie na uczestnikach i zapewnią maksymalną wydajność sprzedażową.`,
       },
       {
         id: 'rap-poludnie-w-bielsko',
@@ -5223,9 +5226,9 @@ Projektujemy i produkujemy bary eventowe dostosowane do przestrzeni, identyfikac
         date: '01-02.08.2026',
         fullDate: '01-02.08.2026 · Polska',
         title: 'Rap Południe w Bielsko-Białej',
-        excerpt: '31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się premierowa edycja Rap Południe – festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy uczestników. Art Bar Solutions odpowiadało za kompleksową realizację całej strefy barowej – od przygotowania infrastruktury po gotową przestrzeń do obsługi festiwalowej publiczności.',
-        s1: '31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się premierowa edycja Rap Południe – festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy uczestników.',
-        s2: 'Art Bar Solutions odpowiadało za kompleksową realizację całej strefy barowej – od przygotowania infrastruktury po gotową przestrzeń do obsługi festiwalowej publiczności.',
+        excerpt: '31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się pierwsza edycja Rap Południe, festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy uczestników. Art Bar Solutions zrealizowało całą strefę barową: od infrastruktury po przestrzeń gotową do obsługi festiwalowej publiczności.',
+        s1: 'Rap Południe 2026: strefa barowa od pustego placu po gotowy bar',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_120318.jpg',
         images: [
           "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_120318.jpg",
@@ -5237,14 +5240,19 @@ Projektujemy i produkujemy bary eventowe dostosowane do przestrzeni, identyfikac
         ],
         hasMaterials: true,
         videoUrl: null,
-        intro: `31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się premierowa edycja Rap Południe – festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy uczestników. Art Bar Solutions odpowiadało za kompleksową realizację całej strefy barowej – od przygotowania infrastruktury po gotową przestrzeń do obsługi festiwalowej publiczności.
+        intro: `31 lipca – 2 sierpnia 2026 roku na Lotnisku Aleksandrowice w Bielsku-Białej odbyła się pierwsza edycja Rap Południe, festiwalu rapowego, który zgromadził kilkadziesiąt tysięcy uczestników. Art Bar Solutions zrealizowało całą strefę barową: od infrastruktury po przestrzeń gotową do obsługi festiwalowej publiczności.`,
+        bulletsTitle: 'Zakres prac: Po naszej stronie była cała infrastruktura strefy:',
+        bullets: [
+          'dostawa i montaż namiotu',
+          'przygotowanie podłogi',
+          'instalacja barów'
+        ],
+        effect: `Powstała spójna i funkcjonalna przestrzeń, dopasowana do skali wydarzenia i intensywnego ruchu uczestników. Jedna realizacja, pełne zaplecze techniczne i kompleksowa organizacja w jednych rękach.
 
-Art Bar Solutions – kompleksowa infrastruktura festiwalowa`,
-        bullets: [],
-        effect: `Zakres prac obejmował dostarczenie i montaż namiotu, przygotowanie podłogi oraz instalację barów. Zajęliśmy się całą infrastrukturą strefy, tworząc spójną i funkcjonalną przestrzeń dostosowaną do skali wydarzenia i intensywnego ruchu uczestników. Jedna realizacja, pełne zaplecze techniczne i kompleksowa organizacja po naszej stronie.
+### Art Bar Solutions: kompleksowa infrastruktura festiwalowa
 
-Zapewniamy pełną produkcję stref barowych na festiwale i koncerty, obejmującą zadaszenie, podłogi, konstrukcje barowe oraz przygotowanie przestrzeni do działania. Dzięki własnym zasobom i przeszkolonemu zespołowi realizujemy szeroki zakres prac w ramach jednego projektu.`,
-        footerNote: `Organizujesz festiwal lub koncert? Powierz Art Bar Solutions kompleksowe przygotowanie infrastruktury barowej – od pustej przestrzeni po gotową strefę.`,
+Zapewniamy pełną produkcję stref barowych na festiwale i koncerty: zadaszenie, podłogi, konstrukcje barowe i przygotowanie przestrzeni do działania. Dzięki własnym zasobom i przeszkolonemu zespołowi realizujemy szeroki zakres prac w ramach jednego projektu.`,
+        footerNote: `Organizujesz festiwal lub koncert? Powierz Art Bar Solutions kompleksowe przygotowanie infrastruktury barowej – od pustej przestrzeni po gotową strefę →`,
       },
       {
         id: 'zakup-namiotow-i-szkolenie',
@@ -5252,43 +5260,62 @@ Zapewniamy pełną produkcję stref barowych na festiwale i koncerty, obejmując
         date: '27.07.2026',
         fullDate: '27.07.2026 · Polska',
         title: 'Zakup namiotów i szkolenie w Poznaniu',
-        excerpt: '27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m². Ich elastyczna konstrukcja i charakterystyczna forma pozwalają tworzyć zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia.',
-        s1: '27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m².',
-        s2: 'Ich elastyczna konstrukcja i charakterystyczna forma pozwalają tworzyć zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia.',
+        excerpt: '27 czerwca 2026 roku powiększyliśmy zaplecze Art Bar Solutions o dwa namioty stretch po 150 m² każdy. Tego samego dnia nasz zespół przeszedł w Poznaniu szkolenie techniczno-montażowe, więc zadaszone strefy plenerowe realizujemy teraz w całości na własnym sprzęcie i z własną ekipą.',
+        s1: 'Nowe namioty stretch: 300 m² zadaszonej przestrzeni na Twoje wydarzenie',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg',
-        images: ["assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg", "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg"],
+        images: [
+          "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg",
+          "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg"
+        ],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-video.mp4',
         videoAspect: 608 / 1080,
-        intro: `27 czerwca 2026 roku rozszerzyliśmy zaplecze techniczne Art Bar Solutions o dwa namioty stretch, każdy o powierzchni 150 m². Ich elastyczna konstrukcja i charakterystyczna forma pozwalają tworzyć zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia.
+        intro: `27 czerwca 2026 roku powiększyliśmy zaplecze Art Bar Solutions o dwa namioty stretch po 150 m² każdy. Tego samego dnia nasz zespół przeszedł w Poznaniu szkolenie techniczno-montażowe, więc zadaszone strefy plenerowe realizujemy teraz w całości na własnym sprzęcie i z własną ekipą.
 
-Tego samego dnia nasz zespół w Poznaniu odbył szkolenie techniczno-montażowe z zakresu infrastruktury eventowej. Dzięki zdobytym umiejętnościom możemy realizować kolejne projekty z wykorzystaniem własnego sprzętu i przeszkolonych pracowników, rozszerzając zakres usług oferowanych klientom.`,
-        bulletsTitle: 'Jakie wydarzenia możemy obsłużyć z wykorzystaniem namiotów stretch?',
-        bullets: [],
-        effect: `Nasza nowa infrastruktura sprawdzi się przy organizacji stref barowych, chilloutów i przestrzeni VIP, a także podczas festiwali, koncertów, imprez firmowych, wesel i wydarzeń plenerowych. Namioty mogą służyć jako zadaszenie stref gastronomicznych, przestrzeni dla gości oraz miejsc spotkań i aktywacji marek.`,
-        footerNote: `Większe możliwości, jeden zespół, kompleksowa realizacja. Skontaktuj się z Art Bar Solutions i sprawdź, jak możemy wykorzystać nową infrastrukturę podczas Twojego wydarzenia.`,
+### Elastyczna forma, nowoczesny wygląd
+
+Namioty stretch mają elastyczną konstrukcję i charakterystyczną, płynną formę. Dzięki temu tworzymy z nich zadaszone strefy o nowoczesnym wyglądzie, dopasowane do przestrzeni i charakteru wydarzenia. Łącznie mamy do dyspozycji 300 m² zadaszenia.
+
+### Własny sprzęt, przeszkolony zespół
+
+Szkolenie techniczno-montażowe z zakresu infrastruktury eventowej przygotowało nasz zespół do samodzielnego montażu namiotów. Kolejne projekty realizujemy więc na własnym sprzęcie i z własnymi, przeszkolonymi pracownikami, a klientom oferujemy szerszy zakres usług.`,
+        bulletsTitle: 'Jakie wydarzenia obsłużymy z namiotami stretch? Nowa infrastruktura sprawdzi się przy:',
+        bullets: [
+          'strefach barowych, chilloutach i przestrzeniach VIP',
+          'festiwalach, koncertach i wydarzeniach plenerowych',
+          'imprezach firmowych i weselach',
+          'zadaszeniu stref gastronomicznych i przestrzeni dla gości',
+          'miejscach spotkań i aktywacjach marek'
+        ],
+        effect: '',
+        footerNote: `Większe możliwości, jeden zespół, kompleksowa realizacja. Skontaktuj się z nami i sprawdź, jak wykorzystamy namioty stretch podczas Twojego wydarzenia →`,
       },
       {
         id: 'sikelia-di-tarrazzino-w',
         num: '34',
         date: '21.06.2026',
         fullDate: '21.06.2026 · Polska',
-        title: 'Sikelia di Tarrazzino w warszawskim Koneserze',
-        excerpt: '21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze. Tym razem przygotowaliśmy dwa bary w stylu włoskim, dopasowane do charakteru spotkania i jego oprawy.',
-        s1: '21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze.',
-        s2: 'Tym razem przygotowaliśmy dwa bary w stylu włoskim, dopasowane do charakteru spotkania i jego oprawy.',
+        title: 'Sikelia di Terrazzino w warszawskim Koneserze',
+        excerpt: '21 czerwca 2026 roku obsługiwaliśmy strefę barową podczas kolejnej edycji Sikelia di Terrazzino w warszawskim Koneserze. Tym razem przygotowaliśmy bar w stylu włoskim, dopasowany do charakteru spotkania i jego oprawy.',
+        s1: 'Sikelia di Terrazzino: włoski bar w warszawskim Koneserze',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg',
         images: ["assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-video.mp4',
         videoAspect: 608 / 1080,
-        intro: `21 czerwca 2026 roku zapewniliśmy obsługę strefy barowej podczas kolejnego wydarzenia Sikelia di Terrazzino, które odbyło się w warszawskim Koneserze. Tym razem przygotowaliśmy dwa bary w stylu włoskim, dopasowane do charakteru spotkania i jego oprawy.
+        intro: `21 czerwca 2026 roku obsługiwaliśmy strefę barową podczas kolejnej edycji Sikelia di Terrazzino w warszawskim Koneserze. Tym razem przygotowaliśmy bar w stylu włoskim, dopasowany do charakteru spotkania i jego oprawy.
 
-Art Bar Solutions – obsługa barowa eventów`,
+### Intensywny czerwcowy weekend
+
+Sikelia di Terrazzino zamknęła dla nas bardzo intensywny weekend. Dzień wcześniej, realizowaliśmy strefę barową na Before Festival w Siedlcach oraz na Barber Night, również w Koneserze.
+
+### Jedno miejsce, dwa różne charaktery
+
+Dwie realizacje w tej samej lokalizacji, ale o zupełnie innym klimacie, dobrze pokazują, jak elastycznie dopasowujemy nasze rozwiązania do wydarzenia: inny styl baru, inna oprawa, ten sam standard obsługi.`,
         bullets: [],
-        effect: `To była dla nas intensywna końcówka weekendu – dzień wcześniej realizowaliśmy strefę barową na Befor Festival w Siedlcach, oraz Barber Night w Koneserze. Dwie realizacje w tej samej lokalizacji, ale o zupełnie innym charakterze, pokazują, jak elastycznie dopasowujemy nasze rozwiązania do różnych wydarzeń.
-
-Zapewniamy profesjonalną obsługę stref barowych oraz rozwiązania dopasowane do stylu i skali wydarzenia. Od festiwali muzycznych po spotkania inspirowane włoską atmosferą – dbamy o sprawną organizację i spójny charakter realizacji.`,
+        effect: `Zapewniamy profesjonalną obsługę stref barowych oraz rozwiązania dopasowane do stylu i skali wydarzenia. Od festiwali muzycznych po kameralne spotkania w duchu włoskiej atmosfery dbamy o sprawną organizację i spójny charakter każdej realizacji.`,
         footerNote: `Planujesz wydarzenie w Warszawie lub innym mieście? Skontaktuj się z Art Bar Solutions i porozmawiajmy o Twojej strefie barowej.`,
       },
       {
@@ -5297,20 +5324,21 @@ Zapewniamy profesjonalną obsługę stref barowych oraz rozwiązania dopasowane 
         date: '20-21.06.2026',
         fullDate: '20-21.06.2026 · Polska',
         title: 'Before Festival w Siedlcach',
-        excerpt: '20–21 czerwca 2026 roku Art Bar Solutions odpowiadało za produkcję barów eventowych z identyfikacją wizualną na Before Festival w Siedlcach. To coroczny festiwal hip-hopowy, który otwiera letni sezon koncertowy w Polsce.',
-        s1: '20–21 czerwca 2026 roku Art Bar Solutions odpowiadało za produkcję barów eventowych z identyfikacją wizualną na Before Festival w Siedlcach.',
-        s2: 'To coroczny festiwal hip-hopowy, który otwiera letni sezon koncertowy w Polsce.',
+        excerpt: '20–21 czerwca 2026 roku w Siedlcach odbył się Before Festival, coroczny festiwal hip-hopowy, który otwiera letni sezon koncertowy w Polsce. Art Bar Solutions odpowiadało za produkcję barów eventowych festiwalu: 2 kilkunastometrowych barów z pełną identyfikacją wizualną.',
+        s1: 'Before Festival 2026: kilkunastometrowe bary modułowe od Art Bar Solutions',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg',
-        images: ["assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg", "assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160802.jpg"],
+        images: ["assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg"],
         hasMaterials: true,
         videoUrl: null,
-        intro: `20–21 czerwca 2026 roku Art Bar Solutions odpowiadało za produkcję barów eventowych z identyfikacją wizualną na Before Festival w Siedlcach. To coroczny festiwal hip-hopowy, który otwiera letni sezon koncertowy w Polsce.
+        intro: `20–21 czerwca 2026 roku w Siedlcach odbył się Before Festival, coroczny festiwal hip-hopowy, który otwiera letni sezon koncertowy w Polsce. Art Bar Solutions odpowiadało za produkcję barów eventowych festiwalu: 2 kilkunastometrowych barów z pełną identyfikacją wizualną.
 
-Modułowe bary eventowe od Art Bar Solutions`,
+Przy tej realizacji postawiliśmy na modułową konstrukcję naszych barów. Połączyliśmy 14 modułów w dwa, kilkunastometrowe bary, tworząc rozbudowaną strefę barową dopasowaną do skali wydarzenia i potrzeb festiwalowej publiczności.
+
+Całość uzupełniła identyfikacja wizualna, która nadała barowi spójny wygląd i wpisała go w przestrzeń festiwalu.`,
         bullets: [],
-        effect: `Podczas realizacji wykorzystaliśmy modułową konstrukcję naszych barów, łącząc (tu można napisać ile modułów) w jeden kilkunastometrowy bar. Takie rozwiązanie pozwoliło stworzyć rozbudowaną strefę barową, dopasowaną do skali wydarzenia i potrzeb festiwalowej publiczności. Całość uzupełniała identyfikacja wizualna, która nadawała barowi spójny wygląd i wpisywała go w przestrzeń festiwalu.
-
-Projektujemy i produkujemy strefy barowe na festiwale, koncerty oraz wydarzenia specjalne. Modułowa konstrukcja naszych barów umożliwia tworzenie zarówno kompaktowych stanowisk, jak i wielometrowych instalacji dopasowanych do charakteru eventu.`,
+        effectTitle: 'Modułowe bary eventowe od Art Bar Solutions',
+        effect: `Projektujemy i produkujemy strefy barowe na festiwale, koncerty oraz wydarzenia specjalne. Dzięki modułowej konstrukcji budujemy zarówno kompaktowe stanowiska, jak i wielometrowe instalacje dopasowane do charakteru eventu.`,
         footerNote: `Planujesz festiwal lub koncert? Skontaktuj się z Art Bar Solutions i stwórz z nami strefę barową dopasowaną do skali Twojego wydarzenia.`,
       },
       {
@@ -5342,53 +5370,68 @@ Zapewniamy własne bary eventowe, możliwość dopasowania ich identyfikacji wiz
         date: '18.06.2026',
         fullDate: '18.06.2026 · Polska',
         title: 'Rooftop Be About',
-        excerpt: '18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku. Otwarta przestrzeń i letnia atmosfera stworzyły wyjątkową oprawę spotkania.',
-        s1: '18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku.',
-        s2: 'Otwarta przestrzeń i letnia atmosfera stworzyły wyjątkową oprawę spotkania.',
+        excerpt: '18 czerwca 2026 r. razem z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego na dachu budynku. Otwarta przestrzeń, widok na miasto i letnia atmosfera stworzyły wyjątkową oprawę spotkania.',
+        s1: 'Letni bar na dachu: obsługa eventu firmowego z agencją Be About',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg',
         images: ["assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618172838.jpg", "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618224022.jpg"],
         hasMaterials: true,
         videoUrl: 'assets/images/aktualnosci/rooftop-be-about/rooftop-video.mp4',
         videoAspect: 608 / 1080,
-        intro: `18 czerwca 2026 roku we współpracy z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego zorganizowanego na dachu budynku. Otwarta przestrzeń i letnia atmosfera stworzyły wyjątkową oprawę spotkania.
+        intro: `18 czerwca 2026 r. razem z agencją Be About zapewniliśmy obsługę strefy barowej podczas letniego eventu firmowego na dachu budynku. Otwarta przestrzeń, widok na miasto i letnia atmosfera stworzyły wyjątkową oprawę spotkania.
 
-Naszym zadaniem była profesjonalna obsługa baru i sprawna organizacja serwisu dla uczestników wydarzenia. Zadbaliśmy o płynne funkcjonowanie strefy, dopasowując pracę zespołu do przebiegu eventu.`,
-        bullets: [],
-        effect: `Art Bar Solutions – obsługa barowa eventów firmowych
-
-Zapewniamy profesjonalną obsługę barów podczas imprez firmowych, wydarzeń plenerowych i spotkań specjalnych. Współpracujemy z agencjami eventowymi, dostosowując zakres usług do charakteru realizacji i potrzeb organizatora.`,
+Event na dachu to inne warunki niż sala czy hala: ograniczona przestrzeń, logistyka dostaw na górę i praca pod gołym niebem. Naszym zadaniem była profesjonalna obsługa baru i sprawny serwis dla uczestników. Pracę zespołu dopasowaliśmy do przebiegu wydarzenia, tak by bar działał płynnie przez cały wieczór.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'obsługa strefy barowej podczas całego eventu',
+          'organizacja serwisu dopasowana do przebiegu wydarzenia',
+          'współpraca z agencją Be About przy realizacji'
+        ],
+        effectTitle: 'Wsparcie dla agencji eventowych',
+        effect: `Współpracujemy z agencjami eventowymi jako partner od strefy barowej. Agencja odpowiada za całość wydarzenia, a my dbamy o bar, czyli obsługę, a w razie potrzeby także produkcję zabudowy, lód i zaplecze. Zakres usług dopasowujemy do charakteru realizacji i potrzeb organizatora.`,
         footerNote: `Planujesz letni event firmowy? Skontaktuj się z Art Bar Solutions i zadbaj o profesjonalną obsługę strefy barowej.`,
       },
       {
         id: 'ing-silesia-beats-2026',
         num: '29',
-        date: '06.2026',
-        fullDate: '12-14.06.2026 · Chorzów, Polska',
+        date: '12-13.06.2026',
+        fullDate: '12-13.06.2026 · Park Śląski, Chorzów',
         title: 'ING Silesia Beats w Parku Śląskim w Chorzowie',
-        excerpt: 'W czerwcu 2026 roku Art Bar Solutions po raz kolejny odpowiadało za pełną infrastrukturę i kompleksową obsługę stref barowych podczas festiwalu muzyki elektronicznej ING Silesia Beats w Parku Śląskim w Chorzowie.',
-        s1: 'W czerwcu 2026 roku po raz kolejny zrealizowaliśmy kompleksową produkcję stref barowych podczas festiwalu ING Silesia Beats w Parku Śląskim w Chorzowie.',
-        s2: 'Wydarzenie zgromadziło dziesiątki tysięcy uczestników, a nasza załoga zapewniła sprawną obsługę bez kolejek, pełną logistykę magazynową i autorski system ArtPOS.',
-        coverImg: 'assets/images/aktualnosci/silesia/silesia-1.jpg',
+        excerpt: '12 i 13 czerwca 2026 r. Park Śląski w Chorzowie po raz kolejny należał do fanów muzyki elektronicznej. Na ING Silesia Beats wystąpili m.in. Jason Derulo, Sub Zero Project oraz B-Front & DV8, a festiwal odwiedziło w sumie [liczba] tysięcy osób.',
+        s1: 'ING Silesia Beats 2026: całościowa produkcja stref barowych',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/silesia/silesia-IMG-20260612-WA0019.jpg',
         images: [
-          'assets/images/aktualnosci/silesia/silesia-1.jpg',
-          'assets/images/aktualnosci/silesia/silesia-2.jpg',
-          'assets/images/aktualnosci/silesia/silesia-3.jpg'
+          'assets/images/aktualnosci/silesia/silesia-IMG-20260612-WA0019.jpg',
+          'assets/images/aktualnosci/silesia/silesia-IMG-20260612-WA0034.jpg',
+          'assets/images/aktualnosci/silesia/silesia-IMG-20260612-WA0041.jpg',
+          'assets/images/aktualnosci/silesia/silesia-IMG20260611213233.jpg',
+          'assets/images/aktualnosci/silesia/silesia-20250618_214004.jpg',
+          'assets/images/aktualnosci/silesia/silesia-20250618_214235.jpg'
         ],
         hasMaterials: true,
         videoUrl: null,
-        intro: `W czerwcu 2026 roku Art Bar Solutions po raz kolejny odpowiadało za pełną infrastrukturę i obsługę barową podczas ING Silesia Beats w chorzowskim Parku Śląskim.
+        intro: `12 i 13 czerwca 2026 r. Park Śląski w Chorzowie po raz kolejny należał do fanów muzyki elektronicznej. Na ING Silesia Beats wystąpili m.in. Jason Derulo, Sub Zero Project oraz B-Front & DV8, a festiwal odwiedziło w sumie [liczba] tysięcy osób.
 
-Kolejna edycja festiwalu potwierdziła naszą zdolność do obsługi największych wydarzeń plenerowych w Polsce z zachowaniem najwyższych standardów operacyjnych i bezkompromisowej estetyki wizualnej.`,
-        bulletsTitle: 'Zakres realizacji stref barowych:',
+### Drugi rok, ten sam standard
+
+Po udanej współpracy przy edycji 2025 ponownie odpowiadaliśmy za całościową produkcję stref barowych festiwalu. Dwa dni na świeżym powietrzu, tysiące uczestników i szczyty ruchu pod scenami: w takich warunkach bar musi działać jak dobrze nastrojony mechanizm. Zadbaliśmy o każdy jego element, od konstrukcji po ostatnią kostkę lodu.`,
+        bulletsTitle: 'Co dostarczyliśmy:',
         bullets: [
-          'modułowa infrastruktura barowa dopasowana do skali festiwalu,',
-          'system sprzedaży i fiskalizacji ArtPOS w czasie rzeczywistym,',
-          'kompleksowa obsługa barmańska i menedżerska,',
-          'dostawy lodu z własnej fabryki i dedykowany transport chłodniczy,',
-          'koordynacja stref zaopatrzenia i magazynów buforowych.'
+          'Bary w identyfikacji ING',
+          'ArtPOS',
+          'Obsługę barową',
+          'Logistykę i magazyn',
+          'Lód i zatowarowanie',
+          'Dostawy i stany magazynowe'
         ],
         effectTitle: 'Efekt',
-        effect: `Płynna, bezkolejkowa obsługa uczestników i wysoka rentowność stref barowych przez wszystkie dni festiwalu.`
+        effect: `Przez cały festiwal bary były jednym z głównych punktów na mapie Parku Śląskiego: miejscem spotkań, chwilą odpoczynku od tańca i szybkim uzupełnieniem sił. Sprawna obsługa bez kolejek przełożyła się na dobre doświadczenia uczestników.
+
+### Jeden partner, cały bar
+
+Infrastruktura, technologia, ludzie, lód i logistyka od jednego wykonawcy. Tak wygląda kompleksowa produkcja stref barowych w praktyce, edycja po edycji.`,
+        footerNote: `Organizujesz festiwal lub duży event? Porozmawiajmy o Twoim barze →`,
       },
       {
         id: 'strefa-barowa-dla-firmy',
@@ -5396,42 +5439,55 @@ Kolejna edycja festiwalu potwierdziła naszą zdolność do obsługi największy
         date: '23.05.2026',
         fullDate: '23.05.2026 · Polska',
         title: 'Strefa barowa dla firmy Frontex Lotnisko Bemowo',
-        excerpt: '23 maja 2026 roku zrealizowaliśmy strefę barową podczas eventu firmowego Frontex na Lotnisku Bemowo w Warszawie. Zakres prac Art Bar Solutions obejmował przygotowanie infrastruktury barowej oraz kompleksową obsługę serwisu w trakcie wydarzenia.',
-        s1: '23 maja 2026 roku zrealizowaliśmy strefę barową podczas eventu firmowego Frontex na Lotnisku Bemowo w Warszawie.',
-        s2: 'Zakres prac Art Bar Solutions obejmował przygotowanie infrastruktury barowej oraz kompleksową obsługę serwisu w trakcie wydarzenia.',
-        coverImg: 'assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523193344.jpg',
-        images: ["assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523193344.jpg", "assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523204219.jpg"],
+        excerpt: '23 maja 2026 r. na Lotnisku Bemowo w Warszawie odbył się piknik firmowy Frontex. Przygotowaliśmy na nim strefę barową, od infrastruktury po serwis.',
+        s1: 'Piknik firmowy Frontex na Lotnisku Bemowo: bar z pełną obsługą',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523204219.jpg',
+        images: ["assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523204219.jpg"],
         hasMaterials: true,
         videoUrl: null,
-        intro: `23 maja 2026 roku zrealizowaliśmy strefę barową podczas eventu firmowego Frontex na Lotnisku Bemowo w Warszawie. Zakres prac Art Bar Solutions obejmował przygotowanie infrastruktury barowej oraz kompleksową obsługę serwisu w trakcie wydarzenia.
+        intro: `23 maja 2026 r. na Lotnisku Bemowo w Warszawie odbył się piknik firmowy Frontex. Przygotowaliśmy na nim strefę barową, od infrastruktury po serwis.
 
-Zadbaliśmy o przygotowanie baru i sprawną organizację obsługi uczestników, dopasowując realizację do charakteru wydarzenia i specyfiki lokalizacji.`,
-        bullets: [],
-        effect: `Art Bar Solutions – strefy barowe na eventy firmowe
-
-Produkujemy i obsługujemy bary eventowe podczas imprez firmowych, festiwali i wydarzeń specjalnych. Zapewniamy funkcjonalną infrastrukturę oraz profesjonalny serwis dostosowany do potrzeb organizatora.`,
-        footerNote: `Planujesz event firmowy? Skontaktuj się z Art Bar Solutions i powierz nam produkcję oraz obsługę strefy barowej.`,
+Plenerowy piknik na terenie lotniska wymagał rozwiązań dopasowanych do otwartej przestrzeni i swobodnego charakteru wydarzenia. Przygotowaliśmy bar i zorganizowaliśmy obsługę tak, by uczestnicy mogli sprawnie korzystać z serwisu przez cały dzień.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'przygotowanie i montaż baru w przestrzeni plenerowej',
+          'kompleksowa obsługa barowa podczas pikniku',
+          'organizacja serwisu dopasowana do charakteru wydarzenia i lokalizacji'
+        ],
+        effectTitle: 'Strefy barowe na eventy i pikniki firmowe',
+        effect: `Produkujemy i obsługujemy bary na pikniki firmowe, imprezy integracyjne, festiwale i wydarzenia specjalne. Zapewniamy funkcjonalną infrastrukturę i profesjonalny serwis i lód z naszej fabryki.`,
+        footerNote: `Planujesz piknik lub event firmowy? Skontaktuj się z nami i powierz nam produkcję oraz obsługę strefy barowej.`,
       },
       {
         id: 'circoloco-warsaw-w-muzeum',
         num: '27',
         date: '09.05.2026',
-        fullDate: '09.05.2026 · Polska',
+        fullDate: '09.05.2026 · Wilanów, Warszawa',
         title: 'Circoloco Warsaw w Muzeum Pałacu Króla Jana III w Wilanowie',
-        excerpt: '9 maja 2026 roku w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw – wydarzenie wywodzące się z kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej, wyjątkowej atmosfery i charakterystycznej oprawy wizualnej. Produkcja eventowa dopasowana do charakteru wydarzenia.',
-        s1: '9 maja 2026 roku w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw – wydarzenie wywodzące się z kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej, wyjątkowej atmosfery i charakterystycznej oprawy wizualnej.',
-        s2: 'Produkcja eventowa dopasowana do charakteru wydarzenia.',
+        excerpt: '9 maja 2026 r. w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw. To wydarzenie kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej, wyjątkowej atmosfery i charakterystycznej oprawy wizualnej.',
+        s1: 'Circoloco Warsaw 2026: klimat Ibizy w Wilanowie, a bary w naszych rękach',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0213.jpg',
         images: ["assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0213.jpg", "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0240.jpg", "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0427.jpg"],
         hasMaterials: true,
         videoUrl: null,
-        intro: `9 maja 2026 roku w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw – wydarzenie wywodzące się z kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej, wyjątkowej atmosfery i charakterystycznej oprawy wizualnej.
+        intro: `9 maja 2026 r. w Muzeum Pałacu Króla Jana III w Wilanowie odbyło się Circoloco Warsaw. To wydarzenie kultowej marki klubowej z Ibizy, znanej z muzyki elektronicznej, wyjątkowej atmosfery i charakterystycznej oprawy wizualnej.
 
-Produkcja eventowa dopasowana do charakteru wydarzenia`,
-        bullets: [],
-        effect: `Podczas warszawskiej edycji Art Bar Solutions odpowiadało za produkcję i obsługę stref barowych, w tym stref VIP z indywidualną identyfikacją wizualną. Nasz zakres prac obejmował również zapewnienie food trucków, dzięki czemu uczestnicy mogli korzystać z kompleksowej oferty gastronomicznej na terenie wydarzenia.
+Przy warszawskiej edycji odpowiadaliśmy za produkcję i obsługę stref barowych z indywidualną identyfikacją wizualną. Obsługiwaliśmy też strefę VIP sponsora wydarzenia, marki Moët Hennessy, oraz strefy marek Jack Daniel’s i Finlandia. Zapewniliśmy również food trucki, dzięki czemu goście mieli na miejscu pełną ofertę gastronomiczną.
 
-Przy realizacji zadbaliśmy o funkcjonalność infrastruktury barowej, spójny branding stref VIP i dopasowanie rozwiązań do specyfiki wydarzenia. Połączenie produkcji zabudowy, obsługi barowej i zaplecza gastronomicznego wymagało sprawnej koordynacji wielu elementów.`,
+### Ibiza w zabytkowej przestrzeni
+
+Klubowa marka z Ibizy w otoczeniu królewskiej rezydencji to połączenie, które wymagało szczególnego podejścia. Infrastruktura musiała być w pełni funkcjonalna, a jednocześnie pasować do wyjątkowego charakteru miejsca i wizualnej tożsamości Circoloco.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'produkcja i montaż stref barowych z indywidualną identyfikacją wizualną',
+          'obsługa barowa podczas całego wydarzenia',
+          'obsługa strefy VIP sponsora, Moët Hennessy',
+          'obsługa stref marek Jack Daniel’s i Finlandia',
+          'organizacja food trucków i zaplecza gastronomicznego'
+        ],
+        effect: `Połączenie produkcji zabudowy, obsługi barowej, stref marek i gastronomii wymagało sprawnej koordynacji wielu elementów, a dla organizatora oznaczało jednego partnera zamiast kilku podwykonawców.`,
         footerNote: `Planujesz wydarzenie i szukasz partnera do kompleksowej produkcji stref barowych? Skontaktuj się z Art Bar Solutions.`,
       },
       {
@@ -5440,188 +5496,256 @@ Przy realizacji zadbaliśmy o funkcjonalność infrastruktury barowej, spójny b
         date: '03.2026',
         fullDate: '03.2026 · Polska',
         title: 'XII Festiwal Whisky Sopot 2026',
-        excerpt: 'Marzec 2026 roku przyniósł nam ważny sukces biznesowy. Art Bar Solutions wygrało przetarg na kompleksową produkcję festiwalu dla marki United Beverages.',
-        s1: 'Marzec 2026 roku przyniósł nam ważny sukces biznesowy.',
-        s2: 'Art Bar Solutions wygrało przetarg na kompleksową produkcję festiwalu dla marki United Beverages.',
-        coverImg: null,
-        images: [],
-        hasMaterials: false,
-        videoUrl: null,
-        intro: `Marzec 2026 roku przyniósł nam ważny sukces biznesowy. Art Bar Solutions wygrało przetarg na kompleksową produkcję festiwalu dla marki United Beverages. To istotny krok w rozwoju naszej firmy i początek kolejnego rozdziału w realizacji dużych projektów eventowych.
+        excerpt: 'W marcu 2026 r. wygraliśmy przetarg na kompleksową produkcję festiwalu whisky dla marki United Beverages. To ważny moment dla naszej firmy: po latach specjalizacji w strefach barowych wchodzimy w nowy etap, czyli produkcję całych festiwali.',
+        s1: 'Art Bar Solutions wygrywa przetarg na kompleksową produkcję festiwalu whisky dla United Beverages.',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-03.jpg',
+        images: [
+          'assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-01.jpg',
+          'assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-02.jpg',
+          'assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-03.jpg'
+        ],
+        hasMaterials: true,
+        videoUrl: 'https://youtu.be/BMKQOR0YM6E',
+        intro: `W marcu 2026 r. wygraliśmy przetarg na kompleksową produkcję festiwalu whisky dla marki United Beverages. To ważny moment dla naszej firmy: po latach specjalizacji w strefach barowych wchodzimy w nowy etap, czyli produkcję całych festiwali.
 
-Kolejny krok w rozwoju Art Bar Solutions`,
+### Od pierwszego projektu po realizację na miejscu
+
+W tym projekcie odpowiadamy za wszystko. Przygotowujemy koncepcję i projekty przestrzeni, prowadzimy marketing wydarzenia, budujemy infrastrukturę festiwalu, w tym namioty, scenę i zaplecze, a na koniec realizujemy całe wydarzenie na miejscu.
+
+Festiwal ma formułę targów branży whisky, dlatego jego ważną częścią są bary dla wystawców. Pełnią one rolę stoisk: to miejsca degustacji, prezentacji marek i rozmów z gośćmi. Tu nasze doświadczenie w produkcji barów eventowych przekłada się bezpośrednio na jakość całego festiwalu.
+
+### Wirtualny spacer po festiwalu
+
+Jeszcze na etapie projektowym przygotowaliśmy wirtualny spacer, który pozwala przejść przez teren festiwalu i zobaczyć układ przestrzeni, scenę oraz stoiska wystawców, zanim wydarzenie powstanie w rzeczywistości.`,
         bullets: [],
-        effect: `Pozyskanie tego projektu potwierdza nasze kompetencje w zakresie produkcji wydarzeń, planowania infrastruktury oraz koordynacji wielu elementów realizacji. Kompleksowa produkcja festiwalu to znacznie więcej niż przygotowanie pojedynczych stref – to połączenie logistyki, zaplecza technicznego, scenografii i spójnej koncepcji przestrzeni eventowej.
-
-Wygrany przetarg to dla nas nie tylko sukces, ale również zobowiązanie do realizacji projektu na wyższym poziomie. Przed nami nowe wyzwania, kolejne etapy produkcji i możliwość pokazania pełnego potencjału zespołu Art Bar Solutions.
-
-Planujesz festiwal lub duże wydarzenie marki? Skontaktuj się z Art Bar Solutions – porozmawiajmy o kompleksowej produkcji Twojego eventu.
-
-Art Bar Solutions z kontraktem na produkcję festiwalu dla United Beverages
-
-Marzec 2026 roku przyniósł ważny sukces dla Art Bar Solutions – wygraliśmy przetarg na kompleksową produkcję festiwalu dla United Beverages. To istotny krok w rozwoju firmy i kolejny etap w realizacji większych projektów eventowych.
-
-Kontrakt otwiera przed nami nowe możliwości w zakresie produkcji wydarzeń, koordynacji infrastruktury, scenografii i zaplecza technicznego. To także szansa, by wykorzystać nasze doświadczenie w tworzeniu stref barowych i zabudów eventowych w ramach kompleksowej realizacji festiwalowej.
-
-Przed nami nowy rozdział i kolejne wyzwanie produkcyjne. Dziękujemy za zaufanie i z niecierpliwością czekamy na realizację projektu.`,
-        footerNote: `Planujesz festiwal lub duży event marki? Skontaktuj się z Art Bar Solutions i porozmawiajmy o produkcji Twojego wydarzenia.`,
+        effectTitle: 'Kolejny krok w rozwoju Art Bar Solutions',
+        effect: `Wygrany przetarg potwierdza nasze kompetencje w produkcji wydarzeń, planowaniu infrastruktury i koordynacji wielu elementów jednocześnie. To dla nas nie tylko sukces, ale też zobowiązanie. Dziękujemy United Beverages za zaufanie.`,
+        footerNote: `Planujesz festiwal, targi lub duże wydarzenie marki? Skontaktuj się z nami. Zajmiemy się wszystkim, od pierwszego projektu po finalną produkcję na miejscu.`,
       },
       {
         id: 'sikelia-di-terrazzino-w',
         num: '25',
         date: '28.02.2026',
-        fullDate: '28.02.2026 · Polska',
+        fullDate: '28.02.2026 · PKiN, Warszawa',
         title: 'Sikelia di Terrazzino w PKiN w Warszawie',
-        excerpt: '28 lutego 2026 roku w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026 – międzynarodowy turniej tańca w formule Pro-Am, organizowany przez studio tańca Stefano Terrazzino Mała Sicilia. Wydarzenie połączyło profesjonalny taniec z pasją amatorów, tworząc przestrzeń do sportowej rywalizacji i artystycznych występów.',
-        s1: '28 lutego 2026 roku w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026 – międzynarodowy turniej tańca w formule Pro-Am, organizowany przez studio tańca Stefano Terrazzino Mała Sicilia.',
-        s2: 'Wydarzenie połączyło profesjonalny taniec z pasją amatorów, tworząc przestrzeń do sportowej rywalizacji i artystycznych występów.',
+        excerpt: '28 lutego 2026 r. w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026, międzynarodowy turniej tańca w formule Pro-Am. Organizatorem było studio tańca Stefano Terrazzino Mała Sicilia.',
+        s1: 'Sikelia di Terrazzino International ProAm Cup 2026: strefa barowa w Pałacu Kultury i Nauki',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105405.jpg',
         images: ["assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105405.jpg", "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105415.jpg", "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228121314.jpg"],
         hasMaterials: true,
         videoUrl: null,
-        intro: `28 lutego 2026 roku w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026 – międzynarodowy turniej tańca w formule Pro-Am, organizowany przez studio tańca Stefano Terrazzino Mała Sicilia. Wydarzenie połączyło profesjonalny taniec z pasją amatorów, tworząc przestrzeń do sportowej rywalizacji i artystycznych występów.
+        intro: `28 lutego 2026 r. w Pałacu Kultury i Nauki w Warszawie odbył się Sikelia di Terrazzino International ProAm Cup 2026, międzynarodowy turniej tańca w formule Pro-Am. Organizatorem było studio tańca Stefano Terrazzino Mała Sicilia. Wydarzenie połączyło profesjonalny taniec z pasją amatorów: sportową rywalizację z artystycznymi występami.
 
-Podczas realizacji Art Bar Solutions odpowiadało za produkcję i obsługę stref barowych. Zadbaliśmy o przygotowanie funkcjonalnej infrastruktury oraz sprawny serwis, dopasowany do harmonogramu i charakteru wydarzenia.`,
-        bullets: [],
-        effect: `Art Bar Solutions – strefy barowe na eventy i gale
-
-Realizujemy produkcję i obsługę barów na wydarzeniach biznesowych, galach, turniejach i imprezach specjalnych. Łączymy funkcjonalną zabudowę z profesjonalną obsługą, dostosowując rozwiązania do przestrzeni, skali wydarzenia i potrzeb organizatora.`,
+Jako partner wydarzenia odpowiadaliśmy za produkcję i obsługę strefy barowej. Przygotowaliśmy funkcjonalny bar, a serwis dopasowaliśmy do harmonogramu turnieju, tak by goście i uczestnicy mogli skorzystać z baru w przerwach między występami.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'produkcja i montaż baru',
+          'obsługa barowa podczas całego wydarzenia',
+          'serwis dopasowany do harmonogramu turnieju'
+        ],
+        effect: `Produkujemy i obsługujemy bary na wydarzeniach biznesowych, galach, turniejach i imprezach specjalnych. Łączymy funkcjonalną zabudowę z profesjonalną obsługą, a rozwiązania dopasowujemy do przestrzeni, skali wydarzenia i potrzeb organizatora.`,
         footerNote: `Planujesz wydarzenie i szukasz sprawdzonego partnera do realizacji stref barowych? Skontaktuj się z Art Bar Solutions.`,
       },
       {
         id: 'ark-korolova-w-hali',
         num: '24',
         date: '13.02.2026',
-        fullDate: '13.02.2026 · Polska',
+        fullDate: '13.02.2026 · EXPO XXI, Warszawa',
         title: 'ARK Korolova w hali EXPO w Warszawie',
-        excerpt: '13 lutego 2026 roku po raz kolejny współpracowaliśmy z Winiary Bookings przy realizacji wydarzenia z cyklu ARK. Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów z pogranicza melodic house i techno.',
-        s1: '13 lutego 2026 roku po raz kolejny współpracowaliśmy z Winiary Bookings przy realizacji wydarzenia z cyklu ARK.',
-        s2: 'Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów z pogranicza melodic house i techno.',
+        excerpt: '13 lutego 2026 r. ponownie pracowaliśmy z agencją Winiary Bookings przy wydarzeniu z cyklu ARK. Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów na pograniczu melodic house i techno.',
+        s1: 'ARK 2026: Captive Soul by Korolova – obsługa i produkcja stref barowych',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg',
-        images: ["assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg", "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205200.jpg", "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213214233.jpg"],
+        images: [
+          "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg",
+          "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213150056.jpg",
+          "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213204912.jpg",
+          "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205200.jpg",
+          "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213214233.jpg",
+          "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213214542.jpg"
+        ],
         hasMaterials: true,
         videoUrl: null,
-        intro: `13 lutego 2026 roku po raz kolejny współpracowaliśmy z Winiary Bookings przy realizacji wydarzenia z cyklu ARK. Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów z pogranicza melodic house i techno.
+        intro: `13 lutego 2026 r. ponownie pracowaliśmy z agencją Winiary Bookings przy wydarzeniu z cyklu ARK. Tym razem headlinerką wieczoru była KOROLOVA, artystka znana z setów na pograniczu melodic house i techno.
 
-Podczas wydarzenia wzięliśmy na siebie obsługę stref barowych, dbając o sprawną organizację serwisu i płynne funkcjonowanie barów w trakcie imprezy.`,
-        bullets: [],
-        effect: `Art Bar Solutions – obsługa barowa koncertów i eventów
+Odpowiadaliśmy za obsługę stref barowych: organizację serwisu i płynne działanie barów przez całą imprezę, tak by goście mogli skupić się na muzyce.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'produkcja i obsługa stref barowych podczas całego wydarzenia',
+          'organizacja serwisu dopasowana do klubowego formatu imprezy'
+        ],
+        effectTitle: 'Stała współpraca przy cyklu ARK',
+        effect: `To nasza kolejna realizacja z Winiary Bookings po ARK: The Blaze i koncercie Żabsona w EXPO XXI. Regularna współpraca przy wydarzeniach z cyklu ARK pokazuje, że organizatorzy imprez muzycznych mogą na nas liczyć edycja po edycji.
 
-Regularna współpraca z Winiary Bookings przy wydarzeniach z cyklu ARK to kolejny przykład naszego doświadczenia w obsłudze stref barowych podczas imprez muzycznych. Wspieramy organizatorów koncertów i eventów, zapewniając profesjonalną obsługę barową dopasowaną do charakteru wydarzenia.`,
-        footerNote: `Organizujesz koncert lub event muzyczny? Skontaktuj się z Art Bar Solutions i zadbaj o sprawną obsługę stref barowych podczas swojego wydarzenia.`,
+Wspieramy organizatorów koncertów i eventów muzycznych, zapewniając obsługę barową dopasowaną do charakteru wydarzenia, a w razie potrzeby także produkcję barów i infrastrukturę.`,
+        footerNote: `Organizujesz koncert lub event muzyczny? Skontaktuj się z nami, a zadbamy o sprawną obsługę stref barowych podczas Twojego wydarzenia.`,
       },
       {
         id: 'udzial-w-targach-fbe',
         num: '23',
         date: '14.01.2026',
-        fullDate: '14.01.2026 · Polska',
+        fullDate: '14.01.2026 · EXPO XXI, Warszawa',
         title: 'Udział w Targach FBE w EXPO XXI w Warszawie',
-        excerpt: '14 stycznia 2026 roku spotkaliśmy się z branżą eventową podczas Forum Branży Eventowej (FBE) w EXPO XXI w Warszawie. To był intensywny dzień pełen gości, rozmów biznesowych, inspiracji i wymiany pomysłów.',
-        s1: '14 stycznia 2026 roku spotkaliśmy się z branżą eventową podczas Forum Branży Eventowej (FBE) w EXPO XXI w Warszawie.',
-        s2: 'To był intensywny dzień pełen gości, rozmów biznesowych, inspiracji i wymiany pomysłów.',
-        coverImg: 'assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0108.jpg',
-        images: ["assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0108.jpg", "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0127.jpg", "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0644.jpg"],
+        excerpt: '14 stycznia 2026 r. spotkaliśmy się z branżą podczas Forum Branży Eventowej w EXPO XXI w Warszawie. Był to intensywny dzień, wypełniony rozmowami biznesowymi, nowymi kontaktami i wymianą pomysłów.',
+        s1: 'Art Bar Solutions na Forum Branży Eventowej 2026: strefy barowe, które napędzają eventy',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-309A8053.jpg',
+        images: [
+          "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-309A8053.jpg",
+          "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-309A8083.jpg",
+          "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0127.jpg",
+          "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0644.jpg",
+          "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-IMG_0064.jpg"
+        ],
         hasMaterials: true,
-        videoUrl: null,
-        intro: `14 stycznia 2026 roku spotkaliśmy się z branżą eventową podczas Forum Branży Eventowej (FBE) w EXPO XXI w Warszawie. To był intensywny dzień pełen gości, rozmów biznesowych, inspiracji i wymiany pomysłów.
+        videoUrl: 'https://youtu.be/bY3QM-P_APk',
+        intro: `14 stycznia 2026 r. spotkaliśmy się z branżą podczas Forum Branży Eventowej w EXPO XXI w Warszawie. Był to intensywny dzień, wypełniony rozmowami biznesowymi, nowymi kontaktami i wymianą pomysłów.
 
-Dziękujemy za wszystkie rozmowy, feedback, nowe kontakty i zaufanie. Fajnie było Was gościć tak licznie na naszej strefie!`,
-        bullets: [],
-        effect: `Na FBE 2026 zaprezentowaliśmy naszą ofertę barową połączoną ze strefą coworkingową. Wysokie stoły, krzesła i uzupełniająca aranżację zieleń stworzyły przestrzeń sprzyjającą spotkaniom, swobodnym rozmowom i nawiązywaniu nowych relacji. O komfort gości zadbali nasi barmani, serwujący kawę i napoje przez cały targowy dzień.
+Na FBE 2026 pokazaliśmy naszą ofertę barową w połączeniu ze strefą coworkingową. Wysokie stoły, krzesła i zieleń stworzyły przestrzeń, w której łatwo było usiąść, porozmawiać i nawiązać nowe relacje. Przez cały dzień nasi barmani serwowali gościom kawę i napoje.`,
+        bulletsTitle: 'Co pokazaliśmy na stoisku:',
+        bullets: [
+          'bar z obsługą barmańską połączony ze strefą coworkingową, czyli miejsce na spotkania i rozmowy przy kawie',
+          'produkcję barów eventowych i stref barowych',
+          'indywidualną identyfikację wizualną i branding barów',
+          'infrastrukturę dla imprez masowych, od planowania punktów po zaplecze organizacyjne'
+        ],
+        effect: `Duży ruch, mnóstwo spotkań i konkretne rozmowy o przyszłych projektach: tak zapamiętamy tegoroczne Forum. Rozmawialiśmy o potrzebach organizatorów, naszych możliwościach produkcyjnych i rozwiązaniach, które sprawdzają się przy dużych wydarzeniach.
 
-Duży ruch, mnóstwo spotkań i konkretne rozmowy o przyszłych realizacjach - tak zapamiętamy tegoroczne Forum Branży Eventowej. Rozmawialiśmy o potrzebach organizatorów, możliwościach produkcyjnych i rozwiązaniach, które sprawdzają się podczas dużych wydarzeń. Nie zabrakło inspiracji, świeżych pomysłów i wymiany doświadczeń z ludźmi, którzy współtworzą rynek eventowy.
+Jedno widać coraz wyraźniej: strefa barowa to nie tylko zaplecze gastronomiczne, ale ważny element dobrze zaprojektowanego eventu. Dlatego łączymy ofertę barową, aranżację przestrzeni i zaplecze produkcyjne w jedną, spójną realizację.
 
-Jedno widać coraz wyraźniej: kompleksowa realizacja stref barowych to nie tylko zaplecze gastronomiczne, ale istotny element dobrze zaprojektowanego eventu. W Art Bar Solutions łączymy ofertę barową, aranżację przestrzeni i zaplecze produkcyjne, aby tworzyć spójne rozwiązania dopasowane do charakteru wydarzenia i potrzeb organizatora.
-
-Planujesz targi, konferencję, event firmowy lub wydarzenie promujące markę? W Art Bar Solutions możemy przejąć realizację strefy barowej od koncepcji i aranżacji po produkcję i przygotowanie przestrzeni na wydarzenie.`,
-        footerNote: `Skontaktuj się z nami i porozmawiajmy o Twoim kolejnym evencie.`,
+Dziękujemy za wszystkie rozmowy, feedback i nowe kontakty. Cieszymy się, że tak licznie odwiedziliście naszą strefę!`,
+        footerNote: `Planujesz targi, konferencję, event firmowy lub wydarzenie promujące markę? Możemy przejąć realizację strefy barowej od koncepcji i aranżacji po produkcję i przygotowanie przestrzeni. Skontaktuj się z nami i porozmawiajmy o Twoim kolejnym evencie.`,
       },
       {
         id: 'impreza-sylwestrowa-festivaland-w',
         num: '22',
         date: '31.12.2025',
-        fullDate: '31.12.2025 · Polska',
+        fullDate: '31.12.2025 · EXPO XXI, Warszawa',
         title: 'Impreza sylwestrowa Festivaland w hali EXPO',
-        excerpt: '31 grudnia 2025 roku zrealizowaliśmy kolejną sylwestrową współpracę z Danielem Majewskim, tym razem podczas wydarzenia Festivaland w hali EXPO XXI w Warszawie. Przy imprezie dla około 5000 uczestników Art Bar Solutions odpowiadało za kompleksową produkcję i obsługę stref barowych, a także przygotowanie i sprawne funkcjonowanie szatni. 65 metrów baru, 40 barmanów i blisko 100 osób przy produkcji.',
-        s1: '31 grudnia 2025 roku zrealizowaliśmy kolejną sylwestrową współpracę z Danielem Majewskim, tym razem podczas wydarzenia Festivaland w hali EXPO XXI w Warszawie.',
-        s2: 'Przy imprezie dla około 5000 uczestników Art Bar Solutions odpowiadało za kompleksową produkcję i obsługę stref barowych, a także przygotowanie i sprawne funkcjonowanie szatni. 65 metrów baru, 40 barmanów i blisko 100 osób przy produkcji.',
-        coverImg: 'assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9202-2.jpg',
-        images: ["assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9202-2.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9255-2.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9380.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9422.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9532.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9627.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9753.jpg", "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-IMG_8793.jpg"],
+        excerpt: '31 grudnia 2025 r. w hali EXPO XXI w Warszawie odbył się Festivaland, sylwestrowe wydarzenie dla około 5000 uczestników. To kolejny Sylwester, który realizowaliśmy z Danielem Majewskim. Odpowiadaliśmy za kompleksową produkcję i obsługę stref barowych oraz za szatnię.',
+        s1: 'Festivaland 2025: 65 metrów baru i kompleksowa realizacja na Sylwestra w EXPO XXI',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9208-2.jpg',
+        images: [
+          "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9208-2.jpg",
+          "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9295.jpg",
+          "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9593.jpg",
+          "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-IMG_8896.jpg",
+          "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-IMG_9124.jpg"
+        ],
         hasMaterials: true,
-        videoUrl: null,
-        intro: `31 grudnia 2025 roku zrealizowaliśmy kolejną sylwestrową współpracę z Danielem Majewskim, tym razem podczas wydarzenia Festivaland w hali EXPO XXI w Warszawie. Przy imprezie dla około 5000 uczestników Art Bar Solutions odpowiadało za kompleksową produkcję i obsługę stref barowych, a także przygotowanie i sprawne funkcjonowanie szatni.
+        videoUrl: 'https://www.youtube.com/watch?v=sqdEYVROsgw',
+        intro: `31 grudnia 2025 r. w hali EXPO XXI w Warszawie odbył się Festivaland, sylwestrowe wydarzenie dla około 5000 uczestników. To kolejny Sylwester, który realizowaliśmy z Danielem Majewskim. Odpowiadaliśmy za kompleksową produkcję i obsługę stref barowych oraz za szatnię.
 
-65 metrów baru, 40 barmanów i blisko 100 osób przy produkcji`,
-        bullets: [],
-        effect: `Centralnym elementem realizacji był jeden wielki bar o długości 65 metrów, przy którym pracowało 40 barmanów. Przy produkcji i przygotowaniu barów zaangażowanych było blisko 100 osób. Skala wydarzenia wymagała precyzyjnej koordynacji zespołów, logistyki oraz odpowiedniego zaplanowania infrastruktury, aby zapewnić sprawną obsługę tysięcy gości.
+### 65 metrów baru, 40 barmanów i blisko 100 osób przy produkcji
 
-Bary, regały i menu otrzymały indywidualną identyfikację wizualną spójną z wizją organizatora. Podświetlane elementy zabudowy podkreślały branding i budowały efekt wizualny w przestrzeni wydarzenia. Nasz zakres prac obejmował również organizację szatni i zapewnienie jej sprawnej obsługi przez cały event.
+Sercem realizacji był jeden wielki bar o długości 65 metrów, przy którym pracowało 40 barmanów. Przy produkcji i przygotowaniu stref barowych pracowało blisko 100 osób. Przy takiej skali kluczowe były precyzyjna koordynacja zespołów, logistyka i dobrze zaplanowana infrastruktura, bo tylko tak tysiące gości mogły zostać sprawnie obsłużone w noc sylwestrową.
 
-Art Bar Solutions – kompleksowa obsługa dużych eventów
+### Spójna identyfikacja wizualna
 
-Festivaland to przykład realizacji, w której połączyliśmy produkcję barów eventowych, personalizowaną zabudowę, profesjonalną obsługę barmańską i zaplecze organizacyjne. Wspieramy organizatorów koncertów, festiwali i imprez masowych, dostarczając rozwiązania dopasowane do skali wydarzenia i charakteru marki.`,
-        footerNote: `Planujesz event dla kilku tysięcy uczestników?** Skontaktuj się z Art Bar Solutions – przygotujemy infrastrukturę barową i obsługę dopasowaną do potrzeb Twojego wydarzenia.`,
+Bary, regały i menu otrzymały indywidualną identyfikację wizualną zgodną z wizją organizatora. Podświetlane elementy zabudowy eksponowały branding i budowały efekt wizualny w przestrzeni hali.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'produkcja i montaż 65-metrowego baru',
+          'identyfikacja wizualna barów, regałów i menu',
+          'podświetlenie elementów zabudowy',
+          'obsługa barowa: 40 barmanów',
+          'organizacja i obsługa szatni dla 5000 uczestników'
+        ],
+        effectTitle: 'Kompleksowa obsługa dużych eventów',
+        effect: `Festivaland pokazuje, jak wygląda realizacja z jednej ręki: produkcja barów, personalizowana zabudowa, profesjonalna obsługa barmańska i zaplecze organizacyjne. Wspieramy organizatorów koncertów, festiwali i imprez masowych, dopasowując rozwiązania do skali wydarzenia i charakteru marki.`,
+        footerNote: `Planujesz event dla kilku tysięcy uczestników? Skontaktuj się z nami, a przygotujemy infrastrukturę barową i obsługę dopasowaną do potrzeb Twojego wydarzenia.`,
       },
       {
         id: 'koncert-zabson-hollywood-smile',
         num: '21',
         date: '21.12.2025',
-        fullDate: '21.12.2025 · Polska',
+        fullDate: '21.12.2025 · EXPO XXI, Warszawa',
         title: 'Koncert Żabson - Hollywood Smile w hali EXPO w Warszawie',
-        excerpt: '21 grudnia 2025 roku, zaledwie dwa dni po realizacji ARK: The Blaze, ponownie współpracowaliśmy z Winiary Bookings, tym razem podczas hip-hopowego wydarzenia Żabson – Hollywood Smile X-Perience – Daj To Jeszcze Raz w halach EXPO XXI w Warszawie. Koncert zgromadził 5 tysięcy uczestników i był wielkim finałem 10-lecia kariery artysty.',
-        s1: '21 grudnia 2025 roku, zaledwie dwa dni po realizacji ARK: The Blaze, ponownie współpracowaliśmy z Winiary Bookings, tym razem podczas hip-hopowego wydarzenia Żabson – Hollywood Smile X-Perience – Daj To Jeszcze Raz w halach EXPO XXI w Warszawie.',
-        s2: 'Koncert zgromadził 5 tysięcy uczestników i był wielkim finałem 10-lecia kariery artysty.',
-        coverImg: null,
-        images: [],
-        hasMaterials: false,
+        excerpt: '21 grudnia 2025 r., zaledwie dwa dni po ARK: The Blaze, ponownie pracowaliśmy z agencją Winiary Bookings. Tym razem w halach EXPO XXI w Warszawie odbył się koncert Żabson – Hollywood Smile X-Perience – Daj To Jeszcze Raz, wielki finał 10-lecia kariery artysty, który zgromadził 5 tysięcy uczestników.',
+        s1: 'Żabson – Hollywood Smile X-Perience: strefy barowe na finał 10-lecia kariery w EXPO XXI',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/koncert-zabson-hollywood-smile/koncert-zabson-hollywood-smile-ZABSON_GOING_1000x1000_TOUR.jpg',
+        images: ["assets/images/aktualnosci/koncert-zabson-hollywood-smile/koncert-zabson-hollywood-smile-ZABSON_GOING_1000x1000_TOUR.jpg"],
+        hasMaterials: true,
         videoUrl: null,
-        intro: `21 grudnia 2025 roku, zaledwie dwa dni po realizacji ARK: The Blaze, ponownie współpracowaliśmy z Winiary Bookings, tym razem podczas hip-hopowego wydarzenia Żabson – Hollywood Smile X-Perience – Daj To Jeszcze Raz w halach EXPO XXI w Warszawie. Koncert zgromadził 5 tysięcy uczestników i był wielkim finałem 10-lecia kariery artysty.
+        intro: `21 grudnia 2025 r., zaledwie dwa dni po ARK: The Blaze, ponownie pracowaliśmy z agencją Winiary Bookings. Tym razem w halach EXPO XXI w Warszawie odbył się koncert Żabson – Hollywood Smile X-Perience – Daj To Jeszcze Raz, wielki finał 10-lecia kariery artysty, który zgromadził 5 tysięcy uczestników.
 
-Sprawna realizacja dzięki przemyślanej infrastrukturze`,
-        bullets: [],
-        effect: `Wydarzenie obejmowało trzy sety muzyczne prezentujące różne etapy twórczości Żabsona oraz występy gości specjalnych, w tym reaktywację chillwagonu. Przy realizacji wykorzystaliśmy infrastrukturę barową przygotowaną dwa dni wcześniej na potrzeby ARK: The Blaze, ponownie dostosowując ją do charakteru imprezy i potrzeb uczestników.
+Wydarzenie składało się z trzech setów muzycznych pokazujących różne etapy twórczości Żabsona oraz występów gości specjalnych, w tym reaktywacji Chillwagonu.
 
-Dwa wydarzenia o różnym charakterze, około 5000 uczestników i krótki odstęp między realizacjami – to przykład, jak odpowiednio zaplanowana infrastruktura barowa usprawnia obsługę dużych eventów. W Art Bar Solutions produkujemy i przygotowujemy strefy barowe na koncerty, imprezy masowe i wydarzenia specjalne, dbając o funkcjonalność, logistykę oraz dopasowanie rozwiązań do wymagań organizatora.`,
-        footerNote: `Planujesz koncert lub event na dużą skalę? Skontaktuj się z Art Bar Solutions i porozmawiajmy o infrastrukturze barowej dla Twojego wydarzenia.`,
+Wykorzystaliśmy infrastrukturę barową przygotowaną dwa dni wcześniej na ARK: The Blaze i dostosowaliśmy ją do hip-hopowego charakteru koncertu oraz potrzeb uczestników.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'adaptacja stref barowych po poprzednim wydarzeniu w ciągu dwóch dni',
+          'dopasowanie infrastruktury do formatu koncertu i 5 tys. uczestników',
+          'obsługa stref barowych podczas wydarzenia'
+        ],
+        effectTitle: 'Sprawna realizacja dzięki przemyślanej infrastrukturze',
+        effect: `Dwa wydarzenia o różnym charakterze, po 5 tysięcy uczestników i tylko dwa dni przerwy. To dobry przykład, jak dobrze zaplanowana infrastruktura barowa usprawnia obsługę dużych eventów i pozwala oszczędzić organizatorowi czas i koszty.
+
+Produkujemy i przygotowujemy strefy barowe na koncerty, imprezy masowe i wydarzenia specjalne. Dbamy o funkcjonalność, logistykę i dopasowanie rozwiązań do wymagań organizatora.`,
+        footerNote: `Planujesz koncert lub event na dużą skalę? Skontaktuj się z nami i porozmawiajmy o infrastrukturze barowej dla Twojego wydarzenia.`,
       },
       {
         id: 'ark-the-blaze-w',
         num: '20',
         date: '19.12.2025',
-        fullDate: '19.12.2025 · Polska',
+        fullDate: '19.12.2025 · EXPO XXI, Warszawa',
         title: 'ARK The Blaze w hali EXPO w Warszawie',
-        excerpt: '19 grudnia 2025 roku zrealizowaliśmy produkcję stref barowych podczas wydarzenia ARK: The Blaze w hali EXPO XXI, organizowanego przez agencję Winiary Bookings, które zgromadziło 5 tysięcy uczestników! Realizacja na taką skalę wymagała odpowiedniego przygotowania infrastruktury barowej, przemyślanego rozmieszczenia punktów i dopasowania ich do organizacji przestrzeni eventowej.',
-        s1: '19 grudnia 2025 roku zrealizowaliśmy produkcję stref barowych podczas wydarzenia ARK: The Blaze w hali EXPO XXI, organizowanego przez agencję Winiary Bookings, które zgromadziło 5 tysięcy uczestników!',
-        s2: 'Realizacja na taką skalę wymagała odpowiedniego przygotowania infrastruktury barowej, przemyślanego rozmieszczenia punktów i dopasowania ich do organizacji przestrzeni eventowej.',
-        coverImg: 'assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG',
-        images: ["assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG", "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0805.JPG", "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0811.JPG"],
+        excerpt: '19 grudnia 2025 r. w hali EXPO XXI w Warszawie odbyło się ARK: The Blaze, wydarzenie organizowane przez agencję Winiary Bookings, które zgromadziło 5 tysięcy uczestników. Odpowiadaliśmy za produkcję wszystkich stref barowych.',
+        s1: 'ARK: The Blaze 2025: strefy barowe dla 5 tysięcy uczestników w EXPO XXI',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0745.JPG',
+        images: [
+          "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0745.JPG",
+          "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0793.JPG",
+          "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0798.JPG",
+          "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG"
+        ],
         hasMaterials: true,
         videoUrl: null,
-        intro: `19 grudnia 2025 roku zrealizowaliśmy produkcję stref barowych podczas wydarzenia ARK: The Blaze w hali EXPO XXI, organizowanego przez agencję Winiary Bookings, które zgromadziło 5 tysięcy uczestników! Realizacja na taką skalę wymagała odpowiedniego przygotowania infrastruktury barowej, przemyślanego rozmieszczenia punktów i dopasowania ich do organizacji przestrzeni eventowej.
+        intro: `19 grudnia 2025 r. w hali EXPO XXI w Warszawie odbyło się ARK: The Blaze, wydarzenie organizowane przez agencję Winiary Bookings, które zgromadziło 5 tysięcy uczestników. Odpowiadaliśmy za produkcję wszystkich stref barowych.
 
-Art Bar Solutions – produkcja barów na duże wydarzenia`,
-        bullets: [],
-        effect: `W ramach wydarzenia przygotowaliśmy strefy barowe obsługujące imprezę masową, w tym punkty przeznaczone do sprzedaży napojów o zawartości alkoholu do 3,5%, a także bar w wydzielonej strefie z mocnymi alkoholami. Rozdzielenie punktów pozwoliło dostosować ich funkcję do układu wydarzenia i potrzeb uczestników.`,
-        footerNote: `Planujesz event dla tysięcy uczestników? Skontaktuj się z Art Bar Solutions – przygotujemy infrastrukturę barową dopasowaną do formatu Twojego wydarzenia.`,
+Przy imprezie masowej tej skali kluczowe jest przygotowanie infrastruktury: przemyślane rozmieszczenie punktów, dopasowanie ich do układu hali i sprawne rozładowanie ruchu w szczytowych momentach.
+
+Strefy barowe podzieliliśmy według funkcji. Punkty w głównej przestrzeni sprzedawały napoje o zawartości alkoholu do 3,5%, a w wydzielonej strefie działał bar z mocniejszymi alkoholami. Taki podział pozwolił dopasować obsługę do układu wydarzenia i potrzeb uczestników.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'produkcja i montaż stref barowych dla 5 tys. uczestników',
+          'zaplanowanie rozmieszczenia punktów w przestrzeni hali',
+          'punkty sprzedaży napojów do 3,5% alkoholu',
+          'bar z mocnymi alkoholami w wydzielonej strefie'
+        ],
+        effectTitle: 'Produkcja barów na duże wydarzenia',
+        effect: `Przygotowujemy infrastrukturę barową na imprezy masowe, koncerty i festiwale. Planujemy rozmieszczenie punktów, produkujemy zabudowę i dopasowujemy całość do skali wydarzenia, układu przestrzeni i wymogów organizatora.`,
+        footerNote: `Planujesz event dla tysięcy uczestników? Skontaktuj się z nami, a przygotujemy infrastrukturę barową dopasowaną do formatu Twojego wydarzenia.`,
       },
       {
         id: 'koncert-coma-vip-na',
         num: '19',
         date: '07.12.2025',
-        fullDate: '07.12.2025 · Polska',
+        fullDate: '07.12.2025 · TAURON Arena Kraków',
         title: 'Koncert Coma VIP na Tauron Arena Kraków',
         excerpt: '7 grudnia 2025 r. w TAURON Arenie Kraków zespół Coma zagrał finałowy koncert trasy „COMA RE-START: Gra o Wszystko”. Odpowiadaliśmy za strefę barową VIP, od zabudowy po serwis.',
-        s1: '7 grudnia 2025 r. w TAURON Arenie Kraków zespół Coma zagrał finałowy koncert trasy „COMA RE-START: Gra o Wszystko”.',
-        s2: 'Odpowiadaliśmy za strefę barową VIP, od zabudowy po serwis.',
+        s1: 'COMA RE-START: Gra o Wszystko – strefa VIP w TAURON Arenie Kraków',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg',
-        images: ["assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg", "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163519.jpg"],
+        images: [
+          "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg"
+        ],
         hasMaterials: true,
         videoUrl: null,
         intro: `7 grudnia 2025 r. w TAURON Arenie Kraków zespół Coma zagrał finałowy koncert trasy „COMA RE-START: Gra o Wszystko”. Odpowiadaliśmy za strefę barową VIP, od zabudowy po serwis.
 
 Do strefy VIP dostarczyliśmy nasze bary z indywidualną identyfikacją wizualną, przygotowane specjalnie na tę realizację. Zadbaliśmy, by zabudowa była funkcjonalna i spójna z estetyką przestrzeni, a profesjonalna obsługa barowa zapewniła gościom VIP sprawny serwis przez cały wieczór finału trasy.`,
-        bulletsTitle: 'Zakres realizacji',
-        bullets: ["bary z indywidualną identyfikacją wizualną,", "dopasowanie zabudowy do estetyki strefy VIP,", "profesjonalna obsługa barowa podczas koncertu."],
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'bary z indywidualną identyfikacją wizualną',
+          'dopasowanie zabudowy do estetyki strefy VIP',
+          'profesjonalna obsługa barowa podczas koncertu'
+        ],
         effectTitle: 'Bary eventowe i obsługa stref VIP',
         effect: `Realizujemy strefy barowe na koncertach, festiwalach i eventach specjalnych. Zapewniamy bary z brandingiem, produkcję zabudowy i profesjonalną obsługę, a zakres usług dopasowujemy do skali wydarzenia i potrzeb organizatora.`,
         footerNote: `Planujesz koncert lub event ze strefą VIP? Skontaktuj się z nami, a przygotujemy rozwiązanie, które połączy funkcjonalność z identyfikacją wizualną Twojej marki.`,
@@ -5629,25 +5753,34 @@ Do strefy VIP dostarczyliśmy nasze bary z indywidualną identyfikacją wizualn�
       {
         id: 'secretos-daniela-majewskiego-w',
         num: '18',
-        date: '27.11.2025',
-        fullDate: '27.11.2025 · Polska',
+        date: '13.11.2025',
+        fullDate: '13.11.2025 · PKiN, Warszawa',
         title: 'Secretos Daniela Majewskiego w PKiN w Warszawie',
         excerpt: '13 listopada 2025 r. odpowiadaliśmy za obsługę strefy barowej podczas Secretos Rave w Pałacu Kultury i Nauki w Warszawie. Organizatorem wydarzenia był Daniel Majewski.',
-        s1: '13 listopada 2025 r. odpowiadaliśmy za obsługę strefy barowej podczas Secretos Rave w Pałacu Kultury i Nauki w Warszawie.',
-        s2: 'Organizatorem wydarzenia był Daniel Majewski.',
+        s1: 'Secretos Rave 2025: strefa barowa w Pałacu Kultury i Nauki',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg',
-        images: ["assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589752194_829103290046157_1348093356004804902_n.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-591408729_829103306712822_2508272238526593308_n.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3040.jpg", "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3106.jpg"],
+        images: [
+          "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg",
+          "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589752194_829103290046157_1348093356004804902_n.jpg",
+          "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-591408729_829103306712822_2508272238526593308_n.jpg",
+          "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3040.jpg",
+          "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3106.jpg"
+        ],
         hasMaterials: true,
         videoUrl: null,
         intro: `13 listopada 2025 r. odpowiadaliśmy za obsługę strefy barowej podczas Secretos Rave w Pałacu Kultury i Nauki w Warszawie. Organizatorem wydarzenia był Daniel Majewski.
 
-Secretos Rave przeniósł muzykę elektroniczną i klubową atmosferę do jednego z najbardziej rozpoznawalnych budynków w Polsce. Wieczorny format i nietypowa lokalizacja stworzyły przestrzeń, w której zabawa i spotkania przy muzyce trwały do późnych godzin.`,
-        bulletsTitle: 'Zakres realizacji',
-        bullets: ["obsługa strefy barowej</br>podczas całego wydarzenia,", "serwis dopasowany do klubowego formatu</br>i natężenia ruchu."],
-        effectTitle: 'Obsługa barowa na koncerty i imprezy klubowe',
-        effect: `Na takim evencie bar musi działać bez przestojów, zwłaszcza w momentach największego ruchu. Naszym zadaniem było zapewnienie płynnego serwisu przez cały wieczór, tak by goście mogli skupić się na muzyce.
+Secretos Rave przeniósł muzykę elektroniczną i klubową atmosferę do jednego z najbardziej rozpoznawalnych budynków w Polsce. Wieczorny format i nietypowa lokalizacja stworzyły przestrzeń, w której zabawa i spotkania przy muzyce trwały do późnych godzin.
 
-Wspieramy organizatorów koncertów, imprez klubowych i eventów specjalnych. Zapewniamy profesjonalną obsługę barową, a jeśli trzeba, także produkcję barów dopasowanych do charakteru wydarzenia.`,
+Na takim evencie bar musi działać bez przestojów, zwłaszcza w momentach największego ruchu. Naszym zadaniem było zapewnienie płynnego serwisu przez cały wieczór, tak by goście mogli skupić się na muzyce.`,
+        bulletsTitle: 'Zakres realizacji:',
+        bullets: [
+          'obsługa strefy barowej podczas całego wydarzenia',
+          'serwis dopasowany do klubowego formatu i natężenia ruchu'
+        ],
+        effectTitle: 'Obsługa barowa na koncerty i imprezy klubowe',
+        effect: `Wspieramy organizatorów koncertów, imprez klubowych i eventów specjalnych. Zapewniamy profesjonalną obsługę barową, a jeśli trzeba, także produkcję barów dopasowanych do charakteru wydarzenia.`,
         footerNote: `Planujesz event i szukasz sprawdzonej obsługi strefy barowej? Skontaktuj się z nami.`,
       },
       {
@@ -5665,7 +5798,11 @@ Wspieramy organizatorów koncertów, imprez klubowych i eventów specjalnych. Za
         videoUrl: null,
         intro: `20 listopada 2025 r. na terenie Portu Lotniczego Wrocław odbył się jubileusz 30-lecia Zachodniej Izby Gospodarczej. Odpowiadaliśmy za strefę barową wydarzenia, od zabudowy po serwis.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["produkcja i montaż baru</br>ze spersonalizowaną zabudową,", "indywidualna identyfikacja wizualna dopasowana do jubileuszu,", "obsługa serwisu barowego</br>podczas wydarzenia."],
+        bullets: [
+          'produkcja i montaż baru ze spersonalizowaną zabudową',
+          'indywidualna identyfikacja wizualna dopasowana do jubileuszu',
+          'obsługa serwisu barowego podczas wydarzenia'
+        ],
         effectTitle: 'Bary na eventy firmowe i jubileusze',
         effect: `Na uroczystość przygotowaliśmy bar z indywidualną identyfikacją wizualną, zaprojektowaną z myślą o jubileuszowym charakterze wieczoru. Tym razem nie skończyło się na produkcji: zapewniliśmy też profesjonalną obsługę barową, więc goście mieli do dyspozycji kompletną strefę, przygotowaną i prowadzoną przez jeden zespół.
 
@@ -5689,7 +5826,12 @@ Produkujemy bary i zapewniamy obsługę barową na eventy firmowe, gale i jubile
 
 Na gali tej rangi bar to nie tylko punkt serwowania napojów, ale też miejsce, w którym goście bezpośrednio spotykają się z marką. Dlatego zadbaliśmy, by zabudowa była funkcjonalna, estetyczna i spójnie wpisywała się zarówno w charakter wydarzenia, jak i w identyfikację Mocti.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["produkcja i montaż barów dla marki Mocti,", "dopasowanie zabudowy do przestrzeni Nowego Teatru i charakteru gali,", "ekspozycja identyfikacji wizualnej marki,", "dopracowanie estetyki i detali."],
+        bullets: [
+          'produkcja i montaż barów dla marki Mocti',
+          'dopasowanie zabudowy do przestrzeni Nowego Teatru i charakteru gali',
+          'ekspozycja identyfikacji wizualnej marki',
+          'dopracowanie estetyki i detali'
+        ],
         effectTitle: 'Bary na gale i eventy marek',
         effect: `Produkujemy strefy barowe na gale, eventy firmowe, premiery produktów i akcje promocyjne. Łączymy funkcjonalną zabudowę z identyfikacją wizualną marki, a każdy bar dopasowujemy do przestrzeni, formatu wydarzenia i potrzeb klienta.`,
         footerNote: `Planujesz event i szukasz barów, które podkreślą charakter Twojej marki? Skontaktuj się z nami, a przygotujemy rozwiązanie dopasowane do Twojego wydarzenia.`,
@@ -5698,33 +5840,48 @@ Na gali tej rangi bar to nie tylko punkt serwowania napojów, ale też miejsce, 
         id: 'festiwal-wisloujscie-2025',
         num: '15',
         date: '22-24.08.2025',
-        fullDate: '22-24.08.2025 · Polska',
+        fullDate: '22-24.08.2025 · Twierdza Wisłoujście, Gdańsk',
         title: 'Festiwal Wisłoujście w Gdańsku',
-        excerpt: 'W dniach 22–24 sierpnia 2025 r. ponownie odpowiadaliśmy za produkcję wszystkich stref barowych na Wisłoujście Festival w Gdańsku, jednym z najbardziej charakterystycznych festiwali...',
-        coverImg: 'assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG-20250825-WA0017.jpg',
-        images: ["assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG-20250825-WA0017.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250820182912.jpg", "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250821155647.jpg"],
+        excerpt: 'W dniach 22–24 sierpnia 2025 r. ponownie odpowiadaliśmy za produkcję wszystkich stref barowych na Wisłoujście Festival w Gdańsku, jednym z najbardziej charakterystycznych festiwali muzyki elektronicznej w Polsce.',
+        s1: 'Wisłoujście Festival 2025: wszystkie strefy barowe w naszych rękach',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-DJI_20250820_183034_816.jpg',
+        images: [
+          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-DJI_20250820_183034_816.jpg",
+          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250822133307.jpg",
+          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250821155643.jpg",
+          "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250821153658.jpg"
+        ],
         hasMaterials: true,
         videoUrl: null,
         intro: `W dniach 22–24 sierpnia 2025 r. ponownie odpowiadaliśmy za produkcję wszystkich stref barowych na Wisłoujście Festival w Gdańsku, jednym z najbardziej charakterystycznych festiwali muzyki elektronicznej w Polsce.
 
 Festiwal odbywa się w zabytkowej Twierdzy Wisłoujście i łączy muzykę elektroniczną z artystyczną scenografią oraz rozbudowanymi projektami świetlnymi. W takiej przestrzeni bar musi być nie tylko sprawnym punktem obsługi gości, ale też częścią scenografii.`,
         bulletsTitle: 'Zakres realizacji',
-        bullets: ["produkcja i montaż zabudowy wszystkich stref barowych,", "identyfikacja wizualna barów, spójna z charakterem wydarzenia i wyróżniająca poszczególne strefy,", "podświetlenie LED, które podkreślało formę zabudowy i eksponowało branding,", "dopracowanie wyglądu i detali na każdym etapie.", "Po zmroku bary współgrały ze świetlną oprawą festiwalu i stawały się jednym z jej elementów."],
-        effect: `Kolejna wspólna edycja potwierdza, że przy wydarzeniach tej skali liczy się jednocześnie sprawna produkcja i spójny efekt wizualny. Dziękujemy organizatorom za zaufanie.`,
+        bullets: [
+          'produkcja i montaż zabudowy wszystkich stref barowych',
+          'identyfikacja wizualna barów, spójna z charakterem wydarzenia i wyróżniająca poszczególne strefy',
+          'podświetlenie LED, które podkreślało formę zabudowy i eksponowało branding',
+          'dopracowanie wyglądu i detali na każdym etapie'
+        ],
+        effectTitle: 'Produkcja barów na festiwale',
+        effect: `Po zmroku bary współgrały ze świetlną oprawą festiwalu i stawały się jednym z jej elementów.
+
+Kolejna wspólna edycja potwierdza, że przy wydarzeniach tej skali liczy się jednocześnie sprawna produkcja i spójny efekt wizualny. Dziękujemy organizatorom za zaufanie.`,
         footerNote: `Planujesz festiwal lub wydarzenie plenerowe? Skontaktuj się z nami, a zaprojektujemy i wyprodukujemy strefy barowe dopasowane do Twojego wydarzenia.`,
       },
       {
         id: 'strefa-planteray-na-festiwalu',
         num: '14',
         date: '22-23.08.2025',
-        fullDate: '22-23.08.2025 · Polska',
-        title: 'Strefa Planteray na Festiwalu Whisky w Sopocie',
+        fullDate: '22-23.08.2025 · Hipodrom Sopot',
+        title: 'Planteray Rum na Festiwalu Whisky w Sopocie',
         excerpt: '20 sierpnia 2025 roku rozpoczęliśmy montaż ostatniego przystanku letniej trasy Planteray Rum. Tym razem nasza realizacja przeniosła się do Sopotu, na teren Hipodromu, gdzie odbyła się kolejna edycja Festiwalu Whisky organizowanego przez United Beverages.',
-        s1: '20 sierpnia 2025 roku rozpoczęliśmy montaż ostatniego przystanku letniej trasy Planteray Rum.',
-        s2: 'Tym razem nasza realizacja przeniosła się do Sopotu, na teren Hipodromu, gdzie odbyła się kolejna edycja Festiwalu Whisky organizowanego przez United Beverages.',
-        coverImg: null,
-        images: [],
-        hasMaterials: false,
+        s1: 'Planteray Rum na Festiwalu Whisky 2025 w Sopocie – finał trasy festiwalowej',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/strefa-planteray-na-festiwalu/strefa-planteray-na-festiwalu-Kopia_IMG_20261029_150821.jpg',
+        images: ["assets/images/aktualnosci/strefa-planteray-na-festiwalu/strefa-planteray-na-festiwalu-Kopia_IMG_20261029_150821.jpg"],
+        hasMaterials: true,
         videoUrl: null,
         intro: `20 sierpnia 2025 roku rozpoczęliśmy montaż ostatniego przystanku letniej trasy Planteray Rum. Tym razem nasza realizacja przeniosła się do Sopotu, na teren Hipodromu, gdzie odbyła się kolejna edycja Festiwalu Whisky organizowanego przez United Beverages. Po realizacjach na Salt Wave Festival w Jastarni i konwencie Better Bar w Krakowie był to finał intensywnego sezonu wydarzeń z marką Planteray Rum.`,
         bullets: [],
@@ -5734,20 +5891,26 @@ Festiwal odbywa się w zabytkowej Twierdzy Wisłoujście i łączy muzykę elekt
       {
         id: 'neptun-calling-w-klubie',
         num: '13',
-        date: '16.08.2025',
-        fullDate: '16.08.2025 · Polska',
+        date: '15-16.08.2025',
+        fullDate: '15-16.08.2025 · Klub Przyjaźń, Warszawa',
         title: 'Neptun Calling w klubie Przyjaźń w Warszawie',
         excerpt: 'Muzyka elektroniczna, hipnotyzujące światło i scenografia inspirowana tajemnicami oceanu. 15 sierpnia 2025 roku w klubie Przyjaźń zrealizowaliśmy kolejną odsłonę imprez tematycznych. Tym razem uczestnicy wkroczyli do świata Neptuna, gdzie podwodna estetyka spotkała się z energią klubowej nocy.',
-        s1: 'Muzyka elektroniczna, hipnotyzujące światło i scenografia inspirowana tajemnicami oceanu. 15 sierpnia 2025 roku w klubie Przyjaźń zrealizowaliśmy kolejną odsłonę imprez tematycznych.',
-        s2: 'Tym razem uczestnicy wkroczyli do świata Neptuna, gdzie podwodna estetyka spotkała się z energią klubowej nocy.',
-        coverImg: 'assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815200440.jpg',
-        images: ["assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815200440.jpg", "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815201330.jpg", "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250816003357.jpg"],
+        s1: 'Neptun Calling: podwodny świat imprez tematycznych Art Bar Solutions',
+        s2: null,
+        coverImg: 'assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815201330.jpg',
+        images: [
+          "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815201330.jpg",
+          "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815211914.jpg",
+          "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250816013242.jpg",
+          "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250816020922.jpg"
+        ],
         hasMaterials: true,
         videoUrl: null,
         intro: `Muzyka elektroniczna, hipnotyzujące światło i scenografia inspirowana tajemnicami oceanu. 15 sierpnia 2025 roku w klubie Przyjaźń zrealizowaliśmy kolejną odsłonę imprez tematycznych. Tym razem uczestnicy wkroczyli do świata Neptuna, gdzie podwodna estetyka spotkała się z energią klubowej nocy.
 
 Neptun Calling to wydarzenie, w którym morska mitologia, autorskie dekoracje i performance taneczny stworzyły niepowtarzalny klimat. Podwodne inspiracje, świetlne meduzy i elektroniczne brzmienia połączyły się w spójną oprawę, zmieniając przestrzeń klubu Przyjaźń w tajemniczą, oceaniczną krainę.`,
         bullets: [],
+        effectTitle: 'Koncepcje kreatywne i produkcja eventów',
         effect: `Za muzyczną stronę wydarzenia odpowiadali Krizzy, Mi_os, Meskalino i Glasse, którzy dostarczyli dźwięków idealnie wpisujących się w hipnotyczny charakter imprezy.
 
 Neptun Calling to kolejny przykład naszego podejścia do produkcji eventów – kreatywnego, kompleksowego i opartego na autorskich rozwiązaniach.`,
@@ -5792,13 +5955,13 @@ Art Bar Solutions specjalizuje się w produkcji stref barowych na festiwale, kon
         ],
         hasMaterials: true,
         videoUrl: null,
-        intro: `Dla United Beverages i marki Planteray Rum zrealizowaliśmy produkcję strefy barowej inspirowanej karaibskimi barami. Pierwszym przystankiem festiwalowej trasy Planteray był wyjątkowy Salt Wave Festival w Jastarni, który odbył się w dniach 31 lipca – 1 sierpnia 2026 roku na Półwyspie Helskim się na malowniczym terenie nadmorskiego lotniska.
-
-To był świetny początek całej trasy i jesteśmy pewni, że kolejne przystanki dostarczą równie niezapomnianych wrażeń!`,
+        intro: `Dla United Beverages i marki Planteray Rum zrealizowaliśmy produkcję strefy barowej inspirowanej karaibskimi barami. Pierwszym przystankiem festiwalowej trasy Planteray był wyjątkowy Salt Wave Festival w Jastarni, który odbył się w dniach 31 lipca – 1 sierpnia 2026 roku na Półwyspie Helskim na malowniczym terenie nadmorskiego lotniska.`,
         bullets: [],
         effect: `Salt Wave to jeden z najbardziej klimatycznych festiwali w Polsce. Połączenie wyjątkowej lokalizacji przy Zatoce Puckiej z line-upem prezentującym muzykę alternatywną, indie i elektroniczną tworzy niepowtarzalną atmosferę. To wydarzenie, które przyciąga nie tylko fanów muzyki, ale też miłośników nadmorskich wakacji i unikalnego festiwalowego stylu życia.
 
-Na terenie festiwalu stanęła nasza strefa barowa Planteray Rum – inspirowana klimatem karaibskich plaż. Bambusowe konstrukcje, dach ze strzechy, podświetlane logo marki i wygodne leżaki przeniosły uczestników wprost do tropikalnej scenerii, gdzie królowały orzeźwiające koktajle na bazie Plantarey Rum.`,
+Na terenie festiwalu stanęła nasza strefa barowa Planteray Rum – inspirowana klimatem karaibskich plaż. Bambusowe konstrukcje, dach ze strzechy, podświetlane logo marki i wygodne leżaki przeniosły uczestników wprost do tropikalnej scenerii, gdzie królowały orzeźwiające koktajle na bazie Plantarey Rum.
+
+To był świetny początek całej trasy i jesteśmy pewni, że kolejne przystanki dostarczą równie niezapomnianych wrażeń!`,
         footerNote: `Planujesz strefę barową dla swojej marki na festiwalu lub evencie? Skontaktuj się z Art Bar Solutions – zaprojektujemy i wyprodukujemy przestrzeń dopasowaną do Twojej marki i charakteru wydarzenia →`,
       },
       {
@@ -5956,16 +6119,31 @@ System opiera się na uniwersalnych modułach łączonych w dowolne układy. Ta 
         date: '01.06.2025',
         fullDate: '01.06.2025 · Polska',
         title: 'Projekt i realizacja bramy wejściowej w klubie Przyjaźń',
-        excerpt: 'Realizacja Art Bar Solutions: Projekt i realizacja bramy wejściowej w klubie Przyjaźń. Kompleksowa obsługa barowa i scenografia eventowa.',
-        s1: 'Realizacja Art Bar Solutions: Projekt i realizacja bramy wejściowej w klubie Przyjaźń.',
-        s2: 'Kompleksowa obsługa barowa i scenografia eventowa.',
+        excerpt: 'Dla lokalu Przyjaźń zaprojektowaliśmy i wykonaliśmy scenograficzną bramę wejściową. To pierwszy element, który widzą goście, więc od progu buduje charakter całego miejsca.',
+        s1: 'Brama „Przyjaźń” - projekt scenograficzny wejścia do lokalu.',
+        s2: null,
         coverImg: 'assets/images/aktualnosci/przyjazn/przyjazn-1.jpg',
         images: ["assets/images/aktualnosci/przyjazn/przyjazn-1.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-2.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-3.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-4.jpg", "assets/images/aktualnosci/przyjazn/przyjazn-5.jpg"],
         hasMaterials: true,
         videoUrl: null,
-        intro: 'Realizacja Art Bar Solutions: Projekt i realizacja bramy wejściowej w klubie Przyjaźń. Kompleksowa obsługa barowa i scenografia eventowa.',
-        bullets: [],
-        effect: '',
+        intro: `Dla lokalu Przyjaźń zaprojektowaliśmy i wykonaliśmy scenograficzną bramę wejściową. To pierwszy element, który widzą goście, więc od progu buduje charakter całego miejsca.
+
+### Projekt
+
+Brama ma formę wysokiego łuku o geometrycznej, ludowej w duchu ornamentyce. Ażurowe filary pokrywa gęsty wzór z trójkątów i linii, a nad nimi rozchodzi się promienisty, zębaty wieniec jak aureola słońca. Centralnym punktem jest logo: pomarańczowe słońce ze spiralą i napis „PRZYJAŹŃ” w ciepłym, retro kroju liter.`,
+        bulletsTitle: 'Co zrobiliśmy?',
+        bullets: [
+          'projekt graficzny i konstrukcyjny bramy',
+          'wykonanie ażurowych elementów wyciętych laserowo',
+          'wykonanie podświetlanego logo i szyldu z nazwą lokalu',
+          'oświetlenie bramy',
+          'transport, montaż i wkomponowanie bramy w istniejące wejście i zieleń'
+        ],
+        effectTitle: 'Efekt',
+        effect: `Ciepła, rozpoznawalna brama, w której kolor słońca kontrastuje z szarością okolicznej architektury. Zaprasza do środka, zapowiada klimat lokalu i działa jak znak firmowy, który goście chętnie fotografują.
+
+Art Bar Solutions projektuje i wykonuje scenografię dla lokali i wydarzeń, od bram wejściowych i dekoracji po całe strefy eventowe.`,
+        footerNote: `Potrzebujesz konceptu lub scenografii dla swojego lokalu? Skontaktuj się z nami →`,
       },
       {
         id: 'riverlights',
@@ -6494,6 +6672,10 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
 
     // Generowanie siatki kafelków (Historia wpisów w formie eleganckiego gridu z miniaturami i datami)
     function renderNewsButtonsList() {
+      const historyCounter = document.getElementById('news-history-counter');
+      if (historyCounter) {
+        historyCounter.textContent = `${artbarNewsDatabase.length} wydarzeń`;
+      }
       const listEl = document.getElementById('news-buttons-list');
       if (!listEl) return;
       listEl.innerHTML = '';
@@ -6552,7 +6734,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
     }
 
         // Słownik orientacji zdjęć (pion / poziom)
-    const artbarImageOrientations = {"assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184559.jpg": false, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184726.jpg": true, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250520211049.jpg": false, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250520212835.jpg": false, "assets/images/aktualnosci/flamingo-party/flamingo-party-515278312_24568059902801661_2577079048995295614_n (1).jpg": false, "assets/images/aktualnosci/flamingo-party/flamingo-party-515681618_24568059849468333_4792959048973108754_n.jpg": true, "assets/images/aktualnosci/flamingo-party/flamingo-party-515711795_24568059779468340_1561083272275841699_n.jpg": true, "assets/images/aktualnosci/flamingo-party/flamingo-party-515921715_24568059852801666_6829113257485881721_n.jpg": true, "assets/images/aktualnosci/flamingo-party/flamingo-party-516415748_24568059602801691_2099291939786563619_n.jpg": true, "assets/images/aktualnosci/riverlights/riverlights-496769482_680660558157247_8894439264282079227_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-499803643_689521353937834_979966908159767657_n.jpg": true, "assets/images/aktualnosci/riverlights/riverlights-500179978_693806093509360_5156418878319912761_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-500232268_693385763551393_4051380601989981536_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-500392545_693385796884723_3908969088866288602_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-710755834_992571253632841_6923766683771610933_n.jpg": true, "assets/images/aktualnosci/przyjazn/przyjazn-1.jpg": true, "assets/images/aktualnosci/przyjazn/przyjazn-2.jpg": true, "assets/images/aktualnosci/przyjazn/przyjazn-3.jpg": false, "assets/images/aktualnosci/przyjazn/przyjazn-4.jpg": false, "assets/images/aktualnosci/przyjazn/przyjazn-5.jpg": true, "assets/images/2024.12.31-Art-Bar-26-768x512.jpg": false, "assets/images/2024.12.31-Art-Bar-73-2.jpg": false, "assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg": false, "assets/images/aktualnosci/jungle/jungle-525213039_24773908858883430_3113468267632495437_n.jpg": false, "assets/images/aktualnosci/jungle/jungle-525356319_24773954338878882_6665937040343293896_n.jpg": false, "assets/images/aktualnosci/jungle/jungle-525566707_24773960738878242_5539207150023711635_n.jpg": true, "assets/images/aktualnosci/jungle/jungle-525708708_24773913912216258_7839237749100248436_n.jpg": false, "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214634.jpg": false, "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214734.jpg": false, "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618222003.jpg": false, "assets/images/aktualnosci/live-nation/live-nation-IMG20250717212559.jpg": false, "assets/images/aktualnosci/live-nation/live-nation-IMG20251020173413.jpg": false, "assets/images/aktualnosci/planteray/planteray-IMG-20250724-WA0003.jpg": false, "assets/images/aktualnosci/planteray/planteray-IMG20250724101719.jpg": false, "assets/images/aktualnosci/planteray/planteray-IMG20250729131812.jpg": true, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-IMG20250731175416.jpg": false, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Messenger_creation_FF3F5F84-68AA-43D7-9E30-38A743556145.jpeg": false, "assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804202938 (1).jpg": false, "assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804203015 (1).jpg": false, "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815200440.jpg": false, "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815201330.jpg": true, "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250816003357.jpg": true, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG-20250825-WA0017.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250820182912.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250821155647.jpg": false, "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-IMG_0145.JPG": false, "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-Kopia IMG_0154.JPG": false, "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-Kopia MOCTI_PREV_LUDZIE_3.jpg": false, "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0000.jpg": true, "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0004.jpg": true, "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-Kopia IMG-20251120-WA0002.jpg": true, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589752194_829103290046157_1348093356004804902_n.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-591408729_829103306712822_2508272238526593308_n.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3040.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3106.jpg": false, "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg": true, "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163519.jpg": true, "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG": false, "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0805.JPG": false, "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0811.JPG": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9202-2.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9255-2.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9380.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9422.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9532.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9627.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9753.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-IMG_8793.jpg": true, "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0108.jpg": false, "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0127.jpg": false, "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0644.jpg": false, "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg": false, "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205200.jpg": false, "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213214233.jpg": false, "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105405.jpg": false, "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105415.jpg": false, "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228121314.jpg": false, "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0213.jpg": false, "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0240.jpg": false, "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0427.jpg": false, "assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523193344.jpg": false, "assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523204219.jpg": false, "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg": false, "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618172838.jpg": false, "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618224022.jpg": false, "assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg": false, "assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg": false, "assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160802.jpg": false, "assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg": true, "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg": false, "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_120318.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_171804.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174035.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174742.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260820213841.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_862.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_944.jpg": false, "assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829738134_29214744774799794_1353027114779338448_n.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829968750_29214744761466462_744772577248014698_n.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831240202_29214744764799795_5896056766345836499_n.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831327300_29214744768133128_6996826654849923360_n.jpg": false, "assets/images/aktualnosci/planteray/planteray-1.jpg": false, "assets/images/aktualnosci/planteray/planteray-2.jpg": false, "assets/images/aktualnosci/planteray/planteray-3.jpg": false, "assets/images/aktualnosci/planteray/planteray-4.jpg": false, "assets/images/aktualnosci/planteray/planteray-5.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A7038.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A7126.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A7902.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A8083.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A8809.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A9156.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A9327.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A9700.jpg": false, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Kopia_IMG20250731143759.jpg": true, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Kopia_IMG20250731172705.jpg": true, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Kopia_IMG20250731172914.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia_Photo_3040.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia_Photo_3106.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_084240.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_093742.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_214514.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_214908.jpg": false, "assets/images/aktualnosci/bary-mds/bary-mds-Nano_Banana_2.1_00072.png": false, "assets/images/aktualnosci/bary-mds/bary-mds-Nano_Banana_2.1_00073.png": false};
+    const artbarImageOrientations = {"assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-01.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-02.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-sopot/xii-festiwal-whisky-sopot-03.jpg": false, "assets/images/aktualnosci/strefa-planteray-na-festiwalu/strefa-planteray-na-festiwalu-Kopia_IMG_20261029_150821.jpg": true, "assets/images/aktualnosci/koncert-zabson-hollywood-smile/koncert-zabson-hollywood-smile-ZABSON_GOING_1000x1000_TOUR.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0894_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0931_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0938_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A0998_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1038_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1282_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1351_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1381_web.jpg": true, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1385_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1454_web.jpg": false, "assets/images/aktualnosci/xii-festiwal-whisky-na/xii-festiwal-whisky-na-279A1542_web.jpg": false, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184559.jpg": false, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250417184726.jpg": true, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250520211049.jpg": false, "assets/images/aktualnosci/mlynowa/mlynowa-Kopia IMG20250520212835.jpg": false, "assets/images/aktualnosci/flamingo-party/flamingo-party-515278312_24568059902801661_2577079048995295614_n (1).jpg": false, "assets/images/aktualnosci/flamingo-party/flamingo-party-515681618_24568059849468333_4792959048973108754_n.jpg": true, "assets/images/aktualnosci/flamingo-party/flamingo-party-515711795_24568059779468340_1561083272275841699_n.jpg": true, "assets/images/aktualnosci/flamingo-party/flamingo-party-515921715_24568059852801666_6829113257485881721_n.jpg": true, "assets/images/aktualnosci/flamingo-party/flamingo-party-516415748_24568059602801691_2099291939786563619_n.jpg": true, "assets/images/aktualnosci/riverlights/riverlights-496769482_680660558157247_8894439264282079227_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-499803643_689521353937834_979966908159767657_n.jpg": true, "assets/images/aktualnosci/riverlights/riverlights-500179978_693806093509360_5156418878319912761_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-500232268_693385763551393_4051380601989981536_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-500392545_693385796884723_3908969088866288602_n.jpg": false, "assets/images/aktualnosci/riverlights/riverlights-710755834_992571253632841_6923766683771610933_n.jpg": true, "assets/images/aktualnosci/przyjazn/przyjazn-1.jpg": true, "assets/images/aktualnosci/przyjazn/przyjazn-2.jpg": true, "assets/images/aktualnosci/przyjazn/przyjazn-3.jpg": false, "assets/images/aktualnosci/przyjazn/przyjazn-4.jpg": false, "assets/images/aktualnosci/przyjazn/przyjazn-5.jpg": true, "assets/images/2024.12.31-Art-Bar-26-768x512.jpg": false, "assets/images/2024.12.31-Art-Bar-73-2.jpg": false, "assets/images/gallery/2024.12.31-Art-Bar-108-2.jpg": false, "assets/images/aktualnosci/jungle/jungle-525213039_24773908858883430_3113468267632495437_n.jpg": false, "assets/images/aktualnosci/jungle/jungle-525356319_24773954338878882_6665937040343293896_n.jpg": false, "assets/images/aktualnosci/jungle/jungle-525566707_24773960738878242_5539207150023711635_n.jpg": true, "assets/images/aktualnosci/jungle/jungle-525708708_24773913912216258_7839237749100248436_n.jpg": false, "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214634.jpg": false, "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618214734.jpg": false, "assets/images/aktualnosci/silesia-beats/silesia-beats-IMG20250618222003.jpg": false, "assets/images/aktualnosci/live-nation/live-nation-IMG20250717212559.jpg": false, "assets/images/aktualnosci/live-nation/live-nation-IMG20251020173413.jpg": false, "assets/images/aktualnosci/planteray/planteray-IMG-20250724-WA0003.jpg": false, "assets/images/aktualnosci/planteray/planteray-IMG20250724101719.jpg": false, "assets/images/aktualnosci/planteray/planteray-IMG20250729131812.jpg": true, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-IMG20250731175416.jpg": false, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Messenger_creation_FF3F5F84-68AA-43D7-9E30-38A743556145.jpeg": false, "assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804202938 (1).jpg": false, "assets/images/aktualnosci/better-bar-show-w/better-bar-show-w-IMG20250804203015 (1).jpg": false, "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815200440.jpg": false, "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250815201330.jpg": true, "assets/images/aktualnosci/neptun-calling-w-klubie/neptun-calling-w-klubie-IMG20250816003357.jpg": true, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG-20250825-WA0017.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250820182912.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20250821155647.jpg": false, "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-IMG_0145.JPG": false, "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-Kopia IMG_0154.JPG": false, "assets/images/aktualnosci/strefa-barowa-mocti/strefa-barowa-mocti-Kopia MOCTI_PREV_LUDZIE_3.jpg": false, "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0000.jpg": true, "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-IMG-20251120-WA0004.jpg": true, "assets/images/aktualnosci/30-lecie-impel-zig/30-lecie-impel-zig-Kopia IMG-20251120-WA0002.jpg": true, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589739223_829103300046156_738340979324061415_n.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-589752194_829103290046157_1348093356004804902_n.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-591408729_829103306712822_2508272238526593308_n.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3040.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia Photo_3106.jpg": false, "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163347.jpg": true, "assets/images/aktualnosci/koncert-coma-vip-na/koncert-coma-vip-na-IMG20251207163519.jpg": true, "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0802.JPG": false, "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0805.JPG": false, "assets/images/aktualnosci/ark-the-blaze-w/ark-the-blaze-w-IMG_0811.JPG": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9202-2.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9255-2.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9380.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9422.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9532.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9627.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-3S8A9753.jpg": false, "assets/images/aktualnosci/impreza-sylwestrowa-festivaland-w/impreza-sylwestrowa-festivaland-w-IMG_8793.jpg": true, "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0108.jpg": false, "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0127.jpg": false, "assets/images/aktualnosci/udzial-w-targach-fbe/udzial-w-targach-fbe-3S8A0644.jpg": false, "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205038.jpg": false, "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213205200.jpg": false, "assets/images/aktualnosci/ark-korolova-w-hali/ark-korolova-w-hali-IMG20260213214233.jpg": false, "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105405.jpg": false, "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228105415.jpg": false, "assets/images/aktualnosci/sikelia-di-terrazzino-w/sikelia-di-terrazzino-w-IMG20260228121314.jpg": false, "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0213.jpg": false, "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0240.jpg": false, "assets/images/aktualnosci/circoloco-warsaw-w-muzeum/circoloco-warsaw-w-muzeum-0A1A0427.jpg": false, "assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523193344.jpg": false, "assets/images/aktualnosci/strefa-barowa-dla-firmy/strefa-barowa-dla-firmy-IMG20260523204219.jpg": false, "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618133058.jpg": false, "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618172838.jpg": false, "assets/images/aktualnosci/rooftop-be-about/rooftop-be-about-IMG20260618224022.jpg": false, "assets/images/aktualnosci/barber-night-s6-w/barber-night-s6-w-Messenger_creation_CAC977C0-651F-44E1-8431-824B16646A1A.jpeg": false, "assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160745.jpg": false, "assets/images/aktualnosci/before-festival-w-siedlcach/before-festival-w-siedlcach-20260619_160802.jpg": false, "assets/images/aktualnosci/sikelia-di-tarrazzino-w/sikelia-di-tarrazzino-w-IMG-20260621-WA0005.jpg": true, "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727140534.jpg": false, "assets/images/aktualnosci/zakup-namiotow-i-szkolenie/zakup-namiotow-i-szkolenie-IMG20260727143134.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_120318.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-20260730_171804.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174035.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260819174742.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG20260820213841.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_862.jpg": false, "assets/images/aktualnosci/festiwal-wisloujscie-w-gdansku/festiwal-wisloujscie-w-gdansku-IMG_20260826_023021_944.jpg": false, "assets/images/aktualnosci/event-w-stylu-boho/event-w-stylu-boho-IMG20260904185350.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829738134_29214744774799794_1353027114779338448_n.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-829968750_29214744761466462_744772577248014698_n.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831240202_29214744764799795_5896056766345836499_n.jpg": false, "assets/images/aktualnosci/targi-event-expo-poland/targi-event-expo-poland-831327300_29214744768133128_6996826654849923360_n.jpg": false, "assets/images/aktualnosci/planteray/planteray-1.jpg": false, "assets/images/aktualnosci/planteray/planteray-2.jpg": false, "assets/images/aktualnosci/planteray/planteray-3.jpg": false, "assets/images/aktualnosci/planteray/planteray-4.jpg": false, "assets/images/aktualnosci/planteray/planteray-5.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A7038.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A7126.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A7902.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A8083.jpg": true, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A8809.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A9156.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A9327.jpg": false, "assets/images/aktualnosci/spirit-of-tribe/spirit-of-tribe-Kopia_B79A9700.jpg": false, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Kopia_IMG20250731143759.jpg": true, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Kopia_IMG20250731172705.jpg": true, "assets/images/aktualnosci/strefa-barowa-planteray-na/strefa-barowa-planteray-na-Kopia_IMG20250731172914.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia_Photo_3040.jpg": false, "assets/images/aktualnosci/secretos-daniela-majewskiego-w/secretos-daniela-majewskiego-w-Kopia_Photo_3106.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_084240.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_093742.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_214514.jpg": false, "assets/images/aktualnosci/rap-poludnie-w-bielsko/rap-poludnie-w-bielsko-Kopia_20260730_214908.jpg": false, "assets/images/aktualnosci/bary-mds/bary-mds-Nano_Banana_2.1_00072.png": false, "assets/images/aktualnosci/bary-mds/bary-mds-Nano_Banana_2.1_00073.png": false};
 
     function isImagePortrait(url) {
       if (!url) return false;
@@ -6841,6 +7023,16 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       }
       const hasBullets = !!(item.bullets && item.bullets.length);
       const parasHtml = paragraphs.map((p, pIdx) => {
+        if (p.startsWith('### ') || p.startsWith('## ') || p.startsWith('# ')) {
+          const cleanHeading = p.replace(/^#{1,3}\s+/, '');
+          const mt = pIdx === 0 ? '0.2em' : '1.5em';
+          return `
+            <div class="news-modal-subheading flex items-center gap-2.5" style="margin-top:${mt};margin-bottom:0.8em;">
+              <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_8px_rgba(250,203,125,0.6)] shrink-0"></span>
+              <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[1.05em] leading-snug">${cleanHeading}</span>
+              <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
+            </div>`;
+        }
         const isLastPara = pIdx === paragraphs.length - 1;
         const mb = (isLastPara && hasBullets) ? '1.5em' : '1.18em';
         return `<p class="text-[#f5efe6]/90 leading-[1.68] tracking-normal" style="margin-bottom:${mb};">${p}</p>`;
@@ -6851,6 +7043,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         const titleText = item.bulletsTitle ? item.bulletsTitle.replace(/:\s*$/, '') : 'Zakres realizacji';
         const isShortBullets = item.bullets.every(b => b.length < 55);
         const gridColsClass = isShortBullets ? 'grid grid-cols-1 sm:grid-cols-2' : 'grid grid-cols-1';
+        const allHaveColon = item.bullets.every(b => b.includes(':') && !b.trim().startsWith('http'));
 
         const bulletsItemsHtml = item.bullets.map((b) => {
           let cleanB = b.trim().replace(/[,;]\s*$/, '');
@@ -6859,16 +7052,16 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
           });
 
           let contentInner = '';
-          if (cleanB.includes(':') && !cleanB.startsWith('http')) {
+          if (allHaveColon && cleanB.includes(':') && !cleanB.startsWith('http')) {
             const colonIdx = cleanB.indexOf(':');
             const label = cleanB.slice(0, colonIdx).trim();
             const rest = cleanB.slice(colonIdx + 1).trim();
             contentInner = `
-              <div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[1.02em] mb-1">${label}</div>
-              <div class="text-[#f5efe6]/95 font-normal text-[0.94em] leading-relaxed max-w-xl mx-auto">${rest}</div>`;
+              <div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[0.90em] mb-0.5">${label}</div>
+              <div class="text-[#f5efe6]/95 font-normal text-[0.82em] leading-relaxed max-w-xl mx-auto">${rest}</div>`;
           } else {
             const capitalized = cleanB.charAt(0).toUpperCase() + cleanB.slice(1);
-            contentInner = `<div class="text-white font-medium text-[0.98em] leading-relaxed tracking-wide max-w-xl mx-auto">${capitalized}</div>`;
+            contentInner = `<div class="text-white font-medium text-[0.86em] leading-relaxed tracking-wide max-w-xl mx-auto">${capitalized}</div>`;
           }
 
           return `
@@ -6901,7 +7094,18 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
                 <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]/80"></span>
                 <span>${item.effectTitle}</span>
               </div>` : ''}
-            ${eff.map(p => `<p class="text-[#f5efe6]/90 leading-[1.68] tracking-normal" style="margin-bottom:1.15em;">${p}</p>`).join('')}
+            ${eff.map(p => {
+              if (p.startsWith('### ') || p.startsWith('## ') || p.startsWith('# ')) {
+                const cleanHeading = p.replace(/^#{1,3}\s+/, '');
+                return `
+                  <div class="news-modal-subheading flex items-center gap-2.5" style="margin-top:1.2em;margin-bottom:0.7em;">
+                    <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_8px_rgba(250,203,125,0.6)] shrink-0"></span>
+                    <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[1.02em] leading-snug">${cleanHeading}</span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
+                  </div>`;
+              }
+              return `<p class="text-[#f5efe6]/90 leading-[1.68] tracking-normal" style="margin-bottom:1.15em;">${p}</p>`;
+            }).join('')}
           </div>`;
       }
       // Wideo

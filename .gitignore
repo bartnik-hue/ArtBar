@@ -17,3 +17,13 @@ assets/aktualnosci_materialy/
 node_modules/
 __pycache__/
 *.pyc
+
+# Narzedzia pomocnicze i robocze (offline)
+scratch/
+porownywarka-aktualnosci.html
+aktualizuj-porownywarke.bat
+aktualizuj-porownywarke.py
+comparison_data.json
+narzedzie-kadrowania.html
+foto-selektor.html
+nowakoncepcja/
