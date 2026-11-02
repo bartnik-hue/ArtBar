@@ -243,6 +243,43 @@
       color: #FACB7D;
     }
 
+    /* ══════════════════════════════════════════════
+       PUNKTATORY LIST: ZŁOTY KWADRACIK & CZCIONKA MONTSERRAT
+       Zgodnie ze specyfikacją ArtBar
+       ══════════════════════════════════════════════ */
+    .gold-square-bullet {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #FACB7D;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(250, 203, 125, 0.45);
+    }
+    ul.gold-bullet-list,
+    .gold-bullet-list {
+      list-style: none !important;
+      padding-left: 0 !important;
+    }
+    ul.gold-bullet-list > li,
+    .gold-bullet-list > li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      margin-bottom: 0.75rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    ul.gold-bullet-list > li::before,
+    .gold-bullet-list > li::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #FACB7D;
+      flex-shrink: 0;
+      margin-top: 2px;
+      box-shadow: 0 0 8px rgba(250, 203, 125, 0.45);
+    }
+
     /* TŁO WIDEO I EFEKTY ŚWIETLNE (PEŁNE POKRYCIE EKRANU BEZ PASKÓW) */
     #video-bg-container {
       position: absolute;
@@ -2674,26 +2711,32 @@
 
         <!-- KOLUMNA 2: MENU NA SKRÓTY -->
         <div>
-          <div class="font-serif-luxury text-sm font-bold text-white uppercase tracking-wider mb-4">Na skróty</div>
-          <ul class="space-y-2.5">
-            <li><a href="#hero" class="hover:text-[#FACB7D] transition-colors">Strona Główna</a></li>
-            <li><a href="#aktualnosci" class="hover:text-[#FACB7D] transition-colors text-[#FACB7D]">Aktualności & Realizacje</a></li>
-            <li><a href="#o-nas" class="hover:text-[#FACB7D] transition-colors">O nas</a></li>
-            <li><a href="#oferta" class="hover:text-[#FACB7D] transition-colors">Trzy Filary (art / bar / SOLUTIONS)</a></li>
-            <li><a href="#konfigurator-section" class="hover:text-[#FACB7D] transition-colors">Konfigurator Barów 3D</a></li>
-            <li><a href="#realizacje" class="hover:text-[#FACB7D] transition-colors">Galeria Realizacji</a></li>
-            <li><a href="#kontakt" class="hover:text-[#FACB7D] transition-colors">Kontakt & Wycena</a></li>
+          <div class="flex items-center gap-2 font-bold text-white uppercase tracking-wider text-xs sm:text-sm font-sans mb-4">
+            <span class="w-2 h-2 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_6px_rgba(250,203,125,0.6)]"></span>
+            <span>Na skróty</span>
+          </div>
+          <ul class="space-y-2.5 text-xs">
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#hero" class="hover:text-[#FACB7D] transition-colors">Strona Główna</a></li>
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#aktualnosci" class="hover:text-[#FACB7D] transition-colors text-[#FACB7D]">Aktualności & Realizacje</a></li>
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#o-nas" class="hover:text-[#FACB7D] transition-colors">O nas</a></li>
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#oferta" class="hover:text-[#FACB7D] transition-colors">Trzy Filary (art / bar / SOLUTIONS)</a></li>
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#konfigurator-section" class="hover:text-[#FACB7D] transition-colors">Konfigurator Barów 3D</a></li>
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#realizacje" class="hover:text-[#FACB7D] transition-colors">Galeria Realizacji</a></li>
+            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><a href="#kontakt" class="hover:text-[#FACB7D] transition-colors">Kontakt & Wycena</a></li>
           </ul>
         </div>
 
         <!-- KOLUMNA 3: DANE REJESTROWE -->
         <div>
-          <div class="font-serif-luxury text-sm font-bold text-white uppercase tracking-wider mb-4">Informacje Prawne</div>
+          <div class="flex items-center gap-2 font-bold text-white uppercase tracking-wider text-xs sm:text-sm font-sans mb-4">
+            <span class="w-2 h-2 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_6px_rgba(250,203,125,0.6)]"></span>
+            <span>Informacje Prawne</span>
+          </div>
           <div class="space-y-2 text-[11px] leading-relaxed text-[#f5efe6]/50">
-            <div>Art Bar Sp. z o.o.</div>
-            <div>NIP: 952 22 53 153</div>
-            <div>ul. Ogrodowa 48/54, 00-876 Warszawa</div>
-            <div class="pt-2 text-[#FACB7D]/70">Koncesja alkoholowa ABC · Fiskalizacja POS Live</div>
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#FACB7D]/60 shrink-0 inline-block"></span><span>Art Bar Sp. z o.o.</span></div>
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#FACB7D]/60 shrink-0 inline-block"></span><span>NIP: 952 22 53 153</span></div>
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#FACB7D]/60 shrink-0 inline-block"></span><span>ul. Ogrodowa 48/54, 00-876 Warszawa</span></div>
+            <div class="pt-2 text-[#FACB7D]/70 flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#FACB7D] shrink-0 inline-block"></span><span>Koncesja alkoholowa ABC · Fiskalizacja POS Live</span></div>
           </div>
         </div>
 
@@ -2780,7 +2823,7 @@
             <!-- Sekcja 1: Filozofia i Zakres (Wielka typografia) -->
             <section class="portal-anim-item">
               <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-3 flex items-center gap-2">
-                <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+                <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
                 Filozofia i Zakres Operacyjny
               </div>
               <p id="modal-lead" class="text-base sm:text-lg lg:text-xl text-[#f5efe6] font-light leading-relaxed">
@@ -2791,7 +2834,7 @@
             <!-- Sekcja 2: Kluczowe Usługi i Standardy -->
             <section class="portal-anim-item">
               <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-6 flex items-center gap-2">
-                <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+                <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
                 Kluczowe Usługi i Standardy Realizacji
               </div>
               <div id="modal-services-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
@@ -2805,7 +2848,7 @@
         <!-- Sekcja 3D: Interaktywne Moduły 3D MDS (Dedykowana dla Działu BAR - w rzędzie obok siebie) -->
         <section id="dept-bar-3d-section" class="portal-anim-item hidden w-full">
           <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-6 flex items-center gap-2">
-            <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+            <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
             Modułowa Infrastruktura Barowa MDS w 3D
           </div>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start w-full">
@@ -2820,7 +2863,7 @@
         <!-- Sekcja 3: Zdjęcia i Galeria Realizacji (Duże panoramiczne ujęcia na pełnej szerokości) -->
         <section class="portal-anim-item">
           <div class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#FACB7D] font-bold mb-6 flex items-center gap-2">
-            <span class="w-2 h-0.5 bg-[#FACB7D]"></span>
+            <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
             Zdjęcia z Wydarzeń i Realizacji
           </div>
           <div id="modal-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -3998,7 +4041,7 @@
         modalServicesList.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6';
       }
 
-      // Usługi: efektowne, wyśrodkowane złote karty bez numeracji, z podziałem na wersy i ochroną przed sierotami
+      // Usługi: karty z punktatorem jako złoty kwadracik i czcionką Montserrat
       modalServicesList.innerHTML = dept.services.map((srv, sIdx) => {
         const fixedSrv = fixPolishOrphans(srv);
         const lines = fixedSrv.split(/<br\s*\/?>/i);
@@ -4007,13 +4050,13 @@
           ? 'sm:col-span-2 lg:col-span-2 sm:max-w-md sm:mx-auto w-full'
           : 'sm:col-span-2 lg:col-span-1 lg:col-start-2 sm:max-w-md sm:mx-auto w-full';
         const textInnerHtml = lines.length > 1
-          ? `<span class="text-[#FACB7D] block leading-snug">${lines[0]}</span><span class="text-[#FACB7D] block leading-snug mt-1">${lines[1]}</span>`
-          : `<span class="text-[#FACB7D] block leading-snug">${fixedSrv}</span>`;
+          ? `<span class="text-white font-bold uppercase tracking-wider block leading-snug">${lines[0]}</span><span class="text-[#f5efe6]/85 font-light block leading-snug mt-1.5 text-[0.88em] normal-case">${lines[1]}</span>`
+          : `<span class="text-white font-bold uppercase tracking-wider block leading-snug">${fixedSrv}</span>`;
 
         return `
           <div class="group/srv relative rounded-2xl border border-[#FACB7D]/35 bg-gradient-to-b from-[#FACB7D]/12 via-[#FACB7D]/[0.04] to-black/60 hover:from-[#FACB7D]/22 hover:via-[#FACB7D]/10 hover:border-[#FACB7D] hover:shadow-[0_8px_30px_rgba(250,203,125,0.22),inset_0_1px_1px_rgba(250,203,125,0.4)] px-5 py-4 sm:py-5 flex flex-col items-center justify-center text-center transition-all duration-300 backdrop-blur-md min-h-[96px] ${isCenterSeventh ? seventhSpanClass : ''}">
-            <span class="w-8 h-[2px] bg-gradient-to-r from-transparent via-[#FACB7D]/75 to-transparent mb-2.5 rounded-full group-hover/srv:w-16 group-hover/srv:via-[#FACB7D] transition-all duration-300"></span>
-            <div class="font-serif-luxury text-sm sm:text-[15px] md:text-base font-bold text-[#FACB7D] tracking-wide leading-snug drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+            <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block mb-2.5 shadow-[0_0_8px_rgba(250,203,125,0.6)] group-hover/srv:scale-110 transition-transform"></span>
+            <div class="text-sm sm:text-[15px] md:text-base leading-snug drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]" style="font-family: 'Montserrat', sans-serif;">
               ${textInnerHtml}
             </div>
           </div>
@@ -7028,8 +7071,8 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
           const mt = pIdx === 0 ? '0.2em' : '1.5em';
           return `
             <div class="news-modal-subheading flex items-center gap-2.5" style="margin-top:${mt};margin-bottom:0.8em;">
-              <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_8px_rgba(250,203,125,0.6)] shrink-0"></span>
-              <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[1.05em] leading-snug">${cleanHeading}</span>
+              <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
+              <span class="font-bold text-white uppercase tracking-wider text-[1.02em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${cleanHeading}</span>
               <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
             </div>`;
         }
@@ -7040,10 +7083,11 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
 
       let bulletsHtml = '';
       if (hasBullets) {
-        const titleText = item.bulletsTitle ? item.bulletsTitle.replace(/:\s*$/, '') : 'Zakres realizacji';
+        let titleText = item.bulletsTitle ? item.bulletsTitle.trim() : 'Zakres realizacji';
+        if (!titleText.endsWith(':')) {
+          titleText += ':';
+        }
         const isShortBullets = item.bullets.every(b => b.length < 55);
-        const gridColsClass = isShortBullets ? 'grid grid-cols-1 sm:grid-cols-2' : 'grid grid-cols-1';
-        const allHaveColon = item.bullets.every(b => b.includes(':') && !b.trim().startsWith('http'));
 
         const bulletsItemsHtml = item.bullets.map((b) => {
           let cleanB = b.trim().replace(/[,;]\s*$/, '');
@@ -7051,34 +7095,50 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
             return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[#FACB7D] underline decoration-[#FACB7D]/50 hover:decoration-[#FACB7D] hover:text-white transition-colors ml-1.5 font-semibold text-[0.88em]"><span>odwiedź stronę</span><svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>`;
           });
 
-          let contentInner = '';
-          if (allHaveColon && cleanB.includes(':') && !cleanB.startsWith('http')) {
+          let title = '';
+          let desc = '';
+
+          if (cleanB.includes(':') && !cleanB.startsWith('http')) {
             const colonIdx = cleanB.indexOf(':');
-            const label = cleanB.slice(0, colonIdx).trim();
-            const rest = cleanB.slice(colonIdx + 1).trim();
-            contentInner = `
-              <div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[0.90em] mb-0.5">${label}</div>
-              <div class="text-[#f5efe6]/95 font-normal text-[0.82em] leading-relaxed max-w-xl mx-auto">${rest}</div>`;
+            title = cleanB.slice(0, colonIdx).trim();
+            desc = cleanB.slice(colonIdx + 1).trim();
+          } else if (/<\/?br\s*\/?>/i.test(cleanB)) {
+            const parts = cleanB.split(/<\/?br\s*\/?>/i);
+            title = parts[0].trim();
+            desc = parts.slice(1).join(' ').trim();
           } else {
-            const capitalized = cleanB.charAt(0).toUpperCase() + cleanB.slice(1);
-            contentInner = `<div class="text-white font-medium text-[0.86em] leading-relaxed tracking-wide max-w-xl mx-auto">${capitalized}</div>`;
+            title = cleanB;
+            desc = '';
+          }
+
+          let contentInner = '';
+          if (desc) {
+            contentInner = `
+              <div class="font-bold text-white uppercase tracking-wider text-[0.94em] sm:text-[1.02em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${title}</div>
+              <div class="text-[#f5efe6]/85 font-light text-[0.86em] sm:text-[0.92em] leading-relaxed mt-1" style="font-family: 'Montserrat', sans-serif;">${desc}</div>`;
+          } else {
+            contentInner = `<div class="text-white font-bold uppercase tracking-wider text-[0.90em] sm:text-[0.96em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${title}</div>`;
           }
 
           return `
-            <li class="group/bullet relative rounded-xl border border-[#FACB7D]/40 bg-gradient-to-b from-[#FACB7D]/18 via-[#FACB7D]/[0.07] to-black/40 hover:from-[#FACB7D]/28 hover:via-[#FACB7D]/14 hover:to-[#FACB7D]/[0.05] hover:border-[#FACB7D] hover:shadow-[0_4px_25px_rgba(250,203,125,0.25),inset_0_1px_1px_rgba(250,203,125,0.45)] transition-all duration-300 flex flex-col items-center justify-center text-center backdrop-blur-md" style="padding:0.85em 1.2em;">
-              <span class="w-8 h-[2px] bg-gradient-to-r from-transparent via-[#FACB7D]/80 to-transparent mb-2 rounded-full group-hover/bullet:w-16 group-hover/bullet:via-[#FACB7D] transition-all duration-300"></span>
-              <div class="w-full">${contentInner}</div>
+            <li class="flex items-start gap-3.5 sm:gap-4 text-left">
+              <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#FACB7D] shrink-0 mt-[2px] inline-block shadow-[0_0_8px_rgba(250,203,125,0.45)]"></span>
+              <div class="flex-1 min-w-0">
+                ${contentInner}
+              </div>
             </li>`;
         }).join('');
 
         bulletsHtml = `
-          <div class="news-modal-plan-section" style="margin: 1.6em 0 1.8em;">
-            <div class="flex items-center gap-2.5" style="margin-bottom: 0.9em;">
-              <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_10px_rgba(250,203,125,0.7)] shrink-0"></span>
-              <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-[0.18em]" style="font-size:0.88em;">${titleText}</span>
-              <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/40 via-[#FACB7D]/15 to-transparent"></div>
+          <div class="news-modal-plan-section" style="margin: 2.0em 0 2.2em;">
+            <div class="flex items-start gap-3 sm:gap-3.5" style="margin-bottom: 1.2em;">
+              <span class="w-3.5 h-3.5 sm:w-4 sm:h-4 bg-[#FACB7D] shrink-0 mt-[5px] inline-block shadow-[0_0_12px_rgba(250,203,125,0.7)]"></span>
+              <div class="flex-1 min-w-0">
+                <span class="font-bold text-white uppercase tracking-[0.14em] text-[0.96em] sm:text-[1.06em] leading-snug block" style="font-family: 'Montserrat', sans-serif;">${titleText}</span>
+                <div class="h-px w-full max-w-lg bg-gradient-to-r from-[#FACB7D]/50 via-[#FACB7D]/20 to-transparent mt-2.5"></div>
+              </div>
             </div>
-            <ul class="${gridColsClass}" style="gap:0.55em 0.7em;">
+            <ul class="${isShortBullets ? 'grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 sm:gap-y-5' : 'space-y-4 sm:space-y-5'}">
               ${bulletsItemsHtml}
             </ul>
           </div>`;
@@ -7090,8 +7150,8 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         effectHtml = `
           <div class="border-t border-[#FACB7D]/25" style="padding-top:1.4em;margin-top:1.4em;">
             ${item.effectTitle ? `
-              <div class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider flex items-center gap-2" style="font-size:0.98em;margin-bottom:0.75em;">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#FACB7D]/80"></span>
+              <div class="font-bold text-white uppercase tracking-wider flex items-center gap-2.5" style="font-family: 'Montserrat', sans-serif; font-size:0.96em;margin-bottom:0.85em;">
+                <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
                 <span>${item.effectTitle}</span>
               </div>` : ''}
             ${eff.map(p => {
@@ -7099,8 +7159,8 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
                 const cleanHeading = p.replace(/^#{1,3}\s+/, '');
                 return `
                   <div class="news-modal-subheading flex items-center gap-2.5" style="margin-top:1.2em;margin-bottom:0.7em;">
-                    <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_8px_rgba(250,203,125,0.6)] shrink-0"></span>
-                    <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-wider text-[1.02em] leading-snug">${cleanHeading}</span>
+                    <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
+                    <span class="font-bold text-white uppercase tracking-wider text-[1.02em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${cleanHeading}</span>
                     <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
                   </div>`;
               }
@@ -7124,8 +7184,8 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         mdsVideoHtml = `
           <div class="news-modal-video-section" style="margin: 2.2em 0 2.5em;">
             <div class="flex items-center gap-2.5" style="margin-bottom: 1.0em;">
-              <span class="w-2 h-2 rounded-full bg-[#FACB7D] shadow-[0_0_10px_rgba(250,203,125,0.7)] shrink-0"></span>
-              <span class="font-serif-luxury font-bold text-[#FACB7D] uppercase tracking-[0.18em]" style="font-size:0.88em;">Prezentacja Wideo</span>
+              <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
+              <span class="font-bold text-white uppercase tracking-[0.18em]" style="font-family: 'Montserrat', sans-serif; font-size:0.88em;">Prezentacja Wideo</span>
               <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/40 via-[#FACB7D]/15 to-transparent"></div>
             </div>
             <div class="relative w-full max-w-[540px] rounded-2xl overflow-hidden border border-[#FACB7D]/35 bg-black/90 shadow-[0_15px_45px_rgba(0,0,0,0.85)] aspect-video group/video">
