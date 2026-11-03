@@ -7046,6 +7046,16 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       const mainEl = document.getElementById('news-modal-card');
       if (!backdrop) return;
 
+      // Zatrzymaj poprzednio odtwarzane wideo/iframe przed wczytaniem nowej tresci
+      const prevVideo = document.getElementById('news-modal-video-player');
+      if (prevVideo) {
+        try { prevVideo.pause(); prevVideo.removeAttribute('src'); prevVideo.load(); } catch(e) {}
+      }
+      const prevIframe = document.getElementById('news-modal-video-iframe');
+      if (prevIframe) {
+        try { prevIframe.src = ''; } catch(e) {}
+      }
+
       if (mainEl) mainEl.scrollTop = 0;
       const textColEl = document.getElementById('news-modal-textcol');
       if (textColEl) textColEl.scrollTop = 0;
@@ -7264,6 +7274,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
                 playsinline 
                 preload="metadata" 
                 poster="${item.videoPoster || ''}"
+                src="${videoSrc}"
               >
                 <source src="${videoSrc}" type="video/mp4">
                 Twoja przegladarka nie obsluguje wideo.
@@ -7316,10 +7327,6 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
 
       // Zdjęcia (+ wideo jako pierwszy element galerii)
       const allImages = (item.hasMaterials && item.images && item.images.length) ? item.images : ((item.hasMaterials && item.coverImg) ? [item.coverImg] : []);
-      const oldPlayer = document.getElementById('news-modal-video-player');
-      if (oldPlayer) {
-        try { oldPlayer.pause(); oldPlayer.src = ''; } catch(e) {}
-      }
 
 // hasVideo i videoSrc zainicjalizowane powyzej
 
@@ -7778,8 +7785,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       if (videoIframe) videoIframe.src = '';
       const videoPlayer = document.getElementById('news-modal-video-player');
       if (videoPlayer) {
-        try { videoPlayer.pause(); videoPlayer.src = ''; }
-catch(e) {}
+        try { videoPlayer.pause(); videoPlayer.removeAttribute('src'); videoPlayer.load(); } catch(e) {}
       }
       const galleryClr = document.getElementById('news-modal-gallery');
       if (galleryClr) {
