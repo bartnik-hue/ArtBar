@@ -7074,7 +7074,6 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
           const mt = pIdx === 0 ? '0.2em' : '1.5em';
           return `
             <div class="news-modal-subheading flex items-center gap-2.5" style="margin-top:${mt};margin-bottom:0.8em;">
-              <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
               <span class="font-bold text-white uppercase tracking-wider text-[1.02em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${cleanHeading}</span>
               <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
             </div>`;
@@ -7147,16 +7146,15 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         effectHtml = `
           <div class="border-t border-[#FACB7D]/25" style="padding-top:1.4em;margin-top:1.4em;">
             ${item.effectTitle ? `
-              <div class="font-bold text-white uppercase tracking-wider flex items-center gap-2.5" style="font-family: 'Montserrat', sans-serif; font-size:0.96em;margin-bottom:0.85em;">
-                <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
-                <span>${item.effectTitle}</span>
+              <div class="news-modal-subheading flex items-center gap-2.5" style="margin-bottom:0.85em;">
+                <span class="font-bold text-white uppercase tracking-wider text-[0.98em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${item.effectTitle}</span>
+                <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
               </div>` : ''}
             ${eff.map(p => {
               if (p.startsWith('### ') || p.startsWith('## ') || p.startsWith('# ')) {
                 const cleanHeading = p.replace(/^#{1,3}\s+/, '');
                 return `
                   <div class="news-modal-subheading flex items-center gap-2.5" style="margin-top:1.2em;margin-bottom:0.7em;">
-                    <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
                     <span class="font-bold text-white uppercase tracking-wider text-[1.02em] leading-snug" style="font-family: 'Montserrat', sans-serif;">${cleanHeading}</span>
                     <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/35 via-[#FACB7D]/15 to-transparent"></div>
                   </div>`;
@@ -7181,7 +7179,6 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         mdsVideoHtml = `
           <div class="news-modal-video-section" style="margin: 2.2em 0 2.5em;">
             <div class="flex items-center gap-2.5" style="margin-bottom: 1.0em;">
-              <span class="w-2.5 h-2.5 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.6)]"></span>
               <span class="font-bold text-white uppercase tracking-[0.18em]" style="font-family: 'Montserrat', sans-serif; font-size:0.88em;">Prezentacja Wideo</span>
               <div class="h-px flex-1 bg-gradient-to-r from-[#FACB7D]/40 via-[#FACB7D]/15 to-transparent"></div>
             </div>
