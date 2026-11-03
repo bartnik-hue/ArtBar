@@ -1,4 +1,5 @@
 import bpy
+import bmesh
 import os
 
 out_dir = r"d:\PRACA\ARTBAR\ARTBAR NEW WEB\assets\3d"
@@ -170,44 +171,14 @@ scene.frame_end = 80
 scene.frame_set(80)
 bpy.context.view_layer.update()
 
-# Configure REGAL.003 (Sliding Board)
+regal_root = bpy.data.objects['REGAL NULL']
+r1 = bpy.data.objects['REGAL.001']
 r3 = bpy.data.objects['REGAL.003']
-mesh_r3 = r3.data
 
-while len(mesh_r3.uv_layers) > 1:
-    mesh_r3.uv_layers.remove(mesh_r3.uv_layers[1])
-uv_r3 = mesh_r3.uv_layers[0]
-uv_r3.name = 'UVMap'
-uv_data_r3 = uv_r3.data
-
-front_polys = [0, 10, 6] # normal (+1, 0, 0) facing shelves / wnęka
-back_polys = [5, 12, 9]  # normal (-1, 0, 0) facing exterior back wall
-
-# Front UVs: looking from +X into wnęka: Left is +Z, Right is -Z
-for p_idx in front_polys:
-    p = mesh_r3.polygons[p_idx]
-    for li in p.loop_indices:
-        v = mesh_r3.vertices[mesh_r3.loops[li].vertex_index]
-        u = (0.75 - v.co.z) / 1.50
-        v_coord = (v.co.y - 0.101) / 2.159
-        uv_data_r3[li].uv = (u, v_coord)
-
-# Back UVs: looking from -X at back wall: Left is -Z, Right is +Z
-for p_idx in back_polys:
-    p = mesh_r3.polygons[p_idx]
-    for li in p.loop_indices:
-        v = mesh_r3.vertices[mesh_r3.loops[li].vertex_index]
-        u = (v.co.z + 0.75) / 1.50
-        v_coord = (v.co.y - 0.101) / 2.159
-        uv_data_r3[li].uv = (u, v_coord)
-
-# Edge polys map to solid black corner
-for p in mesh_r3.polygons:
-    if p.index not in front_polys and p.index not in back_polys:
-        for li in p.loop_indices:
-            uv_data_r3[li].uv = (0.01, 0.01)
-
-# Material: 3 logos (top, middle, bottom) -> now on front_polys (inside wnęka / shelves)
+# -------------------------------------------------------------
+# Shared Materials for Regał Back Panels
+# -------------------------------------------------------------
+# Material: 3 logos (top, middle, bottom) -> front facing into shelves
 mat_3logos = bpy.data.materials.new('REGAL_3LOGOS')
 mat_3logos.use_nodes = True
 nodes_3 = mat_3logos.node_tree.nodes
@@ -221,7 +192,7 @@ tex_3.image = bpy.data.images.load(regal_back_tex_path)
 mat_3logos.node_tree.links.new(tex_3.outputs['Color'], bsdf_3.inputs['Base Color'])
 mat_3logos.node_tree.links.new(bsdf_3.outputs['BSDF'], out_3.inputs['Surface'])
 
-# Material: 1 logo (middle) -> now on back_polys (exterior back wall)
+# Material: 1 logo (middle) -> back facing exterior
 mat_1logo = bpy.data.materials.new('REGAL_1LOGO')
 mat_1logo.use_nodes = True
 nodes_1 = mat_1logo.node_tree.nodes
@@ -242,20 +213,162 @@ if not black_mat:
     black_mat.use_nodes = True
     black_mat.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (0.02, 0.02, 0.02, 1.0)
 
-r3.data.materials.clear()
-r3.data.materials.append(black_mat)  # Slot 0: edges
-r3.data.materials.append(mat_3logos) # Slot 1: front (3 logos)
-r3.data.materials.append(mat_1logo)  # Slot 2: back (1 logo)
+# -------------------------------------------------------------
+# Part A: REGAL_TYL_DOL (Bottom stationary board, od dołu do blatu: Y: 0.100906 do 0.900000)
+# Permanent back panel, does not slide - stationary throughout all frames
+# -------------------------------------------------------------
+print("=== CONFIGURE REGAL_TYL_DOL (BOTTOM STATIONARY BOARD) ===")
+obj_bot = bpy.data.objects.get("REGAL_TYL_DOL")
+if not obj_bot:
+    mesh_bot = bpy.data.meshes.new("REGAL_TYL_DOL_Mesh")
+    obj_bot = bpy.data.objects.new("REGAL_TYL_DOL", mesh_bot)
+    bpy.context.collection.objects.link(obj_bot)
+else:
+    mesh_bot = obj_bot.data
 
-for p in mesh_r3.polygons:
-    if p.index in front_polys:
-        p.material_index = 1 # 3 logos
-    elif p.index in back_polys:
-        p.material_index = 2 # 1 logo
+obj_bot.parent = regal_root
+obj_bot.matrix_parent_inverse = r1.matrix_parent_inverse.copy()
+obj_bot.location = r1.location.copy()
+obj_bot.rotation_euler = r1.rotation_euler.copy()
+obj_bot.scale = r1.scale.copy()
+obj_bot.animation_data_clear()
+
+bm_b = bmesh.new()
+# Front verts (X = -0.025)
+v_bf_TL = bm_b.verts.new((-0.025, 0.900000, -0.750))
+v_bf_BL = bm_b.verts.new((-0.025, 0.100906, -0.750))
+v_bf_BR = bm_b.verts.new((-0.025, 0.100906,  0.750))
+v_bf_TR = bm_b.verts.new((-0.025, 0.900000,  0.750))
+# Back verts (X = -0.035)
+v_bb_TL = bm_b.verts.new((-0.035, 0.900000, -0.750))
+v_bb_BL = bm_b.verts.new((-0.035, 0.100906, -0.750))
+v_bb_BR = bm_b.verts.new((-0.035, 0.100906,  0.750))
+v_bb_TR = bm_b.verts.new((-0.035, 0.900000,  0.750))
+
+# Faces with outward normals
+bm_b.faces.new([v_bf_TL, v_bf_TR, v_bf_BR, v_bf_BL]) # Front (+X)
+bm_b.faces.new([v_bb_TR, v_bb_TL, v_bb_BL, v_bb_BR]) # Back (-X)
+bm_b.faces.new([v_bf_BL, v_bb_BL, v_bb_BR, v_bf_BR]) # Bottom (-Y)
+bm_b.faces.new([v_bf_TR, v_bb_TR, v_bb_TL, v_bf_TL]) # Top (+Y)
+bm_b.faces.new([v_bf_TL, v_bb_TL, v_bb_BL, v_bf_BL]) # Left (-Z)
+bm_b.faces.new([v_bf_BR, v_bb_BR, v_bb_TR, v_bf_TR]) # Right (+Z)
+
+mesh_bot.clear_geometry()
+bm_b.to_mesh(mesh_bot)
+bm_b.free()
+mesh_bot.update()
+
+obj_bot.data.materials.clear()
+obj_bot.data.materials.append(black_mat)  # Slot 0
+obj_bot.data.materials.append(mat_3logos) # Slot 1
+obj_bot.data.materials.append(mat_1logo)  # Slot 2
+
+while len(mesh_bot.uv_layers) > 0:
+    mesh_bot.uv_layers.remove(mesh_bot.uv_layers[0])
+uv_layer_bot = mesh_bot.uv_layers.new(name='UVMap')
+uv_data_bot = uv_layer_bot.data
+
+for p in mesh_bot.polygons:
+    norm = p.normal
+    if norm.x > 0.5:
+        p.material_index = 1 # 3 logos front
+        for li in p.loop_indices:
+            v = mesh_bot.vertices[mesh_bot.loops[li].vertex_index]
+            u = (0.75 - v.co.z) / 1.50
+            v_coord = (v.co.y - 0.101) / 2.159
+            uv_data_bot[li].uv = (u, v_coord)
+    elif norm.x < -0.5:
+        p.material_index = 2 # 1 logo back
+        for li in p.loop_indices:
+            v = mesh_bot.vertices[mesh_bot.loops[li].vertex_index]
+            u = (v.co.z + 0.75) / 1.50
+            v_coord = (v.co.y - 0.101) / 2.159
+            uv_data_bot[li].uv = (u, v_coord)
     else:
-        p.material_index = 0
+        p.material_index = 0 # black edges
+        for li in p.loop_indices:
+            uv_data_bot[li].uv = (0.01, 0.01)
 
-print("REGAL.003 materials and UVs configured.")
+print("REGAL_TYL_DOL configured.")
+
+# -------------------------------------------------------------
+# Part B: REGAL.003 (Upper sliding board, za półkami od blatu: Y: 0.900000 do 2.260000)
+# Retains REGAL.003Action to slide in from above between frames 59 and 80
+# -------------------------------------------------------------
+print("=== CONFIGURE REGAL.003 (UPPER SLIDING BOARD) ===")
+bm_t = bmesh.new()
+y_levels = [0.900000, 1.352346, 1.816245, 2.260000]
+front_verts = []
+back_verts = []
+
+for y in y_levels:
+    vf_L = bm_t.verts.new((-0.025, y, -0.750))
+    vf_R = bm_t.verts.new((-0.025, y,  0.750))
+    vb_L = bm_t.verts.new((-0.035, y, -0.750))
+    vb_R = bm_t.verts.new((-0.035, y,  0.750))
+    front_verts.append((vf_L, vf_R))
+    back_verts.append((vb_L, vb_R))
+
+for i in range(3):
+    vf_b_L, vf_b_R = front_verts[i]
+    vf_t_L, vf_t_R = front_verts[i+1]
+    vb_b_L, vb_b_R = back_verts[i]
+    vb_t_L, vb_t_R = back_verts[i+1]
+    
+    # Front face (+X)
+    bm_t.faces.new([vf_t_L, vf_t_R, vf_b_R, vf_b_L])
+    # Back face (-X)
+    bm_t.faces.new([vb_t_R, vb_t_L, vb_b_L, vb_b_R])
+    # Left face (-Z)
+    bm_t.faces.new([vf_t_L, vb_t_L, vb_b_L, vf_b_L])
+    # Right face (+Z)
+    bm_t.faces.new([vf_b_R, vb_b_R, vb_t_R, vf_t_R])
+
+# Bottom face (-Y, lands on blat at 0.900)
+bm_t.faces.new([front_verts[0][0], back_verts[0][0], back_verts[0][1], front_verts[0][1]])
+# Top face (+Y, flush with top frame at 2.260)
+bm_t.faces.new([front_verts[3][1], back_verts[3][1], back_verts[3][0], front_verts[3][0]])
+
+mesh_top = bpy.data.meshes.new("REGAL_003_Top_Mesh")
+bm_t.to_mesh(mesh_top)
+bm_t.free()
+mesh_top.update()
+
+# Assign new mesh data to r3 (retaining its original animation action REGAL.003Action)
+r3.data = mesh_top
+
+r3.data.materials.clear()
+r3.data.materials.append(black_mat)  # Slot 0
+r3.data.materials.append(mat_3logos) # Slot 1
+r3.data.materials.append(mat_1logo)  # Slot 2
+
+while len(mesh_top.uv_layers) > 0:
+    mesh_top.uv_layers.remove(mesh_top.uv_layers[0])
+uv_layer_top = mesh_top.uv_layers.new(name='UVMap')
+uv_data_top = uv_layer_top.data
+
+for p in mesh_top.polygons:
+    norm = p.normal
+    if norm.x > 0.5:
+        p.material_index = 1 # 3 logos front
+        for li in p.loop_indices:
+            v = mesh_top.vertices[mesh_top.loops[li].vertex_index]
+            u = (0.75 - v.co.z) / 1.50
+            v_coord = (v.co.y - 0.101) / 2.159
+            uv_data_top[li].uv = (u, v_coord)
+    elif norm.x < -0.5:
+        p.material_index = 2 # 1 logo back
+        for li in p.loop_indices:
+            v = mesh_top.vertices[mesh_top.loops[li].vertex_index]
+            u = (v.co.z + 0.75) / 1.50
+            v_coord = (v.co.y - 0.101) / 2.159
+            uv_data_top[li].uv = (u, v_coord)
+    else:
+        p.material_index = 0 # black edges
+        for li in p.loop_indices:
+            uv_data_top[li].uv = (0.01, 0.01)
+
+print("REGAL.003 configured.")
 
 # -------------------------------------------------------------
 # Shelf LED strips on Regał
@@ -321,7 +434,6 @@ bpy.context.view_layer.update()
 print("Regał LED strips attached on both shelves (top and bottom faces).")
 
 # Center REGAL NULL at (0, 0, 0)
-regal_root = bpy.data.objects['REGAL NULL']
 regal_objects = get_descendants(regal_root)
 
 reg_pts = []
@@ -363,4 +475,8 @@ bpy.ops.export_scene.gltf(
     export_lights=False
 )
 print(f"Regał exported: {os.path.exists(out_regal_glb)} ({os.path.getsize(out_regal_glb)/1024:.1f} KB)")
-print("ALL EXPORTS COMPLETE!")
+
+# Save updated state to blend file
+print(f"Saving updated scene to {blend_file}...")
+bpy.ops.wm.save_mainfile(filepath=blend_file)
+print("ALL EXPORTS AND SAVE COMPLETE!")

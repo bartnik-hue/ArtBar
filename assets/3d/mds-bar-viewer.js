@@ -304,6 +304,7 @@ function createThreeApp(mountEl) {
   let pulkaMesh = null;
   let szufladaMesh = null;
   let regalBoardMesh = null;
+  const regalBoardMeshes = [];
   const barLedMeshes = [];
   const barGlowRibbons = [];
   const ledMeshes = [];
@@ -417,7 +418,7 @@ function createThreeApp(mountEl) {
 
   Promise.all([
     new Promise((resolve, reject) => gltfLoader.load('assets/3d/bar_animated.glb', resolve, undefined, reject)),
-    new Promise((resolve, reject) => gltfLoader.load('assets/3d/regal_animated.glb', resolve, undefined, reject))
+    new Promise((resolve, reject) => gltfLoader.load('assets/3d/regal_animated.glb?v=regalsplit2', resolve, undefined, reject))
   ]).then(([barGltf, regalGltf]) => {
     // 1. Konfiguracja Baru MDS
     const barModel = barGltf.scene;
@@ -459,8 +460,11 @@ function createThreeApp(mountEl) {
     regalModel.position.set(-2.15, 0, 0);
 
     regalModel.traverse((child) => {
-      if (child.name.includes('REGAL003') || child.name.includes('REGAL.003') || child.name.includes('REGAL_003')) {
+      if (child.name === 'REGAL003' || child.name === 'REGAL.003' || child.name === 'REGAL_003' || (!regalBoardMesh && (child.name.includes('REGAL003') || child.name.includes('REGAL.003') || child.name.includes('REGAL_003')))) {
         regalBoardMesh = child;
+      }
+      if (child.isMesh && (child.name.includes('REGAL003') || child.name.includes('REGAL.003') || child.name.includes('REGAL_003') || child.name.includes('Top_Mesh'))) {
+        regalBoardMeshes.push(child);
       }
 
       if (child.isMesh) {
@@ -492,6 +496,15 @@ function createThreeApp(mountEl) {
         }
       });
     }
+    regalBoardMeshes.forEach((mesh) => {
+      if (mesh.material) {
+        if (Array.isArray(mesh.material)) {
+          mesh.material = mesh.material.map((m) => m.clone());
+        } else {
+          mesh.material = mesh.material.clone();
+        }
+      }
+    });
 
     scene.add(regalModel);
 
@@ -644,26 +657,39 @@ function createThreeApp(mountEl) {
       regalOpacity = t * t * (3 - 2 * t);
     }
 
+    const showUpperBoard = regalOpacity > 0.001;
     if (regalBoardMesh) {
-      if (regalOpacity <= 0.001) {
-        regalBoardMesh.visible = false;
-      } else {
-        regalBoardMesh.visible = true;
+      regalBoardMesh.visible = showUpperBoard;
+    }
+    regalBoardMeshes.forEach((mesh) => {
+      mesh.visible = showUpperBoard;
+    });
+
+    if (showUpperBoard) {
+      const applyOp = (mat) => {
+        if (regalOpacity >= 0.999) {
+          mat.transparent = false;
+          mat.opacity = 1.0;
+        } else {
+          mat.transparent = true;
+          mat.opacity = regalOpacity;
+        }
+      };
+
+      if (regalBoardMesh) {
         regalBoardMesh.traverse((c) => {
           if (c.isMesh && c.material) {
             const mats = Array.isArray(c.material) ? c.material : [c.material];
-            mats.forEach((m) => {
-              if (regalOpacity >= 0.999) {
-                m.transparent = false;
-                m.opacity = 1.0;
-              } else {
-                m.transparent = true;
-                m.opacity = regalOpacity;
-              }
-            });
+            mats.forEach(applyOp);
           }
         });
       }
+      regalBoardMeshes.forEach((mesh) => {
+        if (mesh.material) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mats.forEach(applyOp);
+        }
+      });
     }
 
     return pulkaOpacity;
