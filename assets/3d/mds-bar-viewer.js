@@ -217,6 +217,7 @@ function createThreeApp(mountEl) {
   controls.dampingFactor = 0.05;
   controls.target.copy(defaultCameraTarget);
   controls.enablePan = false; // Blokada przemieszczania kamery (brak translacji/przesuwania środka sceny)
+  controls.enableZoom = false; // Całkowita blokada zoomowania (stały kadr sceny)
   controls.enableRotate = true; // Zachowany swobodny obrót 360°
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.8;

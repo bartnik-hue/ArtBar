@@ -4073,7 +4073,7 @@
       if (dept.id === 'bar') {
         if (bar3dSec) bar3dSec.classList.remove('hidden');
         if (bar3dUnfoldMount) {
-          import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then(mod => {
+          import('./assets/3d/mds-bar-viewer.js?v=nozoom').then(mod => {
             if (currentOpenDeptIdx === idx) {
               mod.mountMdsBarViewer(bar3dUnfoldMount);
             }
@@ -4088,7 +4088,7 @@
         }
       } else {
         if (bar3dSec) bar3dSec.classList.add('hidden');
-        import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then(m => m.destroyMdsBarViewer()).catch(() => {});
+        import('./assets/3d/mds-bar-viewer.js?v=nozoom').then(m => m.destroyMdsBarViewer()).catch(() => {});
         import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer()).catch(() => {});
         if (bar3dUnfoldMount) bar3dUnfoldMount.innerHTML = '';
         if (bar3dPresetsMount) bar3dPresetsMount.innerHTML = '';
@@ -4123,7 +4123,7 @@
     function closeDeptModal() {
       const bar3dSec = document.getElementById('dept-bar-3d-section');
       if (bar3dSec) bar3dSec.classList.add('hidden');
-      import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then(m => m.destroyMdsBarViewer()).catch(() => {});
+      import('./assets/3d/mds-bar-viewer.js?v=nozoom').then(m => m.destroyMdsBarViewer()).catch(() => {});
       import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer()).catch(() => {});
       const bar3dUnfoldMount = document.getElementById('dept-bar-unfold-3d-mount');
       const bar3dPresetsMount = document.getElementById('dept-bar-presets-3d-mount');
@@ -6677,7 +6677,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       const nextItem = artbarNewsDatabase[nextIdx];
 
       if (currentModalNewsItem && currentModalNewsItem.id === 'bary-mds') {
-        import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
+        import('./assets/3d/mds-bar-viewer.js?v=nozoom').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
         import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer(document.getElementById('mds-presets-3d-mount'))).catch(() => {});
       }
 
@@ -7370,7 +7370,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
             </div>
           `;
 
-          import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then((mod) => {
+          import('./assets/3d/mds-bar-viewer.js?v=nozoom').then((mod) => {
             if (token !== nmOpenToken) return;
             mod.mountMdsBarViewer(document.getElementById('mds-3d-mount'));
           }).catch(err => {
@@ -7388,7 +7388,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
         return;
       } else {
         // Zniszcz instancje 3D w oknie news jeśli przełączono na inny artykuł
-        import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
+        import('./assets/3d/mds-bar-viewer.js?v=nozoom').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
         import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer(document.getElementById('mds-presets-3d-mount'))).catch(() => {});
 
         // Reset klas layoutu dla standardowych kart aktualności
@@ -7797,7 +7797,7 @@ Art Bar Solutions specjalizuje się w tworzeniu unikalnych przestrzeni eventowyc
       nmOpenToken++;
 
       // Zniszcz instancje Three.js w oknie news
-      import('./assets/3d/mds-bar-viewer.js?v=regalsplit2').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
+      import('./assets/3d/mds-bar-viewer.js?v=nozoom').then(m => m.destroyMdsBarViewer(document.getElementById('mds-3d-mount'))).catch(() => {});
       import('./assets/3d/bar-presets-viewer.js?v=clean1').then(m => m.destroyBarPresetsViewer(document.getElementById('mds-presets-3d-mount'))).catch(() => {});
 
       // Reset klas layoutu dla pewnosci po zamknieciu
