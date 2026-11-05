@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ArtBar Solutions - Dopracowane Menu Piktogramowe (Płynna, Powolna Animacja)</title>
+  <title>ArtBar Solutions - Nowe Menu Piktogramowe (Tytuł po prawej + Strzałki)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
       --gold-glow: rgba(250, 203, 125, 0.4);
       --bg-dark: #050505;
       --card-dark: #0a0a09;
-      --anim-duration: 0.8s;
+      --anim-duration: 0.85s;
       --anim-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
     body {
@@ -58,9 +58,9 @@
                   filter var(--anim-duration) var(--anim-ease);
     }
 
-    /* Stan nieaktywny: eleganckie, widoczne złoto (55% poświaty) */
+    /* Stan nieaktywny: widoczny, ciepłe złoto */
     .tab-inactive .svg-icon {
-      opacity: 0.55;
+      opacity: 0.6;
       filter: drop-shadow(0 0 2px rgba(250, 203, 125, 0.25));
       transform: scale(0.95);
       transition: opacity var(--anim-duration) var(--anim-ease),
@@ -70,13 +70,13 @@
     .tab-inactive:hover .svg-icon {
       opacity: 0.95;
       filter: drop-shadow(0 0 8px rgba(250, 203, 125, 0.65));
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
-    /* Stan aktywny: lśniące, pełne złoto ze szlachetną aureolą */
+    /* Stan aktywny: pełne lśniące złoto */
     .tab-active .svg-icon {
       opacity: 1 !important;
-      filter: drop-shadow(0 0 10px rgba(250, 203, 125, 0.85)) drop-shadow(0 0 22px rgba(250, 203, 125, 0.45));
+      filter: drop-shadow(0 0 10px rgba(250, 203, 125, 0.85)) drop-shadow(0 0 20px rgba(250, 203, 125, 0.4));
       transform: scale(1.1);
       transition: opacity var(--anim-duration) var(--anim-ease),
                   transform var(--anim-duration) var(--anim-ease),
@@ -110,7 +110,7 @@
     @keyframes slowFadeIn {
       0% {
         opacity: 0;
-        transform: translateY(18px) scale(0.99);
+        transform: translateY(16px) scale(0.99);
       }
       100% {
         opacity: 1;
@@ -146,31 +146,19 @@
       margin-bottom: 8px;
     }
 
-    /* Wymuszenie proporcji mobilnych w symulatorze */
-    .phone-simulator .sim-force-grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    }
+    /* Dopasowania w symulatorze */
     .phone-simulator .sim-force-inactive-small {
       width: 32px !important;
       min-width: 32px !important;
       padding: 4px !important;
     }
-    .phone-simulator .sim-force-inactive-small span {
-      display: none !important;
-    }
     .phone-simulator .accordion-item.tab-active {
-      min-width: 130px !important;
+      min-width: 120px !important;
       padding: 6px 10px !important;
     }
     .phone-simulator .sim-force-title-sm {
-      font-size: 11px !important;
+      font-size: 10.5px !important;
       letter-spacing: 0.02em !important;
-    }
-    .phone-simulator .sim-force-title-2b {
-      font-size: 7.5px !important;
-      letter-spacing: -0.03em !important;
-      padding-left: 2px !important;
-      padding-right: 2px !important;
     }
   </style>
 </head>
@@ -187,30 +175,21 @@
         </div>
         <div>
           <h1 class="text-sm sm:text-base font-bold text-white tracking-wider uppercase font-cinzel flex items-center gap-2">
-            ArtBar · Płynne Animowane Menu Piktogramowe
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FACB7D]/15 text-[#FACB7D] border border-[#FACB7D]/30 font-normal">
-              100% Złote Piktogramy
-            </span>
+            Nowy Układ Menu: Tytuł po prawej + Strzałki ‹ ›
           </h1>
           <p class="text-xs text-[#FACB7D]/80 font-mono">
-            Powolny, szlachetny ruch animacji · Żaden piktogram nie jest czarny ani niewidoczny
+            Układ 2A + estetyka 2B · Brak numeracji · Wyjustowany do lewej i wyśrodkowany w pionie
           </p>
         </div>
       </div>
 
-      <!-- Wybór Wariantu 2A - 2D -->
+      <!-- Wybór Trybu Prezentacji -->
       <div class="flex items-center gap-1.5 p-1 bg-white/[0.04] border border-white/10 rounded-2xl overflow-x-auto max-w-full scrollbar-none">
-        <button type="button" onclick="setVariant('2A')" id="var-btn-2A" class="var-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-lg">
-          2A. Accordion Expand
+        <button type="button" onclick="setMode('accordion')" id="mode-btn-accordion" class="mode-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-lg">
+          Rozsuwany (Accordion)
         </button>
-        <button type="button" onclick="setVariant('2B')" id="var-btn-2B" class="var-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5">
-          2B. Pionowe Pełne Tytuły
-        </button>
-        <button type="button" onclick="setVariant('2C')" id="var-btn-2C" class="var-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5">
-          2C. Siatka 6 kol / 2x3 na tel.
-        </button>
-        <button type="button" onclick="setVariant('2D')" id="var-btn-2D" class="var-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5">
-          2D. Złota Wstęga z Panelem
+        <button type="button" onclick="setMode('all-visible')" id="mode-btn-all-visible" class="mode-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5">
+          Wszystkie Tytuły Widoczne
         </button>
       </div>
 
@@ -241,21 +220,21 @@
     </div>
   </header>
 
-  <!-- PASEK INFORMACYJNY WYBRANEGO WARIANTU -->
+  <!-- PASEK INFORMACYJNY -->
   <section class="bg-gradient-to-r from-black via-[#0d0c09] to-black border-b border-white/5 px-4 sm:px-8 py-3">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
       <div class="flex items-center gap-2.5">
         <span class="w-2.5 h-2.5 rounded-full bg-[#FACB7D] animate-pulse"></span>
         <span id="variant-badge" class="font-bold uppercase tracking-wider text-[#FACB7D] font-mono">
-          Wariant 2A: Accordion Expand (Płynny, powolny ruch rozsuwania)
+          Układ Tytuł-Piktogram (Tytuł po prawej, brak numerów, strzałki ‹ ›)
         </span>
         <span class="text-white/40 hidden sm:inline">|</span>
         <span id="variant-desc" class="text-white/80 font-light">
-          Kliknięty piktogram rozsuwa się powolnym, miękkim ruchem (0.85s), ujawniając pełny tytuł. Wszystkie piktogramy mają szlachetny, złoty kolor #FACB7D z ciepłą poświatą.
+          Strzałki lewo-prawo po bokach paska sugerują przełączanie. Tytuł jest wyjustowany do lewej i idealnie wyśrodkowany w pionie z piktogramem.
         </span>
       </div>
       <div class="text-[#FACB7D]/90 font-mono text-[11px] shrink-0 bg-[#FACB7D]/10 px-2.5 py-1 rounded-lg border border-[#FACB7D]/20">
-        ✨ Kliknij po kolei: ART ➔ FABRYKA LODU ➔ PRODUKCJA, by poczuć miękkość ruchu
+        💡 Użyj strzałek ‹ › lub klikaj bezpośrednio kafelki
       </div>
     </div>
   </section>
@@ -266,7 +245,7 @@
     <!-- KONTENER PREZENTACJI -->
     <div id="stage-frame" class="w-full max-w-7xl transition-all duration-700 min-h-[750px] bg-black/80 border border-white/10 rounded-3xl p-4 sm:p-8 relative overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.95)]">
       
-      <!-- TU MOCOWANE JEST AKTYWNE MENU -->
+      <!-- TU MOCOWANE JEST AKTYWNE MENU ZE STRZAŁKAMI -->
       <div id="menu-mount-point" class="w-full relative z-30 mb-8 sm:mb-10"></div>
 
       <!-- KARTA TREŚCI WYBRANEGO DZIAŁU -->
@@ -277,7 +256,7 @@
   </main>
 
   <footer class="border-t border-white/10 py-6 text-center text-xs text-white/50 font-mono">
-    ArtBar Solutions · Interaktywne Menu Piktogramowe · 100% Złota Barwa SVG · Płynna Animacja 0.85s
+    ArtBar Solutions · Nowy Układ Menu Radialnego z Piktogramami i Strzałkami Nawigacji
   </footer>
 
   <script>
@@ -638,39 +617,64 @@
     ];
 
     let currentDeptIdx = 5; // Fabryka Lodu jako aktywny testowy
-    let currentVariant = '2A';
+    let currentMode = 'accordion'; // 'accordion' lub 'all-visible'
     let currentViewMode = 'desktop';
 
-    // ══════════════════════════════════════════════════════════════
-    // KONTROLA PRĘDKOŚCI RUCHU (DLA TESTU PŁYNNOŚCI)
-    // ══════════════════════════════════════════════════════════════
+    function prevDept() {
+      currentDeptIdx = (currentDeptIdx - 1 + DEPARTMENTS.length) % DEPARTMENTS.length;
+      renderMenu();
+      renderContent();
+    }
+
+    function nextDept() {
+      currentDeptIdx = (currentDeptIdx + 1) % DEPARTMENTS.length;
+      renderMenu();
+      renderContent();
+    }
+
+    function selectDept(idx) {
+      if (currentDeptIdx === idx) return;
+      currentDeptIdx = idx;
+      renderMenu();
+      renderContent();
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('mode-btn-accordion').className = mode === 'accordion' 
+        ? 'mode-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-lg'
+        : 'mode-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5';
+      document.getElementById('mode-btn-all-visible').className = mode === 'all-visible' 
+        ? 'mode-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-lg'
+        : 'mode-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5';
+      renderMenu();
+    }
+
     function setAnimSpeed(sec, label) {
       document.documentElement.style.setProperty('--anim-duration', sec + 's');
       ['slow', 'medium'].forEach(l => {
         const btn = document.getElementById('speed-btn-' + l);
         if (btn) {
-          if (l === label) {
-            btn.className = 'px-2 py-0.5 rounded-md text-[11px] font-bold transition-all bg-[#FACB7D] text-black shadow';
-          } else {
-            btn.className = 'px-2 py-0.5 rounded-md text-[11px] transition-all text-white/70 hover:text-white';
-          }
+          btn.className = (l === label)
+            ? 'px-2 py-0.5 rounded-md text-[11px] font-bold transition-all bg-[#FACB7D] text-black shadow'
+            : 'px-2 py-0.5 rounded-md text-[11px] transition-all text-white/70 hover:text-white';
         }
       });
     }
 
     // ══════════════════════════════════════════════════════════════
-    // GENEROWANIE MENU
+    // RENDEROWANIE GŁÓWNEGO PASKA NAWIGACYJNEGO ZE STRZAŁKAMI
     // ══════════════════════════════════════════════════════════════
     function renderMenu() {
       const container = document.getElementById('menu-mount-point');
       if (!container) return;
 
-      const isSimMobile = currentViewMode === 'mobile';
-
-      if (currentVariant === '2A') {
+      if (currentMode === 'accordion') {
         // ──────────────────────────────────────────────────────────
-        // WARIANT 2A: ACCORDION EXPAND (Płynny, powolny ruch rozsuwania)
-        // Luksusowy ciemno-złoty kafelek aktywny z jarzącym się złotym piktogramem
+        // TRYB ACCORDION EXPAND:
+        // Piktogram po lewej, tytuł po prawej, wyjustowany do lewej,
+        // wyśrodkowany w pionie z piktogramem, styl z 2B (złota linia u dołu,
+        // ciemne szklane tło, złota ramka), brak numerów i strzałki ‹ ›
         // ──────────────────────────────────────────────────────────
         container.innerHTML = `
           <div class="w-full flex flex-col gap-3">
@@ -678,7 +682,7 @@
             <div class="w-full flex items-center justify-between pb-2 border-b border-white/10">
               <span class="text-xs font-mono uppercase tracking-widest text-[#FACB7D] font-bold flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-[#FACB7D] animate-ping"></span>
-                Nawigacja Piktogramowa · Accordion Expand (Powolny Luksusowy Ruch)
+                Nawigacja Piktogramowa · Układ 2A + Estetyka 2B
               </span>
               <button type="button" class="flex items-center gap-1.5 text-xs text-white/60 hover:text-white font-mono uppercase transition-colors">
                 <span>Powrót do menu</span>
@@ -686,215 +690,127 @@
               </button>
             </div>
 
-            <!-- Kontener harmonijkowy z płynnym rozsuwaniem -->
-            <div class="w-full flex items-center gap-1 sm:gap-2.5 p-1.5 sm:p-2 bg-[#080807]/90 border border-[#FACB7D]/25 rounded-2xl backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden">
-              ${DEPARTMENTS.map((dept, idx) => {
-                const isActive = idx === currentDeptIdx;
-                return `
-                  <button type="button" onclick="selectDept(${idx})"
-                          title="${dept.title}"
-                          class="accordion-item group relative flex items-center justify-center rounded-xl cursor-pointer text-left select-none overflow-hidden
-                                 ${isActive 
-                                   ? 'tab-active flex-grow min-w-[125px] sm:min-w-[190px] p-2 sm:p-3.5 bg-gradient-to-r from-[#211a0e] via-[#2c2211] to-[#1a140b] border-2 border-[#FACB7D] shadow-[0_0_30px_rgba(250,203,125,0.4),inset_0_0_15px_rgba(250,203,125,0.15)]' 
-                                   : 'tab-inactive flex-shrink-0 w-8 sm:w-14 min-w-[30px] sm:min-w-[56px] p-1.5 sm:p-2.5 bg-black/50 border border-white/10 hover:border-[#FACB7D]/50 hover:bg-white/[0.04] sim-force-inactive-small'}">
-                    
-                    <!-- Piktogram SVG (GWARANCJA ZŁOTA - NIGDY CZARNY) -->
-                    <div class="w-5 h-5 sm:w-8 sm:h-8 shrink-0">
-                      <div class="svg-icon w-full h-full">
-                        ${SVGS[dept.iconKey]}
-                      </div>
-                    </div>
-
-                    <!-- Rozwijany Tytuł (płynne, powolne wyłonienie) -->
-                    <div class="title-reveal overflow-hidden flex flex-col justify-center whitespace-nowrap
-                                ${isActive ? 'max-w-[420px] opacity-100 ml-2 sm:ml-3.5' : 'max-w-0 opacity-0 ml-0'}">
-                      <span class="text-[7.5px] sm:text-[9px] font-mono tracking-widest text-[#FACB7D] font-bold uppercase leading-none mb-0.5">
-                        DZIAŁ 0${idx + 1}
-                      </span>
-                      <span class="text-[9.5px] sm:text-sm font-extrabold uppercase tracking-wide sm:tracking-wider text-white leading-tight sim-force-title-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
-                        ${dept.title}
-                      </span>
-                    </div>
-
-                    <!-- Numer na nieaktywnym kafelku -->
-                    ${!isActive ? `<span class="absolute bottom-1 right-1.5 text-[8px] font-mono text-[#FACB7D]/40 group-hover:text-[#FACB7D] hidden sm:block">0${idx+1}</span>` : ''}
-
-                    <!-- Aktywny złoty wskaźnik u dołu -->
-                    ${isActive ? '<div class="absolute bottom-0 left-3 right-3 h-[2px] bg-[#FACB7D] shadow-[0_0_10px_#FACB7D]"></div>' : ''}
-
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-          </div>
-        `;
-
-      } else if (currentVariant === '2B') {
-        // ──────────────────────────────────────────────────────────
-        // WARIANT 2B: PIONOWE PEŁNE TYTUŁY (Wszystkie 6 widoczne)
-        // ──────────────────────────────────────────────────────────
-        container.innerHTML = `
-          <div class="w-full flex flex-col gap-3">
-            
-            <div class="w-full flex items-center justify-between pb-2 border-b border-white/10">
-              <span class="text-xs font-mono uppercase tracking-widest text-[#FACB7D] font-bold">
-                Wszystkie 6 Działów (Pełne Tytuły w Pionie)
-              </span>
-              <button type="button" class="flex items-center gap-1.5 text-xs text-white/60 hover:text-white font-mono uppercase">
-                <span>Zamknij</span>
-                <svg class="w-4 h-4 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            <!-- GŁÓWNY MODUŁ: [STRZAŁKA W LEWO] + [TOR KAFELKÓW] + [STRZAŁKA W PRAWO] -->
+            <div class="w-full flex items-center gap-1.5 sm:gap-3">
+              
+              <!-- STRZAŁKA W LEWO (Poprzedni dział) -->
+              <button type="button" onclick="prevDept()" aria-label="Poprzedni dział" title="Poprzedni dział (‹)"
+                      class="w-7 h-9 sm:w-11 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0a0a09]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0 cursor-pointer group active:scale-95">
+                <svg class="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#FACB7D] transition-transform duration-300 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                </svg>
               </button>
-            </div>
 
-            <!-- Siatka 6 równych kolumn ze zoptymalizowanym układem pionowym -->
-            <div class="w-full grid grid-cols-6 gap-1 sm:gap-2.5 bg-[#080807]/90 border border-[#FACB7D]/25 rounded-2xl p-1.5 sm:p-2.5 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-              ${DEPARTMENTS.map((dept, idx) => {
-                const isActive = idx === currentDeptIdx;
-                const formattedTitle = dept.title.replace(' ', '<br class="block">');
+              <!-- TOR KAFELKÓW ACCORDION -->
+              <div class="flex-1 flex items-center gap-1 sm:gap-2.5 p-1 sm:p-2 bg-[#080807]/90 border border-[#FACB7D]/25 rounded-xl sm:rounded-2xl backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+                ${DEPARTMENTS.map((dept, idx) => {
+                  const isActive = idx === currentDeptIdx;
+                  // Inteligentne formatowanie: na małych ekranach dwuwierszowo dla długich nazw, na desktopie w jednej linii
+                  const formattedTitleMobile = dept.title.replace(' ', '<br class="block sm:hidden">');
 
-                return `
-                  <button type="button" onclick="selectDept(${idx})"
-                          class="group relative flex flex-col items-center justify-center p-1.5 sm:p-3 rounded-xl transition-all duration-700 cursor-pointer text-center select-none overflow-hidden
-                                 ${isActive 
-                                   ? 'tab-active bg-gradient-to-b from-[#251e10] via-[#1a150c] to-transparent border-2 border-[#FACB7D] shadow-[0_0_25px_rgba(250,203,125,0.35)] scale-[1.03]' 
-                                   : 'tab-inactive bg-black/40 border border-white/5 hover:border-[#FACB7D]/40 hover:bg-white/[0.03]' }">
-                    
-                    <!-- Piktogram SVG -->
-                    <div class="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-1.5 shrink-0">
-                      <div class="svg-icon w-full h-full">
-                        ${SVGS[dept.iconKey]}
+                  return `
+                    <button type="button" onclick="selectDept(${idx})"
+                            title="${dept.title}"
+                            class="accordion-item group relative flex items-center justify-start rounded-lg sm:rounded-xl cursor-pointer select-none overflow-hidden
+                                   ${isActive 
+                                     ? 'tab-active flex-grow min-w-[110px] sm:min-w-[190px] px-2 sm:px-4 py-1.5 sm:py-3 bg-gradient-to-r from-[#221b0f] via-[#1a150c] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_25px_rgba(250,203,125,0.35)]' 
+                                     : 'tab-inactive flex-shrink-0 w-7 sm:w-14 min-w-[28px] sm:min-w-[56px] p-1 sm:p-2.5 bg-black/50 border border-white/10 hover:border-[#FACB7D]/40 hover:bg-white/[0.03] justify-center sim-force-inactive-small'}">
+                      
+                      <!-- Piktogram SVG (po lewej stronie) -->
+                      <div class="w-5 h-5 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center">
+                        <div class="svg-icon w-full h-full">
+                          ${SVGS[dept.iconKey]}
+                        </div>
                       </div>
-                    </div>
 
-                    <!-- Numer 01 - 06 -->
-                    <span class="text-[7.5px] sm:text-[10px] font-mono tracking-widest text-[#FACB7D] font-bold mb-0.5">
-                      0${idx + 1}
-                    </span>
-
-                    <!-- Pełny Tytuł dopasowany do braku ucięć -->
-                    <span class="text-[7.5px] sm:text-[11px] lg:text-[12.5px] font-bold uppercase tracking-tight sm:tracking-wider leading-[1.05] sm:leading-tight transition-colors ${isActive ? 'text-white font-extrabold' : 'text-white/75 group-hover:text-white'} sim-force-title-2b">
-                      ${formattedTitle}
-                    </span>
-
-                    <!-- Aktywny złoty pasek u dołu -->
-                    ${isActive ? '<div class="absolute bottom-0 left-2 right-2 h-[2px] bg-[#FACB7D] shadow-[0_0_10px_#FACB7D]"></div>' : ''}
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-          </div>
-        `;
-
-      } else if (currentVariant === '2C') {
-        // ──────────────────────────────────────────────────────────
-        // WARIANT 2C: ADAPTACYJNA SIATKA (6 KOLUMN NA PC / 2 RZĘDY PO 3 NA SMARTFONIE)
-        // ──────────────────────────────────────────────────────────
-        container.innerHTML = `
-          <div class="w-full flex flex-col gap-3">
-            
-            <div class="w-full flex items-center justify-between pb-2 border-b border-white/10">
-              <span class="text-xs font-mono uppercase tracking-widest text-[#FACB7D] font-bold">
-                Adaptacyjna Siatka (6 na PC / 2 rzędy po 3 na telefonie)
-              </span>
-              <button type="button" class="flex items-center gap-1.5 text-xs text-white/60 hover:text-white font-mono uppercase">
-                <span>Zamknij</span>
-                <svg class="w-4 h-4 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-              </button>
-            </div>
-
-            <!-- Siatka: 3 kolumny na telefonie, 6 kolumn od sm w górę -->
-            <div class="w-full grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 bg-[#080807]/90 border border-[#FACB7D]/25 rounded-2xl p-2 sm:p-3 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] ${isSimMobile ? 'sim-force-grid-3' : ''}">
-              ${DEPARTMENTS.map((dept, idx) => {
-                const isActive = idx === currentDeptIdx;
-                return `
-                  <button type="button" onclick="selectDept(${idx})"
-                          class="group relative flex flex-col items-center justify-center p-2.5 sm:p-3.5 rounded-xl transition-all duration-700 cursor-pointer text-center select-none
-                                 ${isActive 
-                                   ? 'tab-active bg-gradient-to-b from-[#251e10] via-[#1a150c] to-transparent border-2 border-[#FACB7D] shadow-[0_0_25px_rgba(250,203,125,0.4)] scale-[1.03]' 
-                                   : 'tab-inactive bg-black/40 border border-white/10 hover:border-[#FACB7D]/40 hover:bg-white/[0.04]' }">
-                    
-                    <div class="w-7 h-7 sm:w-8 sm:h-8 mb-1.5 shrink-0">
-                      <div class="svg-icon w-full h-full">
-                        ${SVGS[dept.iconKey]}
+                      <!-- Tytuł (po prawej stronie od piktogramu, wyjustowany do lewej, wyśrodkowany w pionie z piktogramem) -->
+                      <div class="title-reveal overflow-hidden flex flex-col justify-center text-left
+                                  ${isActive ? 'max-w-[420px] opacity-100 ml-1.5 sm:ml-3.5' : 'max-w-0 opacity-0 ml-0'}">
+                        <span class="text-[9px] sm:text-[13.5px] lg:text-[14px] font-extrabold uppercase tracking-tight sm:tracking-wider text-white leading-[1.1] sm:leading-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] whitespace-normal sm:whitespace-nowrap sim-force-title-sm">
+                          ${formattedTitleMobile}
+                        </span>
                       </div>
-                    </div>
 
-                    <span class="text-[9px] font-mono tracking-widest text-[#FACB7D] font-bold">
-                      0${idx + 1}
-                    </span>
+                      <!-- Aktywny złoty pasek u dołu ze stylem z 2B -->
+                      ${isActive ? '<div class="absolute bottom-0 left-2 right-2 h-[2px] bg-[#FACB7D] shadow-[0_0_8px_#FACB7D]"></div>' : ''}
 
-                    <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-colors ${isActive ? 'text-white font-extrabold' : 'text-white/80 group-hover:text-white'}">
-                      ${dept.title}
-                    </span>
-
-                    ${isActive ? '<div class="absolute bottom-0 left-2 right-2 h-[2px] bg-[#FACB7D] shadow-[0_0_10px_#FACB7D]"></div>' : ''}
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-          </div>
-        `;
-
-      } else if (currentVariant === '2D') {
-        // ──────────────────────────────────────────────────────────
-        // WARIANT 2D: ZŁOTA WSTĘGA Z DOLNYM PANELEM AKTYWNEGO DZIAŁU
-        // ──────────────────────────────────────────────────────────
-        container.innerHTML = `
-          <div class="w-full flex flex-col gap-3">
-            
-            <div class="w-full flex items-center justify-between pb-2 border-b border-white/10">
-              <span class="text-xs font-mono uppercase tracking-widest text-[#FACB7D] font-bold">
-                Złota Wstęga Piktogramowa (Track & Indicator)
-              </span>
-              <button type="button" class="flex items-center gap-1.5 text-xs text-white/60 hover:text-white font-mono uppercase">
-                <span>Powrót</span>
-                <svg class="w-4 h-4 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-              </button>
-            </div>
-
-            <!-- Tor piktogramów -->
-            <div class="w-full flex items-center justify-between bg-[#080807]/90 border border-[#FACB7D]/25 rounded-2xl p-1.5 sm:p-2 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-              ${DEPARTMENTS.map((dept, idx) => {
-                const isActive = idx === currentDeptIdx;
-                return `
-                  <button type="button" onclick="selectDept(${idx})"
-                          class="group flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-700 cursor-pointer relative select-none
-                                 ${isActive 
-                                   ? 'tab-active bg-[#1f190e] border border-[#FACB7D] shadow-[0_0_20px_rgba(250,203,125,0.4)]' 
-                                   : 'tab-inactive hover:bg-white/5'}">
-                    
-                    <div class="w-6 h-6 sm:w-8 sm:h-8 shrink-0">
-                      <div class="svg-icon w-full h-full">
-                        ${SVGS[dept.iconKey]}
-                      </div>
-                    </div>
-
-                    <span class="text-[9px] font-mono tracking-wider font-bold mt-1 ${isActive ? 'text-[#FACB7D]' : 'text-white/40 group-hover:text-white/80'}">
-                      0${idx + 1}
-                    </span>
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-            <!-- Dolna belka aktywnego działu: ZAWSZE 100% CZYTELNA W PEŁNI -->
-            <div class="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#1c170d] via-[#14110b] to-black border border-[#FACB7D]/30 rounded-xl shadow-lg">
-              <div class="flex items-center gap-3 overflow-hidden">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FACB7D] animate-pulse shrink-0"></span>
-                <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white whitespace-nowrap drop-shadow">
-                  ${DEPARTMENTS[currentDeptIdx].title}
-                </span>
-                <span class="text-[#FACB7D]/50 shrink-0">·</span>
-                <span class="text-[11px] sm:text-xs font-mono text-[#FACB7D] tracking-tight truncate">
-                  ${DEPARTMENTS[currentDeptIdx].badge || 'ArtBar Solutions'}
-                </span>
+                    </button>
+                  `;
+                }).join('')}
               </div>
-              <span class="text-[10px] font-mono text-[#FACB7D]/70 hidden sm:inline shrink-0 ml-2">
-                Dział 0${currentDeptIdx + 1} z 06
+
+              <!-- STRZAŁKA W PRAWO (Następny dział) -->
+              <button type="button" onclick="nextDept()" aria-label="Następny dział" title="Następny dział (›)"
+                      class="w-7 h-9 sm:w-11 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0a0a09]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0 cursor-pointer group active:scale-95">
+                <svg class="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#FACB7D] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      } else {
+        // ──────────────────────────────────────────────────────────
+        // TRYB ALL-VISIBLE:
+        // Wszystkie 6 kafelków stale prezentuje [PIKTOGRAM] [TYTUŁ] w poziomie
+        // z przewijaniem strzałkami
+        // ──────────────────────────────────────────────────────────
+        container.innerHTML = `
+          <div class="w-full flex flex-col gap-3">
+            
+            <div class="w-full flex items-center justify-between pb-2 border-b border-white/10">
+              <span class="text-xs font-mono uppercase tracking-widest text-[#FACB7D] font-bold">
+                Wszystkie 6 Tytułów Widoczne (Układ Poziomy Piktogram + Tytuł)
               </span>
+              <button type="button" class="flex items-center gap-1.5 text-xs text-white/60 hover:text-white font-mono uppercase">
+                <span>Zamknij</span>
+                <svg class="w-4 h-4 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            <div class="w-full flex items-center gap-2 sm:gap-3">
+              
+              <button type="button" onclick="prevDept()" aria-label="Poprzedni dział"
+                      class="w-9 h-11 sm:w-11 sm:h-14 rounded-2xl bg-[#0a0a09]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-[#FACB7D] flex items-center justify-center transition-all shrink-0 cursor-pointer group active:scale-95">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#FACB7D] transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+
+              <div class="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-2 bg-[#080807]/90 border border-[#FACB7D]/25 rounded-2xl p-1.5 sm:p-2 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+                ${DEPARTMENTS.map((dept, idx) => {
+                  const isActive = idx === currentDeptIdx;
+                  return `
+                    <button type="button" onclick="selectDept(${idx})"
+                            class="group relative flex items-center justify-start gap-2 px-2.5 py-2.5 rounded-xl transition-all duration-700 cursor-pointer select-none overflow-hidden
+                                   ${isActive 
+                                     ? 'tab-active bg-gradient-to-r from-[#221b0f] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_20px_rgba(250,203,125,0.35)] scale-[1.02]' 
+                                     : 'tab-inactive bg-black/40 border border-white/5 hover:border-[#FACB7D]/40 hover:bg-white/[0.03]' }">
+                      
+                      <div class="w-6 h-6 sm:w-7 sm:h-7 shrink-0 flex items-center justify-center">
+                        <div class="svg-icon w-full h-full">
+                          ${SVGS[dept.iconKey]}
+                        </div>
+                      </div>
+
+                      <div class="flex flex-col justify-center text-left overflow-hidden">
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white whitespace-nowrap truncate">
+                          ${dept.title}
+                        </span>
+                      </div>
+
+                      ${isActive ? '<div class="absolute bottom-0 left-2 right-2 h-[2px] bg-[#FACB7D] shadow-[0_0_8px_#FACB7D]"></div>' : ''}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+
+              <button type="button" onclick="nextDept()" aria-label="Następny dział"
+                      class="w-9 h-11 sm:w-11 sm:h-14 rounded-2xl bg-[#0a0a09]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-[#FACB7D] flex items-center justify-center transition-all shrink-0 cursor-pointer group active:scale-95">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#FACB7D] transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+              </button>
+
             </div>
 
           </div>
@@ -925,7 +841,6 @@
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono tracking-wider font-bold bg-[#FACB7D]/15 text-[#FACB7D] border border-[#FACB7D]/30">
                   ${dept.badge || 'Dział Radialny'}
                 </span>
-                <span class="text-xs text-white/40 font-mono">DZIAŁ 0${currentDeptIdx + 1} / 06</span>
               </div>
               <h2 class="text-3xl sm:text-5xl font-serif-luxury font-black text-white tracking-tight">
                 ${dept.title}
@@ -958,7 +873,7 @@
                 Ekspozycja Prezentacyjna: ${dept.title}
               </h3>
               <p class="text-xs text-white/60 font-mono mt-1">
-                Płynne przełączenie treści z czasem trwania 0.85s (bez skoków)
+                Płynne przełączenie treści (0.85s) · Użyj strzałek ‹ › lub klikaj bezpośrednio
               </p>
             </div>
           </div>
@@ -985,50 +900,6 @@
 
         </div>
       `;
-    }
-
-    // ══════════════════════════════════════════════════════════════
-    // INTERAKCJA
-    // ══════════════════════════════════════════════════════════════
-    function selectDept(idx) {
-      if (currentDeptIdx === idx) return;
-      currentDeptIdx = idx;
-      renderMenu();
-      renderContent();
-    }
-
-    function setVariant(v) {
-      currentVariant = v;
-      
-      ['2A', '2B', '2C', '2D'].forEach(k => {
-        const btn = document.getElementById(`var-btn-${k}`);
-        if (btn) {
-          if (k === v) {
-            btn.className = 'var-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-[#FACB7D] text-black shadow-lg';
-          } else {
-            btn.className = 'var-btn px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white/70 hover:text-white hover:bg-white/5';
-          }
-        }
-      });
-
-      const badge = document.getElementById('variant-badge');
-      const desc = document.getElementById('variant-desc');
-
-      if (v === '2A') {
-        badge.textContent = 'Wariant 2A: Accordion Expand (Płynny, powolny ruch rozsuwania)';
-        desc.textContent = 'Kliknięty piktogram rozsuwa się powolnym, miękkim ruchem (0.85s), ujawniając pełny tytuł. Wszystkie piktogramy mają szlachetny, złoty kolor #FACB7D z ciepłą poświatą.';
-      } else if (v === '2B') {
-        badge.textContent = 'Wariant 2B: Pionowe Pełne Tytuły (Układ dwuwierszowy)';
-        desc.textContent = 'Wszystkie 6 tytułów widoczne stale z pełnymi złotymi piktogramami. Nazwa FABRYKA LODU w 2 liniach.';
-      } else if (v === '2C') {
-        badge.textContent = 'Wariant 2C: Siatka 6 kolumn na PC / 2 rzędy po 3 na telefonie';
-        desc.textContent = 'Na monitorze pełne 6 kafelków w rzędzie, a na telefonie 2 rzędy po 3 kafelki – maksymalna czytelność i wygoda dotyku.';
-      } else if (v === '2D') {
-        badge.textContent = 'Wariant 2D: Złota Wstęga z Dolnym Panelem Aktywnego Działu';
-        desc.textContent = 'Równy tor lśniących piktogramów u góry + dedykowany luksusowy panel z pełną nazwą bezpośrednio pod ikonami.';
-      }
-
-      renderMenu();
     }
 
     function setViewMode(mode) {
