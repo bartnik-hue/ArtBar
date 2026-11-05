@@ -3068,9 +3068,9 @@
     </button>
 
     <div id="dept-modal-card" class="relative w-full min-h-screen flex flex-col justify-between">
-      
+
       <!-- GÓRNY PASEK NAWIGACJI PEŁNEGO EKRANU -->
-      <header id="dept-modal-header" class="w-full mx-auto flex items-center justify-between border-b border-white/5">
+      <header id="dept-modal-header" class="relative z-20 w-full mx-auto flex items-center justify-between border-b border-white/5">
         <div id="dept-modal-header-brand" class="flex items-center">
           <div id="modal-icon-wrap" class="rounded-2xl sm:rounded-3xl bg-[#FACB7D]/10 flex items-center justify-center shrink-0 shadow-[0_0_35px_rgba(250,203,125,0.35)] border border-[#FACB7D]/20">
             <!-- Ikona wstawiana dynamicznie -->
@@ -3118,15 +3118,25 @@
 
           <!-- PRAWA KOLUMNA (LUB PEŁNA SZEROKOŚĆ, GDY BRAK GRAFIKI): FILOZOFIA ORAZ USŁUGI -->
           <div id="modal-content-col" class="lg:col-span-12 relative z-10 space-y-12 sm:space-y-16 w-full">
+
+            <!-- PEŁNOSZEROKI MODUŁ 3D NAMIOTU WCHODZĄCY POD TEKST Z PŁYNNYM FADEM DO PRZEZROCZYSTOŚCI U GÓRY I U DOŁU -->
+            <div id="dept-namiot-3d-col" class="hidden absolute inset-0 w-full h-full pointer-events-auto select-none cursor-grab active:cursor-grabbing z-0 overflow-visible" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 18%, black 24%, black 66%, rgba(0,0,0,0.6) 74%, rgba(0,0,0,0.15) 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 18%, black 24%, black 66%, rgba(0,0,0,0.6) 74%, rgba(0,0,0,0.15) 88%, transparent 100%);">
+              <div id="dept-namiot-bg-mount" class="w-full h-full relative"></div>
+            </div>
+
+            
             <!-- Sekcja 1: Filozofia i Zakres (Wielka typografia) -->
-            <section class="portal-anim-item w-full">
+            <section class="portal-anim-item w-full relative z-10 pointer-events-none">
               <div id="modal-lead-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
                 Filozofia i Zakres Operacyjny
               </div>
-              <div id="modal-lead" class="text-[#f5efe6] font-light">
+              <div id="modal-lead" class="text-[#f5efe6] font-light drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-4xl">
                 Opis działu...
               </div>
             </section>
+
+            <!-- DEDYKOWANA PRZESTRZEŃ EKSPOZYCYJNA DLA NAMIOTU MIĘDZY TEKSTAMI -->
+            <div id="namiot-spatial-gap" class="hidden w-full h-[340px] sm:h-[400px] lg:h-[450px] pointer-events-none"></div>
 
             <!-- Sekcja: Co Zyskujesz Jako Organizator (Dedykowana / Dynamiczna) -->
             <section id="modal-benefits-section" class="portal-anim-item hidden w-full">
@@ -3139,7 +3149,7 @@
             </section>
 
             <!-- Sekcja 2: Kluczowe Usługi i Standardy -->
-            <section class="portal-anim-item w-full">
+            <section class="portal-anim-item w-full relative z-10 pointer-events-auto">
               <div id="modal-services-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
                 Kluczowe Usługi i Standardy Realizacji
               </div>
@@ -3184,6 +3194,8 @@
             <div id="dept-bar-presets-3d-mount" class="w-full flex flex-col items-center"></div>
           </div>
         </section>
+
+
 
         <!-- Sekcja 3: Zdjęcia i Galeria Realizacji (Duże panoramiczne ujęcia na pełnej szerokości) -->
         <section class="portal-anim-item w-full">
@@ -4682,7 +4694,17 @@
         }
         if (heroImg) heroImg.classList.add('hidden');
         heroCol.classList.add('hidden');
-        contentCol.className = 'lg:col-span-12 relative z-10 space-y-12 sm:space-y-16';
+        const namiotCol = document.getElementById('dept-namiot-3d-col');
+        const namiotGap = document.getElementById('namiot-spatial-gap');
+        if (dept.id === 'namioty') {
+          contentCol.className = 'lg:col-span-12 relative z-10 w-full';
+          if (namiotCol) namiotCol.classList.remove('hidden');
+          if (namiotGap) namiotGap.classList.remove('hidden');
+        } else {
+          if (namiotGap) namiotGap.classList.add('hidden');
+          contentCol.className = 'lg:col-span-12 relative z-10 space-y-12 sm:space-y-16';
+          if (namiotCol) namiotCol.classList.add('hidden');
+        }
         modalServicesList.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-14 gap-y-6 sm:gap-y-8';
       }
 
@@ -4812,6 +4834,27 @@
         if (bar3dPresetsMount) bar3dPresetsMount.innerHTML = '';
       }
 
+      // Obsługa pełnoszerokościowego tła 3D Namiotu dla podstrony NAMIOTY
+      const namiotCol = document.getElementById('dept-namiot-3d-col');
+      const namiotBgMount = document.getElementById('dept-namiot-bg-mount');
+
+      if (dept.id === 'namioty') {
+        if (namiotCol) namiotCol.classList.remove('hidden');
+        if (namiotBgMount) {
+          import('./assets/3d/namiot-viewer.js?v=v1.0').then(mod => {
+            if (currentOpenDeptIdx === idx) {
+              mod.mountNamiotBackground(namiotBgMount);
+            }
+          }).catch(err => console.error('Blad montowania tła 3D Namiotu:', err));
+        }
+      } else {
+        if (namiotCol) namiotCol.classList.add('hidden');
+      const namiotGap = document.getElementById('namiot-spatial-gap');
+      if (namiotGap) namiotGap.classList.add('hidden');
+        import('./assets/3d/namiot-viewer.js?v=v1.0').then(m => m.destroyNamiotBackground()).catch(() => {});
+        if (namiotBgMount) namiotBgMount.innerHTML = '';
+      }
+
       modalGallery.innerHTML = dept.photos.map(pUrl => `
         <div class="dept-gallery-card overflow-hidden border border-white/10 group relative shadow-lg">
           <img src="${pUrl}" alt="Realizacja" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 filter brightness-90">
@@ -4835,6 +4878,7 @@
       setTimeout(() => {
         modalBackdrop.scrollTop = 0;
         modalBackdrop.classList.remove('is-hidden');
+        window.dispatchEvent(new Event('resize'));
       }, 200);
     }
 
@@ -4854,6 +4898,14 @@
       const bar3dPresetsMount = document.getElementById('dept-bar-presets-3d-mount');
       if (bar3dUnfoldMount) bar3dUnfoldMount.innerHTML = '';
       if (bar3dPresetsMount) bar3dPresetsMount.innerHTML = '';
+
+      const namiotCol = document.getElementById('dept-namiot-3d-col');
+      if (namiotCol) namiotCol.classList.add('hidden');
+      const namiotGap = document.getElementById('namiot-spatial-gap');
+      if (namiotGap) namiotGap.classList.add('hidden');
+      import('./assets/3d/namiot-viewer.js?v=v1.0').then(m => m.destroyNamiotBackground()).catch(() => {});
+      const namiotBgMount = document.getElementById('dept-namiot-bg-mount');
+      if (namiotBgMount) namiotBgMount.innerHTML = '';
 
       const heroVideo = document.getElementById('modal-hero-video');
       if (heroVideo) {

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtBar Solutions · Studio Shaderów 3D (Namiot Piktogram)</title>
+  
+  <!-- Google Fonts: Montserrat & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+
+  <!-- Import Map dla Three.js -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #030303;
+      color: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Suwaki konfiguratora */
+    .tune-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .tune-slider:hover {
+      background: rgba(250, 203, 125, 0.25);
+    }
+    .tune-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #FACB7D;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.7);
+      transition: transform 0.15s ease;
+    }
+    .tune-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+    .tune-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #FACB7D;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 10px rgba(250, 203, 125, 0.7);
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(250, 203, 125, 0.3);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="w-screen h-screen flex flex-col bg-[#030303] text-white overflow-hidden">
+
+  <!-- GÓRNY PASEK NAWIGACJI -->
+  <header class="w-full h-16 shrink-0 border-b border-[#FACB7D]/20 bg-black/80 backdrop-blur-xl px-5 sm:px-8 flex items-center justify-between z-30">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#FACB7D] shadow-[0_0_12px_#FACB7D]"></span>
+        <span class="font-serif text-lg font-bold tracking-wider text-[#FACB7D]">ARTBAR SOLUTIONS</span>
+      </div>
+      <div class="h-4 w-px bg-white/20 hidden sm:block"></div>
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-white/70 hidden sm:block">
+        Studio Shaderów 3D · Namiot Piktogram
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- Wskaźnik FPS i Statusu -->
+      <div class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="fps-counter" class="text-white/80">60 FPS</span>
+      </div>
+
+      <!-- Przycisk podglądu piktogramu SVG -->
+      <button id="btn-toggle-ref" type="button" class="px-3 py-1.5 rounded-lg border border-[#FACB7D]/40 bg-white/5 hover:bg-[#FACB7D]/20 text-[#FACB7D] text-xs font-mono tracking-wider transition-all flex items-center gap-2 cursor-pointer">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span>Piktogram SVG</span>
+      </button>
+
+      <a href="/" class="px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/30 text-white/80 hover:text-white text-xs font-mono tracking-wider transition-all">
+        ← Wróć do strony
+      </a>
+    </div>
+  </header>
+
+  <!-- GŁÓWNA PRZESTRZEŃ ROBOCZA -->
+  <div class="relative flex-1 w-full h-[calc(100vh-64px)] flex overflow-hidden">
+
+    <!-- LEWY / CENTRALNY VIEWPORT 3D -->
+    <div id="viewport-container" class="relative flex-1 h-full bg-[#030303] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
+      
+      <!-- Loader ładowania modelu -->
+      <div id="viewport-loader" class="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#030303]/90 backdrop-blur-md transition-opacity duration-300 pointer-events-none">
+        <div class="w-12 h-12 rounded-full border-2 border-[#FACB7D]/20 border-t-[#FACB7D] animate-spin mb-4"></div>
+        <span id="viewport-loader-text" class="text-xs uppercase tracking-[0.25em] text-[#FACB7D] font-mono">Inicjalizacja sceny 3D...</span>
+      </div>
+
+      <!-- Canvas Three.js -->
+      <canvas id="canvas-3d" class="block w-full h-full"></canvas>
+
+      <!-- Pływające okno referencyjne SVG -->
+      <div id="ref-overlay" class="absolute top-6 left-6 z-20 hidden flex-col items-center p-4 rounded-2xl bg-black/85 border border-[#FACB7D]/40 backdrop-blur-xl shadow-2xl transition-all max-w-[220px]">
+        <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-white/10">
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#FACB7D] font-bold">Piktogram SVG</span>
+          <button id="btn-close-ref" class="text-white/50 hover:text-white text-xs cursor-pointer">✕</button>
+        </div>
+        <div class="w-36 h-36 flex items-center justify-center p-2">
+          <img src="assets/icons/icon_05_namioty.svg" alt="Piktogram Namiotu" class="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(250,203,125,0.5)]">
+        </div>
+        <span class="text-[9.5px] font-mono text-white/60 text-center mt-1">Cel: złote linie z przodu na ciemnym tle</span>
+      </div>
+
+      <!-- Dolny pasek kontroli kamery i auto-obrotu -->
+      <div class="absolute bottom-5 inset-x-0 z-20 flex justify-center pointer-events-none px-4">
+        <div class="pointer-events-auto flex items-center gap-3 px-4 py-2 rounded-full bg-black/70 border border-white/15 backdrop-blur-md shadow-2xl text-xs font-mono">
+          <button id="btn-toggle-rotate" type="button" class="px-3 py-1 rounded-full border border-[#FACB7D]/40 text-[#FACB7D] hover:bg-[#FACB7D]/20 transition-all flex items-center gap-1.5 cursor-pointer">
+            <span id="rotate-dot" class="w-1.5 h-1.5 rounded-full bg-[#FACB7D] animate-pulse"></span>
+            <span id="rotate-text">Auto-obrót: WŁĄCZONY</span>
+          </button>
+          <div class="w-px h-3.5 bg-white/20"></div>
+          <button id="btn-reset-cam" type="button" class="text-white/70 hover:text-white transition-colors cursor-pointer">
+            Reset Kamery
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRAWY PANEL KONFIGURACJI SHADERA -->
+    <div id="control-sidebar" class="w-[380px] sm:w-[420px] shrink-0 h-full border-l border-white/10 bg-[#070707]/95 backdrop-blur-2xl flex flex-col z-30 shadow-2xl">
+      
+      <!-- Nagłówek panelu -->
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+        <div>
+          <h2 class="font-serif text-sm font-bold tracking-wider text-[#FACB7D] uppercase">Style Shaderów</h2>
+          <p class="text-[10px] font-mono text-white/50 mt-0.5">100% akceleracja GPU bez zacinania</p>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+          60 FPS
+        </span>
+      </div>
+
+      <!-- Zawartość przewijana -->
+      <div class="flex-1 overflow-y-auto custom-scroll p-6 space-y-6">
+
+        <!-- 1. PRESETY SHADERÓW -->
+        <div class="space-y-2.5">
+          <label class="text-[11px] font-mono uppercase tracking-[0.2em] text-[#FACB7D] font-bold block">
+            1. Tryb Wizualny (Shader Engine)
+          </label>
+          <div class="grid grid-cols-2 gap-2">
+            
+            <!-- Preset 1: Piktogram Line-Art (Silhouette + Creases GPU) -->
+            <button 
+              type="button" 
+              data-mode="pictogram" 
+              class="mode-btn p-3 rounded-xl border border-[#FACB7D] bg-[#FACB7D]/15 text-left transition-all cursor-pointer"
+            >
+              <div class="text-xs font-bold text-[#FACB7D] mb-1 flex items-center justify-between">
+                <span>Piktogram SVG</span>
+                <span class="text-[8.5px] font-mono px-1.5 py-0.2 rounded bg-[#FACB7D] text-black font-extrabold">CEL</span>
+              </div>
+              <p class="text-[9.5px] text-white/70 leading-relaxed font-sans">
+                Złoty obrys frontowych krawędzi. Tył całkowicie zasłonięty.
+              </p>
+            </button>
+
+            <!-- Preset 2: Inverted Hull Toon -->
+            <button 
+              type="button" 
+              data-mode="hull" 
+              class="mode-btn p-3 rounded-xl border border-white/10 bg-white/5 hover:border-[#FACB7D]/50 text-left transition-all cursor-pointer"
+            >
+              <div class="text-xs font-bold text-white mb-1">
+                Toon Contour
+              </div>
+              <p class="text-[9.5px] text-white/60 leading-relaxed font-sans">
+                Wyrazisty obrys zewnętrzny bryły z okluzją głębi.
+              </p>
+            </button>
+
+            <!-- Preset 3: Złoty Cel-Shading -->
+            <button 
+              type="button" 
+              data-mode="cel" 
+              class="mode-btn p-3 rounded-xl border border-white/10 bg-white/5 hover:border-[#FACB7D]/50 text-left transition-all cursor-pointer"
+            >
+              <div class="text-xs font-bold text-white mb-1">
+                Złoty Cel-Shade
+              </div>
+              <p class="text-[9.5px] text-white/60 leading-relaxed font-sans">
+                Złote linie + subtelne dwutonowe cieniowanie powierzchni.
+              </p>
+            </button>
+
+            <!-- Preset 4: Złoty Blueprint / Hologram -->
+            <button 
+              type="button" 
+              data-mode="blueprint" 
+              class="mode-btn p-3 rounded-xl border border-white/10 bg-white/5 hover:border-[#FACB7D]/50 text-left transition-all cursor-pointer"
+            >
+              <div class="text-xs font-bold text-white mb-1">
+                Blueprint / Neon
+              </div>
+              <p class="text-[9.5px] text-white/60 leading-relaxed font-sans">
+                Świecące krawędzie ze złotym metalicznym refleksem.
+              </p>
+            </button>
+
+            <!-- Preset 5: Widok Realistyczny 3D -->
+            <button 
+              type="button" 
+              data-mode="realistic" 
+              class="mode-btn col-span-2 p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-white/30 text-left transition-all cursor-pointer flex items-center justify-between"
+            >
+              <span class="text-xs font-medium text-white/80">Widok Realistyczny 3D (Oryginalne materiały i światło)</span>
+              <span class="text-[10px] font-mono text-white/40">Porównaj →</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- 2. PARAMETRY KRAWĘDZI -->
+        <div class="space-y-4 pt-3 border-t border-white/10">
+          <label class="text-[11px] font-mono uppercase tracking-[0.2em] text-[#FACB7D] font-bold block">
+            2. Parametry Krawędzi i Konturu
+          </label>
+
+          <!-- Szerokość linii -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-1.5 font-mono">
+              <span class="text-white/80">Szerokość linii konturu</span>
+              <span id="val-thickness" class="text-[#FACB7D] font-bold">2.2</span>
+            </div>
+            <input id="slider-thickness" type="range" min="0.5" max="5.0" step="0.1" value="2.2" class="tune-slider">
+          </div>
+
+          <!-- Ostrość / Czułość krawędzi -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-1.5 font-mono">
+              <span class="text-white/80">Ostrość przejścia konturu</span>
+              <span id="val-sensitivity" class="text-[#FACB7D] font-bold">0.65</span>
+            </div>
+            <input id="slider-sensitivity" type="range" min="0.1" max="1.0" step="0.05" value="0.65" class="tune-slider">
+          </div>
+
+          <!-- Kolor linii konturu -->
+          <div>
+            <span class="text-xs text-white/80 font-mono block mb-2">Kolor linii</span>
+            <div class="grid grid-cols-4 gap-2">
+              <button type="button" data-color="#FACB7D" class="color-btn py-1.5 px-2 rounded-lg border border-[#FACB7D] bg-[#FACB7D]/20 text-[10.5px] font-mono text-[#FACB7D] font-bold text-center">
+                Brand Gold
+              </button>
+              <button type="button" data-color="#FFE4B5" class="color-btn py-1.5 px-2 rounded-lg border border-white/10 bg-white/5 text-[10.5px] font-mono text-white/80 text-center hover:border-white/30">
+                Light Gold
+              </button>
+              <button type="button" data-color="#FFFFFF" class="color-btn py-1.5 px-2 rounded-lg border border-white/10 bg-white/5 text-[10.5px] font-mono text-white/80 text-center hover:border-white/30">
+                Pure White
+              </button>
+              <button type="button" data-color="#E2B15B" class="color-btn py-1.5 px-2 rounded-lg border border-white/10 bg-white/5 text-[10.5px] font-mono text-white/80 text-center hover:border-white/30">
+                Deep Gold
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. PARAMETRY KORPUSU / POWIERZCHNI -->
+        <div class="space-y-4 pt-3 border-t border-white/10">
+          <label class="text-[11px] font-mono uppercase tracking-[0.2em] text-[#FACB7D] font-bold block">
+            3. Korpus Namiotu (Zasłanianie Tyłów)
+          </label>
+
+          <!-- Przezroczystość wypełnienia -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-1.5 font-mono">
+              <span class="text-white/80">Krycie powierzchni (Okluzja)</span>
+              <span id="val-fill-opacity" class="text-[#FACB7D] font-bold">100% (Czyste zasłanianie)</span>
+            </div>
+            <input id="slider-fill-opacity" type="range" min="0.0" max="1.0" step="0.05" value="1.0" class="tune-slider">
+            <span class="text-[9.5px] text-white/40 font-mono block mt-1">100% = tył całkowicie ukryty (identycznie jak w piktogramie)</span>
+          </div>
+
+          <!-- Styl masztów / słupków -->
+          <div class="space-y-2 pt-1">
+            <label class="flex items-center justify-between text-xs text-white/80 cursor-pointer">
+              <span>Złote maszty konstrukcyjne</span>
+              <input id="chk-gold-poles" type="checkbox" checked class="w-4 h-4 accent-[#FACB7D]">
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. RUCH I ELEMENTY SCENY -->
+        <div class="space-y-4 pt-3 border-t border-white/10">
+          <label class="text-[11px] font-mono uppercase tracking-[0.2em] text-[#FACB7D] font-bold block">
+            4. Dynamika i Scena
+          </label>
+
+          <!-- Prędkość obrotu -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-1.5 font-mono">
+              <span class="text-white/80">Prędkość obrotu pionowego</span>
+              <span id="val-rot-speed" class="text-[#FACB7D] font-bold">0.85x</span>
+            </div>
+            <input id="slider-rot-speed" type="range" min="0" max="3" step="0.05" value="0.85" class="tune-slider">
+          </div>
+
+          <!-- Podłoga -->
+          <div class="space-y-2 pt-1">
+            <label class="flex items-center justify-between text-xs text-white/80 cursor-pointer">
+              <span>Złoty pierścień pod namiotem</span>
+              <input id="chk-floor-ring" type="checkbox" checked class="w-4 h-4 accent-[#FACB7D]">
+            </label>
+            <label class="flex items-center justify-between text-xs text-white/80 cursor-pointer">
+              <span>Cień kontaktowy na podłodze</span>
+              <input id="chk-floor-shadow" type="checkbox" checked class="w-4 h-4 accent-[#FACB7D]">
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DOLNY PASEK ZAPISU -->
+      <div class="p-4 border-t border-white/10 bg-black/60 flex flex-col gap-2">
+        <button id="btn-export-settings" type="button" class="w-full py-2.5 rounded-xl bg-[#FACB7D] text-[#030303] font-bold text-xs uppercase tracking-wider hover:bg-[#ffe2b8] transition-all shadow-[0_0_20px_rgba(250,203,125,0.4)] cursor-pointer">
+          Zastosuj ten shader do strony głównej
+        </button>
+        <span id="export-msg" class="text-[10px] font-mono text-center text-[#FACB7D] opacity-0 transition-opacity">
+          Ustawienia zapisane!
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Three.js Pure GPU Script -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // Stan konfiguratora
+    const state = {
+      mode: 'pictogram',       // 'pictogram' | 'hull' | 'cel' | 'blueprint' | 'realistic'
+      lineColor: '#FACB7D',
+      thickness: 2.2,
+      sensitivity: 0.65,
+      fillOpacity: 1.0,
+      goldPoles: true,
+      bgColor: '#030303',
+      rotSpeed: 0.85,
+      autoRotate: true,
+      showFloorRing: true,
+      showFloorShadow: true
+    };
+
+    const container = document.getElementById('viewport-container');
+    const canvas = document.getElementById('canvas-3d');
+    const loaderEl = document.getElementById('viewport-loader');
+    const loaderText = document.getElementById('viewport-loader-text');
+    const fpsCounter = document.getElementById('fps-counter');
+
+    // 1. Scena, Kamera, Renderer
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(state.bgColor);
+
+    const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.set(0, 3.4, 7.8);
+    const cameraTarget = new THREE.Vector3(0, 1.25, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+
+    // PMREM IBL
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+    // 2. OrbitControls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.copy(cameraTarget);
+    controls.enablePan = false;
+    controls.enableZoom = true;
+    controls.autoRotate = state.autoRotate;
+    controls.autoRotateSpeed = state.rotSpeed;
+    controls.maxPolarAngle = Math.PI / 2 + 0.02;
+    controls.minDistance = 2.5;
+    controls.maxDistance = 14.0;
+
+    // 3. Oświetlenie studyjne
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xfffaec, 2.4);
+    keyLight.position.set(4.5, 8.0, 5.0);
+    keyLight.target.position.copy(cameraTarget);
+    scene.add(keyLight.target);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(1024, 1024);
+    keyLight.shadow.bias = -0.0004;
+    scene.add(keyLight);
+
+    const goldFill = new THREE.DirectionalLight(0xFACB7D, 1.5);
+    goldFill.position.set(-5.0, 4.0, -3.5);
+    scene.add(goldFill);
+
+    const rimLight = new THREE.DirectionalLight(0x99bbff, 1.1);
+    rimLight.position.set(0.0, 6.0, -6.5);
+    scene.add(rimLight);
+
+    // 4. Podłoga
+    const shadowGeo = new THREE.PlaneGeometry(16, 16);
+    const shadowMat = new THREE.ShadowMaterial({ opacity: 0.45 });
+    const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+    shadowMesh.rotation.x = -Math.PI / 2;
+    shadowMesh.position.y = -0.001;
+    shadowMesh.receiveShadow = true;
+    scene.add(shadowMesh);
+
+    const ringGeo = new THREE.RingGeometry(3.1, 3.125, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xFACB7D,
+      transparent: true,
+      opacity: 0.25,
+      side: THREE.DoubleSide
+    });
+    const floorRing = new THREE.Mesh(ringGeo, ringMat);
+    floorRing.rotation.x = -Math.PI / 2;
+    floorRing.position.y = 0.001;
+    scene.add(floorRing);
+
+    // ══════════════════════════════════════════════════
+    // SHADERY GPU (ZERO OBLICZEŃ NA CPU)
+    // ══════════════════════════════════════════════════
+
+    // 1. PURE GPU PICTOGRAM SHADER (Silhouette + Curvature)
+    // Wykrywa krawędzie z przodu bryły, a korpus wypełnia ciemną barwą piszącą do Z-bufora
+    const pictogramVertexShader = `
+      varying vec3 vNormal;
+      varying vec3 vViewPosition;
+      void main() {
+        vNormal = normalize(normalMatrix * normal);
+        vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+        vViewPosition = -mvPos.xyz;
+        gl_Position = projectionMatrix * mvPos;
+      }
+    `;
+
+    const pictogramFragmentShader = `
+      uniform vec3 uOutlineColor;
+      uniform vec3 uFillColor;
+      uniform float uFillOpacity;
+      uniform float uThickness;
+      uniform float uSensitivity;
+      varying vec3 vNormal;
+      varying vec3 vViewPosition;
+
+      void main() {
+        vec3 N = normalize(vNormal);
+        vec3 V = normalize(vViewPosition);
+
+        // Kąt normalnej do promienia widzenia (obrys zewnętrzny)
+        float dotNV = abs(dot(N, V));
+        float rim = 1.0 - dotNV;
+        
+        // Czysta krawędź sylwetki
+        float edge = smoothstep(1.0 - (uThickness * 0.08), 1.0, rim);
+
+        // Wykrywanie załamań geometrii za pomocą pochodnych ekranowych GPU
+        vec3 dNx = dFdx(N);
+        vec3 dNy = dFdy(N);
+        float curvature = length(dNx) + length(dNy);
+        float crease = smoothstep(1.0 - uSensitivity, 1.0, curvature * 2.0);
+
+        float line = clamp(edge + crease, 0.0, 1.0);
+
+        // Kolor: złota linia z przodu, ciemny nieprzezroczysty korpus z tyłu
+        vec3 finalCol = mix(uFillColor, uOutlineColor, line);
+        float alpha = max(line, uFillOpacity);
+
+        gl_FragColor = vec4(finalCol, alpha);
+      }
+    `;
+
+    // 2. INVERTED HULL SHADER (Backface Extrusion)
+    const hullVertexShader = `
+      uniform float uThickness;
+      void main() {
+        // Wypchnięcie wierzchołków na zewnątrz wzdłuż normalnych
+        vec3 displaced = position + normal * (uThickness * 0.003);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+      }
+    `;
+    const hullFragmentShader = `
+      uniform vec3 uOutlineColor;
+      void main() {
+        gl_FragColor = vec4(uOutlineColor, 1.0);
+      }
+    `;
+
+    // 3. CEL SHADING 2-TONE SHADER
+    const celFragmentShader = `
+      uniform vec3 uOutlineColor;
+      uniform vec3 uFillColor;
+      uniform float uThickness;
+      varying vec3 vNormal;
+      varying vec3 vViewPosition;
+
+      void main() {
+        vec3 N = normalize(vNormal);
+        vec3 V = normalize(vViewPosition);
+        vec3 L = normalize(vec3(0.5, 1.0, 0.6));
+
+        float dotNV = abs(dot(N, V));
+        float rim = 1.0 - dotNV;
+        float edge = smoothstep(1.0 - (uThickness * 0.08), 1.0, rim);
+
+        // Dwutonowe cieniowanie cel-shading
+        float NdotL = dot(N, L);
+        float tone = NdotL > 0.1 ? 0.25 : 0.05;
+        vec3 shadedFill = mix(uFillColor, uOutlineColor, tone);
+
+        vec3 col = mix(shadedFill, uOutlineColor, edge);
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `;
+
+    // ══════════════════════════════════════════════════
+    // WCZYTYWANIE MODELU
+    // ══════════════════════════════════════════════════
+    let tentModel = null;
+    let originalMaterials = new Map();
+    let hullGroup = new THREE.Group();
+    scene.add(hullGroup);
+
+    const loader = new GLTFLoader();
+    const startTime = performance.now();
+
+    loader.load('assets/3d/namiot.glb', (gltf) => {
+      tentModel = gltf.scene;
+
+      // Zapisujemy oryginalne materiały PBR
+      tentModel.traverse((child) => {
+        if (child.isMesh) {
+          originalMaterials.set(child, child.material);
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+
+      // Wycentrowanie i dopasowanie skali
+      const box = new THREE.Box3().setFromObject(tentModel);
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.z);
+      const scale = 5.2 / maxDim;
+      tentModel.scale.setScalar(scale);
+
+      box.setFromObject(tentModel);
+      const center = box.getCenter(new THREE.Vector3());
+      tentModel.position.x = -center.x;
+      tentModel.position.z = -center.z;
+      tentModel.position.y = -box.min.y;
+
+      cameraTarget.set(0, (box.max.y - box.min.y) * 0.42, 0);
+      controls.target.copy(cameraTarget);
+
+      // Aktualizuj pierścień
+      const baseRadius = Math.max(size.x, size.z) * scale * 0.56;
+      floorRing.geometry.dispose();
+      floorRing.geometry = new THREE.RingGeometry(baseRadius, baseRadius + 0.025, 64);
+
+      scene.add(tentModel);
+
+      // Zbuduj grupę Inverted Hull
+      createHullGroup();
+
+      // Zastosuj wybrany shader
+      applyMode(state.mode);
+
+      const elapsed = Math.round(performance.now() - startTime);
+      console.log(`Model namiot.glb wczytany w ${elapsed} ms`);
+
+      loaderEl.style.opacity = '0';
+      setTimeout(() => loaderEl.style.display = 'none', 300);
+
+    }, (xhr) => {
+      if (xhr.lengthComputable) {
+        const pct = Math.round((xhr.loaded / xhr.total) * 100);
+        loaderText.textContent = `Pobieranie namiot.glb: ${pct}%`;
+      }
+    }, (err) => {
+      loaderText.textContent = 'Błąd wczytywania modelu namiot.glb';
+      console.error(err);
+    });
+
+    // Tworzenie hull group dla trybu hull
+    function createHullGroup() {
+      hullGroup.clear();
+      tentModel.traverse((child) => {
+        if (child.isMesh) {
+          const hullMat = new THREE.ShaderMaterial({
+            vertexShader: hullVertexShader,
+            fragmentShader: hullFragmentShader,
+            uniforms: {
+              uThickness: { value: state.thickness },
+              uOutlineColor: { value: new THREE.Color(state.lineColor) }
+            },
+            side: THREE.BackSide,
+            depthWrite: true,
+            depthTest: true
+          });
+          const hullMesh = new THREE.Mesh(child.geometry, hullMat);
+          hullMesh.matrix = child.matrixWorld;
+          hullMesh.matrixAutoUpdate = false;
+          hullGroup.add(hullMesh);
+        }
+      });
+      hullGroup.scale.copy(tentModel.scale);
+      hullGroup.position.copy(tentModel.position);
+      hullGroup.rotation.copy(tentModel.rotation);
+      hullGroup.visible = false;
+    }
+
+    // ══════════════════════════════════════════════════
+    // APLIKACJA TRYBÓW SHADERÓW
+    // ══════════════════════════════════════════════════
+    function applyMode(mode) {
+      if (!tentModel) return;
+
+      hullGroup.visible = (mode === 'hull');
+
+      tentModel.traverse((child) => {
+        if (!child.isMesh) return;
+
+        const isPole = child.material && child.material.name === 'POLE_ALU';
+
+        // Jeśli włączone złote maszty:
+        if (state.goldPoles && isPole && mode !== 'realistic') {
+          child.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color(state.lineColor),
+            side: THREE.DoubleSide
+          });
+          return;
+        }
+
+        if (mode === 'realistic') {
+          child.material = originalMaterials.get(child) || child.material;
+          child.material.side = THREE.DoubleSide;
+        } 
+        else if (mode === 'pictogram') {
+          // PURE GPU PICTOGRAM SHADER
+          child.material = new THREE.ShaderMaterial({
+            vertexShader: pictogramVertexShader,
+            fragmentShader: pictogramFragmentShader,
+            uniforms: {
+              uOutlineColor: { value: new THREE.Color(state.lineColor) },
+              uFillColor: { value: new THREE.Color(state.bgColor) },
+              uFillOpacity: { value: state.fillOpacity },
+              uThickness: { value: state.thickness },
+              uSensitivity: { value: state.sensitivity }
+            },
+            side: THREE.DoubleSide,
+            transparent: state.fillOpacity < 1.0,
+            depthWrite: true,
+            depthTest: true
+          });
+        }
+        else if (mode === 'hull') {
+          // Inverted hull: korpus czarny kryjący
+          child.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color(state.bgColor),
+            side: THREE.DoubleSide,
+            polygonOffset: true,
+            polygonOffsetFactor: 1,
+            polygonOffsetUnits: 1
+          });
+        }
+        else if (mode === 'cel') {
+          // Złoty Cel-Shade
+          child.material = new THREE.ShaderMaterial({
+            vertexShader: pictogramVertexShader,
+            fragmentShader: celFragmentShader,
+            uniforms: {
+              uOutlineColor: { value: new THREE.Color(state.lineColor) },
+              uFillColor: { value: new THREE.Color(state.bgColor) },
+              uThickness: { value: state.thickness }
+            },
+            side: THREE.DoubleSide
+          });
+        }
+        else if (mode === 'blueprint') {
+          // Złoty Blueprint
+          child.material = new THREE.MeshStandardMaterial({
+            color: 0x080603,
+            emissive: new THREE.Color(state.lineColor),
+            emissiveIntensity: 0.15,
+            roughness: 0.25,
+            metalness: 0.9,
+            side: THREE.DoubleSide
+          });
+        }
+      });
+    }
+
+    function updateUniforms() {
+      if (!tentModel) return;
+
+      scene.background.set(state.bgColor);
+
+      tentModel.traverse((child) => {
+        if (child.isMesh && child.material.isShaderMaterial && child.material.uniforms.uOutlineColor) {
+          child.material.uniforms.uOutlineColor.value.set(state.lineColor);
+          child.material.uniforms.uFillColor.value.set(state.bgColor);
+          if (child.material.uniforms.uThickness) child.material.uniforms.uThickness.value = state.thickness;
+          if (child.material.uniforms.uSensitivity) child.material.uniforms.uSensitivity.value = state.sensitivity;
+          if (child.material.uniforms.uFillOpacity) child.material.uniforms.uFillOpacity.value = state.fillOpacity;
+          child.material.transparent = state.fillOpacity < 1.0;
+        } else if (child.isMesh && child.material.isMeshBasicMaterial) {
+          const isPole = child.material.name === 'POLE_ALU';
+          if (state.goldPoles && isPole) {
+            child.material.color.set(state.lineColor);
+          } else {
+            child.material.color.set(state.bgColor);
+          }
+        }
+      });
+
+      hullGroup.traverse((child) => {
+        if (child.isMesh && child.material.uniforms) {
+          child.material.uniforms.uThickness.value = state.thickness;
+          child.material.uniforms.uOutlineColor.value.set(state.lineColor);
+        }
+      });
+
+      floorRing.visible = state.showFloorRing;
+      shadowMesh.visible = state.showFloorShadow;
+      floorRing.material.color.set(state.lineColor);
+
+      controls.autoRotate = state.autoRotate;
+      controls.autoRotateSpeed = state.rotSpeed;
+    }
+
+    // ══════════════════════════════════════════════════
+    // PĘTLA RENDEROWANIA & FPS
+    // ══════════════════════════════════════════════════
+    let frameCount = 0;
+    let lastFpsTime = performance.now();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Pomiar FPS
+      frameCount++;
+      const now = performance.now();
+      if (now - lastFpsTime >= 1000) {
+        const fps = Math.round((frameCount * 1000) / (now - lastFpsTime));
+        fpsCounter.textContent = `${fps} FPS`;
+        frameCount = 0;
+        lastFpsTime = now;
+      }
+
+      controls.update();
+
+      // Synchronizacja obrotu hull group
+      if (tentModel && hullGroup.visible) {
+        hullGroup.position.copy(tentModel.position);
+        hullGroup.rotation.copy(tentModel.rotation);
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // ══════════════════════════════════════════════════
+    // OBSŁUGA INTERFEJSU
+    // ══════════════════════════════════════════════════
+
+    // 1. Presety
+    const modeBtns = document.querySelectorAll('.mode-btn');
+    modeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modeBtns.forEach(b => {
+          b.classList.remove('border-[#FACB7D]', 'bg-[#FACB7D]/15');
+          b.classList.add('border-white/10', 'bg-white/5');
+          const t = b.querySelector('.font-bold');
+          if (t) t.classList.remove('text-[#FACB7D]');
+        });
+
+        btn.classList.add('border-[#FACB7D]', 'bg-[#FACB7D]/15');
+        btn.classList.remove('border-white/10', 'bg-white/5');
+        const t = btn.querySelector('.font-bold');
+        if (t) t.classList.add('text-[#FACB7D]');
+
+        state.mode = btn.dataset.mode;
+        applyMode(state.mode);
+        updateUniforms();
+      });
+    });
+
+    // 2. Grubość linii
+    const sliderThickness = document.getElementById('slider-thickness');
+    const valThickness = document.getElementById('val-thickness');
+    sliderThickness.addEventListener('input', (e) => {
+      state.thickness = parseFloat(e.target.value);
+      valThickness.textContent = state.thickness.toFixed(1);
+      updateUniforms();
+    });
+
+    // 3. Czułość
+    const sliderSensitivity = document.getElementById('slider-sensitivity');
+    const valSensitivity = document.getElementById('val-sensitivity');
+    sliderSensitivity.addEventListener('input', (e) => {
+      state.sensitivity = parseFloat(e.target.value);
+      valSensitivity.textContent = state.sensitivity.toFixed(2);
+      updateUniforms();
+    });
+
+    // 4. Kolory
+    const colorBtns = document.querySelectorAll('.color-btn');
+    colorBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        colorBtns.forEach(b => {
+          b.classList.remove('border-[#FACB7D]', 'bg-[#FACB7D]/20', 'text-[#FACB7D]');
+          b.classList.add('border-white/10', 'bg-white/5', 'text-white/80');
+        });
+        btn.classList.add('border-[#FACB7D]', 'bg-[#FACB7D]/20', 'text-[#FACB7D]');
+        btn.classList.remove('border-white/10', 'bg-white/5', 'text-white/80');
+
+        state.lineColor = btn.dataset.color;
+        updateUniforms();
+      });
+    });
+
+    // 5. Krycie powierzchni
+    const sliderFillOpacity = document.getElementById('slider-fill-opacity');
+    const valFillOpacity = document.getElementById('val-fill-opacity');
+    sliderFillOpacity.addEventListener('input', (e) => {
+      state.fillOpacity = parseFloat(e.target.value);
+      valFillOpacity.textContent = Math.round(state.fillOpacity * 100) + '%';
+      updateUniforms();
+    });
+
+    // 6. Złote maszty
+    document.getElementById('chk-gold-poles').addEventListener('change', (e) => {
+      state.goldPoles = e.target.checked;
+      applyMode(state.mode);
+      updateUniforms();
+    });
+
+    // 7. Prędkość obrotu
+    const sliderRotSpeed = document.getElementById('slider-rot-speed');
+    const valRotSpeed = document.getElementById('val-rot-speed');
+    sliderRotSpeed.addEventListener('input', (e) => {
+      state.rotSpeed = parseFloat(e.target.value);
+      valRotSpeed.textContent = state.rotSpeed.toFixed(2) + 'x';
+      updateUniforms();
+    });
+
+    // 8. Auto-obrót toggle
+    const btnToggleRotate = document.getElementById('btn-toggle-rotate');
+    const rotateDot = document.getElementById('rotate-dot');
+    const rotateText = document.getElementById('rotate-text');
+    btnToggleRotate.addEventListener('click', () => {
+      state.autoRotate = !state.autoRotate;
+      controls.autoRotate = state.autoRotate;
+      if (state.autoRotate) {
+        rotateDot.classList.add('animate-pulse', 'bg-[#FACB7D]');
+        rotateDot.classList.remove('bg-white/30');
+        rotateText.textContent = 'Auto-obrót: WŁĄCZONY';
+      } else {
+        rotateDot.classList.remove('animate-pulse', 'bg-[#FACB7D]');
+        rotateDot.classList.add('bg-white/30');
+        rotateText.textContent = 'Auto-obrót: ZATRZYMANY';
+      }
+    });
+
+    // 9. Reset kamery
+    document.getElementById('btn-reset-cam').addEventListener('click', () => {
+      camera.position.set(0, 3.4, 7.8);
+      controls.target.copy(cameraTarget);
+      controls.update();
+    });
+
+    // 10. Podłoga checkboxy
+    document.getElementById('chk-floor-ring').addEventListener('change', (e) => {
+      state.showFloorRing = e.target.checked;
+      updateUniforms();
+    });
+    document.getElementById('chk-floor-shadow').addEventListener('change', (e) => {
+      state.showFloorShadow = e.target.checked;
+      updateUniforms();
+    });
+
+    // 11. Overlay referencji SVG
+    const refOverlay = document.getElementById('ref-overlay');
+    document.getElementById('btn-toggle-ref').addEventListener('click', () => {
+      refOverlay.classList.toggle('hidden');
+    });
+    document.getElementById('btn-close-ref').addEventListener('click', () => {
+      refOverlay.classList.add('hidden');
+    });
+
+    // 12. Eksport
+    document.getElementById('btn-export-settings').addEventListener('click', () => {
+      const json = JSON.stringify(state, null, 2);
+      navigator.clipboard.writeText(json).catch(() => {});
+      const msg = document.getElementById('export-msg');
+      msg.textContent = `Wybrany tryb: "${state.mode.toUpperCase()}" skopiowany!`;
+      msg.style.opacity = '1';
+      setTimeout(() => msg.style.opacity = '0', 3000);
+    });
+
+    // 13. Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+  </script>
+</body>
+</html>
