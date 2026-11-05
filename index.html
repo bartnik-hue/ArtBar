@@ -1383,6 +1383,49 @@
       border-radius: var(--dept-btn-radius) !important;
     }
 
+    /* Bezpieczne boczne marginesy (padding) modala działów menu radialnego,
+       gwarantujące, że treść na mniejszych ekranach nigdy nie wchodzi pod boczne strzałki nawigacyjne */
+    @media (max-width: 639px) {
+      #dept-modal-main,
+      #dept-modal-header,
+      #dept-modal-footer {
+        padding-left: 52px !important;
+        padding-right: 52px !important;
+      }
+    }
+    @media (min-width: 640px) and (max-width: 767px) {
+      #dept-modal-main,
+      #dept-modal-header,
+      #dept-modal-footer {
+        padding-left: 68px !important;
+        padding-right: 68px !important;
+      }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      #dept-modal-main,
+      #dept-modal-header,
+      #dept-modal-footer {
+        padding-left: 84px !important;
+        padding-right: 84px !important;
+      }
+    }
+    @media (min-width: 1024px) and (max-width: 1279px) {
+      #dept-modal-main,
+      #dept-modal-header,
+      #dept-modal-footer {
+        padding-left: 92px !important;
+        padding-right: 92px !important;
+      }
+    }
+    @media (min-width: 1280px) and (max-width: 1535px) {
+      #dept-modal-main,
+      #dept-modal-header,
+      #dept-modal-footer {
+        padding-left: 96px !important;
+        padding-right: 96px !important;
+      }
+    }
+
     /* NOWE PIKTOGRAMY DZIAŁÓW RADIALNYCH */
     .icon-symbol-wrap svg .cls-1,
     #modal-icon-wrap svg .cls-1,
