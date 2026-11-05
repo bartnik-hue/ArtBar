@@ -1385,6 +1385,9 @@
 
     /* Bezpieczne boczne marginesy (padding) modala działów menu radialnego,
        gwarantujące, że treść na mniejszych ekranach nigdy nie wchodzi pod boczne strzałki nawigacyjne */
+    #dept-modal-piktogramy-bar {
+      max-width: var(--dept-main-max-width) !important;
+    }
     @media (max-width: 639px) {
       #dept-modal-main,
       #dept-modal-header,
@@ -1392,10 +1395,15 @@
         padding-left: 52px !important;
         padding-right: 52px !important;
       }
+      #dept-modal-piktogramy-bar {
+        padding-left: 36px !important;
+        padding-right: 36px !important;
+      }
     }
     @media (min-width: 640px) and (max-width: 767px) {
       #dept-modal-main,
       #dept-modal-header,
+      #dept-modal-piktogramy-bar,
       #dept-modal-footer {
         padding-left: 68px !important;
         padding-right: 68px !important;
@@ -1404,6 +1412,7 @@
     @media (min-width: 768px) and (max-width: 1023px) {
       #dept-modal-main,
       #dept-modal-header,
+      #dept-modal-piktogramy-bar,
       #dept-modal-footer {
         padding-left: 84px !important;
         padding-right: 84px !important;
@@ -1412,6 +1421,7 @@
     @media (min-width: 1024px) and (max-width: 1279px) {
       #dept-modal-main,
       #dept-modal-header,
+      #dept-modal-piktogramy-bar,
       #dept-modal-footer {
         padding-left: 92px !important;
         padding-right: 92px !important;
@@ -1420,10 +1430,56 @@
     @media (min-width: 1280px) and (max-width: 1535px) {
       #dept-modal-main,
       #dept-modal-header,
+      #dept-modal-piktogramy-bar,
       #dept-modal-footer {
         padding-left: 96px !important;
         padding-right: 96px !important;
       }
+    }
+
+    /* Piktogramy w górnym menu modalnym (Wersja A) - gwarancja szlachetnego złota */
+    .svg-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .svg-icon svg path,
+    .svg-icon svg polygon,
+    .svg-icon svg rect,
+    .svg-icon svg circle,
+    .svg-icon svg line,
+    .svg-icon .cls-1 {
+      fill: #FACB7D !important;
+      stroke: none;
+      transition: fill 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dept-topbar-item.tab-inactive .svg-icon {
+      opacity: 0.55;
+      filter: drop-shadow(0 0 2px rgba(250, 203, 125, 0.25));
+      transform: scale(0.95);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dept-topbar-item.tab-inactive:hover .svg-icon {
+      opacity: 0.95;
+      filter: drop-shadow(0 0 8px rgba(250, 203, 125, 0.65));
+      transform: scale(1.06);
+    }
+    .dept-topbar-item.tab-active .svg-icon {
+      opacity: 1 !important;
+      filter: drop-shadow(0 0 10px rgba(250, 203, 125, 0.85)) drop-shadow(0 0 20px rgba(250, 203, 125, 0.4));
+      transform: scale(1.1);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dept-topbar-item {
+      transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* NOWE PIKTOGRAMY DZIAŁÓW RADIALNYCH */
@@ -3139,6 +3195,9 @@
         </button>
       </header>
 
+      <!-- GÓRNY PASEK NAWIGACJI PIKTOGRAMOWEJ (WERSJA A: WSZYSTKIE 6 DZIAŁÓW + STRZAŁKI ‹ ›) -->
+      <nav id="dept-modal-piktogramy-bar" aria-label="Nawigacja piktogramowa działami" class="relative z-30 w-full mx-auto pt-2 sm:pt-3.5 pb-1 sm:pb-2"></nav>
+
       <!-- GŁÓWNA TREŚĆ DZIAŁU NA PEŁNYM EKRANIE -->
       <main id="dept-modal-main" class="w-full mx-auto flex-1 flex flex-col">
         
@@ -4658,6 +4717,75 @@
       return text.replace(/(^|[\s>(])([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\s+/g, '$1$2&nbsp;');
     }
 
+    // ══════════════════════════════════════════════════════════════
+    // RENDEROWANIE GÓRNEGO PASKA NAWIGACJI PIKTOGRAMOWEJ (WERSJA A)
+    // ══════════════════════════════════════════════════════════════
+    function renderDeptTopbarNav(activeIdx) {
+      const bar = document.getElementById('dept-modal-piktogramy-bar');
+      if (!bar) return;
+
+      bar.innerHTML = `
+        <div class="w-full flex items-center gap-1.5 sm:gap-3 select-none">
+          
+          <!-- STRZAŁKA W LEWO (Poprzedni dział) -->
+          <button type="button" onclick="(() => { const p = (currentOpenDeptIdx - 1 + DEPARTMENTS.length) % DEPARTMENTS.length; openDeptModal(p); })()" aria-label="Poprzedni dział" title="Poprzedni dział (‹)"
+                  class="w-7 h-11 sm:w-11 sm:h-14 rounded-xl sm:rounded-2xl bg-[#0a0a09]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0 cursor-pointer group active:scale-95">
+            <svg class="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#FACB7D] transition-transform duration-300 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- PASEK 6 KAFELKÓW -->
+          <div class="flex-1 grid grid-cols-6 gap-1 sm:gap-2.5 p-1 sm:p-2 bg-[#080807]/90 border border-[#FACB7D]/25 rounded-xl sm:rounded-2xl backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+            ${DEPARTMENTS.map((dept, idx) => {
+              const isActive = idx === activeIdx;
+              const mobileTitle = dept.title === 'FABRYKA LODU' ? 'FABRYKA<br>LODU' : dept.title;
+
+              return `
+                <button type="button" onclick="openDeptModal(${idx})"
+                        title="${dept.title}"
+                        class="dept-topbar-item group relative flex flex-col md:flex-row items-center justify-center px-0.5 py-1 sm:p-2.5 rounded-lg sm:rounded-xl cursor-pointer select-none overflow-hidden text-center md:text-left
+                               ${isActive 
+                                 ? 'tab-active bg-gradient-to-b md:bg-gradient-to-r from-[#221b0f] via-[#1a150c] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_25px_rgba(250,203,125,0.35)] scale-[1.02]' 
+                                 : 'tab-inactive bg-black/40 border border-white/5 hover:border-[#FACB7D]/40 hover:bg-white/[0.03]'}">
+                  
+                  <!-- Piktogram SVG (Większy, złoty) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 shrink-0 flex items-center justify-center mb-0.5 md:mb-0">
+                    <div class="svg-icon w-full h-full">
+                      ${dept.iconSvg}
+                    </div>
+                  </div>
+
+                  <!-- Tytuł: na tel pod spodem mniejszy (Fabryka Lodu w 2 liniach), na PC po prawej stronie -->
+                  <div class="flex flex-col justify-center text-center md:text-left overflow-hidden md:ml-2.5">
+                    <span class="block md:hidden text-[6.8px] font-bold uppercase tracking-tighter text-white leading-[1.05] ${isActive ? 'font-extrabold text-[#FACB7D]' : 'text-white/75 group-hover:text-white'}">
+                      ${mobileTitle}
+                    </span>
+                    <span class="hidden md:block text-[10.5px] xl:text-[12px] font-extrabold uppercase tracking-tight xl:tracking-wide text-white whitespace-nowrap drop-shadow">
+                      ${dept.title}
+                    </span>
+                  </div>
+
+                  <!-- Aktywny złoty pasek u dołu ze stylem z 2B -->
+                  ${isActive ? '<div class="absolute bottom-0 left-1.5 right-1.5 h-[2px] bg-[#FACB7D] shadow-[0_0_8px_#FACB7D]"></div>' : ''}
+
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- STRZAŁKA W PRAWO (Następny dział) -->
+          <button type="button" onclick="(() => { const n = (currentOpenDeptIdx + 1) % DEPARTMENTS.length; openDeptModal(n); })()" aria-label="Następny dział" title="Następny dział (›)"
+                  class="w-7 h-11 sm:w-11 sm:h-14 rounded-xl sm:rounded-2xl bg-[#0a0a09]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0 cursor-pointer group active:scale-95">
+            <svg class="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#FACB7D] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+
+        </div>
+      `;
+    }
+
     function openDeptModal(idx) {
       currentOpenDeptIdx = idx;
       const dept = DEPARTMENTS[idx];
@@ -4666,6 +4794,7 @@
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
 
+      renderDeptTopbarNav(idx);
       modalIconWrap.innerHTML = dept.iconSvg;
       if (modalBadge) modalBadge.textContent = dept.badge;
       modalTitle.textContent = dept.title;
