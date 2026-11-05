@@ -4761,72 +4761,61 @@
       if (!bar) return;
 
       bar.innerHTML = `
-        <div class="w-full flex items-stretch gap-1 sm:gap-2 md:gap-2.5 select-none">
-          
-          <!-- STRZAŁKA W LEWO (Poprzedni dział) -->
-          <button type="button" onclick="(() => { const p = (currentOpenDeptIdx - 1 + DEPARTMENTS.length) % DEPARTMENTS.length; openDeptModal(p); })()" aria-label="Poprzedni dział" title="Poprzedni dział (‹)"
-                  class="self-stretch w-6 sm:w-8 md:w-9 lg:w-10 rounded-lg sm:rounded-xl md:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
-            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FACB7D] transition-transform duration-300 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
-            </svg>
-          </button>
+        <div class="w-full grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2 items-stretch select-none">
+          ${DEPARTMENTS.map((dept, idx) => {
+            const isActive = idx === activeIdx;
+            const formattedTitle = dept.title === 'FABRYKA LODU' ? 'FABRYKA<br>LODU' : dept.title;
 
-          <!-- GRUPA 6 PRZYCISKÓW DZIAŁÓW (PŁYNNIE SKALUJĄCY SIĘ UKŁAD PIONOWY BEZ UCIĘĆ) -->
-          <div class="flex-1 grid grid-cols-6 gap-0.5 sm:gap-1.5 md:gap-2 items-stretch">
-            ${DEPARTMENTS.map((dept, idx) => {
-              const isActive = idx === activeIdx;
-              const formattedTitle = dept.title === 'FABRYKA LODU' ? 'FABRYKA<br>LODU' : dept.title;
-
-              return `
-                <button type="button" onclick="openDeptModal(${idx})"
-                        title="${dept.title}"
-                        class="dept-topbar-item group relative flex flex-col items-center justify-center rounded-lg sm:rounded-xl md:rounded-2xl cursor-pointer select-none overflow-hidden text-center transition-all duration-300
-                               ${isActive 
-                                 ? 'tab-active bg-gradient-to-b from-[#2c2213] via-[#1e170d] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_24px_rgba(250,203,125,0.4)] scale-[1.01]' 
-                                 : 'tab-inactive bg-black/40 hover:bg-[#FACB7D]/12 border border-white/10 hover:border-[#FACB7D]/45 backdrop-blur-md hover:scale-[1.01]'}">
-                  
-                  <!-- Piktogram SVG (Płynnie skalowany z ekranem) -->
-                  <div class="dept-topbar-icon shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                    <div class="svg-icon w-full h-full">
-                      ${dept.iconSvg}
-                    </div>
+            return `
+              <button type="button" onclick="openDeptModal(${idx})"
+                      title="${dept.title}"
+                      class="dept-topbar-item group relative flex flex-col items-center justify-center rounded-lg sm:rounded-xl md:rounded-2xl cursor-pointer select-none overflow-hidden text-center transition-all duration-300
+                             ${isActive 
+                               ? 'tab-active bg-gradient-to-b from-[#2c2213] via-[#1e170d] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_24px_rgba(250,203,125,0.4)] scale-[1.01]' 
+                               : 'tab-inactive bg-black/40 hover:bg-[#FACB7D]/12 border border-white/10 hover:border-[#FACB7D]/45 backdrop-blur-md hover:scale-[1.01]'}">
+                
+                <!-- Piktogram SVG (Płynnie skalowany z ekranem) -->
+                <div class="dept-topbar-icon shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                  <div class="svg-icon w-full h-full">
+                    ${dept.iconSvg}
                   </div>
+                </div>
 
-                  <!-- Tytuł działu (Płynna typografia fluid clamp, zawsze w 100% czytelna i bez ucięć) -->
-                  <div class="w-full flex flex-col justify-center text-center overflow-hidden">
-                    <span class="dept-topbar-title ${isActive ? 'text-[#FACB7D]' : 'text-white/85 group-hover:text-white'}">
-                      ${formattedTitle}
-                    </span>
-                  </div>
+                <!-- Tytuł działu (Płynna typografia fluid clamp, zawsze w 100% czytelna i bez ucięć) -->
+                <div class="w-full flex flex-col justify-center text-center overflow-hidden">
+                  <span class="dept-topbar-title ${isActive ? 'text-[#FACB7D]' : 'text-white/85 group-hover:text-white'}">
+                    ${formattedTitle}
+                  </span>
+                </div>
 
-                  <!-- Aktywny złoty pasek akcentujący u dołu -->
-                  ${isActive ? '<div class="absolute bottom-0 left-1.5 right-1.5 h-[2px] bg-[#FACB7D] shadow-[0_0_8px_#FACB7D] rounded-full"></div>' : ''}
+                <!-- Aktywny złoty pasek akcentujący u dołu -->
+                ${isActive ? '<div class="absolute bottom-0 left-1.5 right-1.5 h-[2px] bg-[#FACB7D] shadow-[0_0_8px_#FACB7D] rounded-full"></div>' : ''}
 
-                </button>
-              `;
-            }).join('')}
-          </div>
+              </button>
+            `;
+          }).join('')}
 
-          <!-- STRZAŁKA W PRAWO (Następny dział) -->
-          <button type="button" onclick="(() => { const n = (currentOpenDeptIdx + 1) % DEPARTMENTS.length; openDeptModal(n); })()" aria-label="Następny dział" title="Następny dział (›)"
-                  class="self-stretch w-6 sm:w-8 md:w-9 lg:w-10 rounded-lg sm:rounded-xl md:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
-            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FACB7D] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-            </svg>
-          </button>
+          <!-- 7. PRZYCISK POWRÓT DO STRONY GŁÓWNEJ (W TAKIM SAMYM KSZTAŁCIE JAK POZOSTAŁE PRZYCISKI) -->
+          <button id="dept-modal-topbar-close-btn" type="button" onclick="closeDeptModal()"
+                  title="Powrót do strony głównej (Esc)" aria-label="Powrót do strony głównej"
+                  class="dept-topbar-item group relative flex flex-col items-center justify-center rounded-lg sm:rounded-xl md:rounded-2xl cursor-pointer select-none overflow-hidden text-center transition-all duration-300
+                         tab-inactive bg-black/40 hover:bg-[#FACB7D]/15 border border-[#FACB7D]/30 hover:border-[#FACB7D] backdrop-blur-md hover:scale-[1.01]">
+            
+            <!-- Piktogram X (zamknięcie / powrót) -->
+            <div class="dept-topbar-icon shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-90">
+              <div class="w-full h-full flex items-center justify-center p-1 sm:p-2 md:p-3">
+                <svg class="w-full h-full text-[#FACB7D] filter drop-shadow-[0_0_6px_rgba(250,203,125,0.6)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </div>
+            </div>
 
-          <!-- PRZYCISK POWRÓT DO STRONY GŁÓWNEJ (PO PRAWEJ OD STRZAŁKI W PRAWO) -->
-          <button id="dept-modal-topbar-close-btn" type="button" onclick="closeDeptModal()" aria-label="Powrót do strony głównej" title="Powrót do strony głównej (Esc)"
-                  class="self-stretch flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 px-2 sm:px-2.5 md:px-3 lg:px-4 rounded-lg sm:rounded-xl md:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/35 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] hover:text-white transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
-            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FACB7D] transition-transform duration-300 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-            <span class="hidden sm:inline lg:hidden text-[9px] font-extrabold uppercase tracking-wider whitespace-nowrap text-[#FACB7D] group-hover:text-white">
-              Powrót
-            </span>
-            <span class="hidden lg:inline text-[10px] xl:text-[11.5px] 2xl:text-[12px] font-extrabold uppercase tracking-wider whitespace-nowrap text-[#FACB7D] group-hover:text-white">
-              Powrót do strony głównej
-            </span>
+            <!-- Tytuł przycisku powrotu -->
+            <div class="w-full flex flex-col justify-center text-center overflow-hidden">
+              <span class="dept-topbar-title text-[#FACB7D] group-hover:text-white">
+                POWRÓT
+              </span>
+            </div>
           </button>
 
         </div>
