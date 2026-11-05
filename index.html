@@ -1030,15 +1030,45 @@
     #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(3) { transition-delay: 0.40s; }
     #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(4) { transition-delay: 0.52s; }
 
-    /* SKALOWANIE IKONY DZIAŁU W NAGŁÓWKU MODALA (3X WIĘKSZA) */
-    #modal-icon-wrap svg {
-      width: 4.5rem !important;
-      height: 4.5rem !important;
+    /* Monumentalny piktogram działu jako symbol w tle strony (bez ramki, z subtelnym wejściem na tekst) */
+    .dept-watermark-symbol {
+      position: absolute !important;
+      top: -30px !important;
+      left: clamp(-15px, 2vw, 35px) !important;
+      width: clamp(240px, 34vw, 500px) !important;
+      height: clamp(240px, 34vw, 500px) !important;
+      z-index: 0 !important;
+      pointer-events: none !important;
+      user-select: none !important;
+      opacity: 0.18 !important;
+      filter: drop-shadow(0 0 35px rgba(250, 203, 125, 0.35)) !important;
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
-    @media (min-width: 640px) {
-      #modal-icon-wrap svg {
-        width: 7.5rem !important; /* 120px = 3x pierwotnego 40px (w-10) */
-        height: 7.5rem !important;
+    .dept-watermark-symbol svg {
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+    }
+    .dept-watermark-symbol svg path,
+    .dept-watermark-symbol svg polygon,
+    .dept-watermark-symbol svg rect,
+    .dept-watermark-symbol svg circle,
+    .dept-watermark-symbol svg line,
+    .dept-watermark-symbol .cls-1 {
+      fill: rgba(250, 203, 125, 0.08) !important;
+      stroke: #FACB7D !important;
+      stroke-width: 4px !important;
+      stroke-linecap: round !important;
+      stroke-linejoin: round !important;
+    }
+    @media (max-width: 639px) {
+      .dept-watermark-symbol {
+        top: -15px !important;
+        left: -15px !important;
+        width: clamp(200px, 62vw, 300px) !important;
+        height: clamp(200px, 62vw, 300px) !important;
+        opacity: 0.16 !important;
       }
     }
 
@@ -1226,19 +1256,22 @@
       max-width: var(--dept-main-max-width) !important;
     }
     #dept-modal-header-brand {
-      gap: clamp(16px, 3vw, var(--dept-header-gap)) !important;
-    }
-    #modal-icon-wrap {
-      width: clamp(72px, 10vw, var(--dept-header-icon-size)) !important;
-      height: clamp(72px, 10vw, var(--dept-header-icon-size)) !important;
+      position: relative !important;
+      z-index: 10 !important;
     }
     #modal-title {
       font-size: clamp(28px, 4.5vw, var(--dept-header-title-size)) !important;
       line-height: 1.05 !important;
+      text-shadow: 0 4px 25px rgba(0,0,0,0.95), 0 0 12px rgba(0,0,0,0.85) !important;
+      position: relative !important;
+      z-index: 10 !important;
     }
     #modal-subtitle {
       font-size: clamp(12px, 1.3vw, var(--dept-header-subtitle-size)) !important;
       margin-top: var(--dept-header-subtitle-mt) !important;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.9) !important;
+      position: relative !important;
+      z-index: 10 !important;
     }
 
     #dept-modal-main {
@@ -3185,21 +3218,20 @@
       <nav id="dept-modal-piktogramy-bar" aria-label="Nawigacja piktogramowa działami" class="relative z-30 w-full mx-auto pt-3 sm:pt-4 md:pt-5 pb-1 sm:pb-2"></nav>
 
       <!-- GÓRNY PASEK NAWIGACJI PEŁNEGO EKRANU -->
-      <header id="dept-modal-header" class="relative z-20 w-full mx-auto flex items-center justify-between border-b border-white/5">
-        <div id="dept-modal-header-brand" class="flex items-center">
-          <div id="modal-icon-wrap" class="rounded-2xl sm:rounded-3xl bg-[#FACB7D]/10 flex items-center justify-center shrink-0 shadow-[0_0_35px_rgba(250,203,125,0.35)] border border-[#FACB7D]/20">
-            <!-- Ikona wstawiana dynamicznie -->
-          </div>
-          <div>
-            <h2 id="modal-title" class="font-serif-luxury font-black text-white leading-tight">
-              Tytuł Działu
-            </h2>
-            <p id="modal-subtitle" class="text-[#FACB7D] font-semibold tracking-wider uppercase">
-              Podtytuł Działu
-            </p>
-          </div>
+      <header id="dept-modal-header" class="relative z-20 w-full mx-auto flex items-center justify-between border-b border-white/5 overflow-visible">
+        <div id="dept-modal-header-brand" class="relative z-10 flex flex-col justify-center">
+          <h2 id="modal-title" class="font-serif-luxury font-black text-white leading-tight">
+            Tytuł Działu
+          </h2>
+          <p id="modal-subtitle" class="text-[#FACB7D] font-semibold tracking-wider uppercase">
+            Podtytuł Działu
+          </p>
         </div>
 
+        <!-- Monumentalny piktogram działu jako symbol w tle strony (bez ramki i bez glow-boxa) -->
+        <div id="modal-icon-wrap" class="dept-watermark-symbol pointer-events-none select-none" aria-hidden="true">
+          <!-- Ikona wstawiana dynamicznie -->
+        </div>
       </header>
 
       <!-- GŁÓWNA TREŚĆ DZIAŁU NA PEŁNYM EKRANIE -->
