@@ -1434,9 +1434,9 @@
       min-width: 0 !important;
     }
     .dept-topbar-icon {
-      width: clamp(22px, 2.2vw + 12px, 46px) !important;
-      height: clamp(22px, 2.2vw + 12px, 46px) !important;
-      margin-bottom: clamp(1px, 0.25vw, 4px) !important;
+      width: clamp(28px, 4vw + 10px, 80px) !important;
+      height: clamp(28px, 4vw + 10px, 80px) !important;
+      margin-bottom: clamp(2px, 0.3vw, 5px) !important;
     }
     .dept-topbar-title {
       display: block !important;
@@ -1456,7 +1456,7 @@
       }
     }
 
-    /* Piktogramy w górnym menu modalnym (Wersja A) - gwarancja szlachetnego złota */
+    /* Piktogramy w górnym menu modalnym - pogrubiona linia (stroke 6px) i maksymalna widoczność */
     .svg-icon svg {
       width: 100%;
       height: 100%;
@@ -1469,27 +1469,32 @@
     .svg-icon svg line,
     .svg-icon .cls-1 {
       fill: #FACB7D !important;
-      stroke: none;
+      stroke: #FACB7D !important;
+      stroke-width: 6px !important;
+      stroke-linecap: round !important;
+      stroke-linejoin: round !important;
+      paint-order: stroke fill !important;
       transition: fill 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  stroke 0.6s cubic-bezier(0.22, 1, 0.36, 1),
                   filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .dept-topbar-item.tab-inactive .svg-icon {
-      opacity: 0.55;
-      filter: drop-shadow(0 0 2px rgba(250, 203, 125, 0.25));
-      transform: scale(0.95);
+      opacity: 0.85;
+      filter: drop-shadow(0 0 4px rgba(250, 203, 125, 0.35));
+      transform: scale(0.96);
       transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
                   transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
                   filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .dept-topbar-item.tab-inactive:hover .svg-icon {
-      opacity: 0.95;
-      filter: drop-shadow(0 0 8px rgba(250, 203, 125, 0.65));
-      transform: scale(1.06);
+      opacity: 1;
+      filter: drop-shadow(0 0 10px rgba(250, 203, 125, 0.75));
+      transform: scale(1.05);
     }
     .dept-topbar-item.tab-active .svg-icon {
       opacity: 1 !important;
-      filter: drop-shadow(0 0 10px rgba(250, 203, 125, 0.85)) drop-shadow(0 0 20px rgba(250, 203, 125, 0.4));
-      transform: scale(1.1);
+      filter: drop-shadow(0 0 12px rgba(250, 203, 125, 0.95)) drop-shadow(0 0 24px rgba(250, 203, 125, 0.5));
+      transform: scale(1.08);
       transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
                   transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
                   filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
