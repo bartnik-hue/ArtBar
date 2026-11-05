@@ -3167,11 +3167,6 @@
           </div>
         </div>
 
-        <!-- Przycisk powrotu do Menu 3D (Esc / Zamknij) -->
-        <button id="modal-close-btn" type="button" class="group flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-[#FACB7D] hover:bg-[#FACB7D]/15 text-white/80 hover:text-white transition-all cursor-pointer">
-          <span class="text-xs font-bold uppercase tracking-wider hidden sm:inline text-[#FACB7D] group-hover:text-white">Powrót do Menu</span>
-          <svg class="w-5 h-5 text-[#FACB7D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
       </header>
 
       <!-- GŁÓWNA TREŚĆ DZIAŁU NA PEŁNYM EKRANIE -->
@@ -4701,49 +4696,50 @@
       if (!bar) return;
 
       bar.innerHTML = `
-        <div class="w-full flex items-stretch gap-1.5 sm:gap-2.5 md:gap-3.5 select-none">
+        <div class="w-full flex items-stretch gap-1 sm:gap-2 md:gap-2.5 lg:gap-3 select-none">
           
           <!-- STRZAŁKA W LEWO (Poprzedni dział) -->
           <button type="button" onclick="(() => { const p = (currentOpenDeptIdx - 1 + DEPARTMENTS.length) % DEPARTMENTS.length; openDeptModal(p); })()" aria-label="Poprzedni dział" title="Poprzedni dział (‹)"
-                  class="self-stretch w-7 sm:w-10 md:w-12 rounded-xl sm:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#FACB7D] transition-transform duration-300 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  class="self-stretch w-6 sm:w-8 md:w-10 lg:w-11 rounded-lg sm:rounded-xl md:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#FACB7D] transition-transform duration-300 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
             </svg>
           </button>
 
           <!-- GRUPA 6 PRZYCISKÓW BEZ ZEWNĘTRZNEJ RAMKI KONTENERA -->
-          <div class="flex-1 grid grid-cols-6 gap-1 sm:gap-2 md:gap-3 items-stretch">
+          <div class="flex-1 grid grid-cols-6 gap-0.5 sm:gap-1.5 md:gap-2 items-stretch">
             ${DEPARTMENTS.map((dept, idx) => {
               const isActive = idx === activeIdx;
               const mobileTitle = dept.title === 'FABRYKA LODU' ? 'FABRYKA<br>LODU' : dept.title;
+              const desktopTitle = dept.title === 'FABRYKA LODU' ? 'FABRYKA<br class="block 2xl:hidden"> LODU' : dept.title;
 
               return `
                 <button type="button" onclick="openDeptModal(${idx})"
                         title="${dept.title}"
-                        class="dept-topbar-item group relative flex flex-col md:flex-row items-center justify-center px-0.5 py-1.5 sm:py-2 md:py-2.5 lg:py-3 sm:px-2 md:px-3 rounded-xl sm:rounded-2xl cursor-pointer select-none overflow-hidden text-center md:text-left transition-all duration-300
+                        class="dept-topbar-item group relative flex flex-col md:flex-row items-center justify-center px-0.5 py-1 sm:py-1.5 md:py-2 lg:py-2.5 sm:px-1 md:px-2 rounded-lg sm:rounded-xl md:rounded-2xl cursor-pointer select-none overflow-hidden text-center md:text-left transition-all duration-300
                                ${isActive 
-                                 ? 'tab-active bg-gradient-to-b md:bg-gradient-to-r from-[#2c2213] via-[#1e170d] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_28px_rgba(250,203,125,0.45)] scale-[1.02]' 
+                                 ? 'tab-active bg-gradient-to-b md:bg-gradient-to-r from-[#2c2213] via-[#1e170d] to-[#120f09] border-2 border-[#FACB7D] shadow-[0_0_24px_rgba(250,203,125,0.4)] scale-[1.01]' 
                                  : 'tab-inactive bg-black/40 hover:bg-[#FACB7D]/12 border border-white/10 hover:border-[#FACB7D]/45 backdrop-blur-md hover:scale-[1.01]'}">
                   
-                  <!-- Piktogram SVG (Maksymalnie powiększony i zbalansowany) -->
-                  <div class="w-9 h-9 sm:w-11 sm:h-11 md:w-10 md:h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12 shrink-0 flex items-center justify-center mb-0.5 md:mb-0 transition-transform duration-300 group-hover:scale-105">
+                  <!-- Piktogram SVG (Zbalansowany, powiększony) -->
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-9 md:h-9 lg:w-10 lg:h-10 xl:w-11 xl:h-11 shrink-0 flex items-center justify-center mb-0.5 md:mb-0 transition-transform duration-300 group-hover:scale-105">
                     <div class="svg-icon w-full h-full">
                       ${dept.iconSvg}
                     </div>
                   </div>
 
                   <!-- Tytuł działu: na telefonie pod spodem, na PC po prawej stronie piktogramu -->
-                  <div class="flex flex-col justify-center text-center md:text-left overflow-hidden md:ml-2 lg:ml-2.5">
-                    <span class="block md:hidden text-[7.5px] sm:text-[9px] font-bold uppercase tracking-tight leading-[1.08] ${isActive ? 'font-extrabold text-[#FACB7D]' : 'text-white/80 group-hover:text-white'}">
+                  <div class="flex flex-col justify-center text-center md:text-left overflow-hidden md:ml-1.5 lg:ml-2">
+                    <span class="block md:hidden text-[6.5px] sm:text-[8px] font-bold uppercase tracking-tighter leading-[1.05] ${isActive ? 'font-extrabold text-[#FACB7D]' : 'text-white/80 group-hover:text-white'}">
                       ${mobileTitle}
                     </span>
-                    <span class="hidden md:block text-[10px] lg:text-[11.5px] xl:text-[13px] font-extrabold uppercase tracking-tight whitespace-nowrap drop-shadow ${isActive ? 'text-[#FACB7D]' : 'text-white/90 group-hover:text-white'}">
-                      ${dept.title}
+                    <span class="hidden md:block text-[9.5px] lg:text-[10.5px] xl:text-[11.5px] 2xl:text-[12.5px] font-extrabold uppercase tracking-tight leading-[1.08] drop-shadow ${isActive ? 'text-[#FACB7D]' : 'text-white/90 group-hover:text-white'}">
+                      ${desktopTitle}
                     </span>
                   </div>
 
                   <!-- Aktywny złoty pasek akcentujący u dołu -->
-                  ${isActive ? '<div class="absolute bottom-0 left-2 right-2 h-[2.5px] bg-[#FACB7D] shadow-[0_0_10px_#FACB7D] rounded-full"></div>' : ''}
+                  ${isActive ? '<div class="absolute bottom-0 left-1.5 right-1.5 h-[2px] bg-[#FACB7D] shadow-[0_0_8px_#FACB7D] rounded-full"></div>' : ''}
 
                 </button>
               `;
@@ -4752,10 +4748,21 @@
 
           <!-- STRZAŁKA W PRAWO (Następny dział) -->
           <button type="button" onclick="(() => { const n = (currentOpenDeptIdx + 1) % DEPARTMENTS.length; openDeptModal(n); })()" aria-label="Następny dział" title="Następny dział (›)"
-                  class="self-stretch w-7 sm:w-10 md:w-12 rounded-xl sm:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#FACB7D] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  class="self-stretch w-6 sm:w-8 md:w-10 lg:w-11 rounded-lg sm:rounded-xl md:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/30 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] flex items-center justify-center transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#FACB7D] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
             </svg>
+          </button>
+
+          <!-- PRZYCISK POWRÓT DO STRONY GŁÓWNEJ (PO PRAWEJ OD STRZAŁKI W PRAWO) -->
+          <button id="dept-modal-topbar-close-btn" type="button" onclick="closeDeptModal()" aria-label="Powrót do strony głównej" title="Powrót do strony głównej (Esc)"
+                  class="self-stretch flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-2.5 md:px-3 lg:px-3.5 rounded-lg sm:rounded-xl md:rounded-2xl bg-[#080807]/90 border border-[#FACB7D]/35 hover:border-[#FACB7D] hover:bg-[#FACB7D]/20 text-[#FACB7D] hover:text-white transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7)] shrink-0 cursor-pointer group active:scale-95">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 text-[#FACB7D] transition-transform duration-300 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            <span class="hidden md:inline text-[9.5px] lg:text-[10.5px] xl:text-[11.5px] 2xl:text-[12px] font-extrabold uppercase tracking-wider whitespace-nowrap text-[#FACB7D] group-hover:text-white">
+              Powrót do strony głównej
+            </span>
           </button>
 
         </div>
@@ -5084,7 +5091,9 @@
 
     window.closeDeptModal = closeDeptModal;
 
-    modalCloseBtn.addEventListener('click', closeDeptModal);
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', closeDeptModal);
+    }
     modalBackdrop.addEventListener('click', (e) => {
       if (e.target === modalBackdrop) closeDeptModal();
     });
