@@ -3119,11 +3119,6 @@
           <!-- PRAWA KOLUMNA (LUB PEŁNA SZEROKOŚĆ, GDY BRAK GRAFIKI): FILOZOFIA ORAZ USŁUGI -->
           <div id="modal-content-col" class="lg:col-span-12 relative z-10 space-y-12 sm:space-y-16 w-full">
 
-            <!-- PEŁNOSZEROKI MODUŁ 3D NAMIOTU WCHODZĄCY POD TEKST Z PŁYNNYM FADEM DO PRZEZROCZYSTOŚCI U GÓRY I U DOŁU -->
-            <div id="dept-namiot-3d-col" class="hidden absolute inset-0 w-full h-full pointer-events-auto select-none cursor-grab active:cursor-grabbing z-0 overflow-visible" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 18%, black 24%, black 66%, rgba(0,0,0,0.6) 74%, rgba(0,0,0,0.15) 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 18%, black 24%, black 66%, rgba(0,0,0,0.6) 74%, rgba(0,0,0,0.15) 88%, transparent 100%);">
-              <div id="dept-namiot-bg-mount" class="w-full h-full relative"></div>
-            </div>
-
             
             <!-- Sekcja 1: Filozofia i Zakres (Wielka typografia) -->
             <section class="portal-anim-item w-full relative z-10 pointer-events-none">
@@ -3135,8 +3130,14 @@
               </div>
             </section>
 
-            <!-- DEDYKOWANA PRZESTRZEŃ EKSPOZYCYJNA DLA NAMIOTU MIĘDZY TEKSTAMI -->
-            <div id="namiot-spatial-gap" class="hidden w-full h-[340px] sm:h-[400px] lg:h-[450px] pointer-events-none"></div>
+            
+            <!-- DEDYKOWANA PRZESTRZEŃ EKSPOZYCYJNA DLA NAMIOTU: ZAKOTWICZONA MIĘDZY TEKSTAMI -->
+            <div id="namiot-spatial-gap" class="hidden relative w-full h-[300px] sm:h-[370px] lg:h-[450px] my-4 sm:my-6 pointer-events-auto select-none">
+              <!-- PEŁNOSZEROKI MODUŁ 3D NAMIOTU WCHODZĄCY POD TEKST Z PŁYNNYM FADEM DO PRZEZROCZYSTOŚCI U GÓRY I U DOŁU -->
+              <div id="dept-namiot-3d-col" class="absolute -top-12 sm:-top-16 lg:-top-20 -bottom-14 sm:-bottom-16 lg:-bottom-20 inset-x-0 w-full pointer-events-auto select-none cursor-grab active:cursor-grabbing z-0 overflow-visible" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%);">
+                <div id="dept-namiot-bg-mount" class="w-full h-full relative"></div>
+              </div>
+            </div>
 
             <!-- Sekcja: Co Zyskujesz Jako Organizator (Dedykowana / Dynamiczna) -->
             <section id="modal-benefits-section" class="portal-anim-item hidden w-full">
@@ -4697,8 +4698,7 @@
         const namiotCol = document.getElementById('dept-namiot-3d-col');
         const namiotGap = document.getElementById('namiot-spatial-gap');
         if (dept.id === 'namioty') {
-          contentCol.className = 'lg:col-span-12 relative z-10 w-full';
-          if (namiotCol) namiotCol.classList.remove('hidden');
+          contentCol.className = 'lg:col-span-12 relative z-10 w-full space-y-4 sm:space-y-6';
           if (namiotGap) namiotGap.classList.remove('hidden');
         } else {
           if (namiotGap) namiotGap.classList.add('hidden');
@@ -4841,7 +4841,7 @@
       if (dept.id === 'namioty') {
         if (namiotCol) namiotCol.classList.remove('hidden');
         if (namiotBgMount) {
-          import('./assets/3d/namiot-viewer.js?v=v1.0').then(mod => {
+          import('./assets/3d/namiot-viewer.js?v=bg_v16').then(mod => {
             if (currentOpenDeptIdx === idx) {
               mod.mountNamiotBackground(namiotBgMount);
             }
@@ -4851,7 +4851,7 @@
         if (namiotCol) namiotCol.classList.add('hidden');
       const namiotGap = document.getElementById('namiot-spatial-gap');
       if (namiotGap) namiotGap.classList.add('hidden');
-        import('./assets/3d/namiot-viewer.js?v=v1.0').then(m => m.destroyNamiotBackground()).catch(() => {});
+        import('./assets/3d/namiot-viewer.js?v=bg_v16').then(m => m.destroyNamiotBackground()).catch(() => {});
         if (namiotBgMount) namiotBgMount.innerHTML = '';
       }
 
@@ -4903,7 +4903,7 @@
       if (namiotCol) namiotCol.classList.add('hidden');
       const namiotGap = document.getElementById('namiot-spatial-gap');
       if (namiotGap) namiotGap.classList.add('hidden');
-      import('./assets/3d/namiot-viewer.js?v=v1.0').then(m => m.destroyNamiotBackground()).catch(() => {});
+      import('./assets/3d/namiot-viewer.js?v=bg_v16').then(m => m.destroyNamiotBackground()).catch(() => {});
       const namiotBgMount = document.getElementById('dept-namiot-bg-mount');
       if (namiotBgMount) namiotBgMount.innerHTML = '';
 

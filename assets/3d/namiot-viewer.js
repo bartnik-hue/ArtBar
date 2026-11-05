@@ -130,7 +130,7 @@ function createBackgroundApp(canvas, container) {
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-  camera.position.set(0, 2.1, 9.2);
+  camera.position.set(0, 2.0, 8.6);
   const cameraTarget = new THREE.Vector3(0, 1.15, 0);
 
   const renderer = new THREE.WebGLRenderer({
@@ -259,7 +259,7 @@ function createBackgroundApp(canvas, container) {
       const box = new THREE.Box3().setFromObject(tentModel);
       const size = box.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.z);
-      const targetDiameter = 5.6; // Przywrócony elegancki rozmiar namiotu // Przywrócony rozmiar namiotu // Monumentalna rozpiętość kinowa // Rozszerzona monumentalna rozpiętość // Panoramiczna rozpiętość kinowa // Zwiększony 1.5x (5.2 * 1.5)
+      const targetDiameter = 5.8; // Elegancki, zrównoważony rozmiar // Przywrócony elegancki rozmiar namiotu // Przywrócony rozmiar namiotu // Monumentalna rozpiętość kinowa // Rozszerzona monumentalna rozpiętość // Panoramiczna rozpiętość kinowa // Zwiększony 1.5x (5.2 * 1.5)
       const scale = targetDiameter / (maxDim || 1);
       tentModel.scale.setScalar(scale);
 
@@ -269,7 +269,7 @@ function createBackgroundApp(canvas, container) {
       tentModel.position.z = -center.z;
       tentModel.position.y = -box.min.y;
 
-      cameraTarget.set(0, (box.max.y - box.min.y) * 0.12, 0); // Obniżony środek obrotu do poziomu podłoża
+      cameraTarget.set(0, (box.max.y - box.min.y) * 0.08, 0); // Obniżony środek obrotu do poziomu podłoża
       controls.target.copy(cameraTarget);
 
       // Dopasowanie pierścienia podłogowego
@@ -283,7 +283,7 @@ function createBackgroundApp(canvas, container) {
     (err) => console.error('Błąd ładowania namiot.glb w tle:', err)
   );
 
-  // 6. Responsive Resize & Monumentalny Pas w tle z miękkim zanikaniem
+  // 6. Responsive Resize & Eleganckie kadrowanie namiotu
   function resize() {
     if (!container || !renderer || !camera) return;
 
@@ -292,14 +292,14 @@ function createBackgroundApp(canvas, container) {
 
     if (!w || !h || w < 20 || h < 20) {
       w = container.parentElement ? container.parentElement.clientWidth : 1200;
-      h = 900;
+      h = 450;
     }
 
     camera.aspect = w / h;
     camera.clearViewOffset();
 
     const baseFov = 26;
-    const minAspect = 1.45;
+    const minAspect = 2.4;
     if (camera.aspect < minAspect) {
       camera.fov = 2 * Math.atan(Math.tan((baseFov * Math.PI) / 360) * (minAspect / camera.aspect)) * (180 / Math.PI);
     } else {
