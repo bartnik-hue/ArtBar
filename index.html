@@ -1116,6 +1116,21 @@
       mask-image: linear-gradient(to right, #000 0%, #000 60%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0.2) 93%, transparent 100%);
     }
 
+    /* Tło 3D kostek lodu: wygaszenie po lewej (pod tekstem) i u dołu, by tworzyło całość ze stroną */
+    #ice-3d-bg {
+      -webkit-mask-image:
+        linear-gradient(to right, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.45) 40%, #000 62%),
+        linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to right, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.45) 40%, #000 62%),
+        linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+      mask-composite: intersect;
+    }
+    @media (max-width: 1023px) {
+      #ice-3d-bg { opacity: 0.45; }
+    }
+
     /* ══════════════════════════════════════════════════════════
        PRELOADER ŁADOWANIA STRONY: ZŁOTE KWADRATY Z LOGO ARTBAR
        ══════════════════════════════════════════════════════════ */
@@ -3214,6 +3229,11 @@
   <div id="dept-modal-backdrop" class="is-hidden fixed inset-0 z-50 flex flex-col bg-black/92 backdrop-blur-2xl overflow-y-auto select-text">
     <div id="dept-modal-card" class="relative w-full min-h-screen flex flex-col justify-between">
 
+      <!-- TŁO 3D: KOSTKI LODU W STYLU PIKTOGRAMU (paralaksa myszy i scrolla) - tylko dla FABRYKI LODU -->
+      <div id="ice-3d-bg" class="hidden absolute inset-x-0 top-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        <div id="ice-3d-mount" class="w-full h-full"></div>
+      </div>
+
       <!-- GÓRNY PASEK NAWIGACJI PIKTOGRAMOWEJ (WERSJA A: WSZYSTKIE 6 DZIAŁÓW + STRZAŁKI ‹ ›) - NA SAMEJ GÓRZE STRONY PONAD TYTUŁEM -->
       <nav id="dept-modal-piktogramy-bar" aria-label="Nawigacja piktogramowa działami" class="relative z-30 w-full mx-auto pt-3 sm:pt-4 md:pt-5 pb-1 sm:pb-2"></nav>
 
@@ -3255,6 +3275,9 @@
               </video>
             </div>
           </div>
+        
+          <!-- Pusta przestrzeń po prawej (desktop) odsłaniająca kostki lodu z tła - tylko dla FABRYKI LODU -->
+          <div id="ice-3d-col" class="hidden" aria-hidden="true"></div>
         
 
 
@@ -4172,11 +4195,6 @@
         subtitle: 'LÓD HOSHIZAKI: PRODUKCJA, DOSTAWA',
         badge: 'Własna Fabryka Lodu Hoshizaki',
         lead: 'Własna produkcja lodu w kostkach i kruszonego na najwyższej klasy japońskich maszynach Hoshizaki. Samochody mroźnie (-18°C), termoizolacyjne skrzynie oraz widowiskowe rzeźby lodowe na gale i bankiety.',
-        heroGraphic: {
-          src: 'assets/images/radial-departments/fabryka lodu/Nano_Banana_2.1_00085alpha.png',
-          techCode: 'SYS: ICE.01 // HOSHIZAKI SYSTEM',
-          caption: 'Fabryka Lodu Hoshizaki'
-        },
         iconSvg: `
           <svg id="icon-svg-fabryka-lodu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full text-[#FACB7D]">
             <defs>
@@ -4728,7 +4746,18 @@
     // Inicjalizacja resize
     window.addEventListener('resize', () => {
       updateDimensions();
+      sizeIceBackground();
     });
+
+    // Wysokość tła 3D: od góry do końca bloku treści z marginesem na wygaszenie
+    function sizeIceBackground() {
+      const bg = document.getElementById('ice-3d-bg');
+      const card = document.getElementById('dept-modal-card');
+      const split = document.getElementById('modal-hero-split-wrap');
+      if (!bg || !card || !split || bg.classList.contains('hidden')) return;
+      const h = split.getBoundingClientRect().bottom - card.getBoundingClientRect().top + 140;
+      bg.style.height = Math.max(h, window.innerHeight * 0.9) + 'px';
+    }
 
     // ════════════════════════════════════════════════════════════
     // OBSŁUGA MODALA SZCZEGÓŁÓW DZIAŁU
@@ -5067,6 +5096,31 @@
         if (namiotBgMount) namiotBgMount.innerHTML = '';
       }
 
+      // Obsługa pełnoszerokościowego tła 3D kostek lodu dla podstrony FABRYKA LODU
+      const ice3dCol = document.getElementById('ice-3d-col');
+      const ice3dBg = document.getElementById('ice-3d-bg');
+      const ice3dMount = document.getElementById('ice-3d-mount');
+
+      if (dept.id === 'fabryka-lodu') {
+        if (modalIconWrap) modalIconWrap.classList.add('hidden');
+        if (ice3dBg) ice3dBg.classList.remove('hidden');
+        if (ice3dCol) ice3dCol.className = 'hidden lg:block lg:col-span-5 order-2';
+        contentCol.className = 'lg:col-span-7 order-1 relative z-10 space-y-12 sm:space-y-16';
+        modalServicesList.className = 'grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-6 sm:gap-y-8';
+        if (ice3dMount) {
+          sizeIceBackground();
+          import('./assets/3d/ice-cubes-viewer.js?v=4').then(mod => {
+            if (currentOpenDeptIdx === idx) mod.mountIceCubes(ice3dMount);
+          }).catch(err => console.error('Blad montowania 3D kostek lodu:', err));
+        }
+      } else {
+        if (modalIconWrap && dept.id !== 'fabryka-lodu') modalIconWrap.classList.remove('hidden');
+        if (ice3dBg) ice3dBg.classList.add('hidden');
+        if (ice3dCol) ice3dCol.className = 'hidden';
+        import('./assets/3d/ice-cubes-viewer.js?v=4').then(m => m.destroyIceCubes()).catch(() => {});
+        if (ice3dMount) ice3dMount.innerHTML = '';
+      }
+
       modalGallery.innerHTML = dept.photos.map(pUrl => `
         <div class="dept-gallery-card overflow-hidden border border-white/10 group relative shadow-lg">
           <img src="${pUrl}" alt="Realizacja" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 filter brightness-90">
@@ -5090,6 +5144,7 @@
       setTimeout(() => {
         modalBackdrop.scrollTop = 0;
         modalBackdrop.classList.remove('is-hidden');
+        sizeIceBackground();
         window.dispatchEvent(new Event('resize'));
       }, 200);
     }
@@ -5101,6 +5156,14 @@
       if (benefitsSec) benefitsSec.classList.add('hidden');
       if (scaleSec) scaleSec.classList.add('hidden');
       if (workflowSec) workflowSec.classList.add('hidden');
+
+      const ice3dBg = document.getElementById('ice-3d-bg');
+      if (ice3dBg) ice3dBg.classList.add('hidden');
+      const ice3dCol = document.getElementById('ice-3d-col');
+      if (ice3dCol) ice3dCol.className = 'hidden';
+      import('./assets/3d/ice-cubes-viewer.js?v=4').then(m => m.destroyIceCubes()).catch(() => {});
+      const ice3dMount = document.getElementById('ice-3d-mount');
+      if (ice3dMount) ice3dMount.innerHTML = '';
 
       const bar3dSec = document.getElementById('dept-bar-3d-section');
       if (bar3dSec) bar3dSec.classList.add('hidden');
