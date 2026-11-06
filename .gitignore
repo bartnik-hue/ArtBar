@@ -20,6 +20,20 @@ __pycache__/
 
 # Narzedzia pomocnicze i robocze (offline)
 scratch/
+archive/
+*-test.html
+*-preview.html
+bar-tuning.html
+linie-artbar.html
+menu-piktogramy-opcje.html
+namioty-kadrowanie-opcje.html
+preview_partner_logos.html
+ramki-artbar.html
+server-3d.js
+symbol.svg
+package.json
+package-lock.json
+konfigurator/MODELE/regal.glb
 porownywarka-aktualnosci.html
 aktualizuj-porownywarke.bat
 aktualizuj-porownywarke.py
