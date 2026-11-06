@@ -140,11 +140,12 @@
       transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Monumentalny piktogram działu jako symbol w tle strony */
+    /* Monumentalny piktogram działu jako symbol w tle strony (po prawej stronie) */
     .dept-watermark-symbol {
       position: absolute !important;
       top: -30px !important;
-      left: clamp(-15px, 2vw, 35px) !important;
+      right: clamp(-15px, 2vw, 35px) !important;
+      left: auto !important;
       width: clamp(240px, 34vw, 500px) !important;
       height: clamp(240px, 34vw, 500px) !important;
       z-index: 0 !important;
@@ -175,7 +176,8 @@
     @media (max-width: 639px) {
       .dept-watermark-symbol {
         top: -15px !important;
-        left: -15px !important;
+        right: -15px !important;
+        left: auto !important;
         width: clamp(200px, 62vw, 300px) !important;
         height: clamp(200px, 62vw, 300px) !important;
         opacity: 0.16 !important;
