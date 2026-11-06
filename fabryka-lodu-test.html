@@ -140,19 +140,20 @@
       transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Monumentalny piktogram działu jako symbol w tle strony (po prawej stronie) */
+    /* Monumentalny piktogram działu opływany przez tekst po prawej stronie */
     .dept-watermark-symbol {
-      position: absolute !important;
-      top: -30px !important;
-      right: clamp(-15px, 2vw, 35px) !important;
-      left: auto !important;
-      width: clamp(240px, 34vw, 500px) !important;
-      height: clamp(240px, 34vw, 500px) !important;
-      z-index: 0 !important;
+      float: right !important;
+      position: relative !important;
+      width: clamp(200px, 24vw, 360px) !important;
+      height: clamp(200px, 24vw, 360px) !important;
+      margin-left: clamp(1.5rem, 3vw, 3.5rem) !important;
+      margin-bottom: 1.5rem !important;
+      margin-top: -6px !important;
       pointer-events: none !important;
       user-select: none !important;
-      opacity: 0.18 !important;
-      filter: drop-shadow(0 0 35px rgba(250, 203, 125, 0.35)) !important;
+      opacity: 0.35 !important;
+      filter: drop-shadow(0 0 35px rgba(250, 203, 125, 0.45)) !important;
+      shape-outside: margin-box !important;
       transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                   transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
@@ -175,12 +176,11 @@
     }
     @media (max-width: 639px) {
       .dept-watermark-symbol {
-        top: -15px !important;
-        right: -15px !important;
-        left: auto !important;
-        width: clamp(200px, 62vw, 300px) !important;
-        height: clamp(200px, 62vw, 300px) !important;
-        opacity: 0.16 !important;
+        float: none !important;
+        margin: 0 auto 1.5rem auto !important;
+        width: 160px !important;
+        height: 160px !important;
+        opacity: 0.25 !important;
       }
     }
 
@@ -447,11 +447,6 @@
           LÓD HOSHIZAKI: PRODUKCJA, DOSTAWA
         </p>
       </div>
-
-      <!-- Monumentalny piktogram działu jako symbol w tle strony (bez ramki i bez glow-boxa) -->
-      <div id="modal-icon-wrap" class="dept-watermark-symbol pointer-events-none select-none" aria-hidden="true">
-        <!-- Wstawiana dynamicznie przez JS -->
-      </div>
     </header>
 
     <!-- GŁÓWNA TREŚĆ DZIAŁU NA PEŁNYM EKRANIE -->
@@ -477,6 +472,10 @@
 
           <!-- Sekcja 1: Filozofia i Zakres (Wielka typografia) -->
           <section class="portal-anim-item w-full relative z-10">
+            <!-- Monumentalny piktogram działu po prawej stronie opływany przez tekst -->
+            <div id="modal-icon-wrap" class="dept-watermark-symbol pointer-events-none select-none" aria-hidden="true">
+              <!-- Wstawiana dynamicznie przez JS -->
+            </div>
             <div id="modal-lead-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
               Filozofia i Zakres Operacyjny
             </div>
@@ -486,7 +485,7 @@
           </section>
 
           <!-- Sekcja 2: Kluczowe Usługi i Standardy -->
-          <section class="portal-anim-item w-full relative z-10 pointer-events-auto">
+          <section class="portal-anim-item w-full relative z-10 pointer-events-auto clear-both">
             <div id="modal-services-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
               Kluczowe Usługi i Standardy Realizacji
             </div>
@@ -540,13 +539,6 @@ const DEPARTMENTS = [
         subtitle: 'KREATYWNE KONCEPTY DLA MAREK I&nbsp;FESTIWALI',
         badge: 'Kreacja Wizualna i Scenografia',
         lead: 'Tworzymy unikalne, spersonalizowane aranżacje scenograficzne, dekoracje świetlne i oprawę artystyczną, które nadają strefom barowym niepowtarzalny charakter i zapadają w pamięć uczestników festiwali oraz prestiżowych gal.',
-        heroGraphic: {
-          src: 'assets/images/radial-departments/art/Nano_Banana_2.1_00069alpha.png',
-          video: 'assets/video/radial-departments/art/art-loop.mp4',
-          videoWebm: 'assets/video/radial-departments/art/art-loop.webm',
-          techCode: 'SYS: ART.01 // CAD BLUEPRINT',
-          caption: 'Kreacja Wizualna i Scenografia'
-        },
         iconSvg: `
           <svg id="icon-svg-art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full text-[#FACB7D]">
             <defs>
