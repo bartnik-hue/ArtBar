@@ -1035,16 +1035,18 @@
     #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(3) { transition-delay: 0.40s; }
     #dept-modal-backdrop:not(.is-hidden) .portal-anim-item:nth-child(4) { transition-delay: 0.52s; }
 
-    /* Piktogram na wysokości tytułu i jego opisu w nagłówku (widoczny na ekranach ok. 640px i mniejszych) */
+    /* Piktogram na wysokości tytułu i jego opisu w nagłówku (widoczny na ekranach mobilnych <= 768px - zbalansowany) */
     .dept-header-symbol {
       display: none;
-      width: clamp(66px, 12vw, 90px);
-      height: clamp(66px, 12vw, 90px);
+      width: clamp(104px, 19vw, 144px);
+      height: clamp(104px, 19vw, 144px);
       flex-shrink: 0;
-      margin-left: 1rem;
-      transform: translateY(-12px);
-      opacity: 0.95;
-      filter: drop-shadow(0 0 18px rgba(250, 203, 125, 0.5));
+      margin-left: 0.5rem;
+      transform: translateY(-8px);
+      opacity: 0.92;
+      filter: drop-shadow(0 0 20px rgba(250, 203, 125, 0.5));
+      position: relative;
+      z-index: 0;
     }
     .dept-header-symbol svg {
       width: 100% !important;
@@ -1064,21 +1066,21 @@
       stroke-linejoin: round !important;
     }
 
-    /* Monumentalny piktogram działu opływany przez tekst po prawej stronie */
+    /* Monumentalny piktogram działu po prawej stronie (zmniejszony o 20%, oddalony od tekstu) */
     .dept-watermark-symbol {
       display: block;
       float: right !important;
       position: relative !important;
-      width: clamp(200px, 24vw, 360px) !important;
-      height: clamp(200px, 24vw, 360px) !important;
-      margin-left: clamp(1.5rem, 3vw, 3.5rem) !important;
+      z-index: 0 !important;
+      width: clamp(320px, 38vw, 576px) !important;
+      height: clamp(320px, 38vw, 576px) !important;
+      margin-left: clamp(-30px, -1.5vw, 15px) !important;
       margin-bottom: 1.5rem !important;
-      margin-top: -6px !important;
+      margin-top: -12px !important;
       pointer-events: none !important;
       user-select: none !important;
-      opacity: 0.35 !important;
+      opacity: 0.32 !important;
       filter: drop-shadow(0 0 35px rgba(250, 203, 125, 0.45)) !important;
-      shape-outside: margin-box !important;
       transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                   transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
@@ -1098,6 +1100,11 @@
       stroke-width: 1.5px !important;
       stroke-linecap: round !important;
       stroke-linejoin: round !important;
+    }
+    #modal-lead-title,
+    #modal-lead {
+      position: relative !important;
+      z-index: 2 !important;
     }
     @media (max-width: 768px) {
       .dept-watermark-symbol {
@@ -1434,6 +1441,28 @@
       line-height: var(--dept-workflow-title-lh) !important;
     }
 
+    /* Karty w stylu ramek liniowych ze strony głównej (np. „JEDEN PARTNER = CAŁY EVENT”) */
+    .dept-frame-card {
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      background: none !important;
+      box-shadow: none !important;
+    }
+    .dept-frame-line {
+      filter: drop-shadow(0 0 8px rgba(250,203,125,0.3));
+      transition: filter 0.3s ease;
+    }
+    .dept-frame-card:hover .dept-frame-line {
+      filter: drop-shadow(0 0 10px rgba(250,203,125,0.65));
+    }
+    .dept-frame-body-scale {
+      padding: 26px 10px;
+    }
+    .dept-frame-body-workflow {
+      padding: 14px 4px;
+    }
+
     #dept-bar-3d-grid {
       gap: var(--dept-bar-3d-gap) !important;
     }
@@ -1476,8 +1505,9 @@
       #dept-modal-main,
       #dept-modal-header,
       #dept-modal-footer {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
+        /* Widok mobilny: marginesy boczne podwojone (bylo 18px) */
+        padding-left: 36px !important;
+        padding-right: 36px !important;
       }
       #dept-modal-piktogramy-bar {
         padding-left: 12px !important;
@@ -3505,7 +3535,7 @@
             </div>
 
             <!-- Sekcja: Co Zyskujesz Jako Organizator (Dedykowana / Dynamiczna) -->
-            <section id="modal-benefits-section" class="portal-anim-item hidden w-full">
+            <section id="modal-benefits-section" class="portal-anim-item hidden w-full clear-both">
               <div id="modal-benefits-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
                 Co Zyskujesz Jako Organizator
               </div>
@@ -3958,7 +3988,39 @@
         title: 'ART',
         subtitle: 'KREATYWNE KONCEPTY DLA MAREK I&nbsp;FESTIWALI',
         badge: 'Kreacja Wizualna i Scenografia',
-        lead: 'Tworzymy unikalne, spersonalizowane aranżacje scenograficzne, dekoracje świetlne i oprawę artystyczną, które nadają strefom barowym niepowtarzalny charakter i zapadają w pamięć uczestników festiwali oraz prestiżowych gal.',
+        lineFrames: true,
+        leadTitle: 'ZAKRES OPERACYJNY',
+        lead: `
+          <p class="mb-4">
+            Nasz zespół <strong>artystów i&nbsp;designerów</strong> wymyśla projekty dla&nbsp;marek, buduje koncepty tematyczne oraz projektuje scenografie i&nbsp;dekoracje, które sprawiają, że&nbsp;goście wyjmują telefony, zanim dojdą do&nbsp;baru.
+          </p>
+          <p>
+            Każda realizacja zaczyna się od&nbsp;pomysłu. Przekładamy go na&nbsp;projekt 3D i&nbsp;fotorealistyczne wizualizacje, więc efekt widzisz jeszcze przed produkcją: strefę, scenografię czy&nbsp;cały event. Potem sami wszystko wykonujemy i&nbsp;montujemy na&nbsp;miejscu. Wiele elementów powstaje ręcznie w&nbsp;naszym warsztacie, a&nbsp;jeden zespół prowadzi realizację od&nbsp;pierwszego szkicu aż po&nbsp;demontaż.
+          </p>
+        `,
+        benefitsTitle: 'CO ZYSKUJESZ JAKO ORGANIZATOR',
+        benefits: [
+          {
+            title: 'Koncepcję, nie tylko dekorację.',
+            desc: 'Pomysł zbudowany wokół marki, motywu lub historii, którą chcesz opowiedzieć.'
+          },
+          {
+            title: 'Pewność efektu.',
+            desc: 'Projekt 3D i&nbsp;wizualizacje pokazują efekt, zanim powstanie pierwszy element.'
+          },
+          {
+            title: 'Unikatowość.',
+            desc: 'Projekty tworzone od&nbsp;zera, zamiast szablonowych rozwiązań.'
+          },
+          {
+            title: 'Spójność.',
+            desc: 'Bar, scenografia, oświetlenie i&nbsp;branding mówią jednym językiem.'
+          },
+          {
+            title: 'Jednego partnera.',
+            desc: 'Koncepcję, projekt, wykonanie i&nbsp;montaż zapewnia jedna firma, razem z&nbsp;infrastrukturą barową i&nbsp;techniką eventową.'
+          }
+        ],
         iconSvg: `
           <svg id="icon-svg-art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full text-[#FACB7D]">
             <defs>
@@ -4012,13 +4074,38 @@
           </svg>
         `,
         services: [
-          'Kompleksowy projekt koncepcyjny<br>strefy barowej',
-          'Identyfikacja wizualna<br>i&nbsp;spójny branding wydarzenia',
-          'Unikalne scenografie<br>festiwalowe i&nbsp;eventowe',
-          'Personalizowane dekoracje,<br>neony i&nbsp;logotypy 3D',
-          'Artystyczne oświetlenie<br>architektoniczne i&nbsp;LED',
-          'Interaktywny performance<br>i&nbsp;oprawa artystyczna',
-          'Współpraca z&nbsp;dedykowanym<br>studiem graficznym'
+          'KREATYWNE KONCEPTY DLA MAREK I FESTIWALI',
+          'PROJEKTOWANIE 3D I WIZUALIZACJE',
+          'KONCEPTY TEMATYCZNE I MOODBOARDY',
+          'SCENOGRAFIE EVENTOWE',
+          'RĘCZNIE WYKONYWANE DEKORACJE',
+          'BRANDING BARÓW I STREF POD IDENTYFIKACJĘ MARKI',
+          'NEONY, PODŚWIETLANE LOGO I OŚWIETLENIE LED',
+          'BRAMY WEJŚCIOWE I INSTALACJE PRZESTRZENNE',
+          'ARANŻACJA LOKALI I OGRÓDKÓW SEZONOWYCH'
+        ],
+        scaleTitle: 'SKALA REALIZACJI',
+        scale: [
+          {
+            title: 'MARKI',
+            desc: 'Koncepcje stref i&nbsp;barów marek, aktywacje i&nbsp;stoiska, w&nbsp;których design wspiera sprzedaż i&nbsp;wizerunek.'
+          },
+          {
+            title: 'STREFY TEMATYCZNE',
+            desc: 'Kompleksowa aranżacja i&nbsp;produkcja stref tematycznych.'
+          },
+          {
+            title: 'FESTIWALE I WYDARZENIA',
+            desc: 'Pełna oprawa wizualna festiwali i&nbsp;eventów, w&nbsp;tym motyw przewodni, instalacje, oświetlenie i&nbsp;dekoracje w&nbsp;całej przestrzeni.'
+          }
+        ],
+        workflowTitle: 'JAK DZIAŁAMY',
+        workflow: [
+          'BRIEF I POMYSŁ NA KONCEPCJĘ',
+          'MOODBOARD, PROJEKT 3D I WIZUALIZACJE',
+          'KOSZTORYS I AKCEPTACJA PROJEKTU',
+          'WYKONANIE W WARSZTACIE',
+          'TRANSPORT, MONTAŻ I DEMONTAŻ'
         ],
         photos: [
           'assets/images/2024.12.31-Art-Bar-28-1.webp',
@@ -5045,6 +5132,25 @@
       `;
     }
 
+    // Ramka liniowa jak na stronie głównej: prosta linia rozciągana na szerokość
+    // + grupa 4 słupków o stałej szerokości (nie deformuje się na wąskich kartach).
+    // pos: 'top' (słupki po prawej, w górę) | 'bottom' (słupki po lewej, w dół); s: skala.
+    function artbarLineFrame(pos, s = 1) {
+      const H = 34 * s, step = 18 * s, groupW = 78 * s;
+      const heights = [6, 13, 21, 28].map(h => h * s);
+      const ln = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#FACB7D" stroke-width="1.3" stroke-linecap="square" vector-effect="non-scaling-stroke"/>`;
+      const stretch = (y) => `<svg class="flex-1 min-w-0 overflow-visible" height="${H}" viewBox="0 0 100 ${H}" fill="none" preserveAspectRatio="none">${ln(0, y, 100, y)}</svg>`;
+      let bars = '';
+      if (pos === 'top') {
+        const base = H - 3 * s;
+        heights.forEach((h, k) => { const x = step * (k + 1); bars += ln(x, base - h, x, base); });
+        return `<div class="dept-frame-line flex w-full pointer-events-none overflow-visible">${stretch(base)}<svg class="shrink-0 overflow-visible" width="${groupW}" height="${H}" viewBox="0 0 ${groupW} ${H}" fill="none">${bars}</svg></div>`;
+      }
+      const base = 3 * s;
+      heights.slice().reverse().forEach((h, k) => { const x = 6 * s + step * k; bars += ln(x, base, x, base + h); });
+      return `<div class="dept-frame-line flex w-full pointer-events-none overflow-visible"><svg class="shrink-0 overflow-visible" width="${groupW}" height="${H}" viewBox="0 0 ${groupW} ${H}" fill="none">${bars}</svg>${stretch(base)}</div>`;
+    }
+
     function openDeptModal(idx) {
       currentOpenDeptIdx = idx;
       const dept = DEPARTMENTS[idx];
@@ -5165,12 +5271,27 @@
       if (dept.scale && dept.scale.length > 0) {
         if (scaleTitle && dept.scaleTitle) scaleTitle.textContent = dept.scaleTitle;
         if (scaleList) {
-          scaleList.innerHTML = dept.scale.map((s) => `
+          scaleList.innerHTML = dept.scale.map((s) => dept.lineFrames ? `
+            <div class="dept-scale-card dept-frame-card group/scale relative flex flex-col justify-between">
+              ${artbarLineFrame('top', 1)}
+              <div class="dept-frame-body-scale flex-1 relative">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FACB7D]/[0.08] blur-3xl pointer-events-none"></div>
+                ${s.badge ? `<div class="dept-scale-badge inline-flex items-center rounded-full font-mono font-bold text-[#FACB7D] bg-[#FACB7D]/10 border border-[#FACB7D]/30 tracking-widest uppercase">${s.badge}</div>` : ''}
+                <h4 class="dept-scale-title relative font-bold text-white tracking-wider uppercase group-hover/scale:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
+                  ${s.title}
+                </h4>
+                <p class="dept-scale-desc relative text-[#f5efe6]/80 font-light">
+                  ${fixPolishOrphans(s.desc)}
+                </p>
+              </div>
+              ${artbarLineFrame('bottom', 1)}
+            </div>
+          ` : `
             <div class="dept-scale-card group/scale relative bg-gradient-to-b from-white/[0.05] via-[#0a0a0a]/90 to-black/95 border border-white/10 hover:border-[#FACB7D]/60 hover:shadow-[0_0_30px_rgba(250,203,125,0.15)] transition-all duration-300 flex flex-col justify-between">
               <div>
-                <div class="dept-scale-badge inline-flex items-center rounded-full font-mono font-bold text-[#FACB7D] bg-[#FACB7D]/10 border border-[#FACB7D]/30 tracking-widest uppercase">
+                ${s.badge ? `<div class="dept-scale-badge inline-flex items-center rounded-full font-mono font-bold text-[#FACB7D] bg-[#FACB7D]/10 border border-[#FACB7D]/30 tracking-widest uppercase">
                   ${s.badge}
-                </div>
+                </div>` : ''}
                 <h4 class="dept-scale-title font-bold text-white tracking-wider uppercase group-hover/scale:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
                   ${s.title}
                 </h4>
@@ -5194,7 +5315,21 @@
       if (dept.workflow && dept.workflow.length > 0) {
         if (workflowTitle && dept.workflowTitle) workflowTitle.textContent = dept.workflowTitle;
         if (workflowList) {
-          workflowList.innerHTML = dept.workflow.map((step, i) => `
+          workflowList.innerHTML = dept.workflow.map((step, i) => dept.lineFrames ? `
+            <div class="dept-workflow-card dept-frame-card group/step relative flex flex-col justify-between">
+              ${artbarLineFrame('top', 0.6)}
+              <div class="dept-frame-body-workflow flex-1">
+                <div class="dept-workflow-header flex items-center gap-2.5">
+                  <span class="dept-workflow-square bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/step:scale-125 group-hover/step:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
+                  <span class="dept-workflow-tag font-mono font-black text-[#FACB7D] tracking-widest">KROK 0${i + 1}</span>
+                </div>
+                <p class="dept-workflow-title font-bold text-white uppercase tracking-wider group-hover/step:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
+                  ${fixPolishOrphans(step)}
+                </p>
+              </div>
+              ${artbarLineFrame('bottom', 0.6)}
+            </div>
+          ` : `
             <div class="dept-workflow-card group/step relative bg-white/[0.03] border border-white/10 hover:border-[#FACB7D]/50 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-between">
               <div class="dept-workflow-header flex items-center gap-2.5">
                 <span class="dept-workflow-square bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/step:scale-125 group-hover/step:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
@@ -5225,6 +5360,17 @@
           secondaryCta.textContent = 'Pobierz Ofertę PDF';
           secondaryCta.href = 'assets/pdf/artbar_solution_oferta_v5_compr.pdf';
           secondaryCta.target = '_blank';
+        }
+      } else if (dept.id === 'art') {
+        if (primaryCta) {
+          primaryCta.textContent = 'Zaplanujmy oprawę Twojego eventu';
+          primaryCta.href = '#kontakt';
+          primaryCta.target = '_self';
+        }
+        if (secondaryCta) {
+          secondaryCta.textContent = 'Zobacz galerię realizacji';
+          secondaryCta.href = '#realizacje';
+          secondaryCta.target = '_self';
         }
       } else {
         if (primaryCta) {
