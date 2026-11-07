@@ -1119,6 +1119,20 @@
       }
     }
 
+    /* W dziale NAMIOTY: wideo / model 3D namiotu ZAWSZE NAD piktogramem namiotów z prawej strony */
+    #dept-modal-backdrop.is-namioty #modal-icon-wrap,
+    #modal-icon-wrap {
+      z-index: 1 !important;
+    }
+    #namiot-spatial-gap {
+      position: relative !important;
+      z-index: 20 !important;
+    }
+    #dept-namiot-3d-col {
+      position: absolute !important;
+      z-index: 20 !important;
+    }
+
     /* ══════════════════════════════════════════════════════════
        MONUMENTALNA GRAFIKA 3D BEZ RAMKI (PŁYWAJĄCA + FADE W PRAWO)
        ══════════════════════════════════════════════════════════ */
@@ -3541,15 +3555,15 @@
 
             
             <!-- DEDYKOWANA PRZESTRZEŃ EKSPOZYCYJNA DLA NAMIOTU: ZAKOTWICZONA MIĘDZY TEKSTAMI -->
-            <div id="namiot-spatial-gap" class="hidden relative w-full h-[190px] sm:h-[370px] lg:h-[450px] -my-1 sm:my-6 pointer-events-auto select-none">
+            <div id="namiot-spatial-gap" class="hidden relative w-full h-[190px] sm:h-[370px] lg:h-[450px] -my-1 sm:my-6 pointer-events-auto select-none z-20">
               <!-- PEŁNOSZEROKI MODUŁ 3D NAMIOTU WCHODZĄCY POD TEKST Z PŁYNNYM FADEM DO PRZEZROCZYSTOŚCI U GÓRY I U DOŁU -->
-              <div id="dept-namiot-3d-col" class="absolute -top-24 sm:-top-16 lg:-top-20 -bottom-8 sm:-bottom-16 lg:-bottom-20 inset-x-0 w-full pointer-events-auto select-none cursor-grab active:cursor-grabbing z-0 overflow-visible" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%);">
+              <div id="dept-namiot-3d-col" class="absolute -top-24 sm:-top-16 lg:-top-20 -bottom-8 sm:-bottom-16 lg:-bottom-20 inset-x-0 w-full pointer-events-auto select-none cursor-grab active:cursor-grabbing z-20 overflow-visible" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%);">
                 <div id="dept-namiot-bg-mount" class="w-full h-full relative"></div>
               </div>
             </div>
 
             <!-- Sekcja: Co Zyskujesz Jako Organizator (Dedykowana / Dynamiczna) -->
-            <section id="modal-benefits-section" class="portal-anim-item hidden w-full clear-both">
+            <section id="modal-benefits-section" class="portal-anim-item hidden w-full clear-both relative z-30">
               <div id="modal-benefits-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
                 Co Zyskujesz Jako Organizator
               </div>
@@ -3559,7 +3573,7 @@
             </section>
 
             <!-- Sekcja 2: Kluczowe Usługi i Standardy -->
-            <section class="portal-anim-item w-full relative z-10 pointer-events-auto clear-both">
+            <section class="portal-anim-item w-full relative z-30 pointer-events-auto clear-both">
               <div id="modal-services-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
                 Kluczowe Usługi i Standardy Realizacji
               </div>
@@ -5264,6 +5278,13 @@
       document.documentElement.style.overflow = 'hidden';
 
       renderDeptTopbarNav(idx);
+      if (modalBackdrop) {
+        if (dept.id === 'namioty') {
+          modalBackdrop.classList.add('is-namioty');
+        } else {
+          modalBackdrop.classList.remove('is-namioty');
+        }
+      }
       if (modalIconWrap) modalIconWrap.innerHTML = dept.iconSvg;
       if (modalHeaderIcon) modalHeaderIcon.innerHTML = dept.iconSvg;
       if (modalBadge) modalBadge.textContent = dept.badge;
@@ -5688,6 +5709,7 @@
     }
 
     function closeDeptModal() {
+      if (modalBackdrop) modalBackdrop.classList.remove('is-namioty');
       const benefitsSec = document.getElementById('modal-benefits-section');
       const scaleSec = document.getElementById('modal-scale-section');
       const workflowSec = document.getElementById('modal-workflow-section');
