@@ -1106,6 +1106,10 @@
       position: relative !important;
       z-index: 2 !important;
     }
+    #modal-lead strong {
+      font-weight: 600 !important;
+      color: #ffffff !important;
+    }
     @media (max-width: 768px) {
       .dept-watermark-symbol {
         display: none !important;
@@ -1394,6 +1398,10 @@
       font-size: var(--dept-service-font-size) !important;
       line-height: var(--dept-service-lh) !important;
     }
+    .dept-service-text strong {
+      font-weight: 600 !important;
+      color: #ffffff !important;
+    }
 
     #modal-scale-list {
       gap: var(--dept-scale-gap) !important;
@@ -1457,10 +1465,16 @@
       filter: drop-shadow(0 0 10px rgba(250,203,125,0.65));
     }
     .dept-frame-body-scale {
-      padding: 26px 10px;
+      padding: 16px 10px 24px 10px;
     }
     .dept-frame-body-workflow {
-      padding: 14px 4px;
+      padding: 10px 4px 14px 4px;
+    }
+    .dept-frame-body-benefit {
+      padding: 12px 8px 18px 8px;
+    }
+    .dept-frame-body-team {
+      padding: 16px 10px 14px 10px;
     }
 
     #dept-bar-3d-grid {
@@ -3577,6 +3591,16 @@
           </div>
         </section>
 
+        <!-- Sekcja: Kadra Zarządzająca (Dedykowana / Dynamiczna) -->
+        <section id="modal-team-section" class="portal-anim-item hidden w-full">
+          <div id="modal-team-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
+            Kadra Zarządzająca
+          </div>
+          <div id="modal-team-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+            <!-- Generowane przez JS -->
+          </div>
+        </section>
+
         <!-- Sekcja 3D: Interaktywne Moduły 3D MDS (Dedykowana dla Działu BAR - w rzędzie obok siebie) -->
         <section id="dept-bar-3d-section" class="portal-anim-item hidden w-full">
           <div id="modal-3d-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
@@ -4119,10 +4143,11 @@
         subtitle: 'KOMPLETNE STREFY BAROWE',
         modalSubtitle: 'KOMPLETNE STREFY BAROWE · OD KILKU BARÓW DO FESTIWALI',
         badge: 'Modułowa Infrastruktura Barowa',
+        lineFrames: true,
         leadTitle: 'ZAKRES OPERACYJNY',
         lead: `
           <p class="mb-4">
-            Stawiamy strefy barowe <strong>kompleksowo</strong>: od&nbsp;kilku barów na&nbsp;bankiet czy&nbsp;galę po&nbsp;realizacje na&nbsp;festiwalach dla&nbsp;kilkudziesięciu tysięcy gości. Podstawą jest <strong>MDS (Modular Design System)</strong>, nasz autorski system barów modułowych. Sami go projektujemy, produkujemy i&nbsp;obsługujemy, od&nbsp;pierwszej koncepcji po&nbsp;montaż i&nbsp;obsługę na&nbsp;evencie.
+            Stawiamy strefy barowe <strong>kompleksowo</strong>: od&nbsp;kilku barów na&nbsp;bankiet czy&nbsp;galę po&nbsp;realizacje na&nbsp;festiwalach dla&nbsp;kilkudziesięciu tysięcy gości. Podstawą jest <strong class="whitespace-nowrap">MDS&nbsp;(Modular&nbsp;Design&nbsp;System)</strong>, nasz autorski system barów modułowych. Sami go projektujemy, produkujemy i&nbsp;obsługujemy, od&nbsp;pierwszej koncepcji po&nbsp;montaż i&nbsp;obsługę na&nbsp;evencie.
           </p>
           <p>
             Bary budujemy z&nbsp;modułów w&nbsp;dowolne układy. Ta&nbsp;sama konstrukcja sprawdza się na&nbsp;kameralnym bankiecie i&nbsp;na&nbsp;masowym festiwalu, więc jakość jest zawsze taka sama, a&nbsp;aranżacja może być dowolna dzięki wymiennym grafikom. Pracujemy na&nbsp;własnych zasobach: barach, lodzie, namiotach, systemie sprzedaży i&nbsp;logistyce. Odpowiadamy za&nbsp;każdy etap realizacji.
@@ -4180,15 +4205,15 @@
           </svg>
         `,
         services: [
-          'MODUŁOWE BARY MDS – RÓŻNE KONFIGURACJE',
-          'PODŚWIETLANE REGAŁY LED – PREZENTACJA PRODUKTU',
-          'MEBLE I DEKORACJE – BUDOWA STREF CHILL',
-          'KOMPLETNY SPRZĘT I STACJE BARMAŃSKIE',
-          'WŁASNA FABRYKA LODU – ZAOPATRZENIE I PRZECHOWYWANIE',
-          'SYSTEM SPRZEDAŻY Z FISKALIZACJĄ LIVE',
-          'NAMIOTY – ZADASZENIA STREF BAROWYCH',
-          'OBSŁUGA: BARMAŃSKA / KELNERSKA / MANAGERSKA',
-          'KONCESJA NA ALKOHOL ABC I POMOC W UZYSKANIU ZEZWOLEŃ'
+          '<strong>MODUŁOWE BARY MDS</strong> – RÓŻNE KONFIGURACJE',
+          '<strong>PODŚWIETLANE REGAŁY LED</strong> – PREZENTACJA PRODUKTU',
+          '<strong>MEBLE I DEKORACJE</strong> – BUDOWA STREF CHILL',
+          '<strong>KOMPLETNY SPRZĘT</strong> I STACJE BARMAŃSKIE',
+          '<strong>WŁASNA FABRYKA LODU</strong> – ZAOPATRZENIE I PRZECHOWYWANIE',
+          '<strong>SYSTEM SPRZEDAŻY</strong> Z FISKALIZACJĄ LIVE',
+          '<strong>NAMIOTY</strong> – ZADASZENIA STREF BAROWYCH',
+          '<strong>OBSŁUGA:</strong> BARMAŃSKA / KELNERSKA / MANAGERSKA',
+          '<strong>KONCESJA NA ALKOHOL ABC</strong> I POMOC W UZYSKANIU ZEZWOLEŃ'
         ],
         scaleTitle: 'SKALA REALIZACJI',
         scale: [
@@ -4225,9 +4250,46 @@
       {
         id: 'produkcja',
         title: 'PRODUKCJA',
-        subtitle: 'REALIZACJA WYDARZEŃ',
-        badge: 'Własny Zakład Produkcyjny',
-        lead: 'Własny park maszynowy i pracownia rzemieślnicza: stolarstwo, ślusarstwo oraz obróbka stali i aluminium. Projektujemy i produkujemy autorskie moduły barowe, customowe meble eventowe oraz dedykowane instalacje scenograficzne od podstaw.',
+        subtitle: 'KOMPLEKSOWA REALIZACJA EVENTÓW',
+        modalSubtitle: 'KOMPLEKSOWA REALIZACJA EVENTÓW',
+        badge: 'Kompleksowa Produkcja Wydarzeń',
+        lineFrames: true,
+        leadTitle: 'ZAKRES OPERACYJNY',
+        lead: `
+          <p class="mb-4">
+            Bierzemy na&nbsp;siebie całą produkcję wydarzenia, od&nbsp;pierwszego budżetu po&nbsp;ostatni demontaż w&nbsp;terenie. Planujemy, liczymy, rysujemy i&nbsp;koordynujemy, żeby organizator mógł skupić się na&nbsp;swoim evencie, a&nbsp;nie na&nbsp;setkach szczegółów, które muszą się zgadzać.
+          </p>
+          <p>
+            Nasza kadra zarządzająca prowadzi projekt od&nbsp;strony organizacyjnej, technicznej i&nbsp;finansowej. Przygotowujemy rysunki techniczne i&nbsp;plany terenu, budujemy harmonogramy, pilnujemy budżetu i&nbsp;koordynujemy wszystkich podwykonawców: scenę, technikę, ochronę, sanitariaty, gastronomię i&nbsp;media. Strefy barowe, lód, namioty i&nbsp;scenografię dostarczamy z&nbsp;własnych zasobów, więc kluczowe elementy eventu mamy pod pełną kontrolą.
+          </p>
+        `,
+        benefitsTitle: 'CO ZYSKUJESZ JAKO ORGANIZATOR',
+        benefits: [
+          {
+            title: 'Jeden partner = cały event.',
+            desc: 'Zamiast kilkunastu dostawców masz jednego partnera, który odpowiada za&nbsp;całość.'
+          },
+          {
+            title: 'Kontrolę budżetu.',
+            desc: 'Kosztorys, bieżące raportowanie i&nbsp;rozliczenie po&nbsp;evencie. Zanim ruszy montaż, event musi się zgadzać w&nbsp;Excelu.'
+          },
+          {
+            title: 'Oszczędność na transporcie.',
+            desc: 'Bary, namioty, lód i&nbsp;scenografia przyjeżdżają z&nbsp;jednego magazynu, w&nbsp;jednym zaplanowanym transporcie. Mniej kursów, mniej aut na&nbsp;terenie i&nbsp;niższe koszty logistyki.'
+          },
+          {
+            title: 'Precyzyjne planowanie.',
+            desc: 'Rysunki techniczne, plany terenu i&nbsp;harmonogramy, na&nbsp;których pracują wszystkie ekipy.'
+          },
+          {
+            title: 'Sprawdzonych podwykonawców.',
+            desc: 'Sieć zaufanych partnerów, z&nbsp;którymi realizowaliśmy już duże wydarzenia.'
+          },
+          {
+            title: 'Spokój w dniu eventu.',
+            desc: 'Koordynatorzy na&nbsp;miejscu reagują od&nbsp;razu, bo&nbsp;najlepsza produkcja to&nbsp;ta, której nie widać.'
+          }
+        ],
         iconSvg: `
           <svg id="icon-svg-produkcja" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full text-[#FACB7D]">
             <defs>
@@ -4322,13 +4384,55 @@
           </svg>
         `,
         services: [
-          'Projektowanie i&nbsp;produkcja<br>autorskich barów modułowych',
-          'Zaawansowane prace stolarskie<br>i&nbsp;ślusarskie na&nbsp;zamówienie',
-          'Cięcie laserowe, gięcie profili<br>i&nbsp;obróbka stali nierdzewnej',
-          'Personalizowany branding<br>i&nbsp;lakierowanie proszkowe',
-          'Produkcja mebli tapicerowanych<br>i&nbsp;stref lounge VIP',
-          'Modernizacja i&nbsp;serwis techniczny<br>wyposażenia barowego',
-          'Indywidualne realizacje<br>architektoniczne'
+          'ZARZĄDZANIE PROJEKTEM I PRODUKCJĄ EVENTU',
+          'BUDŻETOWANIE, KOSZTORYSY I KONTROLA KOSZTÓW',
+          'RYSUNKI TECHNICZNE I PLANY TERENU',
+          'HARMONOGRAMY MONTAŻU, EVENTU I DEMONTAŻU',
+          'KOORDYNACJA PODWYKONAWCÓW I DOSTAWCÓW',
+          'LOGISTYKA, TRANSPORT I ZAPLECZE TECHNICZNE',
+          'FORMALNOŚCI, ZGODY I BEZPIECZEŃSTWO',
+          'KOORDYNACJA NA MIEJSCU W TRAKCIE EVENTU',
+          'ROZLICZENIE I RAPORT PO REALIZACJI'
+        ],
+        scaleTitle: 'ZAKRES WSPÓŁPRACY',
+        scale: [
+          {
+            title: 'WYBRANY OBSZAR',
+            desc: 'Produkcja konkretnej części wydarzenia, takiej jak strefa gastronomiczna, VIP czy wystawiennicza, zgrana z&nbsp;resztą eventu.'
+          },
+          {
+            title: 'PRODUKCJA TECHNICZNA',
+            desc: 'Plany, harmonogramy i&nbsp;koordynacja ekip na&nbsp;terenie przy evencie, który organizujesz Ty lub Twoja agencja.'
+          },
+          {
+            title: 'CAŁOŚCIOWA REALIZACJA',
+            desc: 'Event od&nbsp;A do&nbsp;Z: od&nbsp;koncepcji i&nbsp;budżetu, przez produkcję, po&nbsp;rozliczenie. Festiwale, targi, wydarzenia marek.'
+          }
+        ],
+        workflowTitle: 'JAK DZIAŁAMY',
+        workflow: [
+          'BRIEF, ZAŁOŻENIA I BUDŻET RAMOWY',
+          'PLAN TERENU, RYSUNKI TECHNICZNE I HARMONOGRAM',
+          'DOBÓR PODWYKONAWCÓW I KOSZTORYS',
+          'MONTAŻ I KOORDYNACJA EVENTU',
+          'DEMONTAŻ, ROZLICZENIE I RAPORT'
+        ],
+        teamTitle: 'KADRA ZARZĄDZAJĄCA',
+        team: [
+          {
+            name: 'MATEUSZ HYCKI',
+            role: 'Współzałożyciel',
+            photo: 'assets/images/about/mateusz-hycki.webp',
+            desc: 'Około 20 lat w&nbsp;branży barowej i&nbsp;alkoholowej, w&nbsp;tym 8 lat w&nbsp;eventach. Odpowiada za koncepcję, operacje i&nbsp;strefy barowe dla publiczności od&nbsp;1&nbsp;000 do ponad 30&nbsp;000 osób.',
+            quote: 'Nie ma rzeczy niemożliwych…'
+          },
+          {
+            name: 'DAMIAN ŁUKAWSKI',
+            role: 'Współzałożyciel',
+            photo: 'assets/images/about/damian-lukawski.webp',
+            desc: 'Ponad 16 lat w&nbsp;gastronomii i&nbsp;eventach. Odpowiada za budżety, analitykę i&nbsp;kontrolę kosztów projektów.',
+            quote: 'Zanim ruszy montaż, event musi się zgadzać w&nbsp;Excelu.'
+          }
         ],
         photos: [
           'assets/images/gallery/2024.12.31-Art-Bar-73-1-1536x1024.webp',
@@ -5147,8 +5251,8 @@
         return `<div class="dept-frame-line flex w-full pointer-events-none overflow-visible">${stretch(base)}<svg class="shrink-0 overflow-visible" width="${groupW}" height="${H}" viewBox="0 0 ${groupW} ${H}" fill="none">${bars}</svg></div>`;
       }
       const base = 3 * s;
-      heights.slice().reverse().forEach((h, k) => { const x = 6 * s + step * k; bars += ln(x, base, x, base + h); });
-      return `<div class="dept-frame-line flex w-full pointer-events-none overflow-visible"><svg class="shrink-0 overflow-visible" width="${groupW}" height="${H}" viewBox="0 0 ${groupW} ${H}" fill="none">${bars}</svg>${stretch(base)}</div>`;
+      heights.forEach((h, k) => { const x = step * (k + 1); bars += ln(x, base, x, base + h); });
+      return `<div class="dept-frame-line flex w-full pointer-events-none overflow-visible">${stretch(base)}<svg class="shrink-0 overflow-visible" width="${groupW}" height="${H}" viewBox="0 0 ${groupW} ${H}" fill="none">${bars}</svg></div>`;
     }
 
     function openDeptModal(idx) {
@@ -5178,7 +5282,25 @@
       if (dept.benefits && dept.benefits.length > 0) {
         if (benefitsTitle && dept.benefitsTitle) benefitsTitle.textContent = dept.benefitsTitle;
         if (benefitsList) {
-          benefitsList.innerHTML = dept.benefits.map((b) => `
+          benefitsList.className = dept.benefits.length === 6
+            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+            : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6';
+          benefitsList.innerHTML = dept.benefits.map((b) => dept.lineFrames ? `
+            <div class="dept-benefit-card dept-frame-card group/benefit relative flex flex-col justify-between">
+              <div class="dept-frame-body-benefit flex-1 flex flex-col justify-start">
+                <div class="dept-benefit-header flex items-center gap-2.5 mb-2">
+                  <span class="dept-benefit-dot bg-[#FACB7D] shrink-0 shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/benefit:scale-125 transition-transform duration-300"></span>
+                  <h4 class="dept-benefit-title font-bold text-white tracking-wide group-hover/benefit:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
+                    ${b.title}
+                  </h4>
+                </div>
+                <p class="dept-benefit-desc text-[#f5efe6]/80 font-light">
+                  ${fixPolishOrphans(b.desc)}
+                </p>
+              </div>
+              ${artbarLineFrame('bottom', 0.6)}
+            </div>
+          ` : `
             <div class="dept-benefit-card group/benefit bg-white/[0.03] border border-white/10 hover:border-[#FACB7D]/50 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-start">
               <div class="dept-benefit-header flex items-center gap-2.5">
                 <span class="dept-benefit-dot bg-[#FACB7D] shrink-0 shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/benefit:scale-125 transition-transform duration-300"></span>
@@ -5250,15 +5372,16 @@
         modalServicesList.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-14 gap-y-6 sm:gap-y-8';
       }
 
-      // Usługi: wyjustowana do lewej elegancka lista punktowana ze złotym kwadracikiem - cały tekst wytłuszczony wersalikami, bez podziału
+      // Usługi: wyjustowana do lewej elegancka lista punktowana ze złotym kwadracikiem - lekkie wyróżnienie wytłuszczeń
       modalServicesList.innerHTML = dept.services.map((srv) => {
-        const fullText = fixPolishOrphans(srv.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' '));
+        const fullText = fixPolishOrphans(srv.replace(/<br\s*\/?>/gi, ' '));
+        const hasStrong = fullText.includes('<strong>');
 
         return `
           <div class="dept-service-item group/srv flex items-start text-left py-1 rounded transition-all duration-200 hover:translate-x-1">
             <span class="dept-service-square bg-[#FACB7D] shrink-0 mt-[6px] inline-block shadow-[0_0_8px_rgba(250,203,125,0.65)] group-hover/srv:scale-125 group-hover/srv:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
             <div class="flex-1 min-w-0 text-left drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]" style="font-family: 'Montserrat', sans-serif;">
-              <span class="dept-service-text text-white font-semibold uppercase tracking-wider block group-hover/srv:text-[#FACB7D] transition-colors duration-200">${fullText}</span>
+              <span class="dept-service-text ${hasStrong ? 'font-normal text-white/80' : 'font-semibold text-white'} uppercase tracking-wider block group-hover/srv:text-[#FACB7D] transition-colors duration-200">${fullText}</span>
             </div>
           </div>
         `;
@@ -5273,7 +5396,6 @@
         if (scaleList) {
           scaleList.innerHTML = dept.scale.map((s) => dept.lineFrames ? `
             <div class="dept-scale-card dept-frame-card group/scale relative flex flex-col justify-between">
-              ${artbarLineFrame('top', 1)}
               <div class="dept-frame-body-scale flex-1 relative">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FACB7D]/[0.08] blur-3xl pointer-events-none"></div>
                 ${s.badge ? `<div class="dept-scale-badge inline-flex items-center rounded-full font-mono font-bold text-[#FACB7D] bg-[#FACB7D]/10 border border-[#FACB7D]/30 tracking-widest uppercase">${s.badge}</div>` : ''}
@@ -5317,7 +5439,6 @@
         if (workflowList) {
           workflowList.innerHTML = dept.workflow.map((step, i) => dept.lineFrames ? `
             <div class="dept-workflow-card dept-frame-card group/step relative flex flex-col justify-between">
-              ${artbarLineFrame('top', 0.6)}
               <div class="dept-frame-body-workflow flex-1">
                 <div class="dept-workflow-header flex items-center gap-2.5">
                   <span class="dept-workflow-square bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/step:scale-125 group-hover/step:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
@@ -5347,6 +5468,69 @@
         if (workflowList) workflowList.innerHTML = '';
       }
 
+      // Sekcja: Kadra Zarządzająca (jeśli zdefiniowana w dziale)
+      const teamSec = document.getElementById('modal-team-section');
+      const teamList = document.getElementById('modal-team-list');
+      const teamTitle = document.getElementById('modal-team-title');
+      if (dept.team && dept.team.length > 0) {
+        if (teamTitle && dept.teamTitle) teamTitle.textContent = dept.teamTitle;
+        if (teamList) {
+          teamList.innerHTML = dept.team.map((m) => dept.lineFrames ? `
+            <div class="dept-team-card dept-frame-card group/team relative flex flex-col justify-between">
+              <div class="dept-frame-body-team flex-1 relative">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FACB7D]/[0.08] blur-3xl pointer-events-none"></div>
+                <div class="flex flex-col sm:flex-row gap-5 items-start">
+                  <div class="w-24 h-32 sm:w-28 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-[#FACB7D]/40 shadow-[0_4px_20px_rgba(0,0,0,0.6)] relative bg-[#1a140b]">
+                    <img src="${m.photo}" alt="${m.name}" class="w-full h-full object-cover object-top filter brightness-100 group-hover/team:scale-105 transition-transform duration-500">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="w-2 h-2 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)]"></span>
+                      <h4 class="font-serif-luxury font-bold text-lg sm:text-xl text-white group-hover/team:text-[#FACB7D] transition-colors">${m.name}</h4>
+                    </div>
+                    <div class="text-xs uppercase tracking-widest text-[#FACB7D] font-mono mb-3">${m.role}</div>
+                    <p class="text-xs sm:text-sm text-[#f5efe6]/80 font-light leading-relaxed">${fixPolishOrphans(m.desc)}</p>
+                  </div>
+                </div>
+              </div>
+              ${m.quote ? `
+                <div class="mt-4 pb-3 border-t border-[#FACB7D]/20 text-xs sm:text-sm text-[#FACB7D] font-serif-luxury italic leading-relaxed text-right px-2.5 sm:px-3">
+                  „${fixPolishOrphans(m.quote)}”
+                </div>
+              ` : ''}
+              ${artbarLineFrame('bottom', 1)}
+            </div>
+          ` : `
+            <div class="dept-team-card group/team relative bg-white/[0.03] border border-white/10 hover:border-[#FACB7D]/50 hover:bg-white/[0.05] transition-all duration-300 p-6 sm:p-7 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="flex flex-col sm:flex-row gap-5 items-start">
+                  <div class="w-24 h-32 sm:w-28 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-[#FACB7D]/40 shadow-[0_4px_20px_rgba(0,0,0,0.6)] relative bg-[#1a140b]">
+                    <img src="${m.photo}" alt="${m.name}" class="w-full h-full object-cover object-top filter brightness-100 group-hover/team:scale-105 transition-transform duration-500">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="w-2 h-2 bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)]"></span>
+                      <h4 class="font-serif-luxury font-bold text-lg sm:text-xl text-white group-hover/team:text-[#FACB7D] transition-colors">${m.name}</h4>
+                    </div>
+                    <div class="text-xs uppercase tracking-widest text-[#FACB7D] font-mono mb-3">${m.role}</div>
+                    <p class="text-xs sm:text-sm text-[#f5efe6]/80 font-light leading-relaxed">${fixPolishOrphans(m.desc)}</p>
+                  </div>
+                </div>
+              </div>
+              ${m.quote ? `
+                <div class="mt-5 pt-4 border-t border-[#FACB7D]/20 text-xs sm:text-sm text-[#FACB7D] font-serif-luxury italic leading-relaxed text-right">
+                  „${fixPolishOrphans(m.quote)}”
+                </div>
+              ` : ''}
+            </div>
+          `).join('');
+        }
+        if (teamSec) teamSec.classList.remove('hidden');
+      } else {
+        if (teamSec) teamSec.classList.add('hidden');
+        if (teamList) teamList.innerHTML = '';
+      }
+
       // Obsługa przycisków w dolnej belce modalnej
       const primaryCta = document.getElementById('modal-footer-cta-primary');
       const secondaryCta = document.getElementById('modal-footer-cta-secondary');
@@ -5371,6 +5555,17 @@
           secondaryCta.textContent = 'Zobacz galerię realizacji';
           secondaryCta.href = '#realizacje';
           secondaryCta.target = '_self';
+        }
+      } else if (dept.id === 'produkcja') {
+        if (primaryCta) {
+          primaryCta.textContent = 'Zaplanujmy Twój event';
+          primaryCta.href = '#kontakt';
+          primaryCta.target = '_self';
+        }
+        if (secondaryCta) {
+          secondaryCta.textContent = 'Pobierz Ofertę PDF';
+          secondaryCta.href = 'assets/pdf/artbar_solution_oferta_v5_compr.pdf';
+          secondaryCta.target = '_blank';
         }
       } else {
         if (primaryCta) {
@@ -5496,9 +5691,11 @@
       const benefitsSec = document.getElementById('modal-benefits-section');
       const scaleSec = document.getElementById('modal-scale-section');
       const workflowSec = document.getElementById('modal-workflow-section');
+      const teamSec = document.getElementById('modal-team-section');
       if (benefitsSec) benefitsSec.classList.add('hidden');
       if (scaleSec) scaleSec.classList.add('hidden');
       if (workflowSec) workflowSec.classList.add('hidden');
+      if (teamSec) teamSec.classList.add('hidden');
 
       const ice3dBg = document.getElementById('ice-3d-bg');
       if (ice3dBg) ice3dBg.classList.add('hidden');
