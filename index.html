@@ -666,7 +666,7 @@
     .icon-symbol-wrap {
       width: 100%;
       height: 100%;
-      padding: 8px;
+      padding: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -738,10 +738,12 @@
       justify-content: center;
     }
     .mobile-node-icon-circle .icon-symbol-wrap svg {
-      width: 88% !important;
-      height: 88% !important;
-      max-width: 88% !important;
-      max-height: 88% !important;
+      width: 94% !important;
+      height: 94% !important;
+      max-width: 94% !important;
+      max-height: 94% !important;
+      display: block !important;
+      margin: auto !important;
     }
 
     .mobile-node-card-btn:hover .mobile-node-icon-circle,
@@ -762,7 +764,7 @@
 
     @media (min-width: 640px) {
       .icon-symbol-wrap {
-        padding: 9px;
+        padding: 6px;
       }
       .icon-symbol-wrap svg {
         max-width: var(--icon-max-size, 78px);
@@ -2279,7 +2281,7 @@
       </div>
 
       <!-- KONTENER 2 KOLUMN Z SIATKĄ DZIAŁÓW -->
-      <div id="mobile-grid-container" class="relative w-full max-w-sm sm:max-w-md mx-auto grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-6 sm:gap-y-8 py-2">
+      <div id="mobile-grid-container" class="relative w-full max-w-sm sm:max-w-md mx-auto grid grid-cols-2 justify-items-center gap-x-4 sm:gap-x-8 gap-y-6 sm:gap-y-8 py-2">
         <!-- KAFELKI DZIAŁÓW ZOSTANĄ WYGENEROWANE DYNAMICZNIE PRZEZ initMobileNodes() -->
       </div>
 
@@ -2583,10 +2585,10 @@
         <!-- Treść manifestu -->
         <div class="py-2 relative">
           <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 h-20 bg-[#FACB7D]/12 blur-3xl pointer-events-none"></div>
-          <p class="text-xs sm:text-sm md:text-base text-[#f5efe6]/90 font-light leading-relaxed mb-4 max-w-2xl mx-auto">
+          <p class="text-xs sm:text-sm md:text-base text-[#f5efe6]/90 font-light leading-relaxed mb-4 max-w-2xl mx-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
             Art Bar Solutions to połączenie produkcji eventowej, designu przestrzeni i&nbsp;wieloletniego doświadczenia w&nbsp;branży barowo-eventowej.
           </p>
-          <div class="text-xl sm:text-2xl md:text-3xl font-bold text-[#FACB7D] tracking-[0.14em] uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">
+          <div class="text-xl sm:text-2xl md:text-3xl font-bold text-[#FACB7D] tracking-[0.14em] uppercase drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">
             JEDEN PARTNER = CAŁY EVENT
           </div>
         </div>
@@ -2672,15 +2674,13 @@
               </div>
 
               <!-- Cytat -->
-              <div class="mt-8 pt-6 border-t border-[#FACB7D]/20">
-                <div class="p-4 sm:p-5 rounded-xl bg-[#FACB7D]/[0.05] border-l-2 border-[#FACB7D] text-sm sm:text-base text-[#FACB7D] font-serif-luxury italic leading-relaxed">
-                  „Nie ma rzeczy niemożliwych. Są tylko takie, które wymagają lepszej logistyki, kreatywności i&nbsp;determinacji.”
-                </div>
+              <div class="mt-4 sm:mt-6 pb-1 text-right text-base sm:text-lg text-[#FACB7D] font-serif-luxury italic leading-snug sm:leading-relaxed pr-0.5 sm:pr-1">
+                „Nie ma rzeczy niemożliwych. Są tylko takie, które wymagają lepszej logistyki, kreatywności i&nbsp;determinacji.”
               </div>
             </div>
 
             <!-- Linia dolna (Słupki po zewnętrznej LEWEJ stronie, skierowane w dół) -->
-            <div class="w-full mt-6 sm:mt-8 overflow-visible pointer-events-none filter drop-shadow-[0_0_8px_rgba(250,203,125,0.3)]">
+            <div class="w-full mt-1 sm:mt-1.5 overflow-visible pointer-events-none filter drop-shadow-[0_0_8px_rgba(250,203,125,0.3)]">
               <svg class="artbar-frame-svg w-full overflow-visible" height="34" viewBox="0 0 700 34" fill="none" preserveAspectRatio="none">
                 <line x1="6" y1="3" x2="6" y2="31" stroke="#FACB7D" stroke-width="1.3" stroke-linecap="square" vector-effect="non-scaling-stroke"/>
                 <line x1="24" y1="3" x2="24" y2="24" stroke="#FACB7D" stroke-width="1.3" stroke-linecap="square" vector-effect="non-scaling-stroke"/>
@@ -2746,15 +2746,13 @@
               </div>
 
               <!-- Cytat -->
-              <div class="mt-8 pt-6 border-t border-[#FACB7D]/20">
-                <div class="p-4 sm:p-5 rounded-xl bg-[#FACB7D]/[0.05] border-l-2 border-[#FACB7D] text-sm sm:text-base text-[#FACB7D] font-serif-luxury italic leading-relaxed">
-                  „Zanim ruszy montaż, event musi się zgadzać w&nbsp;Excelu.”
-                </div>
+              <div class="mt-4 sm:mt-6 pb-1 text-right text-base sm:text-lg text-[#FACB7D] font-serif-luxury italic leading-snug sm:leading-relaxed pl-2" style="padding-right: 11.14%;">
+                „Zanim ruszy montaż, event musi się zgadzać w&nbsp;Excelu.”
               </div>
             </div>
 
             <!-- Linia dolna (Słupki po zewnętrznej PRAWEJ stronie, skierowane w dół) -->
-            <div class="w-full mt-6 sm:mt-8 overflow-visible pointer-events-none filter drop-shadow-[0_0_8px_rgba(250,203,125,0.3)]">
+            <div class="w-full mt-1 sm:mt-1.5 overflow-visible pointer-events-none filter drop-shadow-[0_0_8px_rgba(250,203,125,0.3)]">
               <svg class="artbar-frame-svg w-full overflow-visible" height="34" viewBox="0 0 700 34" fill="none" preserveAspectRatio="none">
                 <line x1="0" y1="3" x2="622" y2="3" stroke="#FACB7D" stroke-width="1.3" stroke-linecap="square" vector-effect="non-scaling-stroke"/>
                 <line x1="640" y1="3" x2="640" y2="9" stroke="#FACB7D" stroke-width="1.3" stroke-linecap="square" vector-effect="non-scaling-stroke"/>
@@ -5501,8 +5499,13 @@
               <div class="dept-frame-body-team flex-1 relative">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FACB7D]/[0.08] blur-3xl pointer-events-none"></div>
                 <div class="flex flex-col sm:flex-row gap-5 items-start">
-                  <div class="w-24 h-32 sm:w-28 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-[#FACB7D]/40 shadow-[0_4px_20px_rgba(0,0,0,0.6)] relative bg-[#1a140b]">
-                    <img src="${m.photo}" alt="${m.name}" class="w-full h-full object-cover object-top filter brightness-100 group-hover/team:scale-105 transition-transform duration-500">
+                  <div class="w-24 h-32 sm:w-28 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-[#FACB7D]/45 shadow-[0_10px_25px_rgba(0,0,0,0.8),0_0_20px_rgba(250,203,125,0.22)] group-hover/team:border-[#FACB7D]/70 group-hover/team:shadow-[0_10px_30px_rgba(0,0,0,0.9),0_0_30px_rgba(250,203,125,0.35)] relative bg-[#1a140b] transition-all duration-500">
+                    <!-- Złote tło bez cieni na zdjęciu (takie samo jak w sekcji O nas) -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#FACB7D]/45 via-[#E5B869]/30 to-[#FACB7D]/25 pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-44 sm:w-36 sm:h-48 bg-[#FACB7D]/35 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(250,203,125,0.4)_0%,rgba(197,155,75,0.2)_60%,transparent_100%)] pointer-events-none"></div>
+                    <!-- Portret -->
+                    <img src="${m.photo}" alt="${m.name}" class="relative z-10 w-full h-full object-cover object-top filter brightness-100 group-hover/team:scale-105 transition-transform duration-500">
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-2 mb-1">
@@ -5515,7 +5518,7 @@
                 </div>
               </div>
               ${m.quote ? `
-                <div class="mt-4 pb-3 border-t border-[#FACB7D]/20 text-xs sm:text-sm text-[#FACB7D] font-serif-luxury italic leading-relaxed text-right px-2.5 sm:px-3">
+                <div class="mt-3 sm:mt-4 pb-1 text-sm sm:text-base text-[#FACB7D] font-serif-luxury italic leading-snug sm:leading-relaxed text-right pr-[78px] pl-3" style="padding-right: 78px;">
                   „${fixPolishOrphans(m.quote)}”
                 </div>
               ` : ''}
@@ -5525,8 +5528,13 @@
             <div class="dept-team-card group/team relative bg-white/[0.03] border border-white/10 hover:border-[#FACB7D]/50 hover:bg-white/[0.05] transition-all duration-300 p-6 sm:p-7 rounded-xl flex flex-col justify-between">
               <div>
                 <div class="flex flex-col sm:flex-row gap-5 items-start">
-                  <div class="w-24 h-32 sm:w-28 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-[#FACB7D]/40 shadow-[0_4px_20px_rgba(0,0,0,0.6)] relative bg-[#1a140b]">
-                    <img src="${m.photo}" alt="${m.name}" class="w-full h-full object-cover object-top filter brightness-100 group-hover/team:scale-105 transition-transform duration-500">
+                  <div class="w-24 h-32 sm:w-28 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-[#FACB7D]/45 shadow-[0_10px_25px_rgba(0,0,0,0.8),0_0_20px_rgba(250,203,125,0.22)] group-hover/team:border-[#FACB7D]/70 group-hover/team:shadow-[0_10px_30px_rgba(0,0,0,0.9),0_0_30px_rgba(250,203,125,0.35)] relative bg-[#1a140b] transition-all duration-500">
+                    <!-- Złote tło bez cieni na zdjęciu (takie samo jak w sekcji O nas) -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#FACB7D]/45 via-[#E5B869]/30 to-[#FACB7D]/25 pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-44 sm:w-36 sm:h-48 bg-[#FACB7D]/35 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(250,203,125,0.4)_0%,rgba(197,155,75,0.2)_60%,transparent_100%)] pointer-events-none"></div>
+                    <!-- Portret -->
+                    <img src="${m.photo}" alt="${m.name}" class="relative z-10 w-full h-full object-cover object-top filter brightness-100 group-hover/team:scale-105 transition-transform duration-500">
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-2 mb-1">
@@ -5539,7 +5547,7 @@
                 </div>
               </div>
               ${m.quote ? `
-                <div class="mt-5 pt-4 border-t border-[#FACB7D]/20 text-xs sm:text-sm text-[#FACB7D] font-serif-luxury italic leading-relaxed text-right">
+                <div class="mt-4 text-sm sm:text-base text-[#FACB7D] font-serif-luxury italic leading-relaxed text-right">
                   „${fixPolishOrphans(m.quote)}”
                 </div>
               ` : ''}
@@ -6445,22 +6453,22 @@
       DEPARTMENTS.forEach((dept, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'mobile-node-card-btn group relative flex flex-col items-center text-center cursor-pointer select-none focus:outline-none';
+        btn.className = 'mobile-node-card-btn w-full p-0 group relative flex flex-col items-center justify-center text-center cursor-pointer select-none focus:outline-none';
         btn.setAttribute('data-index', idx);
         btn.setAttribute('data-id', dept.id);
         btn.setAttribute('aria-label', dept.title);
 
         btn.innerHTML = `
-          <div class="mobile-node-icon-circle w-24 h-24 sm:w-28 sm:h-28 rounded-2xl sm:rounded-3xl flex items-center justify-center p-1 sm:p-1.5 z-10">
+          <div class="mobile-node-icon-circle w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl flex items-center justify-center p-0.5 sm:p-1 z-10 mx-auto">
             <div class="icon-symbol-wrap w-full h-full flex items-center justify-center">
               ${dept.iconSvg}
             </div>
           </div>
-          <div class="mt-2.5 flex flex-col items-center z-10">
-            <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-[#FACB7D] tracking-wider uppercase leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors" style="font-family: 'Montserrat', sans-serif;">
+          <div class="mt-2.5 w-full flex flex-col items-center justify-center text-center z-10">
+            <h3 class="w-full text-center text-sm sm:text-base font-bold text-white group-hover:text-[#FACB7D] tracking-wider uppercase leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors" style="font-family: 'Montserrat', sans-serif;">
               ${dept.title}
             </h3>
-            <p class="text-[8px] sm:text-[9.5px] text-[#FACB7D] font-bold tracking-[0.16em] uppercase mt-0.5 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] max-w-[140px] sm:max-w-[170px]" style="font-family: 'Montserrat', sans-serif;">
+            <p class="w-full text-center text-[8px] sm:text-[9.5px] text-[#FACB7D] font-bold tracking-[0.16em] uppercase mt-0.5 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] max-w-[140px] sm:max-w-[170px] mx-auto" style="font-family: 'Montserrat', sans-serif;">
               ${dept.subtitle}
             </p>
           </div>
@@ -8372,7 +8380,7 @@ Autorska scenografia, świetlne instalacje i tropikalne akcenty zamieniły przes
             <div class="text-[10px] font-mono font-bold text-[#FACB7D] uppercase tracking-wider mb-0.5 truncate">
               ${item.date}
             </div>
-            <div class="text-xs font-bold text-white/95 group-hover:text-[#FACB7D] transition-colors line-clamp-2 leading-snug" style="font-family: 'Montserrat', sans-serif;">
+            <div class="text-xs font-normal text-white/95 group-hover:text-[#FACB7D] transition-colors line-clamp-2 leading-snug" style="font-family: 'Montserrat', sans-serif;">
               ${item.title}
             </div>
           </div>
