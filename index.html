@@ -1300,6 +1300,7 @@
       --dept-scale-badge-mb: 20px;
       --dept-scale-title-size: 20px;
       --dept-scale-title-mb: 9px;
+      --dept-scale-dot-size: 13px;
       --dept-scale-desc-size: 15.5px;
       --dept-scale-desc-lh: 1.55;
 
@@ -1437,6 +1438,10 @@
     .dept-scale-title {
       font-size: var(--dept-scale-title-size) !important;
       margin-bottom: var(--dept-scale-title-mb) !important;
+    }
+    .dept-scale-dot {
+      width: var(--dept-scale-dot-size, 13px) !important;
+      height: var(--dept-scale-dot-size, 13px) !important;
     }
     .dept-scale-desc {
       font-size: var(--dept-scale-desc-size) !important;
@@ -2941,13 +2946,8 @@
       <div class="flex items-center gap-3">
         <span class="text-xs sm:text-sm font-mono font-bold tracking-[0.25em] text-[#FACB7D] uppercase">Aktualności</span>
         <span class="text-white/20 hidden sm:inline">•</span>
-        <span id="news-modal-edition-badge" class="px-2.5 py-0.5 rounded-full bg-[#FACB7D]/10 border border-[#FACB7D]/40 text-[#FACB7D] text-[11px] font-mono font-bold uppercase tracking-wider">№ 04.2025</span>
+        <span id="news-modal-edition-badge" class="text-[#FACB7D] text-[11px] font-mono font-bold uppercase tracking-wider">04.2025</span>
         <span id="news-modal-category" class="text-xs text-white/60 font-light hidden md:inline truncate max-w-xs"></span>
-      </div>
-
-      <!-- Środkowy wskaźnik numeru realizacji -->
-      <div class="flex items-center gap-2">
-        <span id="news-modal-counter" class="text-xs font-mono text-[#FACB7D] bg-white/5 border border-white/10 px-3 py-0.5 rounded-full font-bold">01 / 39</span>
       </div>
 
       <!-- Przycisk zamknięcia modala -->
@@ -5418,8 +5418,9 @@
               <div class="dept-frame-body-scale flex-1 relative">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FACB7D]/[0.08] blur-3xl pointer-events-none"></div>
                 ${s.badge ? `<div class="dept-scale-badge inline-flex items-center rounded-full font-mono font-bold text-[#FACB7D] bg-[#FACB7D]/10 border border-[#FACB7D]/30 tracking-widest uppercase">${s.badge}</div>` : ''}
-                <h4 class="dept-scale-title relative font-bold text-white tracking-wider uppercase group-hover/scale:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
-                  ${s.title}
+                <h4 class="dept-scale-title relative flex items-center gap-2.5 font-bold text-white tracking-wider uppercase group-hover/scale:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
+                  <span class="dept-scale-dot bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/scale:scale-125 group-hover/scale:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
+                  <span>${s.title}</span>
                 </h4>
                 <p class="dept-scale-desc relative text-[#f5efe6]/80 font-light">
                   ${fixPolishOrphans(s.desc)}
@@ -5433,8 +5434,9 @@
                 ${s.badge ? `<div class="dept-scale-badge inline-flex items-center rounded-full font-mono font-bold text-[#FACB7D] bg-[#FACB7D]/10 border border-[#FACB7D]/30 tracking-widest uppercase">
                   ${s.badge}
                 </div>` : ''}
-                <h4 class="dept-scale-title font-bold text-white tracking-wider uppercase group-hover/scale:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
-                  ${s.title}
+                <h4 class="dept-scale-title flex items-center gap-2.5 font-bold text-white tracking-wider uppercase group-hover/scale:text-[#FACB7D] transition-colors" style="font-family: 'Montserrat', sans-serif;">
+                  <span class="dept-scale-dot bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/scale:scale-125 group-hover/scale:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
+                  <span>${s.title}</span>
                 </h4>
                 <p class="dept-scale-desc text-[#f5efe6]/80 font-light">
                   ${fixPolishOrphans(s.desc)}
@@ -8692,7 +8694,7 @@ Autorska scenografia, świetlne instalacje i tropikalne akcenty zamieniły przes
           cardBgImg.style.display = 'none';
         }
       }
-      if (editionEl) editionEl.textContent = `№ ${item.date}`;
+      if (editionEl) editionEl.textContent = item.date;
       if (catEl) catEl.textContent = item.category || '';
       if (titleEl) titleEl.textContent = item.title;
       if (counterEl) {
