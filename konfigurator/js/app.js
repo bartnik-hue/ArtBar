@@ -8,7 +8,7 @@ import { BrandingManager } from './BrandingManager.js';
 import { LedManager } from './LedManager.js';
 import { CalibrationTool } from './CalibrationTool.js';
 import { AiTextureService, AI_STYLE_PRESETS } from './AiTextureService.js';
-import { t, getCurrentLang, applyLanguage, initI18n, formatBarSpan, formatShelfSpan, getTranslatedMailto, onLanguageChange } from './i18n.js?v=90';
+import { t, getCurrentLang, applyLanguage, initI18n, formatBarSpan, formatShelfSpan, getTranslatedMailto, onLanguageChange } from './i18n.js?v=92';
 
 // Natychmiastowa inicjalizacja wielojęzyczności przy ładowaniu modułu
 initI18n();

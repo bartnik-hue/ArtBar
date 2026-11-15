@@ -881,10 +881,10 @@ export function initI18n() {
         if (match) lang = match[1].toLowerCase();
     }
 
-    // 2. Check localStorage
+    // 2. Check main site language in localStorage (artbar_lang)
     if (!lang) {
         try {
-            lang = localStorage.getItem('artbar_configurator_lang') || localStorage.getItem('artbar_lang');
+            lang = localStorage.getItem('artbar_lang');
         } catch (_) {}
     }
 
