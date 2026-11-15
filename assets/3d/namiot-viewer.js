@@ -84,7 +84,7 @@ const pictogramFragmentShader = `
  * Montuje pełnoekranowe, nieinteraktywne tło 3D z obracającym się namiotem
  * @param {HTMLElement} mountEl - element kontenera tła
  */
-export function mountNamiotBackground(mountEl) {
+export function mountNamiotBackground(mountEl, modelPath = 'assets/3d/namiot.glb') {
   if (!mountEl) return;
   if (activeInstances.has(mountEl)) {
     try { activeInstances.get(mountEl).destroy(); } catch (e) {}
@@ -99,7 +99,7 @@ export function mountNamiotBackground(mountEl) {
   `;
 
   const canvas = mountEl.querySelector('canvas');
-  const inst = createBackgroundApp(canvas, mountEl);
+  const inst = createBackgroundApp(canvas, mountEl, modelPath);
   activeInstances.set(mountEl, inst);
   return inst;
 }
@@ -121,7 +121,7 @@ export function destroyNamiotBackground(mountEl) {
   }
 }
 
-function createBackgroundApp(canvas, container) {
+function createBackgroundApp(canvas, container, modelPath = 'assets/3d/namiot.glb') {
   let isRunning = true;
   let animationFrameId = null;
   let tentModel = null;
@@ -209,10 +209,10 @@ function createBackgroundApp(canvas, container) {
   floorRing.position.y = 0.001;
   scene.add(floorRing);
 
-  // 5. Ładowanie modelu namiot.glb
+  // 5. Ładowanie modelu GLB
   const gltfLoader = new GLTFLoader();
   gltfLoader.load(
-    'assets/3d/namiot.glb',
+    modelPath,
     (gltf) => {
       if (!isRunning) return;
       tentModel = gltf.scene;

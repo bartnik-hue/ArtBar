@@ -1118,6 +1118,9 @@
       }
       .dept-header-symbol {
         display: flex !important;
+        width: clamp(64px, 12vw, 84px) !important;
+        height: clamp(64px, 12vw, 84px) !important;
+        transform: none !important;
       }
     }
 
@@ -1125,6 +1128,20 @@
     #dept-modal-backdrop.is-namioty #modal-icon-wrap,
     #modal-icon-wrap {
       z-index: 1 !important;
+    }
+    #dept-modal-backdrop.is-namioty #modal-benefits-section + section {
+      margin-top: var(--dept-main-space-y) !important;
+    }
+    @media (min-width: 769px) {
+      #dept-modal-backdrop.is-produkcja .dept-watermark-symbol {
+        width: clamp(260px, 28vw, 380px) !important;
+        height: clamp(260px, 28vw, 380px) !important;
+        margin-left: clamp(20px, 2.5vw, 40px) !important;
+        margin-bottom: 1rem !important;
+      }
+      #dept-modal-backdrop.is-produkcja #modal-benefits-section {
+        margin-top: 2rem !important;
+      }
     }
     #namiot-spatial-gap {
       position: relative !important;
@@ -1269,7 +1286,7 @@
       --dept-header-subtitle-mt: 0px;
 
       --dept-section-title-size: 24px;
-      --dept-section-title-mb: 38px;
+      --dept-section-title-mb: 19px;
       --dept-lead-font-size: 20.5px;
       --dept-lead-line-height: 1.6;
       --dept-lead-paragraph-gap: 18px;
@@ -1362,6 +1379,26 @@
     }
     #dept-modal-main > * + * {
       margin-top: var(--dept-main-space-y) !important;
+    }
+    @media (max-width: 768px) {
+      #dept-modal-header {
+        padding-top: 12px !important;
+        padding-bottom: 8px !important;
+      }
+      #dept-modal-main {
+        padding-top: 8px !important;
+      }
+    }
+    @media (min-width: 800px) {
+      #dept-modal-header {
+        padding-bottom: 14px !important;
+      }
+      #dept-modal-main {
+        padding-top: clamp(16px, 2vw, 26px) !important;
+      }
+      .dept-watermark-symbol {
+        margin-top: -78px !important;
+      }
     }
 
     .dept-section-title {
@@ -3560,6 +3597,13 @@
               </div>
             </div>
 
+            <!-- DRUGA PRZESTRZEŃ EKSPOZYCYJNA DLA NAMIOTU M (namiotM.glb) -->
+            <div id="namiot-m-spatial-gap" class="hidden relative w-full h-[190px] sm:h-[370px] lg:h-[450px] -my-1 sm:my-6 pointer-events-auto select-none z-20">
+              <div id="dept-namiot-m-3d-col" class="absolute -top-24 sm:-top-16 lg:-top-20 -bottom-8 sm:-bottom-16 lg:-bottom-20 inset-x-0 w-full pointer-events-auto select-none cursor-grab active:cursor-grabbing z-20 overflow-visible" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.65) 24%, black 34%, black 66%, rgba(0,0,0,0.65) 76%, rgba(0,0,0,0.15) 88%, transparent 100%);">
+                <div id="dept-namiot-m-bg-mount" class="w-full h-full relative"></div>
+              </div>
+            </div>
+
             <!-- Sekcja: Co Zyskujesz Jako Organizator (Dedykowana / Dynamiczna) -->
             <section id="modal-benefits-section" class="portal-anim-item hidden w-full clear-both relative z-30">
               <div id="modal-benefits-title" class="dept-section-title uppercase tracking-[0.2em] text-[#FACB7D] font-bold">
@@ -4266,13 +4310,13 @@
         modalSubtitle: 'KOMPLEKSOWA REALIZACJA EVENTÓW',
         badge: 'Kompleksowa Produkcja Wydarzeń',
         lineFrames: true,
-        leadTitle: 'ZAKRES OPERACYJNY',
+        leadTitle: '',
         lead: `
           <p class="mb-4">
-            Bierzemy na&nbsp;siebie całą produkcję wydarzenia, od&nbsp;pierwszego budżetu po&nbsp;ostatni demontaż w&nbsp;terenie. Planujemy, liczymy, rysujemy i&nbsp;koordynujemy, żeby organizator mógł skupić się na&nbsp;swoim evencie, a&nbsp;nie na&nbsp;setkach szczegółów, które muszą się zgadzać.
+            Bierzemy na siebie całą produkcję wydarzenia: od budżetu i planu terenu, przez technikę sceniczną, po ostatni demontaż. Organizator ma jednego partnera i jeden harmonogram.
           </p>
           <p>
-            Nasza kadra zarządzająca prowadzi projekt od&nbsp;strony organizacyjnej, technicznej i&nbsp;finansowej. Przygotowujemy rysunki techniczne i&nbsp;plany terenu, budujemy harmonogramy, pilnujemy budżetu i&nbsp;koordynujemy wszystkich podwykonawców: scenę, technikę, ochronę, sanitariaty, gastronomię i&nbsp;media. Strefy barowe, lód, namioty i&nbsp;scenografię dostarczamy z&nbsp;własnych zasobów, więc kluczowe elementy eventu mamy pod pełną kontrolą.
+            Zapewniamy scenę, oświetlenie, nagłośnienie i multimedia, dobrane do skali eventu i zgrane z resztą produkcji. Strefy barowe, lód, namioty i scenografię dostarczamy z własnych zasobów, a rysunki techniczne, harmonogramy i nadzór na miejscu prowadzi nasza kadra.
           </p>
         `,
         benefitsTitle: 'CO ZYSKUJESZ JAKO ORGANIZATOR',
@@ -4455,9 +4499,41 @@
       {
         id: 'logistyka',
         title: 'LOGISTYKA',
-        subtitle: 'KOORDYNACJA, TRANSPORT, MAGAZYN',
+        subtitle: 'KOORDYNACJA · TRANSPORT · MAGAZYN',
         badge: 'Logistyka, Transport i Magazynowanie',
-        lead: 'Własny park samochodów dostawczych i chłodni, strategiczne hale magazynowe oraz precyzyjne procedury dostaw Just-In-Time. Bezpieczny transport, terminowość i sprawny montaż w dowolnym punkcie kraju.',
+        lineFrames: true,
+        leadTitle: 'ZAKRES OPERACYJNY',
+        lead: `
+          <p class="mb-4">
+            Logistyka to niewidoczny kręgosłup każdego eventu. Bary, namioty, lód, scenografia i sprzęt muszą dotrzeć na miejsce o właściwej godzinie, we właściwej kolejności i bez blokowania pracy innych ekip.
+          </p>
+          <p>
+            Wszystko planujemy i realizujemy sami. Infrastrukturę przechowujemy we własnym magazynie w Warszawie, przewozimy własnym transportem i rozładowujemy zgodnie z harmonogramem ustalonym z produkcją wydarzenia. Bary, zadaszenia, lód i dekoracje wyjeżdżają z jednego miejsca, więc zamiast kilku osobnych dostaw organizujemy jeden spójny transport. Działamy w całej Polsce.
+          </p>
+        `,
+        benefitsTitle: 'CO ZYSKUJESZ JAKO ORGANIZATOR',
+        benefits: [
+          {
+            title: 'Oszczędność na transporcie.',
+            desc: 'Cała infrastruktura z jednego magazynu: mniej kursów, mniej aut na terenie, niższe koszty.'
+          },
+          {
+            title: 'Punktualność.',
+            desc: 'Dostawy i montaż zaplanowane co do godziny, zgrane z harmonogramem całego eventu.'
+          },
+          {
+            title: 'Porządek na terenie.',
+            desc: 'Zaplanowane okna rozładunku, drogi dojazdu i strefy składowania, bez korków przy bramie.'
+          },
+          {
+            title: 'Pełne zaplecze przez cały event.',
+            desc: 'Lód, towar i sprzęt docierają na bieżąco, tak event działały bez przerywania pracy.'
+          },
+          {
+            title: 'Jednego koordynatora.',
+            desc: 'Jedna osoba odpowiada za wszystkie wjazdy, dostawy i zjazdy naszej infrastruktury.'
+          }
+        ],
         iconSvg: `
           <svg id="icon-svg-logistyka" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full text-[#FACB7D]">
             <defs>
@@ -4524,13 +4600,38 @@
           </svg>
         `,
         services: [
-          'Własna flota transportowa:<br>ciężarówki, busy i&nbsp;chłodnie',
-          'Centra magazynowe<br>z&nbsp;kontrolowaną temperaturą',
-          'Dostawy w&nbsp;procedurze Just-In-Time<br>bezpośrednio pod&nbsp;bar',
-          'Szybki rozładunek<br>i&nbsp;precyzyjne lokowanie wyposażenia',
-          'Ciągły monitoring GPS<br>i&nbsp;kontrola stanów magazynowych',
-          'Pełna inwentaryzacja<br>i&nbsp;sprawny odbiór powydarzeniowy',
-          'Zasięg ogólnopolski<br>oraz trasy zagraniczne'
+          'KOORDYNACJA LOGISTYKI CAŁEGO EVENTU',
+          'HARMONOGRAMY DOSTAW, MONTAŻU I DEMONTAŻU',
+          'PLANY DOJAZDÓW I STREF ROZŁADUNKU',
+          'WŁASNY TRANSPORT [np. BUSY I SAMOCHODY CIĘŻAROWE]',
+          'WŁASNY MAGAZYN W WARSZAWIE',
+          'PRZECHOWYWANIE INFRASTRUKTURY I MATERIAŁÓW',
+          'DOSTAWY LODU I TOWARU W TRAKCIE EVENTU',
+          'EKIPY MONTAŻOWE I ZAŁADUNKOWE',
+          'REALIZACJE W CAŁEJ POLSCE'
+        ],
+        scaleTitle: 'SKALA REALIZACJI',
+        scale: [
+          {
+            title: 'MAŁE EVENTY',
+            desc: 'Jeden transport na ustaloną godzinę, sprawny montaż i szybki demontaż po wydarzeniu.'
+          },
+          {
+            title: 'ŚREDNIE EVENTY',
+            desc: 'Kilka kursów zsynchronizowanych z produkcją i bieżące dowozy w trakcie imprezy.'
+          },
+          {
+            title: 'FESTIWALE',
+            desc: 'Wielodniowa operacja z etapowym montażem, stałymi dostawami lodu i towaru oraz koordynacją ze wszystkimi ekipami na terenie.'
+          }
+        ],
+        workflowTitle: 'JAK DZIAŁAMY',
+        workflow: [
+          'ANALIZA TERENU I WARUNKÓW DOJAZDU',
+          'PLAN TRANSPORTU I OKIEN ROZŁADUNKU',
+          'ZAŁADUNEK I TRANSPORT Z MAGAZYNU',
+          'DOSTAWY NA BIEŻĄCO W TRAKCIE EVENTU',
+          'DEMONTAŻ, ZAŁADUNEK I POWRÓT DO MAGAZYNU'
         ],
         photos: [
           'assets/images/gallery/2024.12.31-Art-Bar-81-1-1536x1024.webp',
@@ -4543,7 +4644,39 @@
         title: 'NAMIOTY',
         subtitle: 'ZADASZONE STREFY PLENEROWE',
         badge: 'Profesjonalne Zadaszenia i Hale Namiotowe',
-        lead: 'Kompleksowe zadaszenia eventowe: od designerskich namiotów gwiazda i stretch po całoroczne hale namiotowe. Zapewniamy pełne bezpieczeństwo stref barowych, podłogi modułowe oraz odporność na skrajne warunki atmosferyczne.',
+        lineFrames: true,
+        leadTitle: 'ZAKRES OPERACYJNY',
+        lead: `
+          <p class="mb-4">
+            Zadaszamy nasze strefy sami. Namioty stretch to naturalne przedłużenie barów MDS: chronią obsługę, sprzęt i gości przed słońcem i deszczem, a przy okazji nadają strefie charakter, którego nie da zwykły namiot.
+          </p>
+          <p>
+            Elastyczne poszycie układamy w dynamiczne, organiczne kształty i dopasowujemy do terenu, układu barów i skali wydarzenia. Zadaszamy strefy barowe, strefy chill, VIP i backstage. Bar, namiot i montaż robi jedna ekipa, więc wszystko jest zgrane w jednym harmonogramie, bez czekania na kolejnego dostawcę.
+          </p>
+        `,
+        benefitsTitle: 'CO ZYSKUJESZ JAKO ORGANIZATOR',
+        benefits: [
+          {
+            title: 'Ochronę w każdych warunkach.',
+            desc: 'Strefa działa w upale i w deszczu, a sprzedaż nie staje przez pogodę.'
+          },
+          {
+            title: 'Efektowny wygląd.',
+            desc: 'Płynne linie stretchu dobrze wyglądają na zdjęciach i wpisują się w scenografię eventu.'
+          },
+          {
+            title: 'Elastyczny układ.',
+            desc: 'Namiot dopasowany kształtem do terenu, ukształtowania placu i układu barów.'
+          },
+          {
+            title: 'Jedną ekipę.',
+            desc: 'Bar, zadaszenie, oświetlenie i montaż w jednym harmonogramie i w jednych rękach.'
+          },
+          {
+            title: 'Szybki montaż.',
+            desc: 'Lekka konstrukcja i doświadczona ekipa to krótki czas montażu i demontażu.'
+          }
+        ],
         iconSvg: `
           <svg id="icon-svg-namioty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full text-[#FACB7D]">
             <defs>
@@ -4571,13 +4704,41 @@
           </svg>
         `,
         services: [
-          'Wynajem hal namiotowych<br>i&nbsp;zadaszeń membranowych',
-          'Nowoczesne namioty stretch<br>i&nbsp;konstrukcje sferyczne',
-          'Atestowane podłogi drewniane<br>i&nbsp;modułowe kładki',
-          'Ochrona strefy barowej<br>przed deszczem, wiatrem i&nbsp;słońcem',
-          'Integracja oświetlenia scenicznego<br>i&nbsp;nagłośnienia pod&nbsp;zadaszeniem',
-          'Certyfikaty przeciwpożarowe<br>i&nbsp;atesty obciążenia wiatrem',
-          'Montaż przez doświadczone<br>ekipy techniczne'
+          'NAMIOTY STRETCH NA STREFY BAROWE',
+          'ZADASZENIA STREF CHILL, VIP I BACKSTAGE',
+          'ZADASZENIA BARÓW MDS W JEDNYM PROJEKCIE',
+          'DOPASOWANIE KSZTAŁTU DO TERENU I UKŁADU',
+          'MONTAŻ I DEMONTAŻ WŁASNĄ EKIPĄ',
+          'OŚWIETLENIE I DEKORACJA ZADASZEŃ',
+          'POSZYCIA WODOODPORNE',
+          'PROJEKT UKŁADU NA PLANIE TERENU',
+          'SERWIS TECHNICZNY W TRAKCIE EVENTU'
+        ],
+        scaleTitle: 'SKALA REALIZACJI',
+        scale: [
+          {
+            title: 'POJEDYNCZE ZADASZENIE',
+            subtitle: 'namiot S 7,5 × 10 m',
+            desc: 'Namiot nad barem lub kameralną strefą chill na evencie firmowym czy w ogródku.'
+          },
+          {
+            title: 'STREFY BAROWE I CHILL',
+            subtitle: 'namiot M 10 × 15 m',
+            desc: 'Kilka połączonych zadaszeń, które tworzą spójną strefę barową z miejscem do odpoczynku.'
+          },
+          {
+            title: 'FESTIWALE',
+            subtitle: 'namiot L 20 × 15 m lub łączenia mniejszych w jeden',
+            desc: 'Zadaszenia wielu stref barowych i chilloutowych na całym terenie festiwalu.'
+          }
+        ],
+        workflowTitle: 'JAK DZIAŁAMY',
+        workflow: [
+          'WIZJA LOKALNA LUB ANALIZA PLANU TERENU',
+          'DOBÓR NAMIOTÓW I PROJEKT UKŁADU STREFY',
+          'TRANSPORT I MONTAŻ RAZEM Z BARAMI',
+          'SERWIS W TRAKCIE WYDARZENIA',
+          'DEMONTAŻ I ZJAZD Z TERENU'
         ],
         photos: [
           'assets/images/gallery/2023.03.31-Pandora-Two-Worlds-116-1-1536x1024.webp',
@@ -5277,11 +5438,8 @@
 
       renderDeptTopbarNav(idx);
       if (modalBackdrop) {
-        if (dept.id === 'namioty') {
-          modalBackdrop.classList.add('is-namioty');
-        } else {
-          modalBackdrop.classList.remove('is-namioty');
-        }
+        modalBackdrop.classList.toggle('is-namioty', dept.id === 'namioty');
+        modalBackdrop.classList.toggle('is-produkcja', dept.id === 'produkcja');
       }
       if (modalIconWrap) modalIconWrap.innerHTML = dept.iconSvg;
       if (modalHeaderIcon) modalHeaderIcon.innerHTML = dept.iconSvg;
@@ -5291,7 +5449,13 @@
       modalLead.innerHTML = fixPolishOrphans(dept.lead);
       const leadTitleEl = document.getElementById('modal-lead-title');
       if (leadTitleEl) {
-        leadTitleEl.textContent = dept.leadTitle || 'Filozofia i Zakres Operacyjny';
+        if (dept.leadTitle === '') {
+          leadTitleEl.style.display = 'none';
+          leadTitleEl.textContent = '';
+        } else {
+          leadTitleEl.style.display = '';
+          leadTitleEl.textContent = dept.leadTitle || 'Filozofia i Zakres Operacyjny';
+        }
       }
 
       // Sekcja: Co Zyskujesz Jako Organizator (jeśli zdefiniowana w dziale)
@@ -5380,13 +5544,18 @@
         heroCol.classList.add('hidden');
         const namiotCol = document.getElementById('dept-namiot-3d-col');
         const namiotGap = document.getElementById('namiot-spatial-gap');
+        const namiotMCol = document.getElementById('dept-namiot-m-3d-col');
+        const namiotMGap = document.getElementById('namiot-m-spatial-gap');
         if (dept.id === 'namioty') {
           contentCol.className = 'lg:col-span-12 relative z-10 w-full space-y-4 sm:space-y-6';
           if (namiotGap) namiotGap.classList.remove('hidden');
+          if (namiotMGap) namiotMGap.classList.remove('hidden');
         } else {
           if (namiotGap) namiotGap.classList.add('hidden');
+          if (namiotMGap) namiotMGap.classList.add('hidden');
           contentCol.className = 'lg:col-span-12 relative z-10 space-y-12 sm:space-y-16';
           if (namiotCol) namiotCol.classList.add('hidden');
+          if (namiotMCol) namiotMCol.classList.add('hidden');
         }
         modalServicesList.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-14 gap-y-6 sm:gap-y-8';
       }
@@ -5422,6 +5591,7 @@
                   <span class="dept-scale-dot bg-[#FACB7D] shrink-0 inline-block shadow-[0_0_8px_rgba(250,203,125,0.7)] group-hover/scale:scale-125 group-hover/scale:shadow-[0_0_12px_rgba(250,203,125,1)] transition-all duration-300"></span>
                   <span>${s.title}</span>
                 </h4>
+                ${s.subtitle ? `<div class="text-[#FACB7D] font-medium text-sm sm:text-base tracking-wide mb-2">${s.subtitle}</div>` : ''}
                 <p class="dept-scale-desc relative text-[#f5efe6]/80 font-light">
                   ${fixPolishOrphans(s.desc)}
                 </p>
@@ -5598,6 +5768,28 @@
           secondaryCta.href = 'assets/pdf/artbar_solution_oferta_v5_compr.pdf';
           secondaryCta.target = '_blank';
         }
+      } else if (dept.id === 'logistyka') {
+        if (primaryCta) {
+          primaryCta.textContent = 'Zapytaj o logistykę';
+          primaryCta.href = '#kontakt';
+          primaryCta.target = '_self';
+        }
+        if (secondaryCta) {
+          secondaryCta.textContent = 'Zobacz ofertę kompleksową';
+          secondaryCta.href = 'assets/pdf/artbar_solution_oferta_v5_compr.pdf';
+          secondaryCta.target = '_blank';
+        }
+      } else if (dept.id === 'namioty') {
+        if (primaryCta) {
+          primaryCta.textContent = 'Zapytaj o namioty';
+          primaryCta.href = '#kontakt';
+          primaryCta.target = '_self';
+        }
+        if (secondaryCta) {
+          secondaryCta.textContent = 'Pobierz Ofertę PDF';
+          secondaryCta.href = 'assets/pdf/artbar_solution_oferta_v5_compr.pdf';
+          secondaryCta.target = '_blank';
+        }
       } else {
         if (primaryCta) {
           primaryCta.textContent = 'Konfigurator 3D';
@@ -5645,22 +5837,30 @@
       // Obsługa pełnoszerokościowego tła 3D Namiotu dla podstrony NAMIOTY
       const namiotCol = document.getElementById('dept-namiot-3d-col');
       const namiotBgMount = document.getElementById('dept-namiot-bg-mount');
+      const namiotMCol = document.getElementById('dept-namiot-m-3d-col');
+      const namiotMBgMount = document.getElementById('dept-namiot-m-bg-mount');
 
       if (dept.id === 'namioty') {
         if (namiotCol) namiotCol.classList.remove('hidden');
-        if (namiotBgMount) {
-          import('./assets/3d/namiot-viewer.js?v=bg_v16').then(mod => {
+        if (namiotMCol) namiotMCol.classList.remove('hidden');
+        if (namiotBgMount || namiotMBgMount) {
+          import('./assets/3d/namiot-viewer.js?v=bg_v17').then(mod => {
             if (currentOpenDeptIdx === idx) {
-              mod.mountNamiotBackground(namiotBgMount);
+              if (namiotBgMount) mod.mountNamiotBackground(namiotBgMount, 'assets/3d/namiot.glb');
+              if (namiotMBgMount) mod.mountNamiotBackground(namiotMBgMount, 'assets/3d/namiotM.glb');
             }
           }).catch(err => console.error('Blad montowania tła 3D Namiotu:', err));
         }
       } else {
         if (namiotCol) namiotCol.classList.add('hidden');
-      const namiotGap = document.getElementById('namiot-spatial-gap');
-      if (namiotGap) namiotGap.classList.add('hidden');
-        import('./assets/3d/namiot-viewer.js?v=bg_v16').then(m => m.destroyNamiotBackground()).catch(() => {});
+        if (namiotMCol) namiotMCol.classList.add('hidden');
+        const namiotGap = document.getElementById('namiot-spatial-gap');
+        if (namiotGap) namiotGap.classList.add('hidden');
+        const namiotMGap = document.getElementById('namiot-m-spatial-gap');
+        if (namiotMGap) namiotMGap.classList.add('hidden');
+        import('./assets/3d/namiot-viewer.js?v=bg_v17').then(m => m.destroyNamiotBackground()).catch(() => {});
         if (namiotBgMount) namiotBgMount.innerHTML = '';
+        if (namiotMBgMount) namiotMBgMount.innerHTML = '';
       }
 
       // Obsługa pełnoszerokościowego tła 3D kostek lodu dla podstrony FABRYKA LODU
@@ -5750,9 +5950,15 @@
       if (namiotCol) namiotCol.classList.add('hidden');
       const namiotGap = document.getElementById('namiot-spatial-gap');
       if (namiotGap) namiotGap.classList.add('hidden');
-      import('./assets/3d/namiot-viewer.js?v=bg_v16').then(m => m.destroyNamiotBackground()).catch(() => {});
+      const namiotMCol = document.getElementById('dept-namiot-m-3d-col');
+      if (namiotMCol) namiotMCol.classList.add('hidden');
+      const namiotMGap = document.getElementById('namiot-m-spatial-gap');
+      if (namiotMGap) namiotMGap.classList.add('hidden');
+      import('./assets/3d/namiot-viewer.js?v=bg_v17').then(m => m.destroyNamiotBackground()).catch(() => {});
       const namiotBgMount = document.getElementById('dept-namiot-bg-mount');
       if (namiotBgMount) namiotBgMount.innerHTML = '';
+      const namiotMBgMount = document.getElementById('dept-namiot-m-bg-mount');
+      if (namiotMBgMount) namiotMBgMount.innerHTML = '';
 
       const heroVideo = document.getElementById('modal-hero-video');
       if (heroVideo) {
