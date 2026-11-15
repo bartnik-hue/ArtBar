@@ -14,7 +14,7 @@ const CONFIG = {
   sensitivity: 0.50,         // Ostrość przejścia konturu
   fillOpacity: 1.0,          // 100% krycia korpusu (pełne zasłanianie tylnych krawędzi)
   rotSpeed: 0.20,            // Subtelny, majestatyczny obrót pionowy
-  goldPoles: true,           // Złote maszty konstrukcyjne
+  goldPoles: false,          // Tyczki w jednolitym shaderze (jak w Namiocie M)
   showFloorRing: true,       // Złoty pierścień na podłodze
   showFloorShadow: true      // Cień kontaktowy na podłodze
 };
