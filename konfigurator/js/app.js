@@ -30,7 +30,7 @@ class ArtbarApp {
             if (this.barBuilder) {
                 this.updateUIStats(this.barBuilder.getStats());
             }
-            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
                 const hint = document.querySelector('.canvas-hint');
                 if (hint) hint.innerHTML = t('canvas_hint_touch');
             }
@@ -705,8 +705,8 @@ class ArtbarApp {
     }
 
     initUI() {
-        // Dostosowanie dymka podpowiedzi dla ekranów dotykowych
-        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        // Dostosowanie dymka podpowiedzi dla ekranów dotykowych (telefony/tablety)
+        if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
             const hint = document.querySelector('.canvas-hint');
             if (hint) {
                 hint.innerHTML = t('canvas_hint_touch');
