@@ -1677,7 +1677,34 @@ class ArtbarApp {
             const isEn = this.currentLang === 'en';
             const dateStr = new Date().toLocaleDateString(isEn ? 'en-US' : 'pl-PL');
 
-            const printWin = window.open('', '_blank', 'width=850,height=900');
+            const esc = (s) => String(s || '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+            const emptyVal = isEn ? '—' : '—';
+
+            const name = document.getElementById('quote-name')?.value.trim() || '';
+            const company = document.getElementById('quote-company')?.value.trim() || '';
+            const email = document.getElementById('quote-email')?.value.trim() || '';
+            const phone = document.getElementById('quote-phone')?.value.trim() || '';
+            const eventType = document.getElementById('quote-event-type')?.value || '';
+            const guests = document.getElementById('quote-guests')?.value.trim() || '';
+            const eventDate = document.getElementById('quote-event-date')?.value || '';
+            const days = document.getElementById('quote-days')?.value || '1';
+            const location = document.getElementById('quote-location')?.value.trim() || '';
+            const graphicsChoice = document.querySelector('input[name="quote-graphics"]:checked')?.value || 'standard';
+            const graphicsFileName = document.getElementById('quote-gfx-file-input')?.files?.[0]?.name || '';
+            const services = Array.from(document.querySelectorAll('input[name="quote-services"]:checked')).map(cb => cb.value);
+            const notes = document.getElementById('quote-notes')?.value.trim() || '';
+
+            const graphicsText = graphicsChoice === 'own'
+                ? (isEn ? `Own artwork${graphicsFileName ? ' (' + graphicsFileName + ')' : ''}` : `Mam własną grafikę${graphicsFileName ? ' (' + graphicsFileName + ')' : ''}`)
+                : graphicsChoice === 'design'
+                    ? (isEn ? 'I need graphic design from you' : 'Potrzebuję projektu grafiki od Was')
+                    : (isEn ? 'Standard Art Bar graphics' : 'Chcę standardową grafikę Art Bar');
+
+            const servicesText = services.length > 0 ? services.join(', ') : emptyVal;
+
+            const printWin = window.open('', '_blank', 'width=850,height=950');
             if (!printWin) {
                 window.print();
                 return;
@@ -1688,18 +1715,20 @@ class ArtbarApp {
 <meta charset="UTF-8">
 <title>ArtBar Solutions - ${isEn ? 'Bar 3D Specification' : 'Specyfikacja Baru 3D'}</title>
 <style>
-  body { font-family: Arial, sans-serif; color: #111; margin: 36px; line-height: 1.5; }
-  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #c39f65; padding-bottom: 12px; margin-bottom: 24px; }
+  body { font-family: Arial, sans-serif; color: #111; margin: 28px 36px; line-height: 1.45; font-size: 13px; }
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #c39f65; padding-bottom: 10px; margin-bottom: 18px; }
   .brand { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #111; }
   .brand span { color: #b58938; }
   .date { font-size: 12px; color: #666; }
-  h1 { font-size: 18px; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .preview { width: 100%; max-height: 360px; object-fit: contain; background: #0a0a0a; border-radius: 8px; margin-bottom: 20px; }
-  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e5e5; font-size: 14px; }
-  th { color: #555; font-weight: 600; width: 45%; }
-  .led-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: ${ledColor}; border: 1px solid #999; vertical-align: middle; }
-  .footer { margin-top: 32px; font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 10px; }
+  h1 { font-size: 17px; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  h2 { font-size: 12px; margin: 18px 0 6px; text-transform: uppercase; letter-spacing: 1px; color: #8c6723; border-bottom: 1px solid #e2d3b5; padding-bottom: 4px; }
+  .preview { width: 100%; max-height: 280px; object-fit: contain; background: #0a0a0a; border-radius: 8px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #ececec; font-size: 13px; vertical-align: top; }
+  th { color: #555; font-weight: 600; width: 40%; }
+  .led-dot { display: inline-block; width: 13px; height: 13px; border-radius: 50%; background: ${ledColor}; border: 1px solid #999; vertical-align: middle; }
+  .notes-box { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 6px; padding: 8px 12px; margin-top: 6px; white-space: pre-wrap; }
+  .footer { margin-top: 24px; font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 8px; }
 </style>
 </head>
 <body>
@@ -1709,13 +1738,42 @@ class ArtbarApp {
   </div>
   <h1>${isEn ? '3D Bar Project Specification' : 'Specyfikacja techniczna projektu baru 3D'}</h1>
   ${previewSrc ? `<img class="preview" src="${previewSrc}" alt="3D Bar">` : ''}
+
+  <h2>${isEn ? 'YOUR PROJECT' : 'TWÓJ PROJEKT'}</h2>
   <table>
     <tr><th>${isEn ? 'Front length' : 'Długość frontu'}</th><td><strong>${lenStr} m</strong></td></tr>
-    <tr><th>${isEn ? 'Modules' : 'Moduły'}</th><td><strong>${t('modules_breakdown', { total: totalBar, straight: stats.BAR_STRAIGHT, corners: stats.BAR_CORNER })}</strong></td></tr>
+    <tr><th>${isEn ? 'Modules' : 'Moduły'}</th><td><strong>${esc(t('modules_breakdown', { total: totalBar, straight: stats.BAR_STRAIGHT, corners: stats.BAR_CORNER }))}</strong></td></tr>
     <tr><th>${isEn ? 'Back shelves' : 'Regały zaplecza'}</th><td><strong>${stats.BACK_SHELF}</strong></td></tr>
     <tr><th>${isEn ? 'Fridges' : 'Lodówki'}</th><td><strong>${totalFridges}</strong></td></tr>
     <tr><th>${isEn ? 'LED lighting' : 'Podświetlenie LED'}</th><td><span class="led-dot"></span></td></tr>
   </table>
+
+  <h2>${isEn ? 'CONTACT DETAILS' : 'DANE KONTAKTOWE'}</h2>
+  <table>
+    <tr><th>${isEn ? 'Full name' : 'Imię i nazwisko'}</th><td>${esc(name) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'Company / organizer' : 'Firma / organizator'}</th><td>${esc(company) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'E-mail' : 'E-mail'}</th><td>${esc(email) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'Phone' : 'Telefon'}</th><td>${esc(phone) || emptyVal}</td></tr>
+  </table>
+
+  <h2>${isEn ? 'EVENT' : 'WYDARZENIE'}</h2>
+  <table>
+    <tr><th>${isEn ? 'Event type' : 'Rodzaj eventu'}</th><td>${esc(eventType) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'Estimated guests' : 'Szacowana liczba gości'}</th><td>${esc(guests) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'Start date' : 'Data rozpoczęcia'}</th><td>${esc(eventDate) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'Rental days' : 'Liczba dni wynajmu'}</th><td>${esc(days) || emptyVal}</td></tr>
+    <tr><th>${isEn ? 'Event location' : 'Miejsce wydarzenia'}</th><td>${esc(location) || emptyVal}</td></tr>
+  </table>
+
+  <h2>${isEn ? 'GRAPHICS & ADDITIONAL SERVICES' : 'GRAFIKA I DODATKOWE USŁUGI'}</h2>
+  <table>
+    <tr><th>${isEn ? 'Bar front graphics' : 'Grafika na frontach baru'}</th><td>${esc(graphicsText)}</td></tr>
+    <tr><th>${isEn ? 'Additional services' : 'Dodatkowe usługi'}</th><td>${esc(servicesText)}</td></tr>
+  </table>
+
+  <h2>${isEn ? 'NOTES' : 'UWAGI'}</h2>
+  <div class="notes-box">${esc(notes) || emptyVal}</div>
+
   <div class="footer">ArtBar Solutions · https://artbar.com.pl · eventy@artbar.com.pl</div>
 </body>
 </html>`);
