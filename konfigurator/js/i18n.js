@@ -90,8 +90,8 @@ export const TRANSLATIONS = {
         hud_view_ortho_title: "Rzut aksonometryczny pod kątem (Orthographic)",
 
         // Canvas Hint
-        canvas_hint_desktop: "<strong>Kliknij PPM na siatce:</strong> wstaw nowy moduł pod kursor<br><strong>Kliknij LPM w moduł:</strong> zaznacz moduł i zobacz złote kropki połączeń<br><strong>Kliknij kropkę:</strong> dołącz kolejny moduł z automatycznym spasowaniem",
-        canvas_hint_touch: "<strong>Dotknij moduł:</strong> zaznacz, pokaż złote kropki i opcje (obrót, przesunięcie, usunięcie)<br><strong>Dotknij złotej kropki:</strong> dołącz kolejny moduł z automatycznym spasowaniem<br><strong>Przytrzymaj palec na siatce:</strong> wstaw nowy moduł",
+        canvas_hint_desktop: "Zaznacz element, by go obrócić, usunąć lub przesunąć.<br>Dotknij złotej kropki z boku elementu, aby wstawić nowy element w rzędzie.",
+        canvas_hint_touch: "Zaznacz element, by go obrócić, usunąć lub przesunąć.<br>Dotknij złotej kropki z boku elementu, aby wstawić nowy element w rzędzie.",
 
         // Context Menu
         context_title_select: "Wybierz moduł",
@@ -440,8 +440,8 @@ export const TRANSLATIONS = {
         hud_view_ortho_title: "Axonometric angled view (Orthographic)",
 
         // Canvas Hint
-        canvas_hint_desktop: "<strong>Right-click grid:</strong> insert new module under cursor<br><strong>Left-click module:</strong> select module & reveal golden snap sockets<br><strong>Click snap socket:</strong> attach next module with auto-fit",
-        canvas_hint_touch: "<strong>Tap module:</strong> select, show snap dots & options (rotate, move, delete)<br><strong>Tap gold dot:</strong> attach next module with auto-fit<br><strong>Long-press grid:</strong> insert new module",
+        canvas_hint_desktop: "Select an element to rotate, delete, or move it.<br>Click the golden dot on the side of an element to insert a new element in a row.",
+        canvas_hint_touch: "Select an element to rotate, delete, or move it.<br>Tap the golden dot on the side of an element to insert a new element in a row.",
 
         // Context Menu
         context_title_select: "Select Module",
