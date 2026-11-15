@@ -1563,7 +1563,12 @@ class ArtbarApp {
 
             // Wypełnienie parametrów w karcie specyfikacji technicznej
             const lengthEl = document.getElementById('quote-spec-length');
-            if (lengthEl) lengthEl.textContent = `${stats.totalFrontMeters.toFixed(1)} m`;
+            if (lengthEl) {
+                const lenStr = this.currentLang === 'en'
+                    ? stats.totalFrontMeters.toFixed(1)
+                    : stats.totalFrontMeters.toFixed(1).replace('.', ',');
+                lengthEl.textContent = `${lenStr} m`;
+            }
 
             const modulesEl = document.getElementById('quote-spec-modules');
             if (modulesEl) {
@@ -1572,31 +1577,19 @@ class ArtbarApp {
             }
 
             const shelvesEl = document.getElementById('quote-spec-shelves');
-            if (shelvesEl) shelvesEl.textContent = `${stats.BACK_SHELF} ${t('unit_pcs')}`;
+            if (shelvesEl) shelvesEl.textContent = `${stats.BACK_SHELF}`;
 
             const fridgesEl = document.getElementById('quote-spec-fridges');
             if (fridgesEl) {
                 const totalFridges = stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM;
-                fridgesEl.textContent = t('fridges_breakdown', { total: totalFridges, f2d: stats.BACK_FRIDGE, f1d: stats.BACK_FRIDGE_SLIM });
+                fridgesEl.textContent = `${totalFridges}`;
             }
 
-            // Rozpoznanie motywu graficznego
-            let brandingDesc = t('branding_default');
-            if (brandingSettings?.mode === 'ai') {
-                brandingDesc = t('branding_ai');
-            } else if (brandingSettings?.background?.presetName) {
-                brandingDesc = `Preset: ${brandingSettings.background.presetName}`;
-            } else if (this.brandingManager.currentDataUrl) {
-                brandingDesc = t('branding_custom');
-            }
-            const brandEl = document.getElementById('quote-spec-branding');
-            if (brandEl) brandEl.textContent = brandingDesc;
-
-            // Podświetlenie LED
+            // Podświetlenie LED (tylko kropka z kolorem bez kodu)
             const ledColor = ledSettings?.color || '#facb7d';
             const ledEl = document.getElementById('quote-spec-led');
             if (ledEl) {
-                ledEl.innerHTML = `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${ledColor};margin-right:6px;vertical-align:middle;box-shadow:0 0 6px ${ledColor};"></span>${ledColor.toUpperCase()}`;
+                ledEl.innerHTML = `<span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:${ledColor};vertical-align:middle;box-shadow:0 0 8px ${ledColor};border:1px solid rgba(255,255,255,0.35);"></span>`;
             }
 
             // Reset stanu formularza (pokazanie pól wejściowych, schowanie ekranu sukcesu)
@@ -1670,6 +1663,85 @@ class ArtbarApp {
             }
         });
 
+        // Pobranie specyfikacji technicznej jako PDF (okno druku -> Zapisz jako PDF)
+        const btnDownloadPdf = document.getElementById('btn-quote-download-pdf');
+        btnDownloadPdf?.addEventListener('click', () => {
+            const stats = this.barBuilder.getStats();
+            const ledColor = this.ledManager.getSettings()?.color || '#facb7d';
+            const previewSrc = document.getElementById('quote-preview-img')?.src || '';
+            const totalBar = stats.BAR_STRAIGHT + stats.BAR_CORNER;
+            const totalFridges = stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM;
+            const lenStr = this.currentLang === 'en'
+                ? stats.totalFrontMeters.toFixed(1)
+                : stats.totalFrontMeters.toFixed(1).replace('.', ',');
+            const isEn = this.currentLang === 'en';
+            const dateStr = new Date().toLocaleDateString(isEn ? 'en-US' : 'pl-PL');
+
+            const printWin = window.open('', '_blank', 'width=850,height=900');
+            if (!printWin) {
+                window.print();
+                return;
+            }
+            printWin.document.write(`<!DOCTYPE html>
+<html lang="${isEn ? 'en' : 'pl'}">
+<head>
+<meta charset="UTF-8">
+<title>ArtBar Solutions - ${isEn ? 'Bar 3D Specification' : 'Specyfikacja Baru 3D'}</title>
+<style>
+  body { font-family: Arial, sans-serif; color: #111; margin: 36px; line-height: 1.5; }
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #c39f65; padding-bottom: 12px; margin-bottom: 24px; }
+  .brand { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #111; }
+  .brand span { color: #b58938; }
+  .date { font-size: 12px; color: #666; }
+  h1 { font-size: 18px; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .preview { width: 100%; max-height: 360px; object-fit: contain; background: #0a0a0a; border-radius: 8px; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e5e5; font-size: 14px; }
+  th { color: #555; font-weight: 600; width: 45%; }
+  .led-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: ${ledColor}; border: 1px solid #999; vertical-align: middle; }
+  .footer { margin-top: 32px; font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">ART<span>BAR</span> SOLUTIONS</div>
+    <div class="date">${dateStr}</div>
+  </div>
+  <h1>${isEn ? '3D Bar Project Specification' : 'Specyfikacja techniczna projektu baru 3D'}</h1>
+  ${previewSrc ? `<img class="preview" src="${previewSrc}" alt="3D Bar">` : ''}
+  <table>
+    <tr><th>${isEn ? 'Front length' : 'Długość frontu'}</th><td><strong>${lenStr} m</strong></td></tr>
+    <tr><th>${isEn ? 'Modules' : 'Moduły'}</th><td><strong>${t('modules_breakdown', { total: totalBar, straight: stats.BAR_STRAIGHT, corners: stats.BAR_CORNER })}</strong></td></tr>
+    <tr><th>${isEn ? 'Back shelves' : 'Regały zaplecza'}</th><td><strong>${stats.BACK_SHELF}</strong></td></tr>
+    <tr><th>${isEn ? 'Fridges' : 'Lodówki'}</th><td><strong>${totalFridges}</strong></td></tr>
+    <tr><th>${isEn ? 'LED lighting' : 'Podświetlenie LED'}</th><td><span class="led-dot"></span></td></tr>
+  </table>
+  <div class="footer">ArtBar Solutions · https://artbar.com.pl · eventy@artbar.com.pl</div>
+</body>
+</html>`);
+            printWin.document.close();
+            printWin.focus();
+            setTimeout(() => { printWin.print(); }, 250);
+        });
+
+        // Obsługa przycisku [ Dodaj plik ] dla własnej grafiki w formularzu wyceny
+        const btnGfxFile = document.getElementById('btn-quote-gfx-file');
+        const inputGfxFile = document.getElementById('quote-gfx-file-input');
+        const labelGfxFile = document.getElementById('quote-gfx-file-name');
+        const radioGfxOwn = document.getElementById('quote-gfx-own');
+
+        btnGfxFile?.addEventListener('click', () => {
+            if (radioGfxOwn) radioGfxOwn.checked = true;
+            inputGfxFile?.click();
+        });
+        inputGfxFile?.addEventListener('change', () => {
+            const file = inputGfxFile.files?.[0];
+            if (file && labelGfxFile) {
+                labelGfxFile.textContent = file.name;
+                labelGfxFile.removeAttribute('data-i18n');
+            }
+        });
+
         // Obsługa wysłania formularza kontaktowego
         formSaveSend?.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1678,21 +1750,23 @@ class ArtbarApp {
             const company = document.getElementById('quote-company')?.value.trim() || '';
             const email = document.getElementById('quote-email')?.value.trim() || '';
             const phone = document.getElementById('quote-phone')?.value.trim() || '';
+            const eventType = document.getElementById('quote-event-type')?.value || '';
+            const guests = document.getElementById('quote-guests')?.value.trim() || '';
             const date = document.getElementById('quote-event-date')?.value || '';
+            const days = document.getElementById('quote-days')?.value || '1';
             const location = document.getElementById('quote-location')?.value.trim() || '';
+            const graphicsChoice = document.querySelector('input[name="quote-graphics"]:checked')?.value || 'standard';
+            const graphicsFileName = inputGfxFile?.files?.[0]?.name || '';
+            const services = Array.from(document.querySelectorAll('input[name="quote-services"]:checked')).map(cb => cb.value);
             const notes = document.getElementById('quote-notes')?.value.trim() || '';
+            const marketingConsent = !!document.getElementById('quote-marketing-consent')?.checked;
 
             const stats = this.barBuilder.getStats();
-            const brandingSettings = this.brandingManager.getSettings();
             const ledSettings = this.ledManager.getSettings();
-            let brandingDesc = t('branding_default');
-            if (brandingSettings?.mode === 'ai') brandingDesc = t('branding_ai');
-            else if (brandingSettings?.background?.presetName) brandingDesc = `Preset: ${brandingSettings.background.presetName}`;
-            else if (this.brandingManager.currentDataUrl) brandingDesc = t('branding_custom');
             const ledColor = ledSettings?.color || '#facb7d';
 
             const quotePayload = {
-                client: { name, company, email, phone, date, location, notes },
+                client: { name, company, email, phone, eventType, guests, date, days, location, graphicsChoice, graphicsFileName, services, notes, marketingConsent },
                 spec: {
                     totalFrontMeters: stats.totalFrontMeters.toFixed(1),
                     modulesCount: stats.BAR_STRAIGHT + stats.BAR_CORNER,
@@ -1700,7 +1774,6 @@ class ArtbarApp {
                     cornerModules: stats.BAR_CORNER,
                     backShelves: stats.BACK_SHELF,
                     backFridges: stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM,
-                    branding: brandingDesc,
                     ledColor: ledColor
                 },
                 projectData: this.currentExportedData,
@@ -1718,11 +1791,16 @@ class ArtbarApp {
                 company,
                 email,
                 phone,
+                eventType,
+                guests,
                 date,
+                days,
                 location,
+                graphicsChoice,
+                graphicsFileName,
+                services,
                 notes,
                 stats,
-                brandingDesc,
                 ledColor
             });
 

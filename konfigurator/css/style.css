@@ -2662,6 +2662,9 @@ body, html {
 
 .quote-download-box {
     margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .btn-download-json-copy {
@@ -2752,11 +2755,119 @@ body, html {
     line-height: 1.4;
 }
 
+.form-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr 1.15fr;
+    gap: 12px;
+}
+
+@media (max-width: 640px) {
+    .form-row-3 {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+.quote-form-section-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #FACB7D;
+    border-bottom: 1px solid rgba(250, 203, 125, 0.2);
+    padding-bottom: 4px;
+    margin-top: 4px;
+}
+
+.quote-select {
+    cursor: pointer;
+}
+
+.quote-select option {
+    background: #0d0d10;
+    color: #f5efe6;
+}
+
+.quote-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.quote-radio-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.quote-radio-label,
+.quote-check-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.78rem;
+    color: rgba(245, 239, 230, 0.88);
+    cursor: pointer;
+    user-select: none;
+}
+
+.quote-radio-label input,
+.quote-check-label input {
+    accent-color: #FACB7D;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.btn-quote-file {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #FACB7D;
+    background: rgba(250, 203, 125, 0.1);
+    border: 1px solid rgba(250, 203, 125, 0.4);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-quote-file:hover {
+    background: rgba(250, 203, 125, 0.22);
+    border-color: #FACB7D;
+    color: #fff;
+}
+
+.quote-file-hint {
+    font-size: 0.70rem;
+    color: rgba(245, 239, 230, 0.52);
+}
+
+.quote-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 7px 12px;
+}
+
 .quote-privacy-note {
-    font-size: 0.66rem;
-    color: rgba(245, 239, 230, 0.45);
-    line-height: 1.35;
+    font-size: 0.68rem;
+    color: rgba(245, 239, 230, 0.55);
+    line-height: 1.4;
     margin-top: 2px;
+}
+
+.quote-privacy-link {
+    color: #FACB7D;
+    text-decoration: underline;
+}
+
+.quote-privacy-link:hover {
+    color: #fff;
+}
+
+.quote-marketing-check {
+    font-size: 0.72rem;
+    color: rgba(245, 239, 230, 0.72);
 }
 
 .btn-submit-quote {

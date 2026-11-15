@@ -925,8 +925,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="modal-title" data-i18n="quote_modal_title">Zapisz i Wyślij Konfigurację</div>
-                        <div class="modal-subtitle" data-i18n="quote_modal_subtitle">Twój układ 3D został automatycznie zapisany i dołączony do zapytania ofertowego</div>
+                        <div class="modal-title" data-i18n="quote_modal_title">WYŚLIJ PROJEKT DO WYCENY</div>
+                        <div class="modal-subtitle" data-i18n="quote_modal_subtitle">Twój układ baru 3D jest zapisany i trafi do nas razem z zapytaniem ofertowym.</div>
                     </div>
                 </div>
                 <button class="panel-close-btn" id="btn-close-save-send" title="Zamknij okno">&times;</button>
@@ -938,7 +938,7 @@
                     <div class="quote-project-card">
                         <div class="quote-project-badge">
                             <span class="badge-dot"></span>
-                            <span data-i18n="quote_badge_attached">Załączony układ 3D</span>
+                            <span data-i18n="quote_badge_attached">TWÓJ PROJEKT</span>
                         </div>
                         
                         <!-- Podgląd zrzutu 3D -->
@@ -953,35 +953,35 @@
                         <div class="quote-specs-list">
                             <div class="quote-spec-item">
                                 <span class="spec-label" data-i18n="quote_spec_length">Długość frontu:</span>
-                                <strong class="spec-val" id="quote-spec-length">0.0 m</strong>
+                                <strong class="spec-val" id="quote-spec-length">0,0 m</strong>
                             </div>
                             <div class="quote-spec-item">
-                                <span class="spec-label" data-i18n="quote_spec_modules">Moduły baru:</span>
-                                <strong class="spec-val" id="quote-spec-modules">0 szt.</strong>
+                                <span class="spec-label" data-i18n="quote_spec_modules">Moduły:</span>
+                                <strong class="spec-val" id="quote-spec-modules">0</strong>
                             </div>
                             <div class="quote-spec-item">
                                 <span class="spec-label" data-i18n="quote_spec_shelves">Regały zaplecza:</span>
-                                <strong class="spec-val" id="quote-spec-shelves">0 szt.</strong>
+                                <strong class="spec-val" id="quote-spec-shelves">0</strong>
                             </div>
                             <div class="quote-spec-item">
                                 <span class="spec-label" data-i18n="quote_spec_fridges">Lodówki:</span>
-                                <strong class="spec-val" id="quote-spec-fridges">0 szt.</strong>
-                            </div>
-                            <div class="quote-spec-item">
-                                <span class="spec-label" data-i18n="quote_spec_branding">Grafika frontów:</span>
-                                <strong class="spec-val" id="quote-spec-branding">Domyślna</strong>
+                                <strong class="spec-val" id="quote-spec-fridges">0</strong>
                             </div>
                             <div class="quote-spec-item">
                                 <span class="spec-label" data-i18n="quote_spec_led">Podświetlenie LED:</span>
-                                <strong class="spec-val" id="quote-spec-led">Złoty</strong>
+                                <strong class="spec-val" id="quote-spec-led">●</strong>
                             </div>
                         </div>
 
-                        <!-- Przycisk pobrania pliku JSON dla klienta -->
+                        <!-- Przyciski pobrania pliku JSON i PDF dla klienta -->
                         <div class="quote-download-box">
-                            <button type="button" class="btn-download-json-copy" id="btn-quote-download-json" title="Pobierz kopię pliku projektu na dysk">
+                            <button type="button" class="btn-download-json-copy" id="btn-quote-download-json" title="Pobierz projekt (.json)">
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                                <span data-i18n="quote_btn_download_json">Pobierz kopię pliku (.json)</span>
+                                <span data-i18n="quote_btn_download_json">Pobierz projekt (.json)</span>
+                            </button>
+                            <button type="button" class="btn-download-json-copy" id="btn-quote-download-pdf" title="Pobierz specyfikację techniczną (.pdf)">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                <span data-i18n="quote_btn_download_pdf">Pobierz specyfikację (.pdf)</span>
                             </button>
                         </div>
                     </div>
@@ -989,53 +989,129 @@
                     <!-- PRAWA KOLUMNA: FORMULARZ DANYCH KONTAKTOWYCH -->
                     <div class="quote-form-wrap">
                         <form id="form-save-send" class="quote-form">
+                            <div class="quote-form-section-title" data-i18n="quote_sec_contact">DANE KONTAKTOWE</div>
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-name" data-i18n="quote_label_name">Imię i Nazwisko / Osoba kontaktowa *</label>
+                                    <label class="form-label" for="quote-name" data-i18n="quote_label_name">Imię i nazwisko *</label>
                                     <input type="text" id="quote-name" required class="form-input" placeholder="np. Jan Kowalski" data-i18n-placeholder="quote_ph_name">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-company" data-i18n="quote_label_company">Nazwa Firmy / Organizatora</label>
-                                    <input type="text" id="quote-company" class="form-input" placeholder="np. Agencja Eventowa / Festiwal" data-i18n-placeholder="quote_ph_company">
+                                    <label class="form-label" for="quote-company" data-i18n="quote_label_company">Firma / organizator</label>
+                                    <input type="text" id="quote-company" class="form-input" placeholder="np. Agencja Eventowa" data-i18n-placeholder="quote_ph_company">
                                 </div>
                             </div>
 
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-email" data-i18n="quote_label_email">Adres E-mail *</label>
-                                    <input type="email" id="quote-email" required class="form-input" placeholder="twoj-email@domena.pl" data-i18n-placeholder="quote_ph_email">
+                                    <label class="form-label" for="quote-email" data-i18n="quote_label_email">E-mail *</label>
+                                    <input type="email" id="quote-email" required class="form-input" placeholder="np. jan@firma.pl" data-i18n-placeholder="quote_ph_email">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-phone" data-i18n="quote_label_phone">Numer Telefonu *</label>
-                                    <input type="tel" id="quote-phone" required class="form-input" placeholder="+48 123 456 789" data-i18n-placeholder="quote_ph_phone">
+                                    <label class="form-label" for="quote-phone" data-i18n="quote_label_phone">Telefon *</label>
+                                    <input type="tel" id="quote-phone" required class="form-input" placeholder="np. +48 123 456 789" data-i18n-placeholder="quote_ph_phone">
                                 </div>
                             </div>
 
+                            <div class="quote-form-section-title" data-i18n="quote_sec_event">WYDARZENIE</div>
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-event-date" data-i18n="quote_label_date">Termin wydarzenia</label>
-                                    <input type="date" id="quote-event-date" class="form-input">
+                                    <label class="form-label" for="quote-event-type" data-i18n="quote_label_event_type">Rodzaj eventu *</label>
+                                    <select id="quote-event-type" required class="form-input quote-select">
+                                        <option value="" disabled selected data-i18n="quote_event_type_placeholder">Wybierz rodzaj eventu...</option>
+                                        <option value="Festiwal" data-i18n="quote_event_festival">Festiwal</option>
+                                        <option value="Koncert" data-i18n="quote_event_concert">Koncert</option>
+                                        <option value="Event firmowy" data-i18n="quote_event_corporate">Event firmowy</option>
+                                        <option value="Gala, bankiet" data-i18n="quote_event_gala">Gala, bankiet</option>
+                                        <option value="Targi / wydarzenie marki" data-i18n="quote_event_expo">Targi / wydarzenie marki</option>
+                                        <option value="Wesele / impreza prywatna" data-i18n="quote_event_wedding">Wesele / impreza prywatna</option>
+                                        <option value="Inne" data-i18n="quote_event_other">Inne</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="quote-location" data-i18n="quote_label_location">Miejsce eventu / Miasto</label>
-                                    <input type="text" id="quote-location" class="form-input" placeholder="np. Warszawa / Kraków / Plener" data-i18n-placeholder="quote_ph_location">
+                                    <label class="form-label" for="quote-guests" data-i18n="quote_label_guests">Szacowana liczba gości</label>
+                                    <input type="number" id="quote-guests" min="1" class="form-input" placeholder="np. 500" data-i18n-placeholder="quote_ph_guests">
                                 </div>
                             </div>
 
+                            <div class="form-row-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-event-date" data-i18n="quote_label_date">Data rozpoczęcia *</label>
+                                    <input type="date" id="quote-event-date" required class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-days" data-i18n="quote_label_days">Liczba dni wynajmu *</label>
+                                    <input type="number" id="quote-days" min="1" value="1" required class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="quote-location" data-i18n="quote_label_location">Miejsce wydarzenia</label>
+                                    <input type="text" id="quote-location" class="form-input" placeholder="np. Warszawa, plener / hala" data-i18n-placeholder="quote_ph_location">
+                                </div>
+                            </div>
+
+                            <div class="quote-form-section-title" data-i18n="quote_sec_graphics">GRAFIKA NA FRONTACH BARU</div>
+                            <div class="quote-radio-group">
+                                <div class="quote-radio-row">
+                                    <label class="quote-radio-label">
+                                        <input type="radio" name="quote-graphics" value="own" id="quote-gfx-own">
+                                        <span data-i18n="quote_gfx_own">Mam własną grafikę</span>
+                                    </label>
+                                    <button type="button" class="btn-quote-file" id="btn-quote-gfx-file" data-i18n="quote_gfx_add_file">Dodaj plik</button>
+                                    <input type="file" id="quote-gfx-file-input" accept="image/*,.pdf,.ai,.eps,.svg" style="display: none;">
+                                    <span class="quote-file-hint" id="quote-gfx-file-name" data-i18n="quote_gfx_file_later">(możesz ją też przesłać później)</span>
+                                </div>
+                                <label class="quote-radio-label">
+                                    <input type="radio" name="quote-graphics" value="standard" id="quote-gfx-standard" checked>
+                                    <span data-i18n="quote_gfx_standard">Chcę standardową grafikę Art Bar</span>
+                                </label>
+                                <label class="quote-radio-label">
+                                    <input type="radio" name="quote-graphics" value="design" id="quote-gfx-design">
+                                    <span data-i18n="quote_gfx_design">Potrzebuję projektu grafiki od Was</span>
+                                </label>
+                            </div>
+
+                            <div class="quote-form-section-title" data-i18n="quote_sec_services">DODATKOWE USŁUGI</div>
+                            <div class="quote-checkbox-grid">
+                                <label class="quote-check-label">
+                                    <input type="checkbox" name="quote-services" value="Obsługa barmańska">
+                                    <span data-i18n="quote_srv_bartenders">Obsługa barmańska</span>
+                                </label>
+                                <label class="quote-check-label">
+                                    <input type="checkbox" name="quote-services" value="Lód zaopatrzenie">
+                                    <span data-i18n="quote_srv_ice">Lód zaopatrzenie</span>
+                                </label>
+                                <label class="quote-check-label">
+                                    <input type="checkbox" name="quote-services" value="Kubki eco">
+                                    <span data-i18n="quote_srv_cups">Kubki eco</span>
+                                </label>
+                                <label class="quote-check-label">
+                                    <input type="checkbox" name="quote-services" value="System sprzedażowy">
+                                    <span data-i18n="quote_srv_pos">System sprzedażowy</span>
+                                </label>
+                                <label class="quote-check-label">
+                                    <input type="checkbox" name="quote-services" value="Open bar">
+                                    <span data-i18n="quote_srv_openbar">Open bar</span>
+                                </label>
+                            </div>
+
+                            <div class="quote-form-section-title" data-i18n="quote_sec_notes">UWAGI</div>
                             <div class="form-group">
-                                <label class="form-label" for="quote-notes" data-i18n="quote_label_notes">Dodatkowe uwagi / pytania</label>
-                                <textarea id="quote-notes" rows="3" class="form-textarea" placeholder="Napisz, czy potrzebujesz także obsługi barmańskiej, koncesji ABC, fabryki lodu, kubków eco lub autorskiego systemu ArtPOS..." data-i18n-placeholder="quote_ph_notes"></textarea>
+                                <textarea id="quote-notes" rows="2" class="form-textarea" placeholder="np. godziny pracy baru, dostęp do prądu i wody, dojazd na teren…" data-i18n-placeholder="quote_ph_notes"></textarea>
                             </div>
 
                             <div class="quote-privacy-note" data-i18n="quote_privacy">
-                                Wysyłając zapytanie, przesyłasz przygotowany układ baru do zespołu ArtBar Solutions w celu bezpłatnej wyceny i konsultacji technicznej.
+                                Wysyłając zapytanie, przekazujesz projekt i dane kontaktowe Art Bar Sp. z o.o. w celu przygotowania bezpłatnej wyceny. Więcej w <a href="../index.html#polityka-prywatnosci" target="_blank" rel="noopener noreferrer" class="quote-privacy-link">polityce prywatności</a>.
                             </div>
+
+                            <label class="quote-check-label quote-marketing-check">
+                                <input type="checkbox" id="quote-marketing-consent">
+                                <span data-i18n="quote_marketing_consent">Chcę otrzymywać oferty i informacje od Art Bar (opcjonalnie)</span>
+                            </label>
 
                             <button type="submit" class="btn-submit-quote" id="btn-submit-quote">
                                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                                 </svg>
-                                <span data-i18n="quote_btn_submit">Wyślij zapytanie z załączonym układem</span>
+                                <span data-i18n="quote_btn_submit">WYŚLIJ PROJEKT DO WYCENY</span>
                             </button>
                         </form>
 
@@ -1044,8 +1120,8 @@
                             <div class="quote-success-icon">
                                 <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             </div>
-                            <h3 class="quote-success-title" data-i18n="quote_success_title">Dziękujemy! Zapytanie zostało przyjęte</h3>
-                            <p class="quote-success-desc" data-i18n="quote_success_desc">Twój układ baru oraz dane kontaktowe zostały zapisane. Specjaliści ArtBar Solutions skontaktują się z Tobą w najkrótszym możliwym czasie.</p>
+                            <h3 class="quote-success-title" data-i18n="quote_success_title">Dziękujemy! Projekt dotarł do nas.</h3>
+                            <p class="quote-success-desc" data-i18n="quote_success_desc">Odezwiemy się z wyceną w ciągu 24 h / 2 dni roboczych.</p>
                             
                             <div class="quote-success-actions">
                                 <a id="quote-mailto-link" href="#" class="btn-mailto-cta" target="_blank">

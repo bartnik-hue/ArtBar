@@ -267,35 +267,66 @@ export const TRANSLATIONS = {
         help_btn_start: "Rozpocznij projektowanie &rarr;",
 
         // Quote & Save/Send Modal
-        quote_modal_title: "Zapisz i Wyślij Konfigurację",
-        quote_modal_subtitle: "Twój układ 3D został automatycznie zapisany i dołączony do zapytania ofertowego",
-        quote_badge_attached: "Załączony układ 3D",
+        quote_modal_title: "WYŚLIJ PROJEKT DO WYCENY",
+        quote_modal_subtitle: "Twój układ baru 3D jest zapisany i trafi do nas razem z zapytaniem ofertowym.",
+        quote_badge_attached: "TWÓJ PROJEKT",
         quote_spec_length: "Długość frontu:",
-        quote_spec_modules: "Moduły baru:",
+        quote_spec_modules: "Moduły:",
         quote_spec_shelves: "Regały zaplecza:",
         quote_spec_fridges: "Lodówki:",
-        quote_spec_branding: "Grafika frontów:",
         quote_spec_led: "Podświetlenie LED:",
-        quote_btn_download_json: "Pobierz kopię pliku (.json)",
+        quote_btn_download_json: "Pobierz projekt (.json)",
+        quote_btn_download_pdf: "Pobierz specyfikację (.pdf)",
 
-        quote_label_name: "Imię i Nazwisko / Osoba kontaktowa *",
+        quote_sec_contact: "DANE KONTAKTOWE",
+        quote_label_name: "Imię i nazwisko *",
         quote_ph_name: "np. Jan Kowalski",
-        quote_label_company: "Nazwa Firmy / Organizatora",
-        quote_ph_company: "np. Agencja Eventowa / Festiwal",
-        quote_label_email: "Adres E-mail *",
-        quote_ph_email: "twoj-email@domena.pl",
-        quote_label_phone: "Numer Telefonu *",
-        quote_ph_phone: "+48 123 456 789",
-        quote_label_date: "Termin wydarzenia",
-        quote_label_location: "Miejsce eventu / Miasto",
-        quote_ph_location: "np. Warszawa / Kraków / Plener",
-        quote_label_notes: "Dodatkowe uwagi / pytania",
-        quote_ph_notes: "Napisz, czy potrzebujesz także obsługi barmańskiej, koncesji ABC, fabryki lodu, kubków eco lub autorskiego systemu ArtPOS...",
-        quote_privacy: "Wysyłając zapytanie, przesyłasz przygotowany układ baru do zespołu ArtBar Solutions w celu bezpłatnej wyceny i konsultacji technicznej.",
-        quote_btn_submit: "Wyślij zapytanie z załączonym układem",
+        quote_label_company: "Firma / organizator",
+        quote_ph_company: "np. Agencja Eventowa",
+        quote_label_email: "E-mail *",
+        quote_ph_email: "np. jan@firma.pl",
+        quote_label_phone: "Telefon *",
+        quote_ph_phone: "np. +48 123 456 789",
 
-        quote_success_title: "Dziękujemy! Zapytanie zostało przyjęte",
-        quote_success_desc: "Twój układ baru oraz dane kontaktowe zostały zapisane. Specjaliści ArtBar Solutions skontaktują się z Tobą w najkrótszym możliwym czasie.",
+        quote_sec_event: "WYDARZENIE",
+        quote_label_event_type: "Rodzaj eventu *",
+        quote_event_type_placeholder: "Wybierz rodzaj eventu...",
+        quote_event_festival: "Festiwal",
+        quote_event_concert: "Koncert",
+        quote_event_corporate: "Event firmowy",
+        quote_event_gala: "Gala, bankiet",
+        quote_event_expo: "Targi / wydarzenie marki",
+        quote_event_wedding: "Wesele / impreza prywatna",
+        quote_event_other: "Inne",
+        quote_label_guests: "Szacowana liczba gości",
+        quote_ph_guests: "np. 500",
+        quote_label_date: "Data rozpoczęcia *",
+        quote_label_days: "Liczba dni wynajmu *",
+        quote_label_location: "Miejsce wydarzenia",
+        quote_ph_location: "np. Warszawa, plener / hala",
+
+        quote_sec_graphics: "GRAFIKA NA FRONTACH BARU",
+        quote_gfx_own: "Mam własną grafikę",
+        quote_gfx_add_file: "Dodaj plik",
+        quote_gfx_file_later: "(możesz ją też przesłać później)",
+        quote_gfx_standard: "Chcę standardową grafikę Art Bar",
+        quote_gfx_design: "Potrzebuję projektu grafiki od Was",
+
+        quote_sec_services: "DODATKOWE USŁUGI",
+        quote_srv_bartenders: "Obsługa barmańska",
+        quote_srv_ice: "Lód zaopatrzenie",
+        quote_srv_cups: "Kubki eco",
+        quote_srv_pos: "System sprzedażowy",
+        quote_srv_openbar: "Open bar",
+
+        quote_sec_notes: "UWAGI",
+        quote_ph_notes: "np. godziny pracy baru, dostęp do prądu i wody, dojazd na teren…",
+        quote_privacy: "Wysyłając zapytanie, przekazujesz projekt i dane kontaktowe Art Bar Sp. z o.o. w celu przygotowania bezpłatnej wyceny. Więcej w <a href=\"../index.html#polityka-prywatnosci\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"quote-privacy-link\">polityce prywatności</a>.",
+        quote_marketing_consent: "Chcę otrzymywać oferty i informacje od Art Bar (opcjonalnie)",
+        quote_btn_submit: "WYŚLIJ PROJEKT DO WYCENY",
+
+        quote_success_title: "Dziękujemy! Projekt dotarł do nas.",
+        quote_success_desc: "Odezwiemy się z wyceną w ciągu 24 h / 2 dni roboczych.",
         quote_mailto_cta: "Otwórz kopię zapytania w programie pocztowym",
         quote_btn_return: "Wróć do konfiguratora",
 
@@ -346,7 +377,7 @@ export const TRANSLATIONS = {
         bar_count_single: "1 bar (1.5 m)",
         shelves_count: "{n} regały ({m} m)",
         shelf_count_single: "1 regał (1.5 m)",
-        modules_breakdown: "{total} szt. ({straight} prostych + {corners} narożnych)",
+        modules_breakdown: "{total} ({straight} prostych, {corners} narożne)",
         fridges_breakdown: "{total} szt. ({f2d} 2D + {f1d} 1D)",
         branding_default: "Standardowy ArtBar",
         branding_ai: "Grafika generatywna AI",
@@ -617,35 +648,66 @@ export const TRANSLATIONS = {
         help_btn_start: "Start Designing &rarr;",
 
         // Quote & Save/Send Modal
-        quote_modal_title: "Save & Request Bar Quote",
-        quote_modal_subtitle: "Your 3D layout has been automatically saved and attached to your inquiry",
-        quote_badge_attached: "Attached 3D Layout",
+        quote_modal_title: "SEND PROJECT FOR A QUOTE",
+        quote_modal_subtitle: "Your 3D bar layout is saved and will be sent to us with your inquiry.",
+        quote_badge_attached: "YOUR PROJECT",
         quote_spec_length: "Front length:",
-        quote_spec_modules: "Bar modules:",
+        quote_spec_modules: "Modules:",
         quote_spec_shelves: "Back shelves:",
         quote_spec_fridges: "Fridges:",
-        quote_spec_branding: "Front artwork:",
         quote_spec_led: "LED lighting:",
-        quote_btn_download_json: "Download file copy (.json)",
+        quote_btn_download_json: "Download project (.json)",
+        quote_btn_download_pdf: "Download specification (.pdf)",
 
-        quote_label_name: "Full Name / Contact Person *",
+        quote_sec_contact: "CONTACT DETAILS",
+        quote_label_name: "Full name *",
         quote_ph_name: "e.g. John Smith",
-        quote_label_company: "Company Name / Event Organizer",
-        quote_ph_company: "e.g. Event Agency / Festival",
-        quote_label_email: "Email Address *",
-        quote_ph_email: "your-email@domain.com",
-        quote_label_phone: "Phone Number *",
-        quote_ph_phone: "+44 20 1234 5678",
-        quote_label_date: "Event Date",
-        quote_label_location: "Event Location / City",
-        quote_ph_location: "e.g. London / Warsaw / Outdoor venue",
-        quote_label_notes: "Additional notes / questions",
-        quote_ph_notes: "Let us know if you also require professional bartenders, catering licenses, craft ice, eco glassware, or ArtPOS systems...",
-        quote_privacy: "By submitting, you send your 3D bar layout to ArtBar Solutions for a complimentary quote and technical consultation.",
-        quote_btn_submit: "Submit Inquiry with Attached Layout",
+        quote_label_company: "Company / organizer",
+        quote_ph_company: "e.g. Event Agency",
+        quote_label_email: "E-mail *",
+        quote_ph_email: "e.g. john@company.com",
+        quote_label_phone: "Phone *",
+        quote_ph_phone: "e.g. +48 123 456 789",
 
-        quote_success_title: "Thank You! Your inquiry has been received",
-        quote_success_desc: "Your 3D bar layout and contact details have been safely recorded. An ArtBar Solutions specialist will reach out shortly.",
+        quote_sec_event: "EVENT",
+        quote_label_event_type: "Event type *",
+        quote_event_type_placeholder: "Select event type...",
+        quote_event_festival: "Festival",
+        quote_event_concert: "Concert",
+        quote_event_corporate: "Corporate event",
+        quote_event_gala: "Gala, banquet",
+        quote_event_expo: "Trade show / brand activation",
+        quote_event_wedding: "Wedding / private party",
+        quote_event_other: "Other",
+        quote_label_guests: "Estimated guests",
+        quote_ph_guests: "e.g. 500",
+        quote_label_date: "Start date *",
+        quote_label_days: "Rental days *",
+        quote_label_location: "Event location",
+        quote_ph_location: "e.g. Warsaw, outdoor / hall",
+
+        quote_sec_graphics: "BAR FRONT GRAPHICS",
+        quote_gfx_own: "I have my own artwork",
+        quote_gfx_add_file: "Add file",
+        quote_gfx_file_later: "(you can also send it later)",
+        quote_gfx_standard: "I want standard Art Bar graphics",
+        quote_gfx_design: "I need graphic design from you",
+
+        quote_sec_services: "ADDITIONAL SERVICES",
+        quote_srv_bartenders: "Bartending service",
+        quote_srv_ice: "Ice supply",
+        quote_srv_cups: "Eco cups",
+        quote_srv_pos: "POS / sales system",
+        quote_srv_openbar: "Open bar",
+
+        quote_sec_notes: "NOTES",
+        quote_ph_notes: "e.g. bar operating hours, power and water access, site access…",
+        quote_privacy: "By sending this inquiry, you share your project and contact details with Art Bar Sp. z o.o. to prepare a free quote. More in our <a href=\"../index.html#polityka-prywatnosci\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"quote-privacy-link\">privacy policy</a>.",
+        quote_marketing_consent: "I want to receive offers and updates from Art Bar (optional)",
+        quote_btn_submit: "SEND PROJECT FOR A QUOTE",
+
+        quote_success_title: "Thank you! Your project has reached us.",
+        quote_success_desc: "We will get back to you with a quote within 24 hours / 2 business days.",
         quote_mailto_cta: "Open inquiry draft in your email client",
         quote_btn_return: "Return to configurator",
 
@@ -696,7 +758,7 @@ export const TRANSLATIONS = {
         bar_count_single: "1 bar (1.5 m)",
         shelves_count: "{n} shelves ({m} m)",
         shelf_count_single: "1 shelf (1.5 m)",
-        modules_breakdown: "{total} pcs ({straight} straight + {corners} corners)",
+        modules_breakdown: "{total} ({straight} straight, {corners} corners)",
         fridges_breakdown: "{total} pcs ({f2d} 2D + {f1d} 1D)",
         branding_default: "Standard ArtBar",
         branding_ai: "AI Generative Artwork",
@@ -864,11 +926,18 @@ export function initI18n() {
     return lang;
 }
 
-export function getTranslatedMailto({ name, company, email, phone, date, location, notes, stats, brandingDesc, ledColor }) {
+export function getTranslatedMailto({ name, company, email, phone, eventType, guests, date, days, location, graphicsChoice, graphicsFileName, services, notes, stats, ledColor }) {
     const isEn = currentLang === 'en';
     const mailSubject = isEn
         ? encodeURIComponent(`Bar Quote Request - 3D Configurator: ${name}${company ? ' (' + company + ')' : ''}`)
         : encodeURIComponent(`Zapytanie Ofertowe - Konfigurator Baru 3D: ${name}${company ? ' (' + company + ')' : ''}`);
+
+    const servicesText = (services && services.length > 0) ? services.join(', ') : (isEn ? 'None selected' : 'Brak');
+    const graphicsText = graphicsChoice === 'own'
+        ? (isEn ? `Own artwork${graphicsFileName ? ' (' + graphicsFileName + ')' : ''}` : `Własna grafika${graphicsFileName ? ' (' + graphicsFileName + ')' : ''}`)
+        : graphicsChoice === 'design'
+            ? (isEn ? 'Need graphic design from Art Bar' : 'Potrzebny projekt grafiki od Art Bar')
+            : (isEn ? 'Standard Art Bar graphics' : 'Standardowa grafika Art Bar');
 
     const mailBody = isEn
         ? encodeURIComponent(
@@ -876,23 +945,29 @@ export function getTranslatedMailto({ name, company, email, phone, date, locatio
 
 I am submitting a quote inquiry for a 3D bar layout created in the online configurator.
 
-CONTACT INFORMATION:
+CONTACT DETAILS:
 - Full Name: ${name}
 - Company / Organizer: ${company || 'Not provided'}
 - Email: ${email}
 - Phone: ${phone}
-- Event Date: ${date || 'To be determined'}
-- Event Location: ${location || 'To be determined'}
 
-CONFIGURED BAR SPECIFICATIONS:
-- Total Front Length: ${stats.totalFrontMeters.toFixed(1)} m
-- Total Bar Modules: ${stats.BAR_STRAIGHT + stats.BAR_CORNER} pcs (straight: ${stats.BAR_STRAIGHT}, corners: ${stats.BAR_CORNER})
-- Backbar Storage Shelves: ${stats.BACK_SHELF} pcs
-- Glass Display Fridges: ${stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM} pcs (2D: ${stats.BACK_FRIDGE}, 1D: ${stats.BACK_FRIDGE_SLIM})
-- Artwork / Branding: ${brandingDesc}
+EVENT:
+- Event type: ${eventType || 'Not provided'}
+- Estimated guests: ${guests || 'Not provided'}
+- Start date: ${date || 'To be determined'}
+- Rental days: ${days || 1}
+- Event location: ${location || 'To be determined'}
+
+PROJECT SPECIFICATIONS:
+- Front length: ${stats.totalFrontMeters.toFixed(1)} m
+- Modules: ${stats.BAR_STRAIGHT + stats.BAR_CORNER} (${stats.BAR_STRAIGHT} straight, ${stats.BAR_CORNER} corners)
+- Back shelves: ${stats.BACK_SHELF}
+- Fridges: ${stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM}
 - LED Lighting: ${ledColor}
+- Bar front graphics: ${graphicsText}
+- Additional services: ${servicesText}
 
-ADDITIONAL NOTES:
+NOTES:
 ${notes || 'No additional notes.'}
 
 ---
@@ -906,21 +981,27 @@ Przesyłam zapytanie ofertowe dotyczące konfiguracji baru 3D przygotowanej w ko
 
 DANE KONTAKTOWE:
 - Imię i nazwisko: ${name}
-- Firma / Organizator: ${company || 'Nie podano'}
-- Adres e-mail: ${email}
+- Firma / organizator: ${company || 'Nie podano'}
+- E-mail: ${email}
 - Telefon: ${phone}
-- Termin wydarzenia: ${date || 'Do ustalenia'}
-- Miejsce eventu: ${location || 'Do ustalenia'}
 
-PARAMETRY SKONFIGUROWANEGO BARU:
-- Łączna długość frontu: ${stats.totalFrontMeters.toFixed(1)} m
-- Liczba modułów baru: ${stats.BAR_STRAIGHT + stats.BAR_CORNER} szt. (proste: ${stats.BAR_STRAIGHT}, narożniki: ${stats.BAR_CORNER})
-- Regały zaplecza: ${stats.BACK_SHELF} szt.
-- Lodówki gastronomiczne: ${stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM} szt. (2D: ${stats.BACK_FRIDGE}, 1D: ${stats.BACK_FRIDGE_SLIM})
-- Motyw graficzny / branding: ${brandingDesc}
+WYDARZENIE:
+- Rodzaj eventu: ${eventType || 'Nie podano'}
+- Szacowana liczba gości: ${guests || 'Nie podano'}
+- Data rozpoczęcia: ${date || 'Do ustalenia'}
+- Liczba dni wynajmu: ${days || 1}
+- Miejsce wydarzenia: ${location || 'Do ustalenia'}
+
+TWÓJ PROJEKT:
+- Długość frontu: ${stats.totalFrontMeters.toFixed(1).replace('.', ',')} m
+- Moduły: ${stats.BAR_STRAIGHT + stats.BAR_CORNER} (${stats.BAR_STRAIGHT} prostych, ${stats.BAR_CORNER} narożne)
+- Regały zaplecza: ${stats.BACK_SHELF}
+- Lodówki: ${stats.BACK_FRIDGE + stats.BACK_FRIDGE_SLIM}
 - Podświetlenie LED: ${ledColor}
+- Grafika na frontach baru: ${graphicsText}
+- Dodatkowe usługi: ${servicesText}
 
-DODATKOWE UWAGI:
+UWAGI:
 ${notes || 'Brak dodatkowych uwag.'}
 
 ---
